@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Outer"
+    tools:context=".MainActivity"
+    tools:ignore="HardcodedText">
+
+    <ScrollView style="@style/Scroll">
+
+        <GridLayout
+            android:id="@+id/mainGrid"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:alignmentMode="alignMargins"
+            android:columnCount="2"
+            android:columnOrderPreserved="false">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/goto_test_bottom_navigation"
+                style="@style/MainCard">
+
+                <LinearLayout style="@style/Linear">
+
+                    <ImageView
+                        style="@style/MainIcon"
+                        android:src="@drawable/main_bottom_nav"/>
+
+                    <TextView
+                        style="@style/MainTitle"
+                        android:text="Bottom Navigiation"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/goto_test_login"
+                style="@style/MainCard">
+
+                <LinearLayout style="@style/Linear">
+
+                    <ImageView
+                        style="@style/MainIcon"
+                        android:src="@drawable/main_login"/>
+
+                    <TextView
+                        style="@style/MainTitle"
+                        android:text="Prettier Login Screen"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/goto_test_bot"
+                style="@style/MainCard">
+
+                <LinearLayout style="@style/Linear">
+
+                    <ImageView
+                        style="@style/MainIcon"
+                        android:src="@drawable/main_bot"/>
+
+                    <TextView
+                        style="@style/MainTitle"
+                        android:text="Test Bot Interface"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/goto_test_pos"
+                style="@style/MainCard">
+
+                <LinearLayout style="@style/Linear">
+
+                    <ImageView
+                        style="@style/MainIcon"
+                        android:src="@drawable/main_pos"/>
+
+                    <TextView
+                        style="@style/MainTitle"
+                        android:text="Test POS System"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/goto_welcome"
+                style="@style/MainCard">
+
+                <LinearLayout style="@style/Linear">
+
+                    <ImageView
+                        style="@style/MainIcon"
+                        android:src="@drawable/main_welcome"/>
+
+                    <TextView
+                        style="@style/MainTitle"
+                        android:text="Welcome Screen"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/goto_dashboard"
+                style="@style/MainCard">
+
+                <LinearLayout style="@style/Linear">
+
+                    <ImageView
+                        style="@style/MainIcon"
+                        android:src="@drawable/main_dashboard"/>
+
+                    <TextView
+                        style="@style/MainTitle"
+                        android:text="Dashboard Demo"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/goto_card"
+                style="@style/MainCard">
+
+                <LinearLayout style="@style/Linear">
+
+                    <ImageView
+                        style="@style/MainIcon"
+                        android:src="@drawable/main_file"/>
+
+                    <TextView
+                        style="@style/MainTitle"
+                        android:text="Cards Demo"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+        </GridLayout>
+    </ScrollView>
+
+</LinearLayout>

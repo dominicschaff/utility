@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/mainView"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+    <org.oscim.android.MapView
+        android:id="@+id/mapView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/info"/>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <LinearLayout style="@style/Linear">
+
+            <TextView
+                android:id="@+id/gps_data"
+                style="@style/Text.Fit"
+                android:gravity="center_horizontal"/>
+
+            <TextView
+                android:id="@+id/path"
+                style="@style/Text"
+                android:visibility="gone"/>
+            <TextView
+                android:id="@+id/debug"
+                style="@style/Text"/>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/vehicle"
+            style="@style/Fab"
+            android:src="@drawable/map_car"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/share"
+            style="@style/Fab"
+            android:src="@drawable/ic_share"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/navigate"
+            style="@style/Fab"
+            android:src="@drawable/ic_directions"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/center_on_me"
+            style="@style/Fab"
+            android:src="@drawable/ic_my_location"/>
+    </LinearLayout>
+
+</RelativeLayout>

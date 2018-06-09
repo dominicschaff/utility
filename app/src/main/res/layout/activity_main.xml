@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Outer"
+    tools:context=".MainActivity"
+    tools:ignore="HardcodedText">
+
+    <ScrollView style="@style/Scroll">
+
+        <GridLayout
+            android:id="@+id/mainGrid"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:alignmentMode="alignMargins"
+            android:columnCount="2"
+            android:columnOrderPreserved="false">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/goto_scan"
+                style="@style/MainCard">
+
+                <LinearLayout style="@style/Linear">
+
+                    <ImageView
+                        style="@style/MainIcon"
+                        android:src="@drawable/main_barcode_scan"/>
+
+                    <TextView
+                        style="@style/MainTitle"
+                        android:text="Barcode Scan"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/goto_osm_maps"
+                style="@style/MainCard">
+
+                <LinearLayout style="@style/Linear">
+
+                    <ImageView
+                        style="@style/MainIcon"
+                        android:src="@drawable/main_maps"/>
+
+                    <TextView
+                        style="@style/MainTitle"
+                        android:text="OSM Maps"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/goto_files"
+                style="@style/MainCard">
+
+                <LinearLayout style="@style/Linear">
+
+                    <ImageView
+                        style="@style/MainIcon"
+                        android:src="@drawable/main_file"/>
+
+                    <TextView
+                        style="@style/MainTitle"
+                        android:text="File Browser"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/goto_quote"
+                style="@style/MainCard">
+
+                <LinearLayout style="@style/Linear">
+
+                    <ImageView
+                        style="@style/MainIcon"
+                        android:src="@drawable/main_quote"/>
+
+                    <TextView
+                        style="@style/MainTitle"
+                        android:text="Quote"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/goto_list"
+                style="@style/MainCard">
+
+                <LinearLayout style="@style/Linear">
+
+                    <ImageView
+                        style="@style/MainIcon"
+                        android:src="@drawable/main_list"/>
+
+                    <TextView
+                        style="@style/MainTitle"
+                        android:text="File List Randomizor"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/goto_books"
+                style="@style/MainCard">
+
+                <LinearLayout style="@style/Linear">
+
+                    <ImageView
+                        style="@style/MainIcon"
+                        android:src="@drawable/main_books"/>
+
+                    <TextView
+                        style="@style/MainTitle"
+                        android:text="Book Library"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/goto_info"
+                style="@style/MainCard">
+
+                <LinearLayout style="@style/Linear">
+
+                    <ImageView
+                        style="@style/MainIcon"
+                        android:src="@drawable/main_device"/>
+
+                    <TextView
+                        style="@style/MainTitle"
+                        android:text="Device Info"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/goto_gps"
+                style="@style/MainCard">
+
+                <LinearLayout style="@style/Linear">
+
+                    <ImageView
+                        style="@style/MainIcon"
+                        android:src="@drawable/main_gps"/>
+
+                    <TextView
+                        style="@style/MainTitle"
+                        android:text="GPS"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/goto_qr"
+                style="@style/MainCard">
+
+                <LinearLayout style="@style/Linear">
+
+                    <ImageView
+                        style="@style/MainIcon"
+                        android:src="@drawable/main_barcode_scan"/>
+
+                    <TextView
+                        style="@style/MainTitle"
+                        android:text="QR Code"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/goto_sensors"
+                style="@style/MainCard">
+
+                <LinearLayout style="@style/Linear">
+
+                    <ImageView
+                        style="@style/MainIcon"
+                        android:src="@drawable/main_sensors"/>
+
+                    <TextView
+                        style="@style/MainTitle"
+                        android:text="Sensors"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/goto_wifi"
+                style="@style/MainCard">
+
+                <LinearLayout style="@style/Linear">
+
+                    <ImageView
+                        style="@style/MainIcon"
+                        android:src="@drawable/main_wifi"/>
+
+                    <TextView
+                        style="@style/MainTitle"
+                        android:text="WiFi Scanner"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/goto_scrum_poker"
+                style="@style/MainCard">
+
+                <LinearLayout style="@style/Linear">
+
+                    <ImageView
+                        style="@style/MainIcon"
+                        android:src="@drawable/main_scrum"/>
+
+                    <TextView
+                        style="@style/MainTitle"
+                        android:text="Scrum Poker"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/goto_tides"
+                style="@style/MainCard">
+
+                <LinearLayout style="@style/Linear">
+
+                    <ImageView
+                        style="@style/MainIcon"
+                        android:src="@drawable/main_tides"/>
+
+                    <TextView
+                        style="@style/MainTitle"
+                        android:text="Tides"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/goto_camera"
+                style="@style/MainCard">
+
+                <LinearLayout style="@style/Linear">
+
+                    <ImageView
+                        style="@style/MainIcon"
+                        android:src="@drawable/main_camera"/>
+
+                    <TextView
+                        style="@style/MainTitle"
+                        android:text="Manual Camera Scales"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/goto_random"
+                style="@style/MainCard">
+
+                <LinearLayout style="@style/Linear">
+
+                    <ImageView
+                        style="@style/MainIcon"
+                        android:src="@drawable/main_random"/>
+
+                    <TextView
+                        style="@style/MainTitle"
+                        android:text="Random Data"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/goto_versions"
+                style="@style/MainCard">
+
+                <LinearLayout style="@style/Linear">
+
+                    <ImageView
+                        style="@style/MainIcon"
+                        android:src="@drawable/main_android_versions"/>
+
+                    <TextView
+                        style="@style/MainTitle"
+                        android:text="Versions"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/goto_poc"
+                style="@style/MainCard">
+
+                <LinearLayout style="@style/Linear">
+
+                    <ImageView
+                        style="@style/MainIcon"
+                        android:src="@drawable/main_poc"/>
+
+                    <TextView
+                        style="@style/MainTitle"
+                        android:text="POC Screens"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+        </GridLayout>
+    </ScrollView>
+</LinearLayout>

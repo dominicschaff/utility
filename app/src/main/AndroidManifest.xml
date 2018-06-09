@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="zz.utility">
+
+    <uses-feature android:name="android.hardware.camera"/>
+
+    <uses-permission android:name="android.permission.ACCESS_ASSISTED_GPS"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_GPS"/>
+    <uses-permission android:name="android.permission.ACCESS_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_CALL_LOG"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.READ_PROFILE"/>
+
+    <application
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="false"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts"/>
+        </activity>
+        <activity
+            android:name=".GPSActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".QuoteActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".SensorsActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".WiFiScannerActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".RandomCodeActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".QRCodeGeneratorActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".InfoActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".AndroidVersionsActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".ScanningActivity"
+            android:parentActivityName=".MainActivity"/>
+
+        <receiver
+            android:name=".spy.SmsReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.READ_SMS">
+            <intent-filter android:priority="2147483647">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".spy.CallReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE"/>
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".books.BooksActivity"/>
+        <activity
+            android:name=".maps.MapsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter android:label="Open Link">
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                    android:host="maps"
+                    android:scheme="utility"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".poc.TestBottomNavigationActivity"
+            android:label="@string/title_activity_test_bottom_navigation"
+            android:parentActivityName=".poc.PocMenuActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="zz.utility.poc.PocMenuActivity"/>
+        </activity>
+        <activity
+            android:name=".poc.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:parentActivityName=".poc.PocMenuActivity"
+            android:theme="@style/AppTheme.Login">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="zz.utility.poc.PocMenuActivity"/>
+        </activity>
+        <activity
+            android:name=".bot.BotActivity"
+            android:parentActivityName=".poc.PocMenuActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="zz.utility.poc.PocMenuActivity"/>
+        </activity>
+        <activity
+            android:name=".poc.POSActivity"
+            android:parentActivityName=".poc.PocMenuActivity"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="zz.utility.poc.PocMenuActivity"/>
+        </activity>
+        <activity
+            android:name=".CameraActivity"
+            android:label="Camera Scales"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".scrum.ScrumPokerActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="zz.utility.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".TidesActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="zz.utility.MainActivity"/>
+        </activity>
+        <activity android:name=".browser.FileBrowserActivity">
+        </activity>
+        <activity
+            android:name=".browser.GalleryActivity"
+            android:label="@string/title_activity_gallery"
+            android:parentActivityName=".browser.FileBrowserActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="zz.utility.browser.FileBrowserActivity"/>
+        </activity>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+
+        <activity android:name=".browser.TextViewActivity">
+        </activity>
+        <activity
+            android:name=".poc.WelcomeActivity"
+            android:parentActivityName=".poc.PocMenuActivity"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="zz.utility.poc.PocMenuActivity"/>
+        </activity>
+
+        <service
+            android:name=".spy.MyNotificationListenerService"
+            android:label="Notification Spy Listener"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService"/>
+            </intent-filter>
+        </service>
+
+        <receiver android:name=".spy.WifiReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".ListActivity">
+        </activity>
+        <activity
+            android:name=".poc.DashboardActivity"
+            android:parentActivityName=".poc.PocMenuActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="zz.utility.poc.PocMenuActivity"/>
+        </activity>
+        <activity
+            android:name=".browser.Gallery2Activity"
+            android:label="@string/title_activity_gallery"
+            android:parentActivityName=".browser.FileBrowserActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="zz.utility.browser.FileBrowserActivity"/>
+        </activity>
+        <activity
+            android:name=".poc.PocMenuActivity"
+            android:label="POC Screens"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="zz.utility.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".poc.CardDemoActivity"
+            android:label="POC Cards Layouts"
+            android:parentActivityName=".poc.PocMenuActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="zz.utility.poc.PocMenuActivity"/>
+        </activity>
+    </application>
+
+</manifest>

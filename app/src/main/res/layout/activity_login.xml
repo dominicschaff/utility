@@ -1,0 +1,79 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Outer"
+    tools:context=".poc.LoginActivity">
+
+    <ScrollView
+        android:id="@+id/login_scrolly"
+        style="@style/Scroll"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <LinearLayout style="@style/Linear.Padding">
+
+            <TextView
+                style="@style/Text.Large.Center"
+                android:layout_marginBottom="72dp"
+                android:layout_marginTop="72dp"
+                android:text="Company Name"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <AutoCompleteTextView
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_face"
+                    android:drawablePadding="@dimen/activity_horizontal_margin"
+                    android:hint="@string/prompt_email"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:singleLine="true"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_lock"
+                    android:drawablePadding="@dimen/activity_horizontal_margin"
+                    android:hint="@string/prompt_password"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:singleLine="true"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <CheckBox
+                android:id="@+id/remember_me_check"
+                style="@style/Text.Fit"
+                android:paddingStart="12dp"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:text="Remember me"/>
+
+            <Button
+                android:id="@+id/email_sign_in_button"
+                style="@style/Button.Rounded"
+                android:text="@string/action_sign_in"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <include
+        android:id="@+id/login_progress"
+        layout="@layout/login_progress_view"/>
+</RelativeLayout>
