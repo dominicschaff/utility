@@ -10,7 +10,6 @@ class TidesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tides)
-        Ion.with(image)
-                .load("https://www.tide-forecast.com/tides/Cape-Town-South-Africa.png")
+        Ion.with(image).load("https://www.tide-forecast.com/tides/Cape-Town-South-Africa.png")
     }
 }

@@ -34,6 +34,8 @@ class MainActivity : Activity() {
         goto_files.setOnClickListener { goto(FileBrowserActivity::class.java) }
         goto_list.setOnClickListener { goto(ListActivity::class.java) }
         goto_poc.setOnClickListener { goto(PocMenuActivity::class.java) }
+        goto_images.setOnClickListener { goto(ImageDownloadActivity::class.java) }
+        goto_knowledge.setOnClickListener { goto(KnowledgeActivity::class.java) }
 
         mainGrid.columnCount = if (resources.getBoolean(R.bool.is_landscape)) 4 else 2
         requestPermissions(arrayOf(

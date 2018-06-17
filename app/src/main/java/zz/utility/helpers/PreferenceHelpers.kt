@@ -10,17 +10,17 @@ inline fun Context.getDefaultPref(): SharedPreferences = PreferenceManager.getDe
 
 // Getters
 
-inline fun Context.prefGet(key: String, def: String): String = tryCatch({ getDefaultPref().getString(key, def) }, def)
+inline fun Context.prefGet(key: String, def: String): String = { getDefaultPref().getString(key, def) }.or { def }
 
-inline fun Context.prefGet(key: String, def: Boolean): Boolean = tryCatch({ getDefaultPref().getBoolean(key, def) }, def)
+inline fun Context.prefGet(key: String, def: Boolean): Boolean = { getDefaultPref().getBoolean(key, def) }.or { def }
 
-inline fun Context.prefGet(key: String, def: Int): Int = tryCatch({ getDefaultPref().getInt(key, def) }, def)
+inline fun Context.prefGet(key: String, def: Int): Int = { getDefaultPref().getInt(key, def) }.or { def }
 
-inline fun Context.prefGet(key: String, def: Float): Float = tryCatch({ getDefaultPref().getFloat(key, def) }, def)
+inline fun Context.prefGet(key: String, def: Float): Float = { getDefaultPref().getFloat(key, def) }.or { def }
 
-inline fun Context.prefGet(key: String, def: Long): Long = tryCatch({ getDefaultPref().getLong(key, def) }, def)
+inline fun Context.prefGet(key: String, def: Long): Long = { getDefaultPref().getLong(key, def) }.or { def }
 
-inline fun Context.prefGetSet(key: String, def: Set<String>): Set<String> = tryCatch({ getDefaultPref().getStringSet(key, def) }, def)
+inline fun Context.prefGetSet(key: String, def: Set<String>): Set<String> = { getDefaultPref().getStringSet(key, def) }.or { def }
 
 // Setters
 

@@ -9,11 +9,8 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.support.v4.app.NavUtils
 import android.view.MenuItem
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_gps.*
-import zz.utility.helpers.fullDateDay
-import zz.utility.helpers.fullTime
-import zz.utility.helpers.hasLocationPermissions
+import zz.utility.helpers.*
 import zz.utility.lib.SunriseSunset
 import java.util.*
 
@@ -22,13 +19,11 @@ class GPSActivity : Activity(), LocationListener {
     private lateinit var locationManager: LocationManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        try {
+        {
             super.onCreate(savedInstanceState)
             setContentView(R.layout.activity_gps)
             locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+        }.orPrint()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -45,17 +40,15 @@ class GPSActivity : Activity(), LocationListener {
     override fun onLocationChanged(location: Location) {
         if (location.hasAccuracy())
             gps_accuracy.text = "%3.1f m".format(location.accuracy)
-        if (location.hasSpeed()) {
+        if (location.hasSpeed())
             gps_speed.text = "%.1f m/s<-> %.1f km/h".format(location.speed, location.speed * 3.6)
-        }
         if (location.hasAltitude())
             gps_altitude.text = "%3.1f m".format(location.altitude)
         if (location.hasBearing())
             gps_bearing.text = "${location.bearing}"
 
         if (previousLocation != null) {
-            val t = (location.speed * 3.6 - previousLocation!!.speed * 3.6) / ((location.time - previousLocation!!.time) / 1000)
-            gps_acceleration.text = "%.2f  km/h/s".format(t)
+            gps_acceleration.text = "%.2f  km/h/s".format((location.speed * 3.6 - previousLocation!!.speed * 3.6) / ((location.time - previousLocation!!.time) / 1000))
         }
         previousLocation = location
 
@@ -79,26 +72,22 @@ class GPSActivity : Activity(), LocationListener {
 
     @SuppressLint("MissingPermission")
     override fun onResume() {
-        // updates
-        if (hasLocationPermissions()) {
-            Toast.makeText(this, "We need GPS settings to make this screen work", Toast.LENGTH_LONG).show()
-        } else
+        if (hasLocationPermissions()) longToast("We need GPS settings to make this screen work")
+        else
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, this)
         super.onResume()
     }
 
     public override fun onPause() {
-        if (hasLocationPermissions()) {
-            Toast.makeText(this, "We need GPS settings to make this screen work", Toast.LENGTH_LONG).show()
-        } else
+        if (hasLocationPermissions()) longToast("We need GPS settings to make this screen work")
+        else
             locationManager.removeUpdates(this)
         super.onPause()
     }
 
     public override fun onStop() {
-        if (hasLocationPermissions()) {
-            Toast.makeText(this, "We need GPS settings to make this screen work", Toast.LENGTH_LONG).show()
-        } else
+        if (hasLocationPermissions()) longToast("We need GPS settings to make this screen work")
+        else
             locationManager.removeUpdates(this)
         super.onStop()
     }

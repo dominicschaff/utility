@@ -249,6 +249,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="zz.utility.poc.PocMenuActivity"/>
         </activity>
+        <activity android:name=".ImageDownloadActivity">
+        </activity>
+        <activity
+            android:name=".KnowledgeActivity"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="zz.utility.MainActivity"/>
+        </activity>
     </application>
 
 </manifest>

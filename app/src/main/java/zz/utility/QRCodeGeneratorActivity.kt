@@ -10,11 +10,12 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
-import zz.utility.helpers.now
 import kotlinx.android.synthetic.main.activity_qrcode_generator.*
+import zz.utility.helpers.ignore
+import zz.utility.helpers.now
+import zz.utility.helpers.orPrint
 import java.io.File
 import java.io.FileOutputStream
-import java.io.IOException
 
 class QRCodeGeneratorActivity : Activity() {
     private lateinit var bitmap: Bitmap
@@ -24,11 +25,9 @@ class QRCodeGeneratorActivity : Activity() {
         setContentView(R.layout.activity_qrcode_generator)
 
         generate.setOnClickListener {
-            try {
+            {
                 qr_code.setImageBitmap(encodeAsBitmap(text.text.toString()))
-            } catch (e: WriterException) {
-                e.printStackTrace()
-            }
+            }.orPrint()
         }
 
         qr_code.setOnClickListener {
@@ -40,12 +39,7 @@ class QRCodeGeneratorActivity : Activity() {
             } catch (e: Exception) {
                 e.printStackTrace()
             } finally {
-                try {
-                    if (out != null) out.close()
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-
+                { out?.close() }.ignore()
             }
         }
     }

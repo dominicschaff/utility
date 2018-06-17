@@ -1,5 +1,6 @@
 package zz.utility.browser
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -30,6 +31,7 @@ class MyFileAdapter(private val activity: Activity, private val galleryList: Arr
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder =
             ViewHolder(LayoutInflater.from(viewGroup.context).inflate(R.layout.view_file, viewGroup, false))
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         val f = galleryList[i]
 
@@ -67,7 +69,7 @@ class MyFileAdapter(private val activity: Activity, private val galleryList: Arr
         viewHolder.view.setOnLongClickListener {
             val builder = AlertDialog.Builder(activity)
             builder.setTitle(f.name)
-                    .setItems(R.array.file_actions, { _, which ->
+                    .setItems(R.array.file_actions) { _, which ->
                         when (which) {
                             0 ->
                                 when {
@@ -91,7 +93,7 @@ class MyFileAdapter(private val activity: Activity, private val galleryList: Arr
                             }
                             else -> activity.openFile(f)
                         }
-                    })
+                    }
             builder.show()
             true
         }

@@ -8,6 +8,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.AsyncTask
+import android.os.Environment
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.FileProvider
@@ -15,12 +16,7 @@ import android.support.v7.app.AlertDialog
 import android.view.View
 import android.widget.Toast
 import java.io.File
-
-inline fun <T> tryCatch(f: () -> T, d: T): T = try {
-    f()
-} catch (e: Exception) {
-    d
-}
+import kotlin.experimental.and
 
 fun Context.createChooser(title: String, options: Array<String>, clickListener: DialogInterface.OnClickListener) {
     AlertDialog.Builder(this)
@@ -41,24 +37,54 @@ fun Activity.requestPermissions(permissions: Array<String>): Boolean {
     return true
 }
 
-inline fun tryIgnore(f: () -> Unit) {
+inline fun <T> (() -> T).or(f: () -> T): T =
+        try {
+            this()
+        } catch (e: Exception) {
+            f()
+        }
+
+inline fun (() -> Unit?).or(f: (e: Exception) -> Unit) {
     try {
-        f()
+        this()
+    } catch (e: Exception) {
+        f(e)
+    }
+}
+
+inline fun <T> (() -> T).orCatch(d: T): T = try {
+    this()
+} catch (e: Exception) {
+    d
+}
+
+inline fun (() -> Unit?).ignore() {
+    try {
+        this()
     } catch (ignored: Exception) {
     }
 }
 
-inline fun tryPrint(f: () -> Unit) {
+inline fun <T> (() -> T).ignore(a: T? = null): T? = try {
+    this()
+} catch (ignored: Exception) {
+    a
+}
+
+inline fun (() -> Unit?).orPrint() {
     try {
-        f()
+        this()
     } catch (e: Exception) {
         e.printStackTrace()
     }
 }
 
-inline fun <T> List<T>.random(): T {
-    return this[(Math.random() * size).toInt()]
+inline fun (() -> String).orMessage(): String = try {
+    this()
+} catch (e: Exception) {
+    e.message ?: "No error message defined"
 }
+
 
 inline fun Context.longToast(s: String) = Toast.makeText(this, s, Toast.LENGTH_LONG).show()
 inline fun Context.shortToast(s: String) = Toast.makeText(this, s, Toast.LENGTH_SHORT).show()
@@ -101,3 +127,22 @@ fun <T> doAsync(f: () -> T?, g: (T?) -> Unit) {
         override fun onPostExecute(result: T?) = g(result)
     }.execute()
 }
+
+inline fun String.externalFile() = File(Environment.getExternalStorageDirectory(), this)
+
+private val hexArray = "0123456789ABCDEF".toCharArray()
+fun ByteArray.toHex(): String {
+    val hexChars = CharArray(size * 2)
+    for (j in indices) {
+        val v: Int = (this[j] and 0xFF.toByte()).toInt()
+        hexChars[j * 2] = hexArray[v.ushr(4)]
+        hexChars[j * 2 + 1] = hexArray[v and 0x0F]
+    }
+    return String(hexChars)
+}
+
+inline fun <T> Array<T>.randomIndex() = (Math.random() * size).toInt()
+inline fun <T> List<T>.randomIndex() = (Math.random() * size).toInt()
+
+inline fun <T> List<T>.random(): T = this[(Math.random() * size).toInt()]
+inline fun <T> Array<T>.random() = this[(Math.random() * size).toInt()]

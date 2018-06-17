@@ -17,12 +17,12 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_gallery.*
 import kotlinx.android.synthetic.main.fragment_gallery.view.*
 import zz.utility.R
-import zz.utility.helpers.*
+import zz.utility.helpers.formatSize
+import zz.utility.helpers.longToast
+import zz.utility.helpers.openFile
 import zz.utility.isImage
 import java.io.File
 import java.util.*
-
-var showItems = false
 
 class GalleryActivity : Activity() {
 
@@ -108,29 +108,6 @@ class GalleryActivity : Activity() {
             } else {
                 rootView.image.setImageResource(R.drawable.ic_block)
                 rootView.image_details.text = "[$spot/$total]"
-            }
-            if (!showItems) {
-                rootView.path.unsee()
-                rootView.image_details.unsee()
-                rootView.fab_delete.unsee()
-                rootView.fab_open.unsee()
-                rootView.fab_share.unsee()
-            }
-            rootView.image.setOnClickListener {
-                if (showItems) {
-                    rootView.path.unsee()
-                    rootView.image_details.unsee()
-                    rootView.fab_delete.unsee()
-                    rootView.fab_open.unsee()
-                    rootView.fab_share.unsee()
-                } else {
-                    rootView.path.see()
-                    rootView.image_details.see()
-                    rootView.fab_delete.see()
-                    rootView.fab_open.see()
-                    rootView.fab_share.see()
-                }
-                showItems = !showItems
             }
             return rootView
         }

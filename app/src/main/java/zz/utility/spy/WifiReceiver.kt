@@ -9,6 +9,7 @@ import android.telephony.TelephonyManager
 import com.google.gson.JsonObject
 import zz.utility.helpers.add
 import zz.utility.helpers.fullDate
+import zz.utility.helpers.ignore
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -22,7 +23,7 @@ class WifiReceiver : BroadcastReceiver() {
         val activeNetwork = conMan.activeNetworkInfo
         var carrierName = ""
         var simOperatorName = ""
-        try {
+        {
             if (activeNetwork.type == ConnectivityManager.TYPE_MOBILE) {
                 val manager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager?
                 if (manager != null) {
@@ -30,9 +31,7 @@ class WifiReceiver : BroadcastReceiver() {
                     simOperatorName = manager.simOperatorName
                 }
             }
-        } catch (ignored: Exception) {
-        }
-
+        }.ignore()
 
         val json = JsonObject()
                 .add("event_time", Date().fullDate())

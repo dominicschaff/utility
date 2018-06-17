@@ -16,11 +16,11 @@ import com.google.gson.JsonObject
 import com.google.zxing.ResultPoint
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
-import zz.utility.helpers.fullDate
 import kotlinx.android.synthetic.main.activity_scanning.*
+import zz.utility.helpers.add
+import zz.utility.helpers.appendToFile
+import zz.utility.helpers.fullDate
 import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
 import java.util.*
 
 class ScanningActivity : Activity() {
@@ -99,7 +99,7 @@ class ScanningActivity : Activity() {
                             i++
                         }
                     }
-                    val ssid = message.substring(s, e).replace("\\:".toRegex(), ":").replace("\\;".toRegex(), ";")
+                    val ssid = message.substring(s, e).replace(":".toRegex(), ":").replace(";".toRegex(), ";")
 
                     s = e + 3
                     e = s
@@ -117,7 +117,7 @@ class ScanningActivity : Activity() {
                         i++
                     }
 
-                    val password = message.substring(s, e).replace("\\:".toRegex(), ":").replace("\\;".toRegex(), ";")
+                    val password = message.substring(s, e).replace(":".toRegex(), ":").replace(";".toRegex(), ";")
                     Toast.makeText(this@ScanningActivity, "$wifiType-$ssid-$password", Toast.LENGTH_LONG).show()
 
                     val conf = WifiConfiguration()
@@ -156,35 +156,19 @@ class ScanningActivity : Activity() {
                     val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                     val clip = ClipData.newPlainText(message, message)
                     clipboard.primaryClip = clip
-                    Toast.makeText(this@ScanningActivity, "Set clipboard to: " + message, Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@ScanningActivity, "Set clipboard to: $message", Toast.LENGTH_LONG).show()
                 }
             }
         })
         items_barcodes.addView(v, 0)
     }
 
-    fun barcodeRead(type: String, barcode: String) {
-        val sms = JsonObject()
-
-        sms.addProperty("event_time", Date().fullDate())
-        sms.addProperty("event_type", "barcodeScan")
-        sms.addProperty("type", type)
-        sms.addProperty("barcode", barcode)
-        val path = Environment.getExternalStorageDirectory()
-        val file = File(path, "log.json")
-        var stream: FileOutputStream? = null
-        try {
-            stream = FileOutputStream(file, true)
-            stream.write(sms.toString().toByteArray())
-            stream.write("\n".toByteArray())
-        } catch (e: IOException) {
-            e.printStackTrace()
-        } finally {
-            try {
-                if (stream != null) stream.close()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-        }
+    private fun barcodeRead(type: String, barcode: String) {
+        JsonObject()
+                .add("event_time", Date().fullDate())
+                .add("event_type", "barcodeScan")
+                .add("type", type)
+                .add("barcode", barcode)
+                .appendToFile(File(Environment.getExternalStorageDirectory(), "log.json"))
     }
 }

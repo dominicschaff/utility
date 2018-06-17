@@ -49,7 +49,7 @@ class SensorsActivity : Activity(), SensorEventListener {
             ll.addView(content)
             cv.addView(ll)
 
-            sensors.put(s.name, content)
+            sensors[s.name] = content
             list_sensors.addView(cv)
         }
         deviceSensors = mSensorManager.getSensorList(Sensor.TYPE_ALL)

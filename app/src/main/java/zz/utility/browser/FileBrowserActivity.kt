@@ -3,12 +3,10 @@ package zz.utility.browser
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Environment
-import android.support.v4.app.NavUtils
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import kotlinx.android.synthetic.main.activity_file_browser.*
 import zz.utility.R
 import zz.utility.helpers.consume
@@ -60,7 +58,7 @@ class FileBrowserActivity : AppCompatActivity() {
     private fun refreshList() {
         swipe_to_refresh.isRefreshing = true
 
-        FileRefresh(path, { totalSize: Long, result: Array<File>? ->
+        FileRefresh(path) { totalSize: Long, result: Array<File>? ->
             swipe_to_refresh.isRefreshing = false
             if (result == null || result.isEmpty()) {
                 empty_directory.see()
@@ -71,11 +69,11 @@ class FileBrowserActivity : AppCompatActivity() {
             files.addAll(result)
             adapter.notifyDataSetChanged()
             title = "${path.name} [${result.size} : ${totalSize.formatSize()}]"
-        }).execute()
+        }.execute()
     }
 
     class FileRefresh(val path: File, val f: (Long, Array<File>?) -> Unit) : AsyncTask<Void, Void, Array<File>>() {
-        var totalSize: Long = 0
+        private var totalSize: Long = 0
         override fun doInBackground(vararg params: Void?): Array<File>? {
             val filesTemp: Array<File> = path.listFiles()
 

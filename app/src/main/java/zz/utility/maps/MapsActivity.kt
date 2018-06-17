@@ -11,7 +11,6 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import com.google.gson.JsonParser
 import com.graphhopper.GHRequest
 import com.graphhopper.GraphHopper
 import com.graphhopper.PathWrapper
@@ -41,10 +40,9 @@ import org.oscim.scalebar.MapScaleBarLayer
 import org.oscim.theme.VtmThemes
 import org.oscim.tiling.source.mapfile.MapFileTileSource
 import zz.utility.HOME
+import zz.utility.MAIN
 import zz.utility.R
 import zz.utility.helpers.*
-import java.io.BufferedReader
-import java.io.FileReader
 
 data class LocationPoint(
         val name: String,
@@ -112,17 +110,10 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
         mMarkerLayer = ItemizedLayer(mapView.map(), ArrayList<MarkerItem>(), MarkerSymbol(bitmapPoi, MarkerSymbol.HotspotPlace.CENTER, false), this)
         mapView.map().layers().add(mMarkerLayer)
 
-        val pts = ArrayList<MarkerItem>()
-
-        try {
-            val gson = JsonParser().parse(BufferedReader(FileReader("$HOME/locations.json"))).asJsonArray
-            gson.forEach {
-                val location = it.asJsonObject
-                val lp = LocationPoint(location.s("name"), location.d("latitude"), location.d("longitude"))
-                locationsSaved.add(lp)
-                pts.add(MarkerItem(lp.name, lp.name, GeoPoint(lp.latitude, lp.longitude)))
-            }
-        } catch (ignored: Exception) {
+        val pts = MAIN.fileAsJsonObject().a("locations").mapObject {
+            val lp = LocationPoint(s("name"), d("latitude"), d("longitude"))
+            locationsSaved.add(lp)
+            MarkerItem(lp.name, lp.name, GeoPoint(lp.latitude, lp.longitude))
         }
 
         mMarkerLayer.addItems(pts)
@@ -132,9 +123,9 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
             val titles = Array(locationsSaved.size) { locationsSaved[it].name }
             val builder = AlertDialog.Builder(this)
             builder.setTitle("Select location")
-                    .setItems(titles, { _, which ->
+                    .setItems(titles) { _, which ->
                         calcPath(lastLocation.latitude, lastLocation.longitude, locationsSaved[which].latitude, locationsSaved[which].longitude)
-                    })
+                    }
             builder.show()
         }
         center_on_me.setOnClickListener {
@@ -192,7 +183,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
 
         val intent = intent ?: return
         val data = intent.data ?: return
-        Thread({
+        Thread {
             Thread.sleep(2000)
             runOnUiThread {
                 val path = data.pathSegments
@@ -218,7 +209,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
                     else -> longToast("Unable to understand given app link")
                 }
             }
-        }).start()
+        }.start()
 
 
     }
@@ -292,13 +283,13 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
     @SuppressLint("StaticFieldLeak")
     private fun setupGraphhopper() {
         Thread(Runnable {
-            tryPrint {
+            {
                 val tmpHopp = GraphHopper().forMobile()
                 tmpHopp.load("$HOME/area")
                 log("found graph " + tmpHopp.graphHopperStorage.toString() + ", nodes:" + tmpHopp.graphHopperStorage.nodes)
                 hopper = tmpHopp
                 runOnUiThread { logUser("Finished loading graph. Long press to define where to route to.") }
-            }
+            }.orPrint()
         }).start()
     }
 
@@ -306,7 +297,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
     private fun calcPath(fromLat: Double, fromLon: Double, toLat: Double, toLon: Double) {
         log("calculating path ...")
         object : AsyncTask<Void, Void, PathWrapper>() {
-            internal var time: Float = 0.toFloat()
+            var time: Float = 0.toFloat()
 
             override fun doInBackground(vararg v: Void): PathWrapper? {
                 val sw = StopWatch().start()

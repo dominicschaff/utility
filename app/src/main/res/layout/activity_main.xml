@@ -289,6 +289,40 @@
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
+                android:id="@+id/goto_images"
+                style="@style/MainCard">
+
+                <LinearLayout style="@style/Linear">
+
+                    <ImageView
+                        style="@style/MainIcon"
+                        android:src="@drawable/main_images"/>
+
+                    <TextView
+                        style="@style/MainTitle"
+                        android:text="Image Downloader"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/goto_knowledge"
+                style="@style/MainCard">
+
+                <LinearLayout style="@style/Linear">
+
+                    <ImageView
+                        style="@style/MainIcon"
+                        android:src="@drawable/main_game"/>
+
+                    <TextView
+                        style="@style/MainTitle"
+                        android:text="General Knowledge"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
                 android:id="@+id/goto_poc"
                 style="@style/MainCard">
 

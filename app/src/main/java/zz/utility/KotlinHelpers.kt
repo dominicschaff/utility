@@ -3,6 +3,7 @@
 package zz.utility
 
 import android.os.Environment
+import zz.utility.helpers.fileAsJsonObject
 import java.io.File
 
 fun File.isImage(): Boolean = extension.toLowerCase() in arrayOf("jpg", "jpeg", "png", "gif")
@@ -24,3 +25,5 @@ fun File.imageIcon(): Int =
 
 
 val HOME = "${Environment.getExternalStorageDirectory().absolutePath}/utility"
+val MAIN = "$HOME/utility.json"
+val MAIN_CONFIG = MAIN.fileAsJsonObject()

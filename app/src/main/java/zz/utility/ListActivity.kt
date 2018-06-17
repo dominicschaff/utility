@@ -23,20 +23,13 @@ class ListActivity : Activity() {
         val fileNames: Array<String> = files.map { it.nameWithoutExtension }.toTypedArray()
         createChooser("Select file to run", fileNames, DialogInterface.OnClickListener { _, which ->
             doAsync({
-                val items = ArrayList<String>()
-                tryIgnore {
-                    val gson = files[which].asJsonArray()
-                    gson.forEach {
-                        items.add(it.asString)
-                    }
-                }
-                return@doAsync items
+                return@doAsync { files[which].asJsonArray().map { it.asString } }.or { ArrayList<String>() }
             }, {
                 items.addAll(it!!)
                 doRefresh()
             })
         })
-        swipe_to_refresh.setOnRefreshListener({ doRefresh() })
+        swipe_to_refresh.setOnRefreshListener { doRefresh() }
     }
 
     private fun doRefresh() {

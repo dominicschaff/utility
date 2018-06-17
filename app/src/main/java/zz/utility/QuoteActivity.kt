@@ -20,8 +20,7 @@ class QuoteActivity : Activity() {
         setContentView(R.layout.activity_quote)
 
         doAsync({
-            val quotes = ArrayList<Quote>()
-            tryIgnore {
+            return@doAsync {
 
                 val f = File("$HOME/quotes.json")
                 if (!f.exists()) {
@@ -39,29 +38,17 @@ class QuoteActivity : Activity() {
                     } catch (e: IOException) {
                         e.printStackTrace()
                     } finally {
-                        try {
-                            if (stream != null) stream.close()
-                        } catch (e: IOException) {
-                            e.printStackTrace()
-                        }
+                        { stream?.close() }.ignore()
                     }
                 }
-
-
-
-                val gson = f.asJsonArray()
-                gson.forEach {
-                    val quote = it.asJsonObject
-                    quotes.add(Quote(quote.s("quote"), quote.s("author")))
-                }
-            }
-            return@doAsync quotes
+                f.asJsonArray().mapObject { Quote(s("quote"), s("author")) }
+            }.ignore(ArrayList())
         }, {
             quotes.addAll(it!!)
             doRefresh()
         })
 
-        swipe_to_refresh.setOnRefreshListener({ doRefresh() })
+        swipe_to_refresh.setOnRefreshListener { doRefresh() }
     }
 
     private fun doRefresh() {
