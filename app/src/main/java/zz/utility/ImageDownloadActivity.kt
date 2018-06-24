@@ -3,6 +3,7 @@ package zz.utility
 import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import com.koushikdutta.ion.Ion
 import kotlinx.android.synthetic.main.activity_image_download.*
 import zz.utility.helpers.a
@@ -23,6 +24,7 @@ class ImageDownloadActivity : AppCompatActivity() {
         val s = MAIN_CONFIG.a("imageUrls").mapObject { ImageLink(s("title"), s("url")) }
 
         createChooser("Select file to run", s.map { it.title }.toTypedArray(), DialogInterface.OnClickListener { _, which ->
+            Log.e("Thing", "choice")
             obj = s[which]
             doRefresh()
         })
@@ -30,6 +32,7 @@ class ImageDownloadActivity : AppCompatActivity() {
     }
 
     private fun doRefresh() {
+        Log.e("Thing", obj.url)
         Ion.with(image).load(obj.url)
     }
 }

@@ -1,6 +1,10 @@
 package zz.utility.browser
 
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
@@ -8,18 +12,19 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.MimeTypeMap
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_gallery2.*
+import kotlinx.android.synthetic.main.fragment_gallery.view.*
 import zz.utility.R
+import zz.utility.helpers.formatSize
 import zz.utility.helpers.longToast
+import zz.utility.helpers.openFile
 import zz.utility.isImage
 import java.io.File
 import java.util.ArrayList
-import kotlin.Boolean
-import kotlin.CharSequence
 import kotlin.Comparator
-import kotlin.Int
-import kotlin.apply
 
 class Gallery2Activity : AppCompatActivity() {
 
@@ -36,7 +41,9 @@ class Gallery2Activity : AppCompatActivity() {
             o1.name.toLowerCase().compareTo(o2.name.toLowerCase())
         })
         pager.adapter = GalleryPagerAdapter(paths, supportFragmentManager)
-        pager.setOnClickListener { longToast("hi") }
+
+        val page: Int = paths.indexOfFirst { it.name == path.name }
+        pager.currentItem = page
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -53,31 +60,70 @@ class Gallery2Activity : AppCompatActivity() {
 }
 
 class GalleryPagerAdapter(private val files: ArrayList<File>, fm: FragmentManager) : FragmentPagerAdapter(fm) {
-
     override fun getCount(): Int = files.size
 
     override fun getItem(i: Int): Fragment {
         val fragment = DemoObjectFragment()
         fragment.arguments = Bundle().apply {
-            putString(ARG_OBJECT, files[i].absolutePath)
+            putString(PATH, files[i].absolutePath)
+            putInt(SPOT, i + 1)
+            putInt(TOTAL, files.size)
         }
         return fragment
     }
 
-    override fun getPageTitle(position: Int): CharSequence {
-        return "OBJECT " + (position + 1)
-    }
+    override fun getPageTitle(position: Int): CharSequence = files[position].name
 }
 
-private const val ARG_OBJECT = "object"
+const val PATH = "path"
+const val SPOT = "spot"
+const val TOTAL = "total"
 
 class DemoObjectFragment : Fragment() {
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        val textView = TextView(context)
-        textView.text = arguments?.getString(ARG_OBJECT)
-        return textView
+        val bundle = arguments
+        if (bundle == null) {
+            val tv = TextView(context)
+            tv.text = "Error with load"
+            return tv
+        }
+        val path = File(bundle.getString(PATH))
+        val spot = bundle.getInt(SPOT)
+        val total = bundle.getInt(TOTAL)
+        val rootView = inflater.inflate(R.layout.fragment_gallery, container, false)
+        rootView.path.text = path.name
+        if (path.exists()) {
+            Glide
+                    .with(this)
+                    .load(Uri.fromFile(path))
+                    .into(rootView.image)
+
+            rootView.image_details.text = "${path.length().formatSize()} [$spot/$total]"
+
+            rootView.fab_delete.setOnClickListener {
+                val bin = File(Environment.getExternalStorageDirectory(), ".bin")
+                if (!bin.exists()) bin.mkdir()
+                if (!path.renameTo(File(bin, path.name))) context?.longToast("File could not be moved")
+                rootView.image.setImageResource(R.drawable.ic_delete)
+            }
+            rootView.fab_open.setOnClickListener {
+                activity?.openFile(path)
+            }
+            rootView.fab_share.setOnClickListener {
+                val shareIntent = Intent()
+                shareIntent.action = Intent.ACTION_SEND
+                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(path))
+                shareIntent.type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(path.extension)
+                startActivity(Intent.createChooser(shareIntent, "Send image to..."))
+            }
+        } else {
+            rootView.image.setImageResource(R.drawable.ic_block)
+            rootView.image_details.text = "[$spot/$total]"
+        }
+        return rootView
     }
 }

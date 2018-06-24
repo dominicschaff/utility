@@ -2,6 +2,9 @@ package zz.utility.browser
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Environment
@@ -61,7 +64,7 @@ class MyFileAdapter(private val activity: Activity, private val galleryList: Arr
         viewHolder.view.setOnClickListener {
             when {
                 f.isDirectory -> activity.startActivity(Intent(activity, FileBrowserActivity::class.java).putExtra("file_path", f.absolutePath))
-                f.isImage() -> activity.startActivity(Intent(activity, GalleryActivity::class.java).putExtra("folder", f.absolutePath))
+                f.isImage() -> activity.startActivity(Intent(activity, Gallery2Activity::class.java).putExtra("folder", f.absolutePath))
                 f.isText() -> activity.startActivity(Intent(activity, TextViewActivity::class.java).putExtra("file", f.absolutePath))
                 else -> activity.openFile(f)
             }
@@ -74,7 +77,7 @@ class MyFileAdapter(private val activity: Activity, private val galleryList: Arr
                             0 ->
                                 when {
                                     f.isDirectory -> activity.startActivity(Intent(activity, FileBrowserActivity::class.java).putExtra("file_path", f.absolutePath))
-                                    f.isImage() -> activity.startActivity(Intent(activity, GalleryActivity::class.java).putExtra("folder", f.absolutePath))
+                                    f.isImage() -> activity.startActivity(Intent(activity, Gallery2Activity::class.java).putExtra("folder", f.absolutePath))
                                     f.isText() -> activity.startActivity(Intent(activity, TextViewActivity::class.java).putExtra("file", f.absolutePath))
                                     else -> activity.openFile(f)
                                 }
@@ -83,13 +86,17 @@ class MyFileAdapter(private val activity: Activity, private val galleryList: Arr
                             }
                             3 -> {
                                 // do slideshow
-                                activity.startActivity(Intent(activity, Gallery2Activity::class.java).putExtra("folder", f.absolutePath))
                             }
                             4 -> {
                                 val bin = File(Environment.getExternalStorageDirectory(), ".bin")
                                 if (!bin.exists()) bin.mkdir()
                                 if (!f.renameTo(File(bin, f.name))) activity.longToast("File could not be moved")
                                 viewHolder.img.setImageResource(R.drawable.ic_delete)
+                            }
+                            5 -> {
+                                val clipboard = activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                                clipboard.primaryClip = ClipData.newPlainText(f.absolutePath, f.absolutePath)
+                                activity.longToast("Set clipboard to: ${f.absolutePath}")
                             }
                             else -> activity.openFile(f)
                         }

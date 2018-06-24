@@ -19,13 +19,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:paddingEnd="8dp"
+        android:background="@drawable/gallery_bk"/>
+
     <TextView
         android:id="@+id/image_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true"
+        android:paddingStart="8dp"
+        android:background="@drawable/gallery_bk"/>
 
     <LinearLayout
         style="@style/Linear.Horizontal"
@@ -33,26 +38,32 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true">
 
-        <android.support.design.widget.FloatingActionButton
+        <ImageButton
             android:id="@+id/fab_open"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_open"
-            app:backgroundTint="#aa000000"/>
+            android:background="#aa000000"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"/>
 
-        <android.support.design.widget.FloatingActionButton
+        <ImageButton
             android:id="@+id/fab_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_share"
-            app:backgroundTint="#aa000000"/>
+            android:background="#aa000000"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"/>
 
-        <android.support.design.widget.FloatingActionButton
+        <ImageButton
             android:id="@+id/fab_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_delete"
-            app:backgroundTint="#aa000000"/>
+            android:background="#aa000000"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"/>
     </LinearLayout>
 
 </RelativeLayout>

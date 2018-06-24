@@ -68,5 +68,6 @@
         <item>Open External</item>
         <item>Slideshow</item>
         <item>Delete</item>
+        <item>Copy Path</item>
     </string-array>
 </resources>

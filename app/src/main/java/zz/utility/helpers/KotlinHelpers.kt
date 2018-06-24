@@ -18,6 +18,18 @@ import android.widget.Toast
 import java.io.File
 import kotlin.experimental.and
 
+fun Context.alert(content: String, clickListener: DialogInterface.OnClickListener? = null) {
+    {
+        val ad = AlertDialog.Builder(this)
+                .setCancelable(false)
+                .setMessage(content)
+                .setNeutralButton("OK", clickListener
+                        ?: DialogInterface.OnClickListener { _, _ -> })
+                .show()
+    }.ignore()
+
+}
+
 fun Context.createChooser(title: String, options: Array<String>, clickListener: DialogInterface.OnClickListener) {
     AlertDialog.Builder(this)
             .setTitle(title)
