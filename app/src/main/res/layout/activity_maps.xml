@@ -46,6 +46,11 @@
         android:layout_alignParentEnd="true">
 
         <android.support.design.widget.FloatingActionButton
+            android:id="@+id/center"
+            style="@style/Fab"
+            android:src="@drawable/ic_straighten"/>
+
+        <android.support.design.widget.FloatingActionButton
             android:id="@+id/vehicle"
             style="@style/Fab"
             android:src="@drawable/map_car"/>

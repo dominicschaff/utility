@@ -181,6 +181,8 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
             useCar = !useCar
         }
 
+        center.setOnClickListener { mapView.map().viewport().setRotation(0.0) }
+
         val intent = intent ?: return
         val data = intent.data ?: return
         Thread {
@@ -228,7 +230,6 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
     }
 
     override fun onDestroy() {
-//        mPersistenceManager.close()
         mapScaleBar.destroy()
         mapView.onDestroy()
         super.onDestroy()
@@ -243,16 +244,17 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
         // Follow location
         if (followMe) {
             centerOn(location.latitude, location.longitude)
-            mapView.map().viewport().setRotation(location.bearing.toDouble())
-            mapView.map().viewport().tiltMap(65F)
+//            mapView.map().viewport().setRotation(90 - location.bearing.toDouble())
+//            mapView.map().viewport().tiltMap(65F)
         }
+        mapView.map().updateMap(true)
         gps_data.text = "%.10f, %.10f (%d:%s)".format(location.latitude, location.longitude, location.accuracy.toInt(), location.provider)
     }
 
     private fun centerOn(latitude: Double, longitude: Double) {
         mapView.map().getMapPosition(mapPosition)
         mapPosition.setPosition(latitude, longitude)
-        mapPosition.setScale(120000.0)
+//        mapPosition.setScale(120000.0)
         mapView.map().mapPosition = mapPosition
     }
 
