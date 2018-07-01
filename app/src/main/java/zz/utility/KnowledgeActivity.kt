@@ -19,9 +19,6 @@ class KnowledgeActivity : AppCompatActivity() {
 
     var question: Int = 0
 
-    var correct: Int = 0
-    var total: Int = 0
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_knowledge)
@@ -37,18 +34,12 @@ class KnowledgeActivity : AppCompatActivity() {
     }
 
     private fun doAnswer(answer: String) {
-        val question = questions[question]
-
-        if (question.answer == answer) {
-            correct++
-            displayQuestion()
-            score.text = "$correct/$total"
-        } else longToast("Incorrect Answer")
+        if (questions[question].answer == answer) displayQuestion()
+        else longToast("Incorrect Answer")
     }
 
     private fun displayQuestion() {
         question = questions.randomIndex()
-        total++
 
         questions[question].apply {
             question_view.text = question
