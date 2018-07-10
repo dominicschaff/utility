@@ -18,9 +18,7 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_gallery2.*
 import kotlinx.android.synthetic.main.fragment_gallery.view.*
 import zz.utility.R
-import zz.utility.helpers.formatSize
-import zz.utility.helpers.longToast
-import zz.utility.helpers.openFile
+import zz.utility.helpers.*
 import zz.utility.isImage
 import java.io.File
 import java.util.ArrayList
@@ -104,6 +102,12 @@ class DemoObjectFragment : Fragment() {
 
             rootView.image_details.text = "${path.length().formatSize()} [$spot/$total]"
 
+            rootView.change_visibility.setOnClickListener {
+                rootView.fab_delete.see()
+                rootView.fab_open.see()
+                rootView.fab_share.see()
+                rootView.change_visibility.unsee()
+            }
             rootView.fab_delete.setOnClickListener {
                 val bin = File(Environment.getExternalStorageDirectory(), ".bin")
                 if (!bin.exists()) bin.mkdir()

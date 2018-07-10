@@ -30,6 +30,7 @@
     <style name="AppTheme.NavOverlay.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@color/black_overlay</item>
     </style>
 
     <!-- Linear Styles -->
@@ -338,7 +339,7 @@
     <style name="MainCard">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">8dp</item>
+        <item name="android:layout_margin">4dp</item>
         <item name="android:layout_columnWeight">1</item>
         <item name="android:elevation">8dp</item>
         <item name="cardCornerRadius">4dp</item>

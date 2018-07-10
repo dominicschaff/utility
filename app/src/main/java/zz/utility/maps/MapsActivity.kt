@@ -246,7 +246,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
 //            mapView.map().viewport().tiltMap(65F)
         }
         mapView.map().updateMap(true)
-        gps_data.text = "%.10f, %.10f (%d:%s)".format(location.latitude, location.longitude, location.accuracy.toInt(), location.provider)
+        gps_data.text = "%.8f, %.8f (%d:%s)".format(location.latitude, location.longitude, location.accuracy.toInt(), location.provider)
     }
 
     private fun centerOn(latitude: Double, longitude: Double) {
@@ -327,6 +327,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
                             resp.distance / 1000.0,
                             t / 60,
                             t % 60)
+                    debug.see()
                     longToast("Took ${(time * 1000).toInt()} ms to compute")
 
 
