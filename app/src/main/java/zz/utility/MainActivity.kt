@@ -30,12 +30,12 @@ class MainActivity : Activity() {
         goto_osm_maps.setOnClickListener { goto(MapsActivity::class.java) }
         goto_camera.setOnClickListener { goto(CameraActivity::class.java) }
         goto_scrum_poker.setOnClickListener { goto(ScrumPokerActivity::class.java) }
-        goto_tides.setOnClickListener { goto(TidesActivity::class.java) }
         goto_files.setOnClickListener { goto(FileBrowserActivity::class.java) }
         goto_list.setOnClickListener { goto(ListActivity::class.java) }
         goto_poc.setOnClickListener { goto(PocMenuActivity::class.java) }
         goto_images.setOnClickListener { goto(ImageDownloadActivity::class.java) }
         goto_knowledge.setOnClickListener { goto(KnowledgeActivity::class.java) }
+        goto_car_dock.setOnClickListener { goto(CarDockActivity::class.java) }
 
         mainGrid.columnCount = if (resources.getBoolean(R.bool.is_landscape)) 4 else 2
         requestPermissions(arrayOf(

@@ -7,7 +7,7 @@ import zz.utility.helpers.fileAsJsonObject
 import java.io.File
 
 fun File.isImage(): Boolean = extension.toLowerCase() in arrayOf("jpg", "jpeg", "png", "gif")
-fun File.isVideo(): Boolean = extension.toLowerCase() in arrayOf("mp4", "avi", "m4v")
+fun File.isVideo(): Boolean = extension.toLowerCase() in arrayOf("mp4", "avi", "m4v", "webm")
 fun File.isText(): Boolean = extension.toLowerCase() in arrayOf("txt", "md", "py", "json", "java", "kt")
 
 

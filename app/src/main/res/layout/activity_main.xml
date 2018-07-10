@@ -14,7 +14,9 @@
             android:layout_height="0dp"
             android:alignmentMode="alignMargins"
             android:columnCount="2"
-            android:columnOrderPreserved="false">
+            android:columnOrderPreserved="false"
+            android:paddingTop="20dp"
+            android:paddingBottom="72dp">
 
             <android.support.v7.widget.CardView
                 android:id="@+id/goto_scan"
@@ -97,6 +99,23 @@
                     <TextView
                         style="@style/MainTitle"
                         android:text="File List Randomizor"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/goto_car_dock"
+                style="@style/MainCard">
+
+                <LinearLayout style="@style/Linear">
+
+                    <ImageView
+                        style="@style/MainIcon"
+                        android:src="@drawable/main_car"/>
+
+                    <TextView
+                        style="@style/MainTitle"
+                        android:text="Car Dock"/>
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
@@ -216,23 +235,6 @@
                     <TextView
                         style="@style/MainTitle"
                         android:text="Scrum Poker"/>
-                </LinearLayout>
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/goto_tides"
-                style="@style/MainCard">
-
-                <LinearLayout style="@style/Linear">
-
-                    <ImageView
-                        style="@style/MainIcon"
-                        android:src="@drawable/main_tides"/>
-
-                    <TextView
-                        style="@style/MainTitle"
-                        android:text="Tides"/>
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>

@@ -1,35 +1,35 @@
-package zz.utility.maps
+package zz.utility
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.AsyncTask
 import android.os.Bundle
+import android.os.Environment
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.View
 import com.graphhopper.GHRequest
 import com.graphhopper.GraphHopper
 import com.graphhopper.PathWrapper
 import com.graphhopper.util.Parameters
 import com.graphhopper.util.StopWatch
-import kotlinx.android.synthetic.main.activity_maps.*
-import org.oscim.android.canvas.AndroidGraphics.drawableToBitmap
+import io.fotoapparat.Fotoapparat
+import io.fotoapparat.configuration.CameraConfiguration
+import io.fotoapparat.parameter.ScaleType
+import io.fotoapparat.selector.*
+import kotlinx.android.synthetic.main.activity_car_dock.*
+import org.oscim.android.canvas.AndroidGraphics
 import org.oscim.backend.CanvasAdapter
 import org.oscim.core.GeoPoint
 import org.oscim.core.MapPosition
-import org.oscim.event.Gesture
-import org.oscim.event.GestureListener
-import org.oscim.event.MotionEvent
-import org.oscim.layers.Layer
 import org.oscim.layers.LocationLayer
 import org.oscim.layers.marker.ItemizedLayer
 import org.oscim.layers.marker.MarkerItem
 import org.oscim.layers.marker.MarkerSymbol
-import org.oscim.layers.tile.buildings.BuildingLayer
 import org.oscim.layers.tile.vector.labeling.LabelLayer
 import org.oscim.layers.vector.PathLayer
 import org.oscim.layers.vector.geometries.Style
@@ -39,47 +39,54 @@ import org.oscim.scalebar.MapScaleBar
 import org.oscim.scalebar.MapScaleBarLayer
 import org.oscim.theme.VtmThemes
 import org.oscim.tiling.source.mapfile.MapFileTileSource
-import zz.utility.HOME
-import zz.utility.MAIN
-import zz.utility.R
 import zz.utility.helpers.*
+import zz.utility.maps.LocationPoint
+import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
 
-data class LocationPoint(
-        val name: String,
-        val latitude: Double,
-        val longitude: Double
-)
-
-@SuppressLint("MissingPermission")
-class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItemGestureListener<MarkerItem> {
+class CarDockActivity : AppCompatActivity(), LocationListener {
 
     private lateinit var mapScaleBar: MapScaleBar
     private lateinit var locationLayer: LocationLayer
     private lateinit var locationManager: LocationManager
     private val mapPosition = MapPosition()
-    private var followMe = false
     private val locationsSaved = ArrayList<LocationPoint>()
 
-    private var useCar = true
-
     private lateinit var lastLocation: Location
+    private var lastPictureName: String = ""
 
     private lateinit var mMarkerLayer: ItemizedLayer<MarkerItem>
     private lateinit var pathLayer: PathLayer
 
     private var currentResponse: PathWrapper? = null
 
-    @SuppressLint("MissingPermission")
-    public override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private lateinit var fotoapparat: Fotoapparat
+    private lateinit var photoCapture: Timer
 
-        setContentView(R.layout.activity_maps)
+    @SuppressLint("MissingPermission")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_car_dock)
+
+        fotoapparat = Fotoapparat(
+                context = this,
+                view = camera_view,                   // view which will draw the camera preview
+                scaleType = ScaleType.CenterCrop,    // (optional) we want the preview to fill the view
+                lensPosition = back(),               // (optional) we want back camera
+                cameraConfiguration = CameraConfiguration(
+                        pictureResolution = highestResolution(),
+                        previewResolution = lowestResolution(),
+                        previewFpsRange = lowestFps(),
+                        focusMode = firstAvailable(continuousFocusPicture(), autoFocus(), fixed()),
+                        jpegQuality = manualJpegQuality(90)
+                )
+        )
 
         // Tile source
         val tileSource = MapFileTileSource()
         if (tileSource.setMapFile("$HOME/area.map")) {
             val tileLayer = mapView.map().setBaseMap(tileSource)
-            mapView.map().layers().add(BuildingLayer(mapView.map(), tileLayer))
             mapView.map().layers().add(LabelLayer(mapView.map(), tileLayer))
             mapView.map().setTheme(VtmThemes.OSMARENDER)
 
@@ -103,9 +110,9 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
 
         onLocationChanged(lastLocation)
 
-        val bitmapPoi = drawableToBitmap(getDrawable(R.drawable.ic_place))
+        val bitmapPoi = AndroidGraphics.drawableToBitmap(getDrawable(R.drawable.ic_place))
 
-        mMarkerLayer = ItemizedLayer(mapView.map(), ArrayList<MarkerItem>(), MarkerSymbol(bitmapPoi, MarkerSymbol.HotspotPlace.CENTER, false), this)
+        mMarkerLayer = ItemizedLayer(mapView.map(), ArrayList<MarkerItem>(), MarkerSymbol(bitmapPoi, MarkerSymbol.HotspotPlace.CENTER, false), null)
         mapView.map().layers().add(mMarkerLayer)
 
         val pts = MAIN.fileAsJsonObject().a("locations").mapObject {
@@ -117,34 +124,6 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
         mMarkerLayer.addItems(pts)
         setupGraphhopper()
 
-        navigate.setOnClickListener {
-            val titles = Array(locationsSaved.size) { locationsSaved[it].name }
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("Select location")
-                    .setItems(titles) { _, which ->
-                        calcPath(lastLocation.latitude, lastLocation.longitude, locationsSaved[which].latitude, locationsSaved[which].longitude)
-                    }
-            builder.show()
-        }
-        center_on_me.setOnClickListener {
-            followMe = !followMe
-            onLocationChanged(lastLocation)
-        }
-
-        share.setOnClickListener {
-            val i = Intent(Intent.ACTION_SEND)
-
-            i.type = "text/plain"
-            i.putExtra(Intent.EXTRA_SUBJECT, "Shared Location")
-            i.putExtra(Intent.EXTRA_TEXT, "http://maps.google.com/maps?q=loc:%.10f,%.10f".format(lastLocation.latitude, lastLocation.longitude))
-
-            try {
-                startActivity(Intent.createChooser(i, "Share Location"))
-            } catch (ex: android.content.ActivityNotFoundException) {
-                longToast("There is no activity to share location to.")
-            }
-        }
-
         val style = Style.builder()
                 .fixed(true)
                 .generalization(Style.GENERALIZATION_SMALL)
@@ -153,78 +132,50 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
                 .build()
         pathLayer = PathLayer(mapView.map(), style)
         mapView.map().layers().add(pathLayer)
-
-        mapView.map().layers().add(object : Layer(mapView.map()), GestureListener {
-            override fun onGesture(g: Gesture?, e: MotionEvent?): Boolean {
-                g ?: return false
-                e ?: return false
-                return when (g) {
-                    is Gesture.Tap -> consume {
-                        val p = mMap.viewport().fromScreenPoint(e.x, e.y)
-                        longToast("You clicked on ${p.latitude}, ${p.longitude}")
-                    }
-                    is Gesture.LongPress -> consume {
-                        val p = mMap.viewport().fromScreenPoint(e.x, e.y)
-                        shortToast("Navigating to ${p.latitude}, ${p.longitude}")
-                        calcPath(lastLocation.latitude, lastLocation.longitude, p.latitude, p.longitude)
-                    }
-                    else -> false
-                }
-            }
-
-        })
-
-        vehicle.setOnClickListener {
-            vehicle.setImageDrawable(getDrawable(if (useCar) R.drawable.map_walk else R.drawable.map_car))
-            useCar = !useCar
-        }
-
-        center.setOnClickListener { mapView.map().viewport().setRotation(0.0) }
-
-        val intent = intent ?: return
-        val data = intent.data ?: return
-        Thread {
-            Thread.sleep(2000)
-            runOnUiThread {
-                val path = data.pathSegments
-                when (path.size) {
-                    0 -> {
-                    }
-                    1 -> {
-                        val point = locationsSaved.find { it.name.toLowerCase().contains(path[0].toLowerCase()) }
-                                ?: return@runOnUiThread
-                        calcPath(lastLocation.latitude, lastLocation.longitude, point.latitude, point.longitude)
-                        centerOn(point.latitude, point.longitude)
-                    }
-                    2 -> {
-                        try {
-                            val latitude = path[0].toDouble()
-                            val longitude = path[1].toDouble()
-                            centerOn(latitude, longitude)
-                            calcPath(lastLocation.latitude, lastLocation.longitude, latitude, longitude)
-                        } catch (e: Exception) {
-                            longToast("Couldn't decode: ${data.path}")
-                        }
-                    }
-                    else -> longToast("Unable to understand given app link")
-                }
-            }
-        }.start()
-
-
     }
+
+    override fun onStart() {
+        super.onStart()
+        fotoapparat.start()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        fotoapparat.stop()
+    }
+
+    val localFileTimestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.ENGLISH)
 
     @SuppressLint("MissingPermission")
     override fun onResume() {
         super.onResume()
         mapView.onResume()
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0F, this)
+        photoCapture = Timer()
+        photoCapture.schedule(object : TimerTask() {
+            override fun run() {
+                runOnUiThread {
+                    lastPictureName = "timelapse_${localFileTimestamp.format(Date())}.jpg"
+                    fotoapparat.takePicture().saveToFile(File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), lastPictureName))
+                    updateInfo()
+                }
+            }
+        }, 3000, 10000)
     }
 
     override fun onPause() {
         locationManager.removeUpdates(this)
         mapView.onPause()
         super.onPause()
+        try {
+            photoCapture.cancel()
+        } catch (ignored: Exception) {
+        }
+
+        try {
+            photoCapture.purge()
+        } catch (ignored: Exception) {
+        }
     }
 
     override fun onDestroy() {
@@ -239,20 +190,14 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
         locationLayer.isEnabled = true
         locationLayer.setPosition(location.latitude, location.longitude, location.accuracy.toDouble())
 
-        // Follow location
-        if (followMe) {
-            centerOn(location.latitude, location.longitude)
-//            mapView.map().viewport().setRotation(90 - location.bearing.toDouble())
-//            mapView.map().viewport().tiltMap(65F)
-        }
+        centerOn(location.latitude, location.longitude)
         mapView.map().updateMap(true)
-        gps_data.text = "%.10f, %.10f (%d:%s)".format(location.latitude, location.longitude, location.accuracy.toInt(), location.provider)
+        updateInfo()
     }
 
     private fun centerOn(latitude: Double, longitude: Double) {
         mapView.map().getMapPosition(mapPosition)
         mapPosition.setPosition(latitude, longitude)
-//        mapPosition.setScale(120000.0)
         mapView.map().mapPosition = mapPosition
     }
 
@@ -262,48 +207,51 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
 
     override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
 
-    override fun onItemSingleTapUp(index: Int, item: MarkerItem?): Boolean {
-        item ?: return true
-        longToast("Is here: " + item.getTitle())
-        return true
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus) {
+            window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    or View.SYSTEM_UI_FLAG_FULLSCREEN
+                    or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+        }
     }
-
-    override fun onItemLongPress(index: Int, item: MarkerItem?): Boolean {
-        item ?: return true
-        longToast("Navigating to:" + item.getTitle())
-        calcPath(lastLocation.latitude, lastLocation.longitude, item.geoPoint.latitude, item.geoPoint.longitude)
-
-        return true
-    }
-
 
     private lateinit var hopper: GraphHopper
 
-
-    @SuppressLint("StaticFieldLeak")
     private fun setupGraphhopper() {
         Thread(Runnable {
             {
                 val tmpHopp = GraphHopper().forMobile()
                 tmpHopp.load("$HOME/area")
-                log("found graph " + tmpHopp.graphHopperStorage.toString() + ", nodes:" + tmpHopp.graphHopperStorage.nodes)
+                "found graph ${tmpHopp.graphHopperStorage.toString()}, nodes:${tmpHopp.graphHopperStorage.nodes}".log()
                 hopper = tmpHopp
-                runOnUiThread { logUser("Finished loading graph. Long press to define where to route to.") }
+                runOnUiThread {
+                    val titles = Array(locationsSaved.size) { locationsSaved[it].name }
+                    val builder = AlertDialog.Builder(this)
+                    builder.setTitle("Select location")
+                            .setItems(titles) { _, which ->
+                                calcPath(lastLocation.latitude, lastLocation.longitude, locationsSaved[which].latitude, locationsSaved[which].longitude)
+                            }
+                    builder.show()
+                }
             }.orPrint()
         }).start()
     }
 
     @SuppressLint("StaticFieldLeak")
     private fun calcPath(fromLat: Double, fromLon: Double, toLat: Double, toLon: Double) {
-        log("calculating path ...")
+        "calculating path ...".log()
         object : AsyncTask<Void, Void, PathWrapper>() {
             var time: Float = 0.toFloat()
 
             override fun doInBackground(vararg v: Void): PathWrapper? {
                 val sw = StopWatch().start()
                 val req = GHRequest(fromLat, fromLon, toLat, toLon).setAlgorithm(Parameters.Algorithms.DIJKSTRA_BI)
-                req.vehicle = if (useCar) "car" else "foot"
-//                req.hints.put(Parameters.Routing.INSTRUCTIONS, "false")
+                req.vehicle = "car"
                 val resp = hopper.route(req)
                 time = sw.stop().seconds
                 return try {
@@ -322,12 +270,12 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
                 if (!resp.hasErrors()) {
                     currentResponse = resp
                     val t = resp.time / 1000
-                    debug.text = "%d turns, %.1f km (%02d:%02d)".format(
+                    longToast("Took ${(time * 1000).toInt()} ms to compute")
+                    longToast("%d turns, %.1f km (%02d:%02d)".format(
                             resp.instructions.size,
                             resp.distance / 1000.0,
                             t / 60,
-                            t % 60)
-                    longToast("Took ${(time * 1000).toInt()} ms to compute")
+                            t % 60))
 
 
                     val geoPoints = ArrayList<GeoPoint>()
@@ -346,13 +294,13 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
         }.execute()
     }
 
-    private fun log(str: String) {
-        Log.i("GH", str)
-    }
-
     private fun logUser(str: String) {
-        log(str)
+        str.log()
         longToast(str)
     }
 
+    @SuppressLint("SetTextI18n")
+    private fun updateInfo() {
+        text_data.text = "%.10f, %.10f\nAccuracy: %d\nProvider:%s\n$lastPictureName".format(lastLocation.latitude, lastLocation.longitude, lastLocation.accuracy.toInt(), lastLocation.provider)
+    }
 }

@@ -2,8 +2,9 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="colorAccentFaded">#33FF4081</color>
+    <color name="colorPrimaryDarkOverlay">#DD303F9F</color>
+    <color name="colorAccent">#3C92CA</color>
+    <color name="colorAccentFaded">#333C92CA</color>
 
     <color name="black_overlay">#66000000</color>
     <color name="white_overlay">#66FFFFFF</color>

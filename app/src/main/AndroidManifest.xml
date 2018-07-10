@@ -39,7 +39,9 @@
         android:label="@string/app_name"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NavOverlay">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -100,7 +102,7 @@
         <activity android:name=".books.BooksActivity"/>
         <activity
             android:name=".maps.MapsActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NavOverlay.NoActionBar">
             <intent-filter android:label="Open Link">
                 <action android:name="android.intent.action.VIEW"/>
 
@@ -159,14 +161,11 @@
                 android:value="zz.utility.MainActivity"/>
         </activity>
         <activity
-            android:name=".TidesActivity"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name=".browser.FileBrowserActivity"
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="zz.utility.MainActivity"/>
-        </activity>
-        <activity android:name=".browser.FileBrowserActivity">
         </activity>
 
         <provider
@@ -179,13 +178,13 @@
                 android:resource="@xml/provider_paths"/>
         </provider>
 
-        <activity android:name=".browser.TextViewActivity">
+        <activity
+            android:name=".browser.TextViewActivity">
         </activity>
         <activity
             android:name=".poc.WelcomeActivity"
             android:parentActivityName=".poc.PocMenuActivity"
-            android:screenOrientation="sensorLandscape"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:screenOrientation="sensorLandscape">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="zz.utility.poc.PocMenuActivity"/>
@@ -206,7 +205,8 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".ListActivity">
+        <activity
+            android:name=".ListActivity">
         </activity>
         <activity
             android:name=".poc.DashboardActivity"
@@ -240,10 +240,34 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="zz.utility.poc.PocMenuActivity"/>
         </activity>
-        <activity android:name=".ImageDownloadActivity">
+        <activity
+            android:name=".ImageDownloadActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="zz.utility.MainActivity"/>
         </activity>
         <activity
             android:name=".KnowledgeActivity"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="zz.utility.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".browser.VideoPlayerActivity"
+            android:parentActivityName=".browser.FileBrowserActivity"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="zz.utility.browser.FileBrowserActivity"/>
+        </activity>
+        <activity
+            android:name=".CarDockActivity"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="sensorLandscape"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data

@@ -22,7 +22,6 @@ import zz.utility.helpers.longToast
 import zz.utility.helpers.openFile
 import java.io.File
 
-
 class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     val title: TextView = view.findViewById(R.id.title)
     val img: ImageView = view.findViewById(R.id.img)
@@ -65,6 +64,7 @@ class MyFileAdapter(private val activity: Activity, private val galleryList: Arr
             when {
                 f.isDirectory -> activity.startActivity(Intent(activity, FileBrowserActivity::class.java).putExtra("file_path", f.absolutePath))
                 f.isImage() -> activity.startActivity(Intent(activity, Gallery2Activity::class.java).putExtra("folder", f.absolutePath))
+                f.isVideo() -> activity.startActivity(Intent(activity, VideoPlayerActivity::class.java).putExtra("file", f.absolutePath))
                 f.isText() -> activity.startActivity(Intent(activity, TextViewActivity::class.java).putExtra("file", f.absolutePath))
                 else -> activity.openFile(f)
             }
@@ -78,6 +78,7 @@ class MyFileAdapter(private val activity: Activity, private val galleryList: Arr
                                 when {
                                     f.isDirectory -> activity.startActivity(Intent(activity, FileBrowserActivity::class.java).putExtra("file_path", f.absolutePath))
                                     f.isImage() -> activity.startActivity(Intent(activity, Gallery2Activity::class.java).putExtra("folder", f.absolutePath))
+                                    f.isVideo() -> activity.startActivity(Intent(activity, VideoPlayerActivity::class.java).putExtra("file", f.absolutePath))
                                     f.isText() -> activity.startActivity(Intent(activity, TextViewActivity::class.java).putExtra("file", f.absolutePath))
                                     else -> activity.openFile(f)
                                 }
