@@ -87,6 +87,23 @@
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
+                android:id="@+id/goto_quote_api"
+                style="@style/MainCard">
+
+                <LinearLayout style="@style/Linear">
+
+                    <ImageView
+                        style="@style/MainIcon"
+                        android:src="@drawable/main_quote"/>
+
+                    <TextView
+                        style="@style/MainTitle"
+                        android:text="Quote API"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
                 android:id="@+id/goto_list"
                 style="@style/MainCard">
 
@@ -303,6 +320,23 @@
                     <TextView
                         style="@style/MainTitle"
                         android:text="Image Downloader"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/goto_daily_comic"
+                style="@style/MainCard">
+
+                <LinearLayout style="@style/Linear">
+
+                    <ImageView
+                        style="@style/MainIcon"
+                        android:src="@drawable/main_images"/>
+
+                    <TextView
+                        style="@style/MainTitle"
+                        android:text="Daily Comic"/>
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>

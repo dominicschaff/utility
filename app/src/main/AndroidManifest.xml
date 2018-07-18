@@ -99,7 +99,9 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".books.BooksActivity"/>
+        <activity
+            android:name=".books.BooksActivity"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".maps.MapsActivity"
             android:theme="@style/AppTheme.NavOverlay.NoActionBar">
@@ -117,37 +119,21 @@
         <activity
             android:name=".poc.TestBottomNavigationActivity"
             android:label="@string/title_activity_test_bottom_navigation"
-            android:parentActivityName=".poc.PocMenuActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="zz.utility.poc.PocMenuActivity"/>
-        </activity>
+            android:parentActivityName=".poc.PocMenuActivity"/>
         <activity
             android:name=".poc.LoginActivity"
             android:label="@string/title_activity_login"
             android:parentActivityName=".poc.PocMenuActivity"
-            android:theme="@style/AppTheme.Login">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="zz.utility.poc.PocMenuActivity"/>
-        </activity>
+            android:theme="@style/AppTheme.Login"/>
         <activity
             android:name=".bot.BotActivity"
             android:parentActivityName=".poc.PocMenuActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="zz.utility.poc.PocMenuActivity"/>
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".poc.POSActivity"
             android:parentActivityName=".poc.PocMenuActivity"
             android:screenOrientation="sensorLandscape"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="zz.utility.poc.PocMenuActivity"/>
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".CameraActivity"
             android:label="Camera Scales"
@@ -155,18 +141,10 @@
         <activity
             android:name=".scrum.ScrumPokerActivity"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="zz.utility.MainActivity"/>
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".browser.FileBrowserActivity"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="zz.utility.MainActivity"/>
-        </activity>
+            android:parentActivityName=".MainActivity"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -178,17 +156,11 @@
                 android:resource="@xml/provider_paths"/>
         </provider>
 
-        <activity
-            android:name=".browser.TextViewActivity">
-        </activity>
+        <activity android:name=".browser.TextViewActivity"/>
         <activity
             android:name=".poc.WelcomeActivity"
             android:parentActivityName=".poc.PocMenuActivity"
-            android:screenOrientation="sensorLandscape">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="zz.utility.poc.PocMenuActivity"/>
-        </activity>
+            android:screenOrientation="sensorLandscape"/>
 
         <service
             android:name=".spy.MyNotificationListenerService"
@@ -206,74 +178,63 @@
         </receiver>
 
         <activity
-            android:name=".ListActivity">
-        </activity>
+            android:name=".ListActivity"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".poc.DashboardActivity"
-            android:parentActivityName=".poc.PocMenuActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="zz.utility.poc.PocMenuActivity"/>
-        </activity>
+            android:parentActivityName=".poc.PocMenuActivity"/>
         <activity
             android:name=".browser.Gallery2Activity"
             android:label="@string/title_activity_gallery"
             android:parentActivityName=".browser.FileBrowserActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="zz.utility.browser.FileBrowserActivity"/>
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".poc.PocMenuActivity"
             android:label="POC Screens"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="zz.utility.MainActivity"/>
-        </activity>
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".poc.CardDemoActivity"
             android:label="POC Cards Layouts"
-            android:parentActivityName=".poc.PocMenuActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="zz.utility.poc.PocMenuActivity"/>
-        </activity>
+            android:parentActivityName=".poc.PocMenuActivity"/>
         <activity
             android:name=".ImageDownloadActivity"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="zz.utility.MainActivity"/>
-        </activity>
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".KnowledgeActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="sensorLandscape"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="zz.utility.MainActivity"/>
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".browser.VideoPlayerActivity"
             android:parentActivityName=".browser.FileBrowserActivity"
             android:screenOrientation="sensorLandscape"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="zz.utility.browser.FileBrowserActivity"/>
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".CarDockActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="sensorLandscape"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="zz.utility.MainActivity"/>
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".text.TextReceiveActivity">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.SEND" /> -->
+            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+            <!-- <data android:mimeType="image/*" /> -->
+            <!-- </intent-filter> -->
+            <intent-filter>
+                <action android:name="android.intent.action.SEND"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data android:mimeType="text/plain"/>
+            </intent-filter>
         </activity>
+        <activity
+            android:name=".DailyComicActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".QuoteApiActivity"
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>

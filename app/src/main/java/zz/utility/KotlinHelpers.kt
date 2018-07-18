@@ -25,5 +25,6 @@ fun File.imageIcon(): Int =
 
 
 val HOME = "${Environment.getExternalStorageDirectory().absolutePath}/utility"
+val LOG = "$HOME/log.json"
 val MAIN = "$HOME/utility.json"
 val MAIN_CONFIG = MAIN.fileAsJsonObject()

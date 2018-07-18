@@ -68,9 +68,12 @@ dependencies {
     }
 
     implementation 'com.github.bumptech.glide:glide:4.7.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
 
     implementation 'com.google.android.exoplayer:exoplayer:2.8.2'
 
     implementation 'io.fotoapparat.fotoapparat:library:2.3.1'
+
+    implementation 'com.github.chrisbanes:PhotoView:2.1.4'
 }

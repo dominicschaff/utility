@@ -144,8 +144,6 @@ class CarDockActivity : AppCompatActivity(), LocationListener {
         fotoapparat.stop()
     }
 
-    val localFileTimestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.ENGLISH)
-
     @SuppressLint("MissingPermission")
     override fun onResume() {
         super.onResume()
@@ -155,7 +153,7 @@ class CarDockActivity : AppCompatActivity(), LocationListener {
         photoCapture.schedule(object : TimerTask() {
             override fun run() {
                 runOnUiThread {
-                    lastPictureName = "timelapse_${localFileTimestamp.format(Date())}.jpg"
+                    lastPictureName = "timelapse_${Date().fileDate()}.jpg"
                     fotoapparat.takePicture().saveToFile(File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), lastPictureName))
                     updateInfo()
                 }

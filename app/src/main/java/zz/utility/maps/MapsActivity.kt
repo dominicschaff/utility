@@ -61,6 +61,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
     private val locationsSaved = ArrayList<LocationPoint>()
 
     private var useCar = true
+    private var rotateFollow = false
 
     private lateinit var lastLocation: Location
 
@@ -98,7 +99,9 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
         locationLayer.isEnabled = false
         mapView.map().layers().add(locationLayer)
 
-        lastLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+        lastLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER) as Location? ?: (locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER) as Location?
+                ?: locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER))
+
         mapView.map().setMapPosition(lastLocation.latitude, lastLocation.longitude, (1 shl 12).toDouble())
 
         onLocationChanged(lastLocation)
@@ -128,6 +131,8 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
         }
         center_on_me.setOnClickListener {
             followMe = !followMe
+            if (!rotateFollow)
+                rotateFollow = true
             onLocationChanged(lastLocation)
         }
 
@@ -179,7 +184,10 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
             useCar = !useCar
         }
 
-        center.setOnClickListener { mapView.map().viewport().setRotation(0.0) }
+        center.setOnClickListener {
+            mapView.map().viewport().setRotation(0.0)
+            rotateFollow = false
+        }
 
         val intent = intent ?: return
         val data = intent.data ?: return
@@ -240,10 +248,10 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
         locationLayer.setPosition(location.latitude, location.longitude, location.accuracy.toDouble())
 
         // Follow location
-        if (followMe) {
-            centerOn(location.latitude, location.longitude)
-//            mapView.map().viewport().setRotation(90 - location.bearing.toDouble())
-//            mapView.map().viewport().tiltMap(65F)
+        if (followMe) centerOn(location.latitude, location.longitude)
+        if (rotateFollow) {
+            mapView.map().viewport().setRotation(location.bearing.toDouble() * -1.0)
+            mapView.map().viewport().setTilt(60F)
         }
         mapView.map().updateMap(true)
         gps_data.text = "%.8f, %.8f (%d:%s)".format(location.latitude, location.longitude, location.accuracy.toInt(), location.provider)

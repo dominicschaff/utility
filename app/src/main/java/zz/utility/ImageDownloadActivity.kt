@@ -30,14 +30,13 @@ class ImageDownloadActivity : AppCompatActivity() {
             title = obj.title
             doRefresh()
         })
-        swipe_to_refresh.setOnRefreshListener { doRefresh() }
+        refresh.setOnClickListener { doRefresh() }
     }
 
     private fun doRefresh() {
-        swipe_to_refresh.isRefreshing = true
-        Log.e("Thing", obj.url)
-        Ion.with(image).load(obj.url).then(FutureCallback { _, _ ->
-            swipe_to_refresh.isRefreshing = false
-        })
+        Ion.with(image)
+                .placeholder(R.drawable.ic_refresh)
+                .error(R.drawable.ic_block)
+                .load(obj.url)
     }
 }
