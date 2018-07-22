@@ -1,7 +1,7 @@
 package zz.utility.poc
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import zz.utility.R
 
 class CardDemoActivity : AppCompatActivity() {

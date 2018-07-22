@@ -2,10 +2,7 @@ package zz.utility.browser
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
-import android.content.Intent
+import android.content.*
 import android.net.Uri
 import android.os.Environment
 import android.support.v7.app.AlertDialog
@@ -17,9 +14,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import zz.utility.*
-import zz.utility.helpers.formatSize
-import zz.utility.helpers.longToast
-import zz.utility.helpers.openFile
+import zz.utility.helpers.*
 import java.io.File
 
 class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
@@ -83,18 +78,35 @@ class MyFileAdapter(private val activity: Activity, private val galleryList: Arr
                                     else -> activity.openFile(f)
                                 }
                             1 -> {
-                                // do move
+                                // do move up
+                                f.parentFile.parentFile.let { parent ->
+                                    File(parent, f.name).let { newFile ->
+                                        if (newFile.exists()) activity.alert("There already exists the same file in directory above")
+                                        else f.renameTo(newFile)
+                                    }
+                                }
                             }
-                            3 -> {
-                                // do slideshow
+                            2 -> {
+                                // do move
+                                val folders = f.parentFile.listFiles().filter { it.isDirectory }
+                                activity.createChooser("Select destination folder", folders.map { it.name }.toTypedArray(), DialogInterface.OnClickListener { _, newFolder ->
+                                    File(folders[newFolder], f.name).let { newFile ->
+                                        if (newFile.exists()) activity.alert("There already exists the same file in directory ${newFile.parentFile.name}")
+                                        else f.renameTo(newFile)
+                                    }
+                                }
+                                )
                             }
                             4 -> {
+                                // do slideshow
+                            }
+                            5 -> {
                                 val bin = File(Environment.getExternalStorageDirectory(), ".bin")
                                 if (!bin.exists()) bin.mkdir()
                                 if (!f.renameTo(File(bin, f.name))) activity.longToast("File could not be moved")
                                 viewHolder.img.setImageResource(R.drawable.ic_delete)
                             }
-                            5 -> {
+                            6 -> {
                                 val clipboard = activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                                 clipboard.primaryClip = ClipData.newPlainText(f.absolutePath, f.absolutePath)
                                 activity.longToast("Set clipboard to: ${f.absolutePath}")

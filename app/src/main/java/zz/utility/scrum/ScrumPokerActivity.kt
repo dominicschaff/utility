@@ -53,6 +53,7 @@ class ScrumPokerActivity : Activity() {
                     or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
         }
     }
+
     fun newInstance(sectionNumber: Int): PlaceholderFragment {
         val fragment = PlaceholderFragment()
         val args = Bundle()

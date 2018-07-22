@@ -4,7 +4,6 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import com.koushikdutta.async.future.FutureCallback
 import com.koushikdutta.ion.Ion
 import kotlinx.android.synthetic.main.activity_image_download.*
 import zz.utility.helpers.a

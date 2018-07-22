@@ -64,6 +64,7 @@
 
     <string-array name="file_actions">
         <item>Open</item>
+        <item>Move Up</item>
         <item>Move</item>
         <item>Open External</item>
         <item>Slideshow</item>

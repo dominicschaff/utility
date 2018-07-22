@@ -7,9 +7,9 @@ import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
-import zz.utility.helpers.prefGetSet
 import kotlinx.android.synthetic.main.activity_login.*
 import zz.utility.R
+import zz.utility.helpers.prefGetSet
 import java.util.*
 
 /**

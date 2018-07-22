@@ -11,9 +11,9 @@ import android.widget.TextView
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import zz.utility.helpers.intOr
 import kotlinx.android.synthetic.main.activity_books.*
 import zz.utility.R
+import zz.utility.helpers.intOr
 import java.io.*
 import java.util.*
 

@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.os.Environment
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
 import com.graphhopper.GHRequest
 import com.graphhopper.GraphHopper
@@ -42,7 +41,6 @@ import org.oscim.tiling.source.mapfile.MapFileTileSource
 import zz.utility.helpers.*
 import zz.utility.maps.LocationPoint
 import java.io.File
-import java.text.SimpleDateFormat
 import java.util.*
 
 class CarDockActivity : AppCompatActivity(), LocationListener {

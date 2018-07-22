@@ -206,8 +206,7 @@ package zz.utility.lib
 
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.TimeZone
+import java.util.*
 
 
 /**
@@ -721,7 +720,7 @@ class SunriseSunset
                 if (dfV0 >= 0.0 && dfV2 >= 0.0        // both are positive
                         ||                                // or
                         dfV0 < 0.0 && dfV2 < 0.0        // both are negative
-                        ) {
+                ) {
                     // Break iteration and proceed to test next hour
                     dfA0 = dfA2                            // SUNUP.BAS 250
                     dfD0 = dfD2                            // SUNUP.BAS 250
