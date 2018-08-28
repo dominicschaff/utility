@@ -15,23 +15,17 @@
             android:alignmentMode="alignMargins"
             android:columnCount="2"
             android:columnOrderPreserved="false"
-            android:paddingTop="20dp"
-            android:paddingBottom="72dp">
+            android:paddingBottom="72dp"
+            android:paddingTop="24dp">
 
             <android.support.v7.widget.CardView
                 android:id="@+id/goto_scan"
                 style="@style/MainCard">
 
-                <LinearLayout style="@style/Linear">
-
-                    <ImageView
-                        style="@style/MainIcon"
-                        android:src="@drawable/main_barcode_scan"/>
-
-                    <TextView
-                        style="@style/MainTitle"
-                        android:text="Barcode Scan"/>
-                </LinearLayout>
+                <TextView
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/main_barcode_scan"
+                    android:text="Barcode Scan"/>
 
             </android.support.v7.widget.CardView>
 
@@ -39,16 +33,10 @@
                 android:id="@+id/goto_osm_maps"
                 style="@style/MainCard">
 
-                <LinearLayout style="@style/Linear">
-
-                    <ImageView
-                        style="@style/MainIcon"
-                        android:src="@drawable/main_maps"/>
-
-                    <TextView
-                        style="@style/MainTitle"
-                        android:text="OSM Maps"/>
-                </LinearLayout>
+                <TextView
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/main_maps"
+                    android:text="OSM Maps"/>
 
             </android.support.v7.widget.CardView>
 
@@ -56,16 +44,11 @@
                 android:id="@+id/goto_files"
                 style="@style/MainCard">
 
-                <LinearLayout style="@style/Linear">
+                <TextView
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/main_file"
+                    android:text="File Browser"/>
 
-                    <ImageView
-                        style="@style/MainIcon"
-                        android:src="@drawable/main_file"/>
-
-                    <TextView
-                        style="@style/MainTitle"
-                        android:text="File Browser"/>
-                </LinearLayout>
 
             </android.support.v7.widget.CardView>
 
@@ -73,16 +56,10 @@
                 android:id="@+id/goto_quote"
                 style="@style/MainCard">
 
-                <LinearLayout style="@style/Linear">
-
-                    <ImageView
-                        style="@style/MainIcon"
-                        android:src="@drawable/main_quote"/>
-
-                    <TextView
-                        style="@style/MainTitle"
-                        android:text="Quote"/>
-                </LinearLayout>
+                <TextView
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/main_quote"
+                    android:text="Quote"/>
 
             </android.support.v7.widget.CardView>
 
@@ -90,16 +67,10 @@
                 android:id="@+id/goto_quote_api"
                 style="@style/MainCard">
 
-                <LinearLayout style="@style/Linear">
-
-                    <ImageView
-                        style="@style/MainIcon"
-                        android:src="@drawable/main_quote"/>
-
-                    <TextView
-                        style="@style/MainTitle"
-                        android:text="Quote API"/>
-                </LinearLayout>
+                <TextView
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/main_quote"
+                    android:text="Quote API"/>
 
             </android.support.v7.widget.CardView>
 
@@ -107,16 +78,10 @@
                 android:id="@+id/goto_list"
                 style="@style/MainCard">
 
-                <LinearLayout style="@style/Linear">
-
-                    <ImageView
-                        style="@style/MainIcon"
-                        android:src="@drawable/main_list"/>
-
-                    <TextView
-                        style="@style/MainTitle"
-                        android:text="File List Randomizor"/>
-                </LinearLayout>
+                <TextView
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/main_list"
+                    android:text="File List Randomizor"/>
 
             </android.support.v7.widget.CardView>
 
@@ -124,33 +89,10 @@
                 android:id="@+id/goto_car_dock"
                 style="@style/MainCard">
 
-                <LinearLayout style="@style/Linear">
-
-                    <ImageView
-                        style="@style/MainIcon"
-                        android:src="@drawable/main_car"/>
-
-                    <TextView
-                        style="@style/MainTitle"
-                        android:text="Car Dock"/>
-                </LinearLayout>
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/goto_books"
-                style="@style/MainCard">
-
-                <LinearLayout style="@style/Linear">
-
-                    <ImageView
-                        style="@style/MainIcon"
-                        android:src="@drawable/main_books"/>
-
-                    <TextView
-                        style="@style/MainTitle"
-                        android:text="Book Library"/>
-                </LinearLayout>
+                <TextView
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/main_car"
+                    android:text="Car Dock"/>
 
             </android.support.v7.widget.CardView>
 
@@ -158,16 +100,10 @@
                 android:id="@+id/goto_info"
                 style="@style/MainCard">
 
-                <LinearLayout style="@style/Linear">
-
-                    <ImageView
-                        style="@style/MainIcon"
-                        android:src="@drawable/main_device"/>
-
-                    <TextView
-                        style="@style/MainTitle"
-                        android:text="Device Info"/>
-                </LinearLayout>
+                <TextView
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/main_device"
+                    android:text="Device Info"/>
 
             </android.support.v7.widget.CardView>
 
@@ -175,16 +111,10 @@
                 android:id="@+id/goto_gps"
                 style="@style/MainCard">
 
-                <LinearLayout style="@style/Linear">
-
-                    <ImageView
-                        style="@style/MainIcon"
-                        android:src="@drawable/main_gps"/>
-
-                    <TextView
-                        style="@style/MainTitle"
-                        android:text="GPS"/>
-                </LinearLayout>
+                <TextView
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/main_gps"
+                    android:text="GPS"/>
 
             </android.support.v7.widget.CardView>
 
@@ -192,16 +122,10 @@
                 android:id="@+id/goto_qr"
                 style="@style/MainCard">
 
-                <LinearLayout style="@style/Linear">
-
-                    <ImageView
-                        style="@style/MainIcon"
-                        android:src="@drawable/main_barcode_scan"/>
-
-                    <TextView
-                        style="@style/MainTitle"
-                        android:text="QR Code"/>
-                </LinearLayout>
+                <TextView
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/main_barcode_scan"
+                    android:text="QR Code"/>
 
             </android.support.v7.widget.CardView>
 
@@ -209,16 +133,10 @@
                 android:id="@+id/goto_sensors"
                 style="@style/MainCard">
 
-                <LinearLayout style="@style/Linear">
-
-                    <ImageView
-                        style="@style/MainIcon"
-                        android:src="@drawable/main_sensors"/>
-
-                    <TextView
-                        style="@style/MainTitle"
-                        android:text="Sensors"/>
-                </LinearLayout>
+                <TextView
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/main_sensors"
+                    android:text="Sensors"/>
 
             </android.support.v7.widget.CardView>
 
@@ -226,16 +144,10 @@
                 android:id="@+id/goto_wifi"
                 style="@style/MainCard">
 
-                <LinearLayout style="@style/Linear">
-
-                    <ImageView
-                        style="@style/MainIcon"
-                        android:src="@drawable/main_wifi"/>
-
-                    <TextView
-                        style="@style/MainTitle"
-                        android:text="WiFi Scanner"/>
-                </LinearLayout>
+                <TextView
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/main_wifi"
+                    android:text="WiFi Scanner"/>
 
             </android.support.v7.widget.CardView>
 
@@ -243,16 +155,10 @@
                 android:id="@+id/goto_scrum_poker"
                 style="@style/MainCard">
 
-                <LinearLayout style="@style/Linear">
-
-                    <ImageView
-                        style="@style/MainIcon"
-                        android:src="@drawable/main_scrum"/>
-
-                    <TextView
-                        style="@style/MainTitle"
-                        android:text="Scrum Poker"/>
-                </LinearLayout>
+                <TextView
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/main_scrum"
+                    android:text="Scrum Poker"/>
 
             </android.support.v7.widget.CardView>
 
@@ -260,33 +166,10 @@
                 android:id="@+id/goto_camera"
                 style="@style/MainCard">
 
-                <LinearLayout style="@style/Linear">
-
-                    <ImageView
-                        style="@style/MainIcon"
-                        android:src="@drawable/main_camera"/>
-
-                    <TextView
-                        style="@style/MainTitle"
-                        android:text="Manual Camera Scales"/>
-                </LinearLayout>
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/goto_random"
-                style="@style/MainCard">
-
-                <LinearLayout style="@style/Linear">
-
-                    <ImageView
-                        style="@style/MainIcon"
-                        android:src="@drawable/main_random"/>
-
-                    <TextView
-                        style="@style/MainTitle"
-                        android:text="Random Data"/>
-                </LinearLayout>
+                <TextView
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/main_camera"
+                    android:text="Manual Camera Scales"/>
 
             </android.support.v7.widget.CardView>
 
@@ -294,16 +177,10 @@
                 android:id="@+id/goto_versions"
                 style="@style/MainCard">
 
-                <LinearLayout style="@style/Linear">
-
-                    <ImageView
-                        style="@style/MainIcon"
-                        android:src="@drawable/main_android_versions"/>
-
-                    <TextView
-                        style="@style/MainTitle"
-                        android:text="Versions"/>
-                </LinearLayout>
+                <TextView
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/main_android_versions"
+                    android:text="Versions"/>
 
             </android.support.v7.widget.CardView>
 
@@ -311,16 +188,10 @@
                 android:id="@+id/goto_images"
                 style="@style/MainCard">
 
-                <LinearLayout style="@style/Linear">
-
-                    <ImageView
-                        style="@style/MainIcon"
-                        android:src="@drawable/main_images"/>
-
-                    <TextView
-                        style="@style/MainTitle"
-                        android:text="Image Downloader"/>
-                </LinearLayout>
+                <TextView
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/main_images"
+                    android:text="Image Downloader"/>
 
             </android.support.v7.widget.CardView>
 
@@ -328,16 +199,21 @@
                 android:id="@+id/goto_daily_comic"
                 style="@style/MainCard">
 
-                <LinearLayout style="@style/Linear">
+                <TextView
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/main_images"
+                    android:text="Daily Comic"/>
 
-                    <ImageView
-                        style="@style/MainIcon"
-                        android:src="@drawable/main_images"/>
+            </android.support.v7.widget.CardView>
 
-                    <TextView
-                        style="@style/MainTitle"
-                        android:text="Daily Comic"/>
-                </LinearLayout>
+            <android.support.v7.widget.CardView
+                android:id="@+id/goto_draw"
+                style="@style/MainCard">
+
+                <TextView
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/main_draw"
+                    android:text="Draw"/>
 
             </android.support.v7.widget.CardView>
 
@@ -345,16 +221,10 @@
                 android:id="@+id/goto_knowledge"
                 style="@style/MainCard">
 
-                <LinearLayout style="@style/Linear">
-
-                    <ImageView
-                        style="@style/MainIcon"
-                        android:src="@drawable/main_game"/>
-
-                    <TextView
-                        style="@style/MainTitle"
-                        android:text="General Knowledge"/>
-                </LinearLayout>
+                <TextView
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/main_game"
+                    android:text="General Knowledge"/>
 
             </android.support.v7.widget.CardView>
 
@@ -362,16 +232,10 @@
                 android:id="@+id/goto_poc"
                 style="@style/MainCard">
 
-                <LinearLayout style="@style/Linear">
-
-                    <ImageView
-                        style="@style/MainIcon"
-                        android:src="@drawable/main_poc"/>
-
-                    <TextView
-                        style="@style/MainTitle"
-                        android:text="POC Screens"/>
-                </LinearLayout>
+                <TextView
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/main_poc"
+                    android:text="POC Screens"/>
 
             </android.support.v7.widget.CardView>
         </GridLayout>

@@ -9,7 +9,7 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
 import android.support.v7.widget.CardView
-import android.widget.LinearLayout
+import android.widget.GridLayout
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_info.*
 import zz.utility.helpers.formatSize
@@ -25,8 +25,8 @@ class InfoActivity : Activity(), LocationListener {
 
 
     @Suppress("NOTHING_TO_INLINE")
-    private inline fun LinearLayout.addThing(title: String, content: String) {
-        val cv = layoutInflater.inflate(R.layout.card_view, this, false) as CardView
+    private inline fun GridLayout.addThing(title: String, content: String) {
+        val cv = layoutInflater.inflate(R.layout.card_view_grid, this, false) as CardView
         cv.findViewById<TextView>(R.id.heading).text = title
         cv.findViewById<TextView>(R.id.content).text = content
         this.addView(cv)
@@ -35,6 +35,7 @@ class InfoActivity : Activity(), LocationListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info)
+        listy.columnCount = if (resources.getBoolean(R.bool.is_landscape)) 4 else 2
         refresh()
     }
 

@@ -8,6 +8,7 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.AsyncTask
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -75,6 +76,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_maps)
+        progress.see()
 
         // Tile source
         val tileSource = MapFileTileSource()
@@ -99,7 +101,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
         locationLayer.isEnabled = false
         mapView.map().layers().add(locationLayer)
 
-        lastLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER) as Location? ?: (locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER) as Location?
+        lastLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER) ?: (locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
                 ?: locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER))
 
         mapView.map().setMapPosition(lastLocation.latitude, lastLocation.longitude, (1 shl 12).toDouble())
@@ -108,7 +110,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
 
         val bitmapPoi = drawableToBitmap(getDrawable(R.drawable.ic_place))
 
-        mMarkerLayer = ItemizedLayer(mapView.map(), ArrayList<MarkerItem>(), MarkerSymbol(bitmapPoi, MarkerSymbol.HotspotPlace.CENTER, false), this)
+        mMarkerLayer = ItemizedLayer(mapView.map(), ArrayList<MarkerItem>(), MarkerSymbol(bitmapPoi, MarkerSymbol.HotspotPlace.BOTTOM_CENTER, true), this)
         mapView.map().layers().add(mMarkerLayer)
 
         val pts = MAIN.fileAsJsonObject().a("locations").mapObject {
@@ -153,7 +155,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
         val style = Style.builder()
                 .fixed(true)
                 .generalization(Style.GENERALIZATION_SMALL)
-                .strokeColor(0x9900cc33.toInt())
+                .strokeColor(ContextCompat.getColor(this, R.color.colorAccent))
                 .strokeWidth(4 * resources.displayMetrics.density)
                 .build()
         pathLayer = PathLayer(mapView.map(), style)
@@ -296,14 +298,14 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
                 tmpHopp.load("$HOME/area")
                 log("found graph " + tmpHopp.graphHopperStorage.toString() + ", nodes:" + tmpHopp.graphHopperStorage.nodes)
                 hopper = tmpHopp
-                runOnUiThread { logUser("Finished loading graph. Long press to define where to route to.") }
             }.orPrint()
+            runOnUiThread { progress.unsee() }
         }).start()
     }
 
     @SuppressLint("StaticFieldLeak")
     private fun calcPath(fromLat: Double, fromLon: Double, toLat: Double, toLon: Double) {
-        log("calculating path ...")
+        progress.see()
         object : AsyncTask<Void, Void, PathWrapper>() {
             var time: Float = 0.toFloat()
 
@@ -311,18 +313,14 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
                 val sw = StopWatch().start()
                 val req = GHRequest(fromLat, fromLon, toLat, toLon).setAlgorithm(Parameters.Algorithms.DIJKSTRA_BI)
                 req.vehicle = if (useCar) "car" else "foot"
-//                req.hints.put(Parameters.Routing.INSTRUCTIONS, "false")
                 val resp = hopper.route(req)
                 time = sw.stop().seconds
-                return try {
-                    resp.best
-                } catch (e: Exception) {
-                    null
-                }
+                return { resp.best }.or { null }
             }
 
             @SuppressLint("SetTextI18n")
             override fun onPostExecute(resp: PathWrapper?) {
+                progress.unsee()
                 if (resp == null) {
                     longToast("Unable to create route")
                     return

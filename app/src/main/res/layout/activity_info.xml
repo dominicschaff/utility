@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_info"
-    style="@style/Outer"
+    style="@style/Scroll"
     tools:context="zz.utility.InfoActivity">
 
-<ScrollView style="@style/Scroll">
-
-    <LinearLayout
+    <GridLayout
         android:id="@+id/listy"
-        style="@style/Linear"/>
-</ScrollView>
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:alignmentMode="alignMargins"
+        android:columnCount="2"
+        android:columnOrderPreserved="false"/>
 
-</LinearLayout>
+</ScrollView>

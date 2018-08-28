@@ -1,11 +1,11 @@
 package zz.utility
 
-import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.Color.BLACK
 import android.graphics.Color.WHITE
 import android.os.Bundle
 import android.os.Environment
+import android.support.v7.app.AppCompatActivity
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
@@ -17,12 +17,14 @@ import zz.utility.helpers.orPrint
 import java.io.File
 import java.io.FileOutputStream
 
-class QRCodeGeneratorActivity : Activity() {
+class QRCodeGeneratorActivity : AppCompatActivity() {
     private lateinit var bitmap: Bitmap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_qrcode_generator)
+
+        supportActionBar?.subtitle = "Click to save image"
 
         generate.setOnClickListener {
             {

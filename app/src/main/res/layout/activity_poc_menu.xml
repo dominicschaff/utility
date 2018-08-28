@@ -20,16 +20,10 @@
                 android:id="@+id/goto_test_bottom_navigation"
                 style="@style/MainCard">
 
-                <LinearLayout style="@style/Linear">
-
-                    <ImageView
-                        style="@style/MainIcon"
-                        android:src="@drawable/main_bottom_nav"/>
-
-                    <TextView
-                        style="@style/MainTitle"
-                        android:text="Bottom Navigiation"/>
-                </LinearLayout>
+                <TextView
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/main_bottom_nav"
+                    android:text="Bottom Navigiation"/>
 
             </android.support.v7.widget.CardView>
 
@@ -37,16 +31,10 @@
                 android:id="@+id/goto_test_login"
                 style="@style/MainCard">
 
-                <LinearLayout style="@style/Linear">
-
-                    <ImageView
-                        style="@style/MainIcon"
-                        android:src="@drawable/main_login"/>
-
-                    <TextView
-                        style="@style/MainTitle"
-                        android:text="Prettier Login Screen"/>
-                </LinearLayout>
+                <TextView
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/main_login"
+                    android:text="Prettier Login Screen"/>
 
             </android.support.v7.widget.CardView>
 
@@ -54,16 +42,10 @@
                 android:id="@+id/goto_test_bot"
                 style="@style/MainCard">
 
-                <LinearLayout style="@style/Linear">
-
-                    <ImageView
-                        style="@style/MainIcon"
-                        android:src="@drawable/main_bot"/>
-
-                    <TextView
-                        style="@style/MainTitle"
-                        android:text="Test Bot Interface"/>
-                </LinearLayout>
+                <TextView
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/main_bot"
+                    android:text="Test Bot Interface"/>
 
             </android.support.v7.widget.CardView>
 
@@ -71,16 +53,10 @@
                 android:id="@+id/goto_test_pos"
                 style="@style/MainCard">
 
-                <LinearLayout style="@style/Linear">
-
-                    <ImageView
-                        style="@style/MainIcon"
-                        android:src="@drawable/main_pos"/>
-
-                    <TextView
-                        style="@style/MainTitle"
-                        android:text="Test POS System"/>
-                </LinearLayout>
+                <TextView
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/main_pos"
+                    android:text="Test POS System"/>
 
             </android.support.v7.widget.CardView>
 
@@ -88,16 +64,10 @@
                 android:id="@+id/goto_welcome"
                 style="@style/MainCard">
 
-                <LinearLayout style="@style/Linear">
-
-                    <ImageView
-                        style="@style/MainIcon"
-                        android:src="@drawable/main_welcome"/>
-
-                    <TextView
-                        style="@style/MainTitle"
-                        android:text="Welcome Screen"/>
-                </LinearLayout>
+                <TextView
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/main_welcome"
+                    android:text="Welcome Screen"/>
 
             </android.support.v7.widget.CardView>
 
@@ -105,16 +75,10 @@
                 android:id="@+id/goto_dashboard"
                 style="@style/MainCard">
 
-                <LinearLayout style="@style/Linear">
-
-                    <ImageView
-                        style="@style/MainIcon"
-                        android:src="@drawable/main_dashboard"/>
-
-                    <TextView
-                        style="@style/MainTitle"
-                        android:text="Dashboard Demo"/>
-                </LinearLayout>
+                <TextView
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/main_dashboard"
+                    android:text="Dashboard Demo"/>
 
             </android.support.v7.widget.CardView>
 
@@ -122,16 +86,10 @@
                 android:id="@+id/goto_card"
                 style="@style/MainCard">
 
-                <LinearLayout style="@style/Linear">
-
-                    <ImageView
-                        style="@style/MainIcon"
-                        android:src="@drawable/main_file"/>
-
-                    <TextView
-                        style="@style/MainTitle"
-                        android:text="Cards Demo"/>
-                </LinearLayout>
+                <TextView
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/main_file"
+                    android:text="Cards Demo"/>
 
             </android.support.v7.widget.CardView>
         </GridLayout>

@@ -34,6 +34,6 @@ class TextViewActivity : AppCompatActivity() {
             //You'll need to add proper error handling here
         }
 
-        text.text = sb.toString()
+        text.setText(sb.toString())
     }
 }

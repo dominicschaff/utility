@@ -86,4 +86,7 @@
             android:src="@drawable/ic_my_location"/>
     </LinearLayout>
 
+    <include
+        android:id="@+id/progress"
+        layout="@layout/login_progress_view"/>
 </RelativeLayout>

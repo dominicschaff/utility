@@ -1,7 +1,7 @@
 package zz.utility
 
-import android.app.Activity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_quote.*
@@ -12,7 +12,7 @@ import java.io.IOException
 
 data class Quote(val quote: String, val author: String)
 
-class QuoteActivity : Activity() {
+class QuoteActivity : AppCompatActivity() {
     private val quotes = ArrayList<Quote>()
 
     override fun onCreate(savedInstanceState: Bundle?) {

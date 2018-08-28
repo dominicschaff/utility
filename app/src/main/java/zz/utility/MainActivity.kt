@@ -4,7 +4,6 @@ import android.Manifest
 import android.app.Activity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
-import zz.utility.books.BooksActivity
 import zz.utility.browser.FileBrowserActivity
 import zz.utility.helpers.goto
 import zz.utility.helpers.requestPermissions
@@ -21,14 +20,12 @@ class MainActivity : Activity() {
         goto_gps.setOnClickListener { goto(GPSActivity::class.java) }
         goto_sensors.setOnClickListener { goto(SensorsActivity::class.java) }
         goto_wifi.setOnClickListener { goto(WiFiScannerActivity::class.java) }
-        goto_random.setOnClickListener { goto(RandomCodeActivity::class.java) }
         goto_qr.setOnClickListener { goto(QRCodeGeneratorActivity::class.java) }
         goto_info.setOnClickListener { goto(InfoActivity::class.java) }
         goto_versions.setOnClickListener { goto(AndroidVersionsActivity::class.java) }
         goto_scan.setOnClickListener { goto(ScanningActivity::class.java) }
-        goto_books.setOnClickListener { goto(BooksActivity::class.java) }
         goto_osm_maps.setOnClickListener { goto(MapsActivity::class.java) }
-        goto_camera.setOnClickListener { goto(CameraActivity::class.java) }
+        goto_camera.setOnClickListener { goto(CameraScalesActivity::class.java) }
         goto_scrum_poker.setOnClickListener { goto(ScrumPokerActivity::class.java) }
         goto_files.setOnClickListener { goto(FileBrowserActivity::class.java) }
         goto_list.setOnClickListener { goto(ListActivity::class.java) }
@@ -38,6 +35,7 @@ class MainActivity : Activity() {
         goto_car_dock.setOnClickListener { goto(CarDockActivity::class.java) }
         goto_daily_comic.setOnClickListener { goto(DailyComicActivity::class.java) }
         goto_quote_api.setOnClickListener { goto(QuoteApiActivity::class.java) }
+        goto_draw.setOnClickListener { goto(TouchScreenActivity::class.java) }
 
         mainGrid.columnCount = if (resources.getBoolean(R.bool.is_landscape)) 4 else 2
         requestPermissions(arrayOf(

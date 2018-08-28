@@ -57,7 +57,7 @@ class DeviceStats {
             ds.height = size.y
 
             val telManager = activity.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-            ds.simSerialNumber = telManager.simSerialNumber
+            ds.simSerialNumber = telManager.simSerialNumber ?: ""
             ds.deviceIdNumber = telManager.deviceId
             return ds
         }

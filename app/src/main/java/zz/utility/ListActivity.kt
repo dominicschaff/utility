@@ -3,12 +3,13 @@ package zz.utility
 import android.app.Activity
 import android.content.DialogInterface
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_list.*
 import zz.utility.helpers.*
 import java.io.File
 
 
-class ListActivity : Activity() {
+class ListActivity : AppCompatActivity() {
 
     private val files = ArrayList<File>()
 
@@ -28,6 +29,7 @@ class ListActivity : Activity() {
         files.addAll(f)
         val fileNames: Array<String> = files.map { it.nameWithoutExtension }.toTypedArray()
         createChooser("Select file to run", fileNames, DialogInterface.OnClickListener { _, which ->
+            supportActionBar?.subtitle = files[which].name
             doAsync({
                 return@doAsync { files[which].asJsonArray().map { it.asString } }.or { ArrayList<String>() }
             }, {

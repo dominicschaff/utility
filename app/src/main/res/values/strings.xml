@@ -3,11 +3,14 @@
     <string name="dialer">Dialer</string>
     <string name="title_activity_quote">Quote</string>
     <string name="title_activity_gps">GPS</string>
-    <string name="title_activity_sensors">Sensors</string>
+    <string name="title_activity_sensors">Device Sensors</string>
     <string name="title_activity_compass">Compass</string>
     <string name="title_activity_keypad">Keypad</string>
     <string name="title_activity_waypoint">Waypoint</string>
     <string name="title_activity_webserver">WebServer</string>
+    <string name="title_activity_list">List Randomizer</string>
+    <string name="title_activity_qr_code_generator">Generate QR Code</string>
+    <string name="title_activity_versions">Android Versions</string>
 
     <string name="title_activity_controller">ControllerActivity</string>
 

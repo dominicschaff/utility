@@ -1,9 +1,9 @@
 package zz.utility
 
-import android.app.Activity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 
-class AndroidVersionsActivity : Activity() {
+class AndroidVersionsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -23,7 +23,7 @@ class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     val description: TextView = view.findViewById(R.id.description)
 }
 
-class MyFileAdapter(private val activity: Activity, private val galleryList: ArrayList<File>) : RecyclerView.Adapter<ViewHolder>() {
+class MyFileAdapter(private val activity: Activity, private val galleryList: ArrayList<File>, private val folderList:ArrayList<File>) : RecyclerView.Adapter<ViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder =
             ViewHolder(LayoutInflater.from(viewGroup.context).inflate(R.layout.view_file, viewGroup, false))
@@ -64,7 +64,7 @@ class MyFileAdapter(private val activity: Activity, private val galleryList: Arr
                 else -> activity.openFile(f)
             }
         }
-        viewHolder.view.setOnLongClickListener {
+        viewHolder.view.setOnLongClickListener { _ ->
             val builder = AlertDialog.Builder(activity)
             builder.setTitle(f.name)
                     .setItems(R.array.file_actions) { _, which ->
@@ -88,9 +88,8 @@ class MyFileAdapter(private val activity: Activity, private val galleryList: Arr
                             }
                             2 -> {
                                 // do move
-                                val folders = f.parentFile.listFiles().filter { it.isDirectory }
-                                activity.createChooser("Select destination folder", folders.map { it.name }.toTypedArray(), DialogInterface.OnClickListener { _, newFolder ->
-                                    File(folders[newFolder], f.name).let { newFile ->
+                                activity.createChooser("Select destination folder", folderList.map { it.name }.toTypedArray(), DialogInterface.OnClickListener { _, newFolder ->
+                                    File(folderList[newFolder], f.name).let { newFile ->
                                         if (newFile.exists()) activity.alert("There already exists the same file in directory ${newFile.parentFile.name}")
                                         else f.renameTo(newFile)
                                     }

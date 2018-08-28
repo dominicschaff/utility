@@ -20,21 +20,20 @@ class QuoteApiActivity : AppCompatActivity() {
 
     private fun doRefresh() {
         swipe_to_refresh.isRefreshing = true
-        title = "Loading..."
-        title = "From quotesondesign.com"
         Ion.with(this)
                 .load("http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1")
                 .asJsonArray()
-                .setCallback { e, result ->
+                .setCallback { _, result ->
                     swipe_to_refresh.isRefreshing = false
-                    val json = result.o(0)
-                    quote.text = Html.fromHtml(json.s("content")
-                            .replace("<p>", "")
-                            .replace("</p>", "")
-                            .trim(),
-                            Html.FROM_HTML_MODE_LEGACY
-                    )
-                    author.text = json.s("title")
+                    result.o(0).apply {
+                        quote.text = Html.fromHtml(s("content")
+                                .replace("<p>", "")
+                                .replace("</p>", "")
+                                .trim(),
+                                Html.FROM_HTML_MODE_LEGACY
+                        )
+                        author.text = s("title")
+                    }
                 }
     }
 }
