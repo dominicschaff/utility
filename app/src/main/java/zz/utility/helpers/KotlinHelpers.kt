@@ -20,7 +20,7 @@ import kotlin.experimental.and
 
 fun Context.alert(content: String, clickListener: DialogInterface.OnClickListener? = null) {
     {
-        val ad = AlertDialog.Builder(this)
+        AlertDialog.Builder(this)
                 .setCancelable(false)
                 .setMessage(content)
                 .setNeutralButton("OK", clickListener
