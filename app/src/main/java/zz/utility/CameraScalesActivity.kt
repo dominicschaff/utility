@@ -9,6 +9,6 @@ class CameraScalesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera)
-        grid.columnCount = if (resources.getBoolean(R.bool.is_landscape)) 8 else 4
+        grid.columnCount = if (resources.getBoolean(R.bool.is_landscape)) 6 else 3
     }
 }
