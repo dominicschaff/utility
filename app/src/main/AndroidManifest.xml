@@ -171,8 +171,8 @@
 
         <activity
             android:name=".ListActivity"
-            android:parentActivityName=".MainActivity"
-            android:label="@string/title_activity_list"/>
+            android:label="@string/title_activity_list"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".poc.DashboardActivity"
             android:parentActivityName=".poc.PocMenuActivity"/>
