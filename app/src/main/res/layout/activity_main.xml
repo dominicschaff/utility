@@ -238,6 +238,17 @@
                     android:text="POC Screens"/>
 
             </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/goto_map_points"
+                style="@style/MainCard">
+
+                <TextView
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/main_maps"
+                    android:text="Map points"/>
+
+            </android.support.v7.widget.CardView>
         </GridLayout>
     </ScrollView>
 </LinearLayout>

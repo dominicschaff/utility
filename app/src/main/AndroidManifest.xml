@@ -233,6 +233,9 @@
             android:name=".TouchScreenActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".maps.MapsPointsActivity"
+            android:theme="@style/AppTheme.NavOverlay.NoActionBar"/>
     </application>
 
 </manifest>

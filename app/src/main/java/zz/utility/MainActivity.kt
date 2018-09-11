@@ -8,6 +8,7 @@ import zz.utility.browser.FileBrowserActivity
 import zz.utility.helpers.goto
 import zz.utility.helpers.requestPermissions
 import zz.utility.maps.MapsActivity
+import zz.utility.maps.MapsPointsActivity
 import zz.utility.poc.PocMenuActivity
 import zz.utility.scrum.ScrumPokerActivity
 
@@ -36,6 +37,7 @@ class MainActivity : Activity() {
         goto_daily_comic.setOnClickListener { goto(DailyComicActivity::class.java) }
         goto_quote_api.setOnClickListener { goto(QuoteApiActivity::class.java) }
         goto_draw.setOnClickListener { goto(TouchScreenActivity::class.java) }
+        goto_map_points.setOnClickListener { goto(MapsPointsActivity::class.java) }
 
         mainGrid.columnCount = if (resources.getBoolean(R.bool.is_landscape)) 4 else 2
         requestPermissions(arrayOf(
