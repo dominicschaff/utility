@@ -15,7 +15,7 @@ class TextViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_text_view)
-        val path = File(intent.extras?.getString("file") ?: return)
+        val path = File(intent.extras?.getString(PATH) ?: return)
         title = path.absolutePath
 
         //Read text from file

@@ -21,7 +21,7 @@ class VideoPlayerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_video_player)
-        val u = Uri.fromFile(File(intent.extras?.getString("file") ?: return))
+        val u = Uri.fromFile(File(intent.extras?.getString(PATH) ?: return))
 
         player = ExoPlayerFactory.newSimpleInstance(this, DefaultTrackSelector()).also { player_view.player = it }
 

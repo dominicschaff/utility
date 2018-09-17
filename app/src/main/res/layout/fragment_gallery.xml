@@ -1,5 +1,4 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
                 style="@style/Outer"
                 android:background="@color/black"
                 android:keepScreenOn="true">
@@ -32,37 +31,27 @@
         android:paddingStart="8dp"/>
 
     <LinearLayout
+        android:id="@+id/actions"
         style="@style/Linear.Horizontal"
         android:layout_width="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:visibility="gone">
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_open"
             style="@style/Fab"
-            android:src="@drawable/ic_open"
-            android:visibility="gone"
-            app:fabSize="mini"/>
+            android:src="@drawable/ic_open"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_share"
             style="@style/Fab"
-            android:src="@drawable/ic_share"
-            android:visibility="gone"
-            app:fabSize="mini"/>
+            android:src="@drawable/ic_share"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_delete"
             style="@style/Fab"
-            android:src="@drawable/ic_delete"
-            android:visibility="gone"
-            app:fabSize="mini"/>
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/change_visibility"
-            style="@style/Fab"
-            android:src="@drawable/fab_more"
-            app:fabSize="mini"/>
+            android:src="@drawable/ic_delete"/>
     </LinearLayout>
 
 </RelativeLayout>

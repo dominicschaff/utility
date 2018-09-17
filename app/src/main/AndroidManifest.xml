@@ -177,7 +177,7 @@
             android:name=".poc.DashboardActivity"
             android:parentActivityName=".poc.PocMenuActivity"/>
         <activity
-            android:name=".browser.Gallery2Activity"
+            android:name=".browser.gallery.GalleryActivity"
             android:label="@string/title_activity_gallery"
             android:parentActivityName=".browser.FileBrowserActivity"
             android:theme="@style/AppTheme.NoActionBar"/>

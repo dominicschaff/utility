@@ -14,6 +14,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import zz.utility.*
+import zz.utility.browser.gallery.GalleryActivity
 import zz.utility.helpers.*
 import java.io.File
 
@@ -57,10 +58,10 @@ class MyFileAdapter(private val activity: Activity, private val galleryList: Arr
 
         viewHolder.view.setOnClickListener {
             when {
-                f.isDirectory -> activity.startActivity(Intent(activity, FileBrowserActivity::class.java).putExtra("file_path", f.absolutePath))
-                f.isImage() -> activity.startActivity(Intent(activity, Gallery2Activity::class.java).putExtra("folder", f.absolutePath))
-                f.isVideo() -> activity.startActivity(Intent(activity, VideoPlayerActivity::class.java).putExtra("file", f.absolutePath))
-                f.isText() -> activity.startActivity(Intent(activity, TextViewActivity::class.java).putExtra("file", f.absolutePath))
+                f.isDirectory -> activity.startActivity(Intent(activity, FileBrowserActivity::class.java).putExtra(PATH, f.absolutePath))
+                f.isImage() -> activity.startActivity(Intent(activity, GalleryActivity::class.java).putExtra(PATH, f.absolutePath))
+                f.isVideo() -> activity.startActivity(Intent(activity, VideoPlayerActivity::class.java).putExtra(PATH, f.absolutePath))
+                f.isText() -> activity.startActivity(Intent(activity, TextViewActivity::class.java).putExtra(PATH, f.absolutePath))
                 else -> activity.openFile(f)
             }
         }
@@ -71,14 +72,13 @@ class MyFileAdapter(private val activity: Activity, private val galleryList: Arr
                         when (which) {
                             0 ->
                                 when {
-                                    f.isDirectory -> activity.startActivity(Intent(activity, FileBrowserActivity::class.java).putExtra("file_path", f.absolutePath))
-                                    f.isImage() -> activity.startActivity(Intent(activity, Gallery2Activity::class.java).putExtra("folder", f.absolutePath))
-                                    f.isVideo() -> activity.startActivity(Intent(activity, VideoPlayerActivity::class.java).putExtra("file", f.absolutePath))
-                                    f.isText() -> activity.startActivity(Intent(activity, TextViewActivity::class.java).putExtra("file", f.absolutePath))
+                                    f.isDirectory -> activity.startActivity(Intent(activity, FileBrowserActivity::class.java).putExtra(PATH, f.absolutePath))
+                                    f.isImage() -> activity.startActivity(Intent(activity, GalleryActivity::class.java).putExtra(PATH, f.absolutePath))
+                                    f.isVideo() -> activity.startActivity(Intent(activity, VideoPlayerActivity::class.java).putExtra(PATH, f.absolutePath))
+                                    f.isText() -> activity.startActivity(Intent(activity, TextViewActivity::class.java).putExtra(PATH, f.absolutePath))
                                     else -> activity.openFile(f)
                                 }
                             1 -> {
-                                // do move up
                                 f.parentFile.parentFile.let { parent ->
                                     File(parent, f.name).let { newFile ->
                                         if (newFile.exists()) activity.alert("There already exists the same file in directory above")
@@ -87,7 +87,6 @@ class MyFileAdapter(private val activity: Activity, private val galleryList: Arr
                                 }
                             }
                             2 -> {
-                                // do move
                                 activity.createChooser("Select destination folder", folderList.map { it.name }.toTypedArray(), DialogInterface.OnClickListener { _, newFolder ->
                                     File(folderList[newFolder], f.name).let { newFile ->
                                         if (newFile.exists()) activity.alert("There already exists the same file in directory ${newFile.parentFile.name}")
@@ -97,18 +96,19 @@ class MyFileAdapter(private val activity: Activity, private val galleryList: Arr
                                 )
                             }
                             4 -> {
-                                // do slideshow
-                            }
-                            5 -> {
                                 val bin = File(Environment.getExternalStorageDirectory(), ".bin")
                                 if (!bin.exists()) bin.mkdir()
                                 if (!f.renameTo(File(bin, f.name))) activity.longToast("File could not be moved")
                                 viewHolder.img.setImageResource(R.drawable.ic_delete)
                             }
-                            6 -> {
+                            5 -> {
                                 val clipboard = activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                                 clipboard.primaryClip = ClipData.newPlainText(f.absolutePath, f.absolutePath)
                                 activity.longToast("Set clipboard to: ${f.absolutePath}")
+                            }
+                            6 -> {
+
+                                activity.alert("Total file size is ${getFileSize(f).formatSize()}\nTotal Files: ${getFileCount(f)}")
                             }
                             else -> activity.openFile(f)
                         }
@@ -119,5 +119,8 @@ class MyFileAdapter(private val activity: Activity, private val galleryList: Arr
     }
 
     override fun getItemCount(): Int = galleryList.size
+
+    private fun getFileSize(f:File):Long = if (f.isFile) f.length() else f.listFiles().map { getFileSize(it) }.sum()
+    private fun getFileCount(f:File):Long = if (f.isFile) 1 else f.listFiles().map { getFileCount(it) }.sum()
 
 }

@@ -3,17 +3,18 @@ package zz.utility.browser
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Environment
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
+import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.EditText
 import kotlinx.android.synthetic.main.activity_file_browser.*
 import zz.utility.R
-import zz.utility.helpers.consume
-import zz.utility.helpers.formatSize
-import zz.utility.helpers.see
-import zz.utility.helpers.unsee
+import zz.utility.helpers.*
 import java.io.File
+
 
 class FileBrowserActivity : AppCompatActivity() {
 
@@ -27,7 +28,7 @@ class FileBrowserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_file_browser)
 
-        path = File(intent.extras?.getString("file_path")
+        path = File(intent.extras?.getString(PATH)
                 ?: Environment.getExternalStorageDirectory().absolutePath)
 
         title = path.name
@@ -47,7 +48,29 @@ class FileBrowserActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean = consume { menuInflater.inflate(R.menu.menu_folders, menu) }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean = when (item?.itemId) {
-        R.id.action_create_directory -> consume {}
+        R.id.action_create_directory -> consume {
+
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("New Directory Name")
+
+            val input = EditText(this)
+            input.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_AUTO_CORRECT or InputType.TYPE_TEXT_FLAG_CAP_WORDS
+            builder.setView(input)
+
+            builder.setPositiveButton("OK") { _, _ ->
+                File(path, input.text.toString().trim()).apply {
+                    if (exists()) alert("There already exists the same directory in here")
+                    else {
+                        mkdir()
+                        refreshList()
+                    }
+                }
+
+            }
+            builder.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() }
+
+            builder.show()
+        }
         R.id.action_create_nomedia -> consume {
             File(path, ".nomedia").createNewFile()
             refreshList()
@@ -69,7 +92,6 @@ class FileBrowserActivity : AppCompatActivity() {
             files.clear()
             files.addAll(result)
             folders.clear()
-            folders.add(path.parentFile)
             if (foldersResult != null && foldersResult.isNotEmpty())
                 folders.addAll(foldersResult)
             adapter.notifyDataSetChanged()

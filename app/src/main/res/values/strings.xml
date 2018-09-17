@@ -70,8 +70,8 @@
         <item>Move Up</item>
         <item>Move</item>
         <item>Open External</item>
-        <item>Slideshow</item>
         <item>Delete</item>
         <item>Copy Path</item>
+        <item>Details</item>
     </string-array>
 </resources>
