@@ -24,7 +24,7 @@ class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     val description: TextView = view.findViewById(R.id.description)
 }
 
-class MyFileAdapter(private val activity: Activity, private val galleryList: ArrayList<File>, private val folderList:ArrayList<File>) : RecyclerView.Adapter<ViewHolder>() {
+class MyFileAdapter(private val activity: Activity, private val galleryList: ArrayList<File>, private val folderList: ArrayList<File>) : RecyclerView.Adapter<ViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder =
             ViewHolder(LayoutInflater.from(viewGroup.context).inflate(R.layout.view_file, viewGroup, false))
@@ -120,7 +120,7 @@ class MyFileAdapter(private val activity: Activity, private val galleryList: Arr
 
     override fun getItemCount(): Int = galleryList.size
 
-    private fun getFileSize(f:File):Long = if (f.isFile) f.length() else f.listFiles().map { getFileSize(it) }.sum()
-    private fun getFileCount(f:File):Long = if (f.isFile) 1 else f.listFiles().map { getFileCount(it) }.sum()
+    private fun getFileSize(f: File): Long = if (f.isFile) f.length() else f.listFiles().map { getFileSize(it) }.sum()
+    private fun getFileCount(f: File): Long = if (f.isFile) 1 else f.listFiles().map { getFileCount(it) }.sum()
 
 }

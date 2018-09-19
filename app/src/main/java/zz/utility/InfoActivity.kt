@@ -3,17 +3,15 @@ package zz.utility
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.location.Location
-import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
-import android.os.Looper
 import android.support.v7.widget.CardView
 import android.widget.GridLayout
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_info.*
 import zz.utility.helpers.formatSize
 import zz.utility.helpers.hasLocationPermissions
+import zz.utility.helpers.ignore
 import zz.utility.helpers.stats.DeviceStats
 import zz.utility.helpers.stats.MemoryStats
 import zz.utility.helpers.stats.NetworkStats
@@ -21,26 +19,22 @@ import zz.utility.helpers.stats.StorageStats
 import zz.utility.helpers.toTimeFormat
 import zz.utility.lib.OpenLocationCode
 
-class InfoActivity : Activity(), LocationListener {
+class InfoActivity : Activity() {
 
 
-    @Suppress("NOTHING_TO_INLINE")
-    private inline fun GridLayout.addThing(title: String, content: String) {
+    private fun GridLayout.addThing(title: String, content: String) {
         val cv = layoutInflater.inflate(R.layout.card_view_grid, this, false) as CardView
         cv.findViewById<TextView>(R.id.heading).text = title
         cv.findViewById<TextView>(R.id.content).text = content
-        this.addView(cv)
+        addView(cv)
     }
 
+
+    @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info)
-        listy.columnCount = if (resources.getBoolean(R.bool.is_landscape)) 4 else 2
-        refresh()
-    }
 
-    @SuppressLint("MissingPermission")
-    private fun refresh() {
         listy.removeAllViews()
 
         val ss = StorageStats[this]
@@ -91,36 +85,22 @@ class InfoActivity : Activity(), LocationListener {
         val cv = layoutInflater.inflate(R.layout.card_view, listy, false) as CardView
         val tvh = cv.findViewById<TextView>(R.id.heading)
         tvh.text = "Current Location"
-        location = cv.findViewById(R.id.content)
+        val location = cv.findViewById<TextView>(R.id.content)
         location.text = "---"
         listy.addView(cv)
 
-        val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-
         if (hasLocationPermissions()) {
-            return
+            val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            {
+                val l = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+                location.text = "%.7f,%.7f = %s".format(
+                        l.latitude,
+                        l.longitude,
+                        OpenLocationCode.encode(l.latitude, l.longitude, 11)
+                )
+            }.ignore()
         }
-        locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, this, Looper.getMainLooper())
     }
 
-    private lateinit var location: TextView
-
-    override fun onPause() {
-        super.onPause()
-        val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        locationManager.removeUpdates(this)
-    }
-
-    override fun onLocationChanged(location: Location) {
-        val code = OpenLocationCode.encode(location.latitude, location.longitude, 11)
-        this.location.text = "%.7f,%.7f = %s".format(location.latitude, location.longitude, code)
-
-    }
-
-    override fun onProviderDisabled(provider: String) {}
-
-    override fun onProviderEnabled(provider: String) {}
-
-    override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
 
 }

@@ -2,6 +2,7 @@ package zz.utility.poc
 
 import android.app.Activity
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
@@ -23,7 +24,6 @@ class LoginActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-//        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
         // Set up the login form.
         email.setOnEditorActionListener(TextView.OnEditorActionListener { _, id, _ ->
             if (id == EditorInfo.IME_ACTION_NEXT) {
@@ -43,21 +43,18 @@ class LoginActivity : Activity() {
 
         email_sign_in_button.setOnClickListener { doLogin() }
 
+        login_progress.translationZ = 100F
+
         previousUsers = prefGetSet("previousUsers", TreeSet())
         email.setAdapter(ArrayAdapter(this@LoginActivity, android.R.layout.simple_dropdown_item_1line, ArrayList(previousUsers)))
     }
 
     private fun doLogin() {
         Toast.makeText(applicationContext, "You clicked enter", Toast.LENGTH_LONG).show()
-        login_scrolly.visibility = View.GONE
         login_progress.visibility = View.VISIBLE
-        Thread({
-            Thread.sleep(2000)
-            runOnUiThread({
-                login_progress.visibility = View.GONE
-                login_scrolly.visibility = View.VISIBLE
-                Toast.makeText(applicationContext, "Done", Toast.LENGTH_LONG).show()
-            })
-        }).start()
+        Handler().postDelayed({
+            login_progress.visibility = View.GONE
+            Toast.makeText(applicationContext, "Done", Toast.LENGTH_LONG).show()
+        }, 2000)
     }
 }

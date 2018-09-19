@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.google.gson.JsonObject
-import zz.utility.helpers.add
 import zz.utility.helpers.appendToFile
 import zz.utility.helpers.externalFile
 import zz.utility.helpers.fullDate
@@ -19,13 +18,12 @@ class CallReceiver : BroadcastReceiver() {
     }
 
     private fun writeToDisk(bundle: Bundle?) {
-        val sms = JsonObject()
-                .add("event_time", Date().fullDate())
-                .add("event_type", "call")
-        bundle!!.keySet().forEach {
-            val a = bundle.get(it)
-            sms.add(it, a?.toString() ?: "null")
-        }
-        sms.appendToFile("log.json".externalFile())
+        JsonObject().apply {
+            addProperty("event_time", Date().fullDate())
+            addProperty("event_type", "call")
+            bundle!!.keySet().forEach {
+                addProperty(it, bundle.get(it)?.toString() ?: "null")
+            }
+        }.appendToFile("log.json".externalFile())
     }
 }

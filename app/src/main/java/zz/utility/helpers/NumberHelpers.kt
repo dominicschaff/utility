@@ -2,29 +2,14 @@
 
 package zz.utility.helpers
 
-inline fun String.intOr(default: Int = 0): Int {
-    return try {
-        Integer.parseInt(this)
-    } catch (n: NumberFormatException) {
-        default
-    }
-}
+inline fun String.intOr(default: Int = 0): Int =
+        { Integer.parseInt(this) }.orCatch(default)
 
-inline fun String.longOr(default: Long = 0): Long {
-    return try {
-        java.lang.Long.parseLong(this)
-    } catch (n: NumberFormatException) {
-        default
-    }
-}
+inline fun String.longOr(default: Long = 0): Long =
+        { java.lang.Long.parseLong(this) }.orCatch(default)
 
-inline fun String.doubleOr(default: Double = 0.0): Double {
-    return try {
-        java.lang.Double.parseDouble(this)
-    } catch (n: NumberFormatException) {
-        default
-    }
-}
+inline fun String.doubleOr(default: Double = 0.0): Double =
+        { java.lang.Double.parseDouble(this) }.orCatch(default)
 
 fun Long.formatSize(): String {
     var s = "B"
@@ -44,5 +29,5 @@ fun Long.formatSize(): String {
         s = "GB"
         n /= 1024.0
     }
-    return "%.2f %s".format(n, s)
+    return "%.2f $s".format(n)
 }

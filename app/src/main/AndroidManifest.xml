@@ -155,10 +155,6 @@
         </provider>
 
         <activity android:name=".browser.TextViewActivity"/>
-        <activity
-            android:name=".poc.WelcomeActivity"
-            android:parentActivityName=".poc.PocMenuActivity"
-            android:screenOrientation="sensorLandscape"/>
 
         <service
             android:name=".spy.MyNotificationListenerService"
@@ -186,10 +182,6 @@
             android:label="POC Screens"
             android:parentActivityName=".MainActivity"/>
         <activity
-            android:name=".poc.CardDemoActivity"
-            android:label="POC Cards Layouts"
-            android:parentActivityName=".poc.PocMenuActivity"/>
-        <activity
             android:name=".ImageDownloadActivity"
             android:parentActivityName=".MainActivity"/>
         <activity
@@ -207,13 +199,9 @@
             android:parentActivityName=".MainActivity"
             android:screenOrientation="sensorLandscape"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".text.TextReceiveActivity">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.SEND" /> -->
-            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
-            <!-- <data android:mimeType="image/*" /> -->
-            <!-- </intent-filter> -->
+        <activity
+            android:name=".text.TextReceiveActivity"
+            android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
                 <action android:name="android.intent.action.SEND"/>
 

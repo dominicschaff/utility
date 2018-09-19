@@ -17,7 +17,6 @@ import com.google.zxing.ResultPoint
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import kotlinx.android.synthetic.main.activity_scanning.*
-import zz.utility.helpers.add
 import zz.utility.helpers.appendToFile
 import zz.utility.helpers.fullDate
 import java.io.File
@@ -164,11 +163,11 @@ class ScanningActivity : Activity() {
     }
 
     private fun barcodeRead(type: String, barcode: String) {
-        JsonObject()
-                .add("event_time", Date().fullDate())
-                .add("event_type", "barcodeScan")
-                .add("type", type)
-                .add("barcode", barcode)
-                .appendToFile(File(Environment.getExternalStorageDirectory(), "log.json"))
+        JsonObject().apply {
+            addProperty("event_time", Date().fullDate())
+            addProperty("event_type", "barcodeScan")
+            addProperty("type", type)
+            addProperty("barcode", barcode)
+        }.appendToFile(File(Environment.getExternalStorageDirectory(), "log.json"))
     }
 }

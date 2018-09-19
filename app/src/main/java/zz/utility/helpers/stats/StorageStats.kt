@@ -6,9 +6,9 @@ import zz.utility.helpers.Utilities
 
 class StorageStats(
         val internal: Long,
-        val external: LongArray,
+        val external: Array<Long>,
         val internalFull: Long,
-        val externalFull: LongArray) {
+        val externalFull: Array<Long>) {
 
     companion object {
         operator fun get(context: Context): StorageStats = StorageStats(

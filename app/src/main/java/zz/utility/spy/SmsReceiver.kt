@@ -28,13 +28,13 @@ class SmsReceiver : BroadcastReceiver() {
     }
 
     private fun writeToDisk(from: String, msg: String, pdu: String, userData: String) {
-        JsonObject()
-                .add("event_time", Date().fullDate())
-                .add("event_type", "message")
-                .add("message", msg)
-                .add("from", from)
-                .add("pdu", pdu)
-                .add("userData", userData)
-                .appendToFile("log.json".externalFile())
+        JsonObject().apply {
+            addProperty("event_time", Date().fullDate())
+            addProperty("event_type", "message")
+            addProperty("message", msg)
+            addProperty("from", from)
+            addProperty("pdu", pdu)
+            addProperty("userData", userData)
+        }.appendToFile("log.json".externalFile())
     }
 }

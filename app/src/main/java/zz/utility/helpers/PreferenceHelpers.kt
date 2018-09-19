@@ -22,20 +22,8 @@ inline fun Context.prefGet(key: String, def: Long): Long = { getDefaultPref().ge
 
 inline fun Context.prefGetSet(key: String, def: Set<String>): Set<String> = { getDefaultPref().getStringSet(key, def) }.or { def }
 
-// Setters
-
-inline fun Context.prefSet(key: String, value: String) = getDefaultPref().edit().putString(key, value).apply()
-
-inline fun Context.prefSet(key: String, value: Boolean) = getDefaultPref().edit().putBoolean(key, value).apply()
-
-inline fun Context.prefSet(key: String, value: Int) = getDefaultPref().edit().putInt(key, value).apply()
-
-inline fun Context.prefSet(key: String, value: Float) = getDefaultPref().edit().putFloat(key, value).apply()
-
-inline fun Context.prefSet(key: String, value: Long) = getDefaultPref().edit().putLong(key, value).apply()
-
-inline fun Context.prefSet(key: String, value: Set<String>) = getDefaultPref().edit().putStringSet(key, value).apply()
-
-// Deleter
-
-inline fun Context.prefDel(key: String) = getDefaultPref().edit().remove(key).apply()
+fun Context.preferences(f: SharedPreferences.Editor.() -> Unit) {
+    val d = getDefaultPref().edit()
+    d.f()
+    d.apply()
+}

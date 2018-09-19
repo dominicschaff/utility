@@ -9,7 +9,7 @@ import android.content.pm.PackageManager
 import android.support.v4.content.ContextCompat
 import android.util.Log
 
-inline fun Activity.goto(c: Class<*>) = this.startActivity(Intent(this, c))
+inline fun Activity.goto(c: Class<*>) = startActivity(Intent(this, c))
 
 inline fun Activity.hasLocationPermissions(): Boolean = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
         ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED

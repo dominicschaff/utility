@@ -3,7 +3,7 @@ package zz.utility.browser.gallery
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import kotlinx.android.synthetic.main.activity_gallery2.*
+import kotlinx.android.synthetic.main.activity_gallery.*
 import zz.utility.R
 import zz.utility.browser.PATH
 import zz.utility.isImage
@@ -15,7 +15,7 @@ class GalleryActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_gallery2)
+        setContentView(R.layout.activity_gallery)
 
         val path = File(intent.extras?.getString(PATH) ?: return)
 

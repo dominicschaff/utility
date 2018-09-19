@@ -16,82 +16,42 @@
             android:columnCount="2"
             android:columnOrderPreserved="false">
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/goto_test_bottom_navigation"
-                style="@style/MainCard">
-
-                <TextView
-                    style="@style/MainTitle"
-                    android:drawableTop="@drawable/main_bottom_nav"
-                    android:text="Bottom Navigiation"/>
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/goto_test_login"
-                style="@style/MainCard">
-
-                <TextView
-                    style="@style/MainTitle"
-                    android:drawableTop="@drawable/main_login"
-                    android:text="Prettier Login Screen"/>
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
+            <TextView
                 android:id="@+id/goto_test_bot"
-                style="@style/MainCard">
+                style="@style/MainTitle"
+                android:drawableTop="@drawable/main_bot"
+                android:text="Bot Interface"/>
 
-                <TextView
-                    style="@style/MainTitle"
-                    android:drawableTop="@drawable/main_bot"
-                    android:text="Test Bot Interface"/>
+            <TextView
+                android:id="@+id/goto_test_login"
+                style="@style/MainTitle"
+                android:drawableTop="@drawable/main_login"
+                android:text="Login"/>
 
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
+            <TextView
                 android:id="@+id/goto_test_pos"
-                style="@style/MainCard">
+                style="@style/MainTitle"
+                android:drawableTop="@drawable/main_pos"
+                android:text="POS System"/>
 
-                <TextView
-                    style="@style/MainTitle"
-                    android:drawableTop="@drawable/main_pos"
-                    android:text="Test POS System"/>
+            <TextView
+                android:id="@+id/goto_test_stock_take"
+                style="@style/MainTitle"
+                android:drawableTop="@drawable/main_pos"
+                android:text="Stock Take"/>
 
-            </android.support.v7.widget.CardView>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/goto_welcome"
-                style="@style/MainCard">
+            <TextView
+                android:id="@+id/goto_test_bottom_navigation"
+                style="@style/MainTitle"
+                android:drawableTop="@drawable/main_bottom_nav"
+                android:text="Bottom Nav"/>
 
-                <TextView
-                    style="@style/MainTitle"
-                    android:drawableTop="@drawable/main_welcome"
-                    android:text="Welcome Screen"/>
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
+            <TextView
                 android:id="@+id/goto_dashboard"
-                style="@style/MainCard">
-
-                <TextView
-                    style="@style/MainTitle"
-                    android:drawableTop="@drawable/main_dashboard"
-                    android:text="Dashboard Demo"/>
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/goto_card"
-                style="@style/MainCard">
-
-                <TextView
-                    style="@style/MainTitle"
-                    android:drawableTop="@drawable/main_file"
-                    android:text="Cards Demo"/>
-
-            </android.support.v7.widget.CardView>
+                style="@style/MainTitle"
+                android:drawableTop="@drawable/main_dashboard"
+                android:text="Graphs"/>
         </GridLayout>
     </ScrollView>
 

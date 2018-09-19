@@ -26,9 +26,10 @@ class QuoteActivity : AppCompatActivity() {
                 if (!f.exists()) {
                     val json = JsonArray()
                     json.add(
-                            JsonObject()
-                                    .add("quote", "There are no quotes stored, update the file: $HOME/quotes.json")
-                                    .add("author", "This application")
+                            JsonObject().apply {
+                                addProperty("quote", "There are no quotes stored, update the file: $HOME/quotes.json")
+                                addProperty("author", "This application")
+                            }
                     )
                     var stream: FileOutputStream? = null
                     try {

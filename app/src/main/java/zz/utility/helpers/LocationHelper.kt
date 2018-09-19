@@ -6,14 +6,16 @@ import android.location.Location
 import com.google.gson.JsonObject
 
 fun Location.toJson(): JsonObject {
-    return JsonObject().add("latitude", latitude)
-            .add("longitude", longitude)
-            .add("accuracy", accuracy)
-            .add("updated", now())
-            .add("speed", speed)
-            .add("bearing", bearing)
-            .add("gps_time", time)
-            .add("provider", provider)
+    return JsonObject().apply {
+        addProperty("latitude", latitude)
+        addProperty("longitude", longitude)
+        addProperty("accuracy", accuracy)
+        addProperty("updated", now())
+        addProperty("speed", speed)
+        addProperty("bearing", bearing)
+        addProperty("gps_time", time)
+        addProperty("provider", provider)
+    }
 }
 
 fun nullIsland(): Location {

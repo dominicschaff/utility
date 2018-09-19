@@ -1,6 +1,5 @@
 package zz.utility
 
-import android.app.Activity
 import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

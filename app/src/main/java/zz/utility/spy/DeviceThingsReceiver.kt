@@ -4,7 +4,10 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.google.gson.JsonObject
-import zz.utility.helpers.*
+import zz.utility.helpers.appendToFile
+import zz.utility.helpers.externalFile
+import zz.utility.helpers.fullDate
+import zz.utility.helpers.orPrint
 import java.util.*
 
 class DeviceThingsReceiver : BroadcastReceiver() {
@@ -14,11 +17,11 @@ class DeviceThingsReceiver : BroadcastReceiver() {
     }
 
     private fun writeToDisk(action: String?, uri: String) {
-        JsonObject()
-                .add("event_time", Date().fullDate())
-                .add("event_type", "broadcast_receive")
-                .add("broadcast_type", action ?: "unknown")
-                .add("broadcast_data", uri)
-                .appendToFile("log.json".externalFile())
+        JsonObject().apply {
+            addProperty("event_time", Date().fullDate())
+            addProperty("event_type", "broadcast_receive")
+            addProperty("broadcast_type", action ?: "unknown")
+            addProperty("broadcast_data", uri)
+        }.appendToFile("log.json".externalFile())
     }
 }

@@ -8,7 +8,7 @@ import zz.utility.browser.PATH
 import zz.utility.browser.SPOT
 import zz.utility.browser.TOTAL
 import java.io.File
-import java.util.ArrayList
+import java.util.*
 
 class GalleryPagerAdapter(private val files: ArrayList<File>, fm: FragmentManager) : FragmentPagerAdapter(fm) {
     override fun getCount(): Int = files.size
