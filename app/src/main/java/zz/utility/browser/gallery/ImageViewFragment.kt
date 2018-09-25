@@ -22,8 +22,9 @@ import zz.utility.helpers.openFile
 import zz.utility.helpers.see
 import zz.utility.helpers.toast
 import java.io.File
+import androidx.fragment.app.Fragment
 
-class ImageViewFragment : androidx.fragment.app.Fragment() {
+class ImageViewFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(inflater: LayoutInflater,
@@ -42,7 +43,7 @@ class ImageViewFragment : androidx.fragment.app.Fragment() {
         rootView.image_details.text = "[$spot/$total]"
         rootView.path.text = path.name
         if (path.exists()) {
-            Glide.with(this as ImageView)
+            Glide.with(this)
                     .load(Uri.fromFile(path))
                     .into(rootView.image as ImageView)
 
