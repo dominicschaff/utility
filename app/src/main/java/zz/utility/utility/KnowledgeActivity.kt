@@ -1,14 +1,16 @@
-package zz.utility
+package zz.utility.utility
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_knowledge.*
+import zz.utility.HOME
+import zz.utility.R
 import zz.utility.helpers.fileAsJsonArray
-import zz.utility.helpers.longToast
 import zz.utility.helpers.randomIndex
+import zz.utility.helpers.toast
 
 data class Question(val question: String, val answerA: String, val answerB: String, val answerC: String, val answerD: String, val answer: String)
 
@@ -35,7 +37,7 @@ class KnowledgeActivity : AppCompatActivity() {
 
     private fun doAnswer(answer: String) {
         if (questions[question].answer == answer) displayQuestion()
-        else longToast("Incorrect Answer")
+        else toast("Incorrect Answer")
     }
 
     private fun displayQuestion() {

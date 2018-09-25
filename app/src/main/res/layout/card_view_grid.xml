@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                                    style="@style/MainCard">
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/MainCard"
+    android:layout_width="wrap_content"
+    android:layout_columnWeight="1">
 
     <LinearLayout style="@style/Linear.Padding">
 
@@ -13,4 +16,4 @@
             style="@style/Text"/>
     </LinearLayout>
 
-</android.support.v7.widget.CardView>
+</androidx.cardview.widget.CardView>

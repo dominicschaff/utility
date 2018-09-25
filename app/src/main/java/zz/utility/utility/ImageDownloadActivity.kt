@@ -1,11 +1,14 @@
-package zz.utility
+package zz.utility.utility
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
+import android.widget.ImageView
 import com.koushikdutta.ion.Ion
 import kotlinx.android.synthetic.main.activity_image_download.*
+import zz.utility.MAIN_CONFIG
+import zz.utility.R
 import zz.utility.helpers.a
 import zz.utility.helpers.createChooser
 import zz.utility.helpers.mapObject
@@ -33,7 +36,7 @@ class ImageDownloadActivity : AppCompatActivity() {
     }
 
     private fun doRefresh() {
-        Ion.with(image)
+        Ion.with(image as ImageView)
                 .placeholder(R.drawable.ic_refresh)
                 .error(R.drawable.ic_block)
                 .load(obj.url)

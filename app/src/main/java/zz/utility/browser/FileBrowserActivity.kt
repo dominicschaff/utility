@@ -3,9 +3,9 @@ package zz.utility.browser
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Environment
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
@@ -37,7 +37,7 @@ class FileBrowserActivity : AppCompatActivity() {
 
         recycler_view.setHasFixedSize(true)
 
-        val layoutManager = GridLayoutManager(applicationContext, if (resources.getBoolean(R.bool.is_landscape)) 4 else 2)
+        val layoutManager = androidx.recyclerview.widget.GridLayoutManager(applicationContext, if (resources.getBoolean(R.bool.is_landscape)) 4 else 2)
         recycler_view.layoutManager = layoutManager
         adapter = MyFileAdapter(this, files, folders)
         recycler_view.adapter = adapter

@@ -1,4 +1,4 @@
-package zz.utility
+package zz.utility.utility
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -8,8 +8,8 @@ import android.location.LocationManager
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Environment
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import com.graphhopper.GHRequest
 import com.graphhopper.GraphHopper
@@ -38,6 +38,9 @@ import org.oscim.scalebar.MapScaleBar
 import org.oscim.scalebar.MapScaleBarLayer
 import org.oscim.theme.VtmThemes
 import org.oscim.tiling.source.mapfile.MapFileTileSource
+import zz.utility.HOME
+import zz.utility.MAIN
+import zz.utility.R
 import zz.utility.helpers.*
 import zz.utility.maps.LocationPoint
 import java.io.File
@@ -223,7 +226,7 @@ class CarDockActivity : AppCompatActivity(), LocationListener {
             {
                 val tmpHopp = GraphHopper().forMobile()
                 tmpHopp.load("$HOME/area")
-                "found graph ${tmpHopp.graphHopperStorage.toString()}, nodes:${tmpHopp.graphHopperStorage.nodes}".log()
+                "found graph ${tmpHopp.graphHopperStorage}, nodes:${tmpHopp.graphHopperStorage.nodes}".log()
                 hopper = tmpHopp
                 runOnUiThread {
                     val titles = Array(locationsSaved.size) { locationsSaved[it].name }
@@ -260,14 +263,14 @@ class CarDockActivity : AppCompatActivity(), LocationListener {
             @SuppressLint("SetTextI18n")
             override fun onPostExecute(resp: PathWrapper?) {
                 if (resp == null) {
-                    longToast("Unable to create route")
+                    toast("Unable to create route")
                     return
                 }
                 if (!resp.hasErrors()) {
                     currentResponse = resp
                     val t = resp.time / 1000
-                    longToast("Took ${(time * 1000).toInt()} ms to compute")
-                    longToast("%d turns, %.1f km (%02d:%02d)".format(
+                    toast("Took ${(time * 1000).toInt()} ms to compute")
+                    toast("%d turns, %.1f km (%02d:%02d)".format(
                             resp.instructions.size,
                             resp.distance / 1000.0,
                             t / 60,
@@ -292,7 +295,7 @@ class CarDockActivity : AppCompatActivity(), LocationListener {
 
     private fun logUser(str: String) {
         str.log()
-        longToast(str)
+        toast(str)
     }
 
     @SuppressLint("SetTextI18n")

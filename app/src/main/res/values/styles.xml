@@ -30,6 +30,11 @@
         <item name="android:statusBarColor">@color/black_overlay</item>
     </style>
 
+    <style name="LauncherTheme" parent="AppTheme.NavOverlay.NoActionBar">
+        <item name="android:windowShowWallpaper">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
     <!-- Linear Styles -->
     <style name="Linear">
         <item name="android:layout_width">match_parent</item>

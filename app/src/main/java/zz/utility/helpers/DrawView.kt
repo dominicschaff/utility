@@ -38,7 +38,6 @@ class DrawView : View {
     }
 
     override fun onDraw(canvas: Canvas) {
-        isDrawingCacheEnabled = true
         canvas.drawPath(mPath, mPaint)
     }
 

@@ -1,16 +1,17 @@
-package zz.utility
+package zz.utility.utility
 
 import android.graphics.Bitmap
 import android.graphics.Color.BLACK
 import android.graphics.Color.WHITE
 import android.os.Bundle
 import android.os.Environment
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
 import kotlinx.android.synthetic.main.activity_qrcode_generator.*
+import zz.utility.R
 import zz.utility.helpers.ignore
 import zz.utility.helpers.now
 import zz.utility.helpers.orPrint

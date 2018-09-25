@@ -1,7 +1,7 @@
 package zz.utility.poc
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_poc_menu.*
 import zz.utility.R
 import zz.utility.bot.BotActivity

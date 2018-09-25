@@ -2,9 +2,13 @@ package zz.utility.text
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.JsonObject
-import zz.utility.helpers.*
+import zz.utility.helpers.appendToFile
+import zz.utility.helpers.externalFile
+import zz.utility.helpers.fullDate
+import zz.utility.helpers.toast
 import java.util.*
 import kotlin.math.min
 
@@ -23,7 +27,7 @@ class TextReceiveActivity : AppCompatActivity() {
                 handleSendText(intent) // Handle text being sent
             }
         } else {
-            longToast("Didn't know what to do exiting...")
+            toast("Didn't know what to do exiting...")
         }
         finish()
     }
@@ -36,7 +40,7 @@ class TextReceiveActivity : AppCompatActivity() {
                 addProperty("event_type", "sharedMessage")
                 addProperty("text", sharedText)
             }.appendToFile("utility/shared.json".externalFile())
-            shortToast("Received and saved text: ${sharedText.substring(0, min(sharedText.length, 200))}")
+            toast("Received and saved text: ${sharedText.substring(0, min(sharedText.length, 200))}", Toast.LENGTH_SHORT)
         }
 
     }

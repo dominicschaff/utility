@@ -17,7 +17,7 @@ class SmsReceiver : BroadcastReceiver() {
             Log.e("check", "received")
             if (Telephony.Sms.Intents.SMS_RECEIVED_ACTION == intent.action) {
                 for (smsMessage in Telephony.Sms.Intents.getMessagesFromIntent(intent)) {
-                    val number = smsMessage.originatingAddress
+                    val number = smsMessage.originatingAddress ?: "unknown"
                     val messageBody = smsMessage.messageBody
                     val pdu = { smsMessage.pdu.toHex() }.orMessage()
                     val userData = { smsMessage.userData.toHex() }.orMessage()

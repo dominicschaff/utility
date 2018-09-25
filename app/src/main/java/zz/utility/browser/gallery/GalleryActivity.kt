@@ -1,11 +1,14 @@
 package zz.utility.browser.gallery
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import android.view.KeyEvent
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_gallery.*
 import zz.utility.R
 import zz.utility.browser.PATH
+import zz.utility.helpers.consume
+import zz.utility.helpers.toast
 import zz.utility.isImage
 import java.io.File
 import java.util.ArrayList
@@ -29,6 +32,20 @@ class GalleryActivity : AppCompatActivity() {
 
         val page: Int = paths.indexOfFirst { it.name == path.name }
         pager.currentItem = page
+    }
+
+    override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean = when (keyCode) {
+        KeyEvent.KEYCODE_SPACE, KeyEvent.KEYCODE_ENTER -> consume {
+            pager.currentItem = pager.currentItem + 1
+        }
+        KeyEvent.KEYCODE_DEL, KeyEvent.KEYCODE_FORWARD_DEL -> consume {
+            if ((pager.adapter as GalleryPagerAdapter).delete(pager.currentItem)) {
+                pager.currentItem = pager.currentItem + 1
+            } else {
+                toast("Unable to delete file")
+            }
+        }
+        else -> super.onKeyUp(keyCode, event)
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {

@@ -9,12 +9,12 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.AsyncTask
 import android.os.Environment
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
-import android.support.v4.content.FileProvider
-import android.support.v7.app.AlertDialog
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import java.io.File
 import kotlin.experimental.and
 
@@ -98,8 +98,7 @@ inline fun (() -> String).orMessage(): String = try {
 }
 
 
-inline fun Context.longToast(s: String) = Toast.makeText(this, s, Toast.LENGTH_LONG).show()
-inline fun Context.shortToast(s: String) = Toast.makeText(this, s, Toast.LENGTH_SHORT).show()
+inline fun Context.toast(s: String, length: Int = Toast.LENGTH_LONG) = Toast.makeText(this, s, length).show()
 inline fun View.see() {
     visibility = View.VISIBLE
 }
@@ -107,7 +106,6 @@ inline fun View.see() {
 inline fun View.unsee() {
     visibility = View.GONE
 }
-
 
 inline fun Activity.openFile(f: File) {
     try {
@@ -117,7 +115,7 @@ inline fun Activity.openFile(f: File) {
         intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
         startActivity(intent)
     } catch (e: Exception) {
-        longToast("No application to open this file")
+        toast("No application to open this file")
     }
 }
 

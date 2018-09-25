@@ -2,8 +2,8 @@ package zz.utility.maps
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_maps.*
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_maps_points.*
 import org.oscim.android.canvas.AndroidGraphics.drawableToBitmap
 import org.oscim.backend.CanvasAdapter
 import org.oscim.core.GeoPoint
@@ -25,13 +25,13 @@ import zz.utility.helpers.*
 class MapsPointsActivity : AppCompatActivity(), ItemizedLayer.OnItemGestureListener<MarkerItem> {
     override fun onItemLongPress(index: Int, item: MarkerItem?): Boolean {
         item ?: return true
-        longToast("${item.description}: ${item.title} \n${item.geoPoint.longitude}, ${item.geoPoint.latitude}")
+        toast("${item.description}: ${item.title} \n${item.geoPoint.longitude}, ${item.geoPoint.latitude}")
         return true
     }
 
     override fun onItemSingleTapUp(index: Int, item: MarkerItem?): Boolean {
         item ?: return true
-        longToast(item.title)
+        toast(item.title)
         return true
     }
 

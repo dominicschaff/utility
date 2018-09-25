@@ -1,4 +1,4 @@
-package zz.utility
+package zz.utility.utility
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -7,9 +7,10 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
-import android.support.v4.app.NavUtils
+import androidx.core.app.NavUtils
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_gps.*
+import zz.utility.R
 import zz.utility.helpers.*
 import zz.utility.lib.SunriseSunset
 import java.util.*
@@ -72,21 +73,21 @@ class GPSActivity : Activity(), LocationListener {
 
     @SuppressLint("MissingPermission")
     override fun onResume() {
-        if (hasLocationPermissions()) longToast("We need GPS settings to make this screen work")
+        if (hasLocationPermissions()) toast("We need GPS settings to make this screen work")
         else
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, this)
         super.onResume()
     }
 
     public override fun onPause() {
-        if (hasLocationPermissions()) longToast("We need GPS settings to make this screen work")
+        if (hasLocationPermissions()) toast("We need GPS settings to make this screen work")
         else
             locationManager.removeUpdates(this)
         super.onPause()
     }
 
     public override fun onStop() {
-        if (hasLocationPermissions()) longToast("We need GPS settings to make this screen work")
+        if (hasLocationPermissions()) toast("We need GPS settings to make this screen work")
         else
             locationManager.removeUpdates(this)
         super.onStop()

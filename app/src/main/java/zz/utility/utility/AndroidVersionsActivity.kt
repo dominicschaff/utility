@@ -1,7 +1,8 @@
-package zz.utility
+package zz.utility.utility
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import zz.utility.R
 
 class AndroidVersionsActivity : AppCompatActivity() {
 

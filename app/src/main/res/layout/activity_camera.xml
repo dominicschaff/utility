@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/Scroll"
-    tools:context="zz.utility.CameraScalesActivity">
+    tools:context="zz.utility.utility.CameraScalesActivity">
 
     <GridLayout
         android:id="@+id/grid"

@@ -4,7 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorPrimaryDarkOverlay">#DD303F9F</color>
     <color name="colorAccent">#3C92CA</color>
-    <color name="colorButtons">#A63C92CA</color>
+    <color name="colorButtons">#3C92CA</color>
+    <color name="colorButtonsBackground">#EA526F</color>
+    <color name="colorButtonsSecond">#06BEE1</color>
     <color name="colorAccentFaded">#333C92CA</color>
 
     <color name="black_overlay">#66000000</color>

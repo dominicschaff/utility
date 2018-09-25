@@ -1,7 +1,7 @@
 package zz.utility.browser
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_text_view.*
 import zz.utility.R
 import java.io.BufferedReader

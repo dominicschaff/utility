@@ -1,12 +1,13 @@
-package zz.utility
+package zz.utility.utility
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.reflect.TypeToken
 import com.koushikdutta.ion.Ion
 import kotlinx.android.synthetic.main.activity_daily_comic.*
-
+import zz.utility.R
 
 data class Xkcd(
         val month: String,
@@ -39,7 +40,7 @@ class DailyComicActivity : AppCompatActivity() {
                     title = xkcd.title
                     text.text = xkcd.alt
                     supportActionBar?.subtitle = "${xkcd.day}/${xkcd.month}/${xkcd.year}"
-                    Ion.with(image)
+                    Ion.with(image as ImageView)
                             .placeholder(R.drawable.ic_refresh)
                             .error(R.drawable.ic_block)
                             .load(xkcd.img)

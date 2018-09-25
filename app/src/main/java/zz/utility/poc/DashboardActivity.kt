@@ -2,8 +2,8 @@ package zz.utility.poc
 
 import android.app.Activity
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +20,7 @@ class DashboardActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
 
-        val layoutManager = GridLayoutManager(applicationContext, if (resources.getBoolean(R.bool.is_landscape)) 4 else 2)
+        val layoutManager = androidx.recyclerview.widget.GridLayoutManager(applicationContext, if (resources.getBoolean(R.bool.is_landscape)) 4 else 2)
         recycler_view.layoutManager = layoutManager
 
         swipe_to_refresh.setOnRefreshListener { createMetrics() }
@@ -44,12 +44,12 @@ class DashboardActivity : Activity() {
 
 data class DashboardMetric(val name: String, val metric: Int)
 
-class DashboardTile(val view: View) : RecyclerView.ViewHolder(view) {
+class DashboardTile(val view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
     val metric: TextView = view.findViewById(R.id.metric)
     val name: TextView = view.findViewById(R.id.name)
 }
 
-class MyMetricAdapter(private val metrics: ArrayList<DashboardMetric>) : RecyclerView.Adapter<DashboardTile>() {
+class MyMetricAdapter(private val metrics: ArrayList<DashboardMetric>) : androidx.recyclerview.widget.RecyclerView.Adapter<DashboardTile>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): DashboardTile =
             DashboardTile(LayoutInflater.from(viewGroup.context).inflate(R.layout.dashboard_tile, viewGroup, false))

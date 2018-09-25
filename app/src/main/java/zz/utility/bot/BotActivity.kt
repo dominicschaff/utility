@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.provider.ContactsContract
 import android.provider.ContactsContract.CommonDataKinds.Phone
 import android.speech.tts.TextToSpeech
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_bot.*
 import zz.utility.R
 import zz.utility.helpers.fullDate
@@ -77,6 +77,7 @@ class BotActivity : AppCompatActivity() {
 
     private fun getContacts() {
         val cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, ContactsContract.Contacts.DISPLAY_NAME)
+        cursor ?: return
 
         val count = cursor.count
         add("Found $count contacts")
@@ -96,6 +97,7 @@ class BotActivity : AppCompatActivity() {
             val contactId = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID))
             val phones = contentResolver.query(Phone.CONTENT_URI, null,
                     Phone.CONTACT_ID + " = " + contactId, null, null)
+            phones ?: continue
             while (phones.moveToNext()) {
                 val number = phones.getString(phones.getColumnIndex(Phone.NUMBER))
                 val type = phones.getInt(phones.getColumnIndex(Phone.TYPE))

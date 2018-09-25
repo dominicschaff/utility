@@ -1,10 +1,12 @@
-package zz.utility
+package zz.utility.utility
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_quote.*
+import zz.utility.HOME
+import zz.utility.R
 import zz.utility.helpers.*
 import java.io.File
 import java.io.FileOutputStream

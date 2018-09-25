@@ -53,32 +53,44 @@
                 android:resource="@xml/shortcuts"/>
         </activity>
         <activity
-            android:name=".GPSActivity"
+            android:name=".LauncherActivity"
+            android:label="@string/title_activity_launcher"
+            android:theme="@style/LauncherTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.HOME"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".utility.GPSActivity"
             android:parentActivityName=".MainActivity"/>
         <activity
-            android:name=".QuoteActivity"
+            android:name=".utility.QuoteActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".SensorsActivity"
+            android:name=".utility.SensorsActivity"
             android:label="@string/title_activity_sensors"
             android:parentActivityName=".MainActivity"/>
         <activity
-            android:name=".WiFiScannerActivity"
+            android:name=".utility.WiFiScannerActivity"
             android:parentActivityName=".MainActivity"/>
         <activity
-            android:name=".QRCodeGeneratorActivity"
+            android:name=".utility.QRCodeGeneratorActivity"
             android:label="@string/title_activity_qr_code_generator"
             android:parentActivityName=".MainActivity"/>
         <activity
-            android:name=".InfoActivity"
+            android:name=".utility.InfoActivity"
             android:parentActivityName=".MainActivity"/>
         <activity
-            android:name=".AndroidVersionsActivity"
+            android:name=".utility.AndroidVersionsActivity"
             android:label="@string/title_activity_versions"
             android:parentActivityName=".MainActivity"/>
         <activity
-            android:name=".ScanningActivity"
+            android:name=".utility.ScanningActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
@@ -133,7 +145,7 @@
             android:screenOrientation="sensorLandscape"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".CameraScalesActivity"
+            android:name=".utility.CameraScalesActivity"
             android:label="Camera Scales"
             android:parentActivityName=".MainActivity"/>
         <activity
@@ -145,7 +157,7 @@
             android:parentActivityName=".MainActivity"/>
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -166,7 +178,7 @@
         </service>
 
         <activity
-            android:name=".ListActivity"
+            android:name=".utility.ListActivity"
             android:label="@string/title_activity_list"
             android:parentActivityName=".MainActivity"/>
         <activity
@@ -182,10 +194,10 @@
             android:label="POC Screens"
             android:parentActivityName=".MainActivity"/>
         <activity
-            android:name=".ImageDownloadActivity"
+            android:name=".utility.ImageDownloadActivity"
             android:parentActivityName=".MainActivity"/>
         <activity
-            android:name=".KnowledgeActivity"
+            android:name=".utility.KnowledgeActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="sensorLandscape"
             android:theme="@style/AppTheme.NoActionBar"/>
@@ -195,7 +207,7 @@
             android:screenOrientation="sensorLandscape"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".CarDockActivity"
+            android:name=".utility.CarDockActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="sensorLandscape"
             android:theme="@style/AppTheme.NoActionBar"/>
@@ -211,14 +223,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DailyComicActivity"
+            android:name=".utility.DailyComicActivity"
             android:parentActivityName=".MainActivity"/>
         <activity
-            android:name=".QuoteApiActivity"
+            android:name=".utility.QuoteApiActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".TouchScreenActivity"
+            android:name=".utility.TouchScreenActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity

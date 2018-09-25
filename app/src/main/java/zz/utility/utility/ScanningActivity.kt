@@ -1,4 +1,4 @@
-package zz.utility
+package zz.utility.utility
 
 import android.app.Activity
 import android.content.ClipData
@@ -10,13 +10,13 @@ import android.os.Bundle
 import android.os.Environment
 import android.view.KeyEvent
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import com.google.gson.JsonObject
 import com.google.zxing.ResultPoint
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import kotlinx.android.synthetic.main.activity_scanning.*
+import zz.utility.R
 import zz.utility.helpers.appendToFile
 import zz.utility.helpers.fullDate
 import java.io.File
@@ -40,37 +40,9 @@ class ScanningActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scanning)
         barcode_scanner.decodeContinuous(callback)
-    }
-
-    public override fun onResume() {
-        super.onResume()
-
-        barcode_scanner.resume()
-    }
-
-    public override fun onPause() {
-        super.onPause()
-        barcode_scanner.pause()
-    }
-
-    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-        return barcode_scanner.onKeyDown(keyCode, event) || super.onKeyDown(keyCode, event)
-    }
-
-    private fun addBarcode(type: String, message: String?) {
-        if (message == null) return
-        barcodeRead(type, message)
-        if (message == lastText) return
-        lastText = message
-        val v = this@ScanningActivity.layoutInflater.inflate(R.layout.line, items_barcodes, false)
-
-        val header = v.findViewById<View>(R.id.header) as TextView
-        val content = v.findViewById<View>(R.id.content) as TextView
-
-        header.text = message
-        content.text = type
-        v.setOnClickListener(object : View.OnClickListener {
+        barcode_content.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View) {
+                val message = lastText ?: return
                 if (message.startsWith("WIFI")) {
 
                     val p1 = message.indexOf(";")
@@ -122,14 +94,8 @@ class ScanningActivity : Activity() {
                     val conf = WifiConfiguration()
                     conf.SSID = "\"" + ssid + "\""
                     when (wifiType) {
-                        "WEP" -> {
-                            conf.wepKeys[0] = "\"" + password + "\""
-                            conf.wepTxKeyIndex = 0
-                            conf.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE)
-                            conf.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP40)
-                        }
                         "WPA", "WPA2" -> conf.preSharedKey = "\"" + password + "\""
-                        else -> conf.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE)
+                        else -> return
                     }
                     try {
                         val wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
@@ -159,7 +125,30 @@ class ScanningActivity : Activity() {
                 }
             }
         })
-        items_barcodes.addView(v, 0)
+    }
+
+    public override fun onResume() {
+        super.onResume()
+
+        barcode_scanner.resume()
+    }
+
+    public override fun onPause() {
+        super.onPause()
+        barcode_scanner.pause()
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean =
+            barcode_scanner.onKeyDown(keyCode, event) || super.onKeyDown(keyCode, event)
+
+    private fun addBarcode(type: String, message: String?) {
+        if (message == null) return
+        barcodeRead(type, message)
+        if (message == lastText) return
+        lastText = message
+
+        barcode_content.text = message
+        barcode_type.text = type
     }
 
     private fun barcodeRead(type: String, barcode: String) {

@@ -1,58 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/Outer"
+    style="@style/Scroll"
     tools:context=".MainActivity"
     tools:ignore="HardcodedText">
 
-    <ScrollView style="@style/Scroll">
+    <GridLayout
+        android:id="@+id/mainGrid"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:alignmentMode="alignMargins"
+        android:columnCount="2"
+        android:columnOrderPreserved="false">
 
-        <GridLayout
-            android:id="@+id/mainGrid"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:alignmentMode="alignMargins"
-            android:columnCount="2"
-            android:columnOrderPreserved="false">
+        <TextView
+            android:id="@+id/goto_test_bot"
+            style="@style/MainTitle"
+            android:drawableTop="@drawable/main_bot"
+            android:text="Bot Interface"/>
 
-            <TextView
-                android:id="@+id/goto_test_bot"
-                style="@style/MainTitle"
-                android:drawableTop="@drawable/main_bot"
-                android:text="Bot Interface"/>
+        <TextView
+            android:id="@+id/goto_test_login"
+            style="@style/MainTitle"
+            android:drawableTop="@drawable/main_login"
+            android:text="Login"/>
 
-            <TextView
-                android:id="@+id/goto_test_login"
-                style="@style/MainTitle"
-                android:drawableTop="@drawable/main_login"
-                android:text="Login"/>
+        <TextView
+            android:id="@+id/goto_test_pos"
+            style="@style/MainTitle"
+            android:drawableTop="@drawable/main_pos"
+            android:text="POS System"/>
 
-            <TextView
-                android:id="@+id/goto_test_pos"
-                style="@style/MainTitle"
-                android:drawableTop="@drawable/main_pos"
-                android:text="POS System"/>
+        <TextView
+            android:id="@+id/goto_test_stock_take"
+            style="@style/MainTitle"
+            android:drawableTop="@drawable/main_pos"
+            android:text="Stock Take"/>
 
-            <TextView
-                android:id="@+id/goto_test_stock_take"
-                style="@style/MainTitle"
-                android:drawableTop="@drawable/main_pos"
-                android:text="Stock Take"/>
+        <TextView
+            android:id="@+id/goto_test_bottom_navigation"
+            style="@style/MainTitle"
+            android:drawableTop="@drawable/main_bottom_nav"
+            android:text="Bottom Nav"/>
 
+        <TextView
+            android:id="@+id/goto_dashboard"
+            style="@style/MainTitle"
+            android:drawableTop="@drawable/main_dashboard"
+            android:text="Graphs"/>
+    </GridLayout>
 
-            <TextView
-                android:id="@+id/goto_test_bottom_navigation"
-                style="@style/MainTitle"
-                android:drawableTop="@drawable/main_bottom_nav"
-                android:text="Bottom Nav"/>
-
-            <TextView
-                android:id="@+id/goto_dashboard"
-                style="@style/MainTitle"
-                android:drawableTop="@drawable/main_dashboard"
-                android:text="Graphs"/>
-        </GridLayout>
-    </ScrollView>
-
-</LinearLayout>
+</ScrollView>

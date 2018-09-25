@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_android_versions"
-    style="@style/Outer"
-    tools:context="zz.utility.AndroidVersionsActivity">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/activity_android_versions"
+              style="@style/Outer"
+              tools:context="zz.utility.utility.AndroidVersionsActivity">
 
     <ScrollView style="@style/Scroll">
 
@@ -17,405 +17,405 @@
 
                     <TextView
                         style="@style/Column.2"
-                        android:text="Pie" />
+                        android:text="Pie"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="9.0" />
+                        android:text="9.0"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="28" />
+                        android:text="28"/>
                 </TableRow>
 
                 <TableRow style="Row">
 
                     <TextView
                         style="@style/Column.2"
-                        android:text="Oreo" />
+                        android:text="Oreo"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="8.1" />
+                        android:text="8.1"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="27" />
+                        android:text="27"/>
                 </TableRow>
 
                 <TableRow style="Row">
 
                     <TextView
                         style="@style/Column.2"
-                        android:text="Oreo" />
+                        android:text="Oreo"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="8.0" />
+                        android:text="8.0"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="26" />
+                        android:text="26"/>
                 </TableRow>
 
                 <TableRow style="Row">
 
                     <TextView
                         style="@style/Column.2"
-                        android:text="Nougat" />
+                        android:text="Nougat"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="7.1" />
+                        android:text="7.1"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="25" />
+                        android:text="25"/>
                 </TableRow>
 
                 <TableRow style="Row">
 
                     <TextView
                         style="@style/Column.2"
-                        android:text="Nougat" />
+                        android:text="Nougat"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="7.0" />
+                        android:text="7.0"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="24" />
+                        android:text="24"/>
                 </TableRow>
 
                 <TableRow style="Row">
 
                     <TextView
                         style="@style/Column.2"
-                        android:text="Marshmallow" />
+                        android:text="Marshmallow"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="6.0" />
+                        android:text="6.0"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="23" />
+                        android:text="23"/>
                 </TableRow>
 
                 <TableRow style="Row">
 
                     <TextView
                         style="@style/Column.2"
-                        android:text="Lollipop" />
+                        android:text="Lollipop"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="5.1" />
+                        android:text="5.1"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="22" />
+                        android:text="22"/>
                 </TableRow>
 
                 <TableRow style="Row">
 
                     <TextView
                         style="@style/Column.2"
-                        android:text="Lollipop" />
+                        android:text="Lollipop"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="5.0" />
+                        android:text="5.0"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="21" />
+                        android:text="21"/>
                 </TableRow>
 
                 <TableRow style="Row">
 
                     <TextView
                         style="@style/Column.2"
-                        android:text="KitKat" />
+                        android:text="KitKat"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="4.4 - 4.4.4" />
+                        android:text="4.4 - 4.4.4"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="19" />
+                        android:text="19"/>
                 </TableRow>
 
                 <TableRow style="Row">
 
                     <TextView
                         style="@style/Column.2"
-                        android:text="Jelly Bean" />
+                        android:text="Jelly Bean"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="4.3.x" />
+                        android:text="4.3.x"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="18" />
+                        android:text="18"/>
                 </TableRow>
 
                 <TableRow style="Row">
 
                     <TextView
                         style="@style/Column.2"
-                        android:text="Jelly Bean" />
+                        android:text="Jelly Bean"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="4.2.x" />
+                        android:text="4.2.x"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="17" />
+                        android:text="17"/>
                 </TableRow>
 
                 <TableRow style="Row">
 
                     <TextView
                         style="@style/Column.2"
-                        android:text="Jelly Bean" />
+                        android:text="Jelly Bean"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="4.1.x" />
+                        android:text="4.1.x"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="16" />
+                        android:text="16"/>
                 </TableRow>
 
                 <TableRow style="Row">
 
                     <TextView
                         style="@style/Column.2"
-                        android:text="Ice Cream Sandwich" />
+                        android:text="Ice Cream Sandwich"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="4.0.3 - 4.0.4" />
+                        android:text="4.0.3 - 4.0.4"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="15" />
+                        android:text="15"/>
                 </TableRow>
 
                 <TableRow style="Row">
 
                     <TextView
                         style="@style/Column.2"
-                        android:text="Ice Cream Sandwich" />
+                        android:text="Ice Cream Sandwich"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="4.0.1 - 4.0.2" />
+                        android:text="4.0.1 - 4.0.2"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="14" />
+                        android:text="14"/>
                 </TableRow>
 
                 <TableRow style="Row">
 
                     <TextView
                         style="@style/Column.2"
-                        android:text="Honeycomb" />
+                        android:text="Honeycomb"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="3.2.x" />
+                        android:text="3.2.x"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="13" />
+                        android:text="13"/>
                 </TableRow>
 
                 <TableRow style="Row">
 
                     <TextView
                         style="@style/Column.2"
-                        android:text="Honeycomb" />
+                        android:text="Honeycomb"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="3.1" />
+                        android:text="3.1"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="12" />
+                        android:text="12"/>
                 </TableRow>
 
                 <TableRow style="Row">
 
                     <TextView
                         style="@style/Column.2"
-                        android:text="Honeycomb" />
+                        android:text="Honeycomb"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="3.0" />
+                        android:text="3.0"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="11" />
+                        android:text="11"/>
                 </TableRow>
 
                 <TableRow style="Row">
 
                     <TextView
                         style="@style/Column.2"
-                        android:text="Gingerbread" />
+                        android:text="Gingerbread"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="2.3.3 - 2.3.7" />
+                        android:text="2.3.3 - 2.3.7"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="10" />
+                        android:text="10"/>
                 </TableRow>
 
                 <TableRow style="Row">
 
                     <TextView
                         style="@style/Column.2"
-                        android:text="Gingerbread" />
+                        android:text="Gingerbread"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="2.3 - 2.3.2" />
+                        android:text="2.3 - 2.3.2"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="9" />
+                        android:text="9"/>
                 </TableRow>
 
                 <TableRow style="Row">
 
                     <TextView
                         style="@style/Column.2"
-                        android:text="Froyo" />
+                        android:text="Froyo"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="2.2.x" />
+                        android:text="2.2.x"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="8" />
+                        android:text="8"/>
                 </TableRow>
 
                 <TableRow style="Row">
 
                     <TextView
                         style="@style/Column.2"
-                        android:text="Eclair" />
+                        android:text="Eclair"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="2.1" />
+                        android:text="2.1"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="7" />
+                        android:text="7"/>
                 </TableRow>
 
                 <TableRow style="Row">
 
                     <TextView
                         style="@style/Column.2"
-                        android:text="Eclair" />
+                        android:text="Eclair"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="2.0.1" />
+                        android:text="2.0.1"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="6" />
+                        android:text="6"/>
                 </TableRow>
 
                 <TableRow style="Row">
 
                     <TextView
                         style="@style/Column.2"
-                        android:text="Eclair" />
+                        android:text="Eclair"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="2.0" />
+                        android:text="2.0"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="5" />
+                        android:text="5"/>
                 </TableRow>
 
                 <TableRow style="Row">
 
                     <TextView
                         style="@style/Column.2"
-                        android:text="Donut" />
+                        android:text="Donut"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="1.6" />
+                        android:text="1.6"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="4" />
+                        android:text="4"/>
                 </TableRow>
 
                 <TableRow style="Row">
 
                     <TextView
                         style="@style/Column.2"
-                        android:text="Cupcake" />
+                        android:text="Cupcake"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="1.5" />
+                        android:text="1.5"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="3" />
+                        android:text="3"/>
                 </TableRow>
 
                 <TableRow style="Row">
 
                     <TextView
                         style="@style/Column.2"
-                        android:text="Beta (Petit Four)" />
+                        android:text="Beta (Petit Four)"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="1.1" />
+                        android:text="1.1"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="2" />
+                        android:text="2"/>
                 </TableRow>
 
                 <TableRow style="Row">
 
                     <TextView
                         style="@style/Column.2"
-                        android:text="Alpha" />
+                        android:text="Alpha"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="1.0" />
+                        android:text="1.0"/>
 
                     <TextView
                         style="@style/Column"
-                        android:text="1" />
+                        android:text="1"/>
                 </TableRow>
             </TableLayout>
         </LinearLayout>

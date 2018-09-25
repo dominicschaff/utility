@@ -19,7 +19,7 @@ import java.util.*
 class LoginActivity : Activity() {
 
     // UI references.
-    private var previousUsers: Set<String>? = null
+    private lateinit var previousUsers: MutableSet<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +45,7 @@ class LoginActivity : Activity() {
 
         login_progress.translationZ = 100F
 
-        previousUsers = prefGetSet("previousUsers", TreeSet())
+        previousUsers = prefGetSet("previousUsers", TreeSet()) as MutableSet<String>
         email.setAdapter(ArrayAdapter(this@LoginActivity, android.R.layout.simple_dropdown_item_1line, ArrayList(previousUsers)))
     }
 

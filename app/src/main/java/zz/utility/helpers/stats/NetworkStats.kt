@@ -8,88 +8,81 @@ import android.net.TrafficStats
 import android.os.Process
 import android.telephony.*
 
-class NetworkStats {
-    var mobileRx: Long = 0
-    var mobileTx: Long = 0
-    var totalRx: Long = 0
-    var totalTx: Long = 0
-    var appRx: Long = 0
-    var appTx: Long = 0
-    var serviceStateDescription: String = ""
-    var operatorName: String = ""
-    var cellType: String = ""
-    var isEmergencyOnly: Boolean = false
-    var isInService: Boolean = false
-    var isOutOfService: Boolean = false
-    var isPowerOff: Boolean = false
-    var isWifiConnected: Boolean = false
-    var isMobileConnected: Boolean = false
-    var signalStrength: Int = 0
+class NetworkStats(
+        var mobileRx: Long,
+        var mobileTx: Long,
+        var totalRx: Long,
+        var totalTx: Long,
+        var appRx: Long,
+        var appTx: Long,
+        var serviceStateDescription: String,
+        var operatorName: String,
+        var cellType: String,
+        var isEmergencyOnly: Boolean,
+        var isInService: Boolean,
+        var isOutOfService: Boolean,
+        var isPowerOff: Boolean,
+        var isWifiConnected: Boolean,
+        var isMobileConnected: Boolean,
+        var signalStrength: Int
+)
 
-    companion object {
+@SuppressLint("MissingPermission")
+fun Activity.getNetworkStats(): NetworkStats {
+    val ss = ServiceState()
 
-        @SuppressLint("MissingPermission")
-        operator fun get(activity: Activity): NetworkStats {
+    val connMgr = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val wifi = connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+    val mobile = connMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
 
-            val ns = NetworkStats()
-            ns.mobileRx = TrafficStats.getMobileRxBytes()
-            ns.mobileTx = TrafficStats.getMobileTxBytes()
-            ns.totalRx = TrafficStats.getTotalRxBytes()
-            ns.totalTx = TrafficStats.getTotalTxBytes()
-            ns.appRx = TrafficStats.getUidRxBytes(Process.myUid())
-            ns.appTx = TrafficStats.getUidTxBytes(Process.myUid())
-
-            val ss = ServiceState()
-
-            ns.operatorName = ss.operatorAlphaLong ?: ""
-
-            ns.isEmergencyOnly = ss.state == ServiceState.STATE_EMERGENCY_ONLY
-            ns.isInService = ss.state == ServiceState.STATE_IN_SERVICE
-            ns.isOutOfService = ss.state == ServiceState.STATE_OUT_OF_SERVICE
-            ns.isPowerOff = ss.state == ServiceState.STATE_POWER_OFF
-
-            ns.serviceStateDescription = "Unknown"
-            when (ss.state) {
-                ServiceState.STATE_EMERGENCY_ONLY -> ns.serviceStateDescription = "Emergency Only"
-                ServiceState.STATE_IN_SERVICE -> ns.serviceStateDescription = "In Service"
-                ServiceState.STATE_OUT_OF_SERVICE -> ns.serviceStateDescription = "Out of Service"
-                ServiceState.STATE_POWER_OFF -> ns.serviceStateDescription = "Cell Powered Off"
-                else -> {
-                }
+    var cellType = ""
+    var signalStrength = 0
+    val telephonyManager = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+    for (c in telephonyManager.allCellInfo) {
+        when (c) {
+            is CellInfoGsm -> {
+                cellType = "GSM"
+                signalStrength = c.cellSignalStrength.dbm
             }
-
-
-            val connMgr = activity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            val wifi = connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
-            val mobile = connMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
-
-            ns.isWifiConnected = wifi != null && wifi.isAvailable && wifi.isConnected
-            ns.isMobileConnected = mobile != null && mobile.isAvailable && mobile.isConnectedOrConnecting
-
-            val telephonyManager = activity.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-            for (c in telephonyManager.allCellInfo) {
-                when (c) {
-                    is CellInfoGsm -> {
-                        ns.cellType = "GSM"
-                        ns.signalStrength = c.cellSignalStrength.dbm
-                    }
-                    is CellInfoLte -> {
-                        ns.cellType = "LTE"
-                        ns.signalStrength = c.cellSignalStrength.dbm
-                    }
-                    is CellInfoCdma -> {
-                        ns.cellType = "CDMA"
-                        ns.signalStrength = c.cellSignalStrength.dbm
-                    }
-                    is CellInfoWcdma -> {
-                        ns.cellType = "WCDMA"
-                        ns.signalStrength = c.cellSignalStrength.dbm
-                    }
-                    else -> ns.signalStrength = 0
-                }
+            is CellInfoLte -> {
+                cellType = "LTE"
+                signalStrength = c.cellSignalStrength.dbm
             }
-
-            return ns
+            is CellInfoCdma -> {
+                cellType = "CDMA"
+                signalStrength = c.cellSignalStrength.dbm
+            }
+            is CellInfoWcdma -> {
+                cellType = "WCDMA"
+                signalStrength = c.cellSignalStrength.dbm
+            }
         }
     }
+
+    return NetworkStats(
+            TrafficStats.getMobileRxBytes(),
+            TrafficStats.getMobileTxBytes(),
+            TrafficStats.getTotalRxBytes(),
+            TrafficStats.getTotalTxBytes(),
+            TrafficStats.getUidRxBytes(Process.myUid()),
+            TrafficStats.getUidTxBytes(Process.myUid()),
+            when (ss.state) {
+                ServiceState.STATE_EMERGENCY_ONLY -> "Emergency Only"
+                ServiceState.STATE_IN_SERVICE -> "In Service"
+                ServiceState.STATE_OUT_OF_SERVICE -> "Out of Service"
+                ServiceState.STATE_POWER_OFF -> "Cell Powered Off"
+                else -> {
+                    "Unknown"
+                }
+            },
+            ss.operatorAlphaLong ?: "",
+            cellType,
+            ss.state == ServiceState.STATE_EMERGENCY_ONLY,
+            ss.state == ServiceState.STATE_IN_SERVICE,
+            ss.state == ServiceState.STATE_OUT_OF_SERVICE,
+            ss.state == ServiceState.STATE_POWER_OFF,
+            wifi != null && wifi.isAvailable && wifi.isConnected,
+            mobile != null && mobile.isAvailable && mobile.isConnectedOrConnecting,
+            signalStrength
+    )
 }

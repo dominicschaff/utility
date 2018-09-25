@@ -2,7 +2,7 @@ package zz.utility.poc
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import com.google.zxing.ResultPoint
 import com.journeyapps.barcodescanner.BarcodeCallback

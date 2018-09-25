@@ -1,4 +1,4 @@
-package zz.utility
+package zz.utility.utility
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,9 +7,10 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_sensors.*
+import zz.utility.R
 import java.util.*
 
 class SensorsActivity : AppCompatActivity(), SensorEventListener {

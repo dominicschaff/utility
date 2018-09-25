@@ -8,14 +8,11 @@ class StorageStats(
         val internal: Long,
         val external: Array<Long>,
         val internalFull: Long,
-        val externalFull: Array<Long>) {
+        val externalFull: Array<Long>)
 
-    companion object {
-        operator fun get(context: Context): StorageStats = StorageStats(
-                Utilities.getFreeInternalMemory(context),
-                Utilities.getFreeExternalMemory(context),
-                Utilities.getTotalInternalMemory(context),
-                Utilities.getTotalExternalMemory(context)
-        )
-    }
-}
+fun Context.getStorageStats() = StorageStats(
+        Utilities.getFreeInternalMemory(this),
+        Utilities.getFreeExternalMemory(this),
+        Utilities.getTotalInternalMemory(this),
+        Utilities.getTotalExternalMemory(this)
+)

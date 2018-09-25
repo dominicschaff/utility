@@ -8,10 +8,11 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.AsyncTask
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
+import android.widget.Toast
 import com.graphhopper.GHRequest
 import com.graphhopper.GraphHopper
 import com.graphhopper.PathWrapper
@@ -148,7 +149,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
             try {
                 startActivity(Intent.createChooser(i, "Share Location"))
             } catch (ex: android.content.ActivityNotFoundException) {
-                longToast("There is no activity to share location to.")
+                toast("There is no activity to share location to.")
             }
         }
 
@@ -168,11 +169,11 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
                 return when (g) {
                     is Gesture.Tap -> consume {
                         val p = mMap.viewport().fromScreenPoint(e.x, e.y)
-                        longToast("You clicked on ${p.latitude}, ${p.longitude}")
+                        toast("You clicked on ${p.latitude}, ${p.longitude}")
                     }
                     is Gesture.LongPress -> consume {
                         val p = mMap.viewport().fromScreenPoint(e.x, e.y)
-                        shortToast("Navigating to ${p.latitude}, ${p.longitude}")
+                        toast("Navigating to ${p.latitude}, ${p.longitude}", Toast.LENGTH_SHORT)
                         calcPath(lastLocation.latitude, lastLocation.longitude, p.latitude, p.longitude)
                     }
                     else -> false
@@ -213,10 +214,10 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
                             centerOn(latitude, longitude)
                             calcPath(lastLocation.latitude, lastLocation.longitude, latitude, longitude)
                         } catch (e: Exception) {
-                            longToast("Couldn't decode: ${data.path}")
+                            toast("Couldn't decode: ${data.path}")
                         }
                     }
-                    else -> longToast("Unable to understand given app link")
+                    else -> toast("Unable to understand given app link")
                 }
             }
         }.start()
@@ -274,13 +275,13 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
 
     override fun onItemSingleTapUp(index: Int, item: MarkerItem?): Boolean {
         item ?: return true
-        longToast("Is here: " + item.getTitle())
+        toast("Is here: " + item.getTitle())
         return true
     }
 
     override fun onItemLongPress(index: Int, item: MarkerItem?): Boolean {
         item ?: return true
-        longToast("Navigating to:" + item.getTitle())
+        toast("Navigating to:" + item.getTitle())
         calcPath(lastLocation.latitude, lastLocation.longitude, item.geoPoint.latitude, item.geoPoint.longitude)
 
         return true
@@ -322,7 +323,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
             override fun onPostExecute(resp: PathWrapper?) {
                 progress.unsee()
                 if (resp == null) {
-                    longToast("Unable to create route")
+                    toast("Unable to create route")
                     return
                 }
                 if (!resp.hasErrors()) {
@@ -334,7 +335,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
                             t / 60,
                             t % 60)
                     debug.see()
-                    longToast("Took ${(time * 1000).toInt()} ms to compute")
+                    toast("Took ${(time * 1000).toInt()} ms to compute")
 
 
                     val geoPoints = ArrayList<GeoPoint>()
@@ -359,7 +360,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
 
     private fun logUser(str: String) {
         log(str)
-        longToast(str)
+        toast(str)
     }
 
 }

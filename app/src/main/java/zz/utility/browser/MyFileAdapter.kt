@@ -5,8 +5,8 @@ import android.app.Activity
 import android.content.*
 import android.net.Uri
 import android.os.Environment
-import android.support.v7.app.AlertDialog
-import android.support.v7.widget.RecyclerView
+import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,13 +18,13 @@ import zz.utility.browser.gallery.GalleryActivity
 import zz.utility.helpers.*
 import java.io.File
 
-class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+class ViewHolder(val view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
     val title: TextView = view.findViewById(R.id.title)
     val img: ImageView = view.findViewById(R.id.img)
     val description: TextView = view.findViewById(R.id.description)
 }
 
-class MyFileAdapter(private val activity: Activity, private val galleryList: ArrayList<File>, private val folderList: ArrayList<File>) : RecyclerView.Adapter<ViewHolder>() {
+class MyFileAdapter(private val activity: Activity, private val galleryList: ArrayList<File>, private val folderList: ArrayList<File>) : androidx.recyclerview.widget.RecyclerView.Adapter<ViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder =
             ViewHolder(LayoutInflater.from(viewGroup.context).inflate(R.layout.view_file, viewGroup, false))
@@ -98,13 +98,13 @@ class MyFileAdapter(private val activity: Activity, private val galleryList: Arr
                             4 -> {
                                 val bin = File(Environment.getExternalStorageDirectory(), ".bin")
                                 if (!bin.exists()) bin.mkdir()
-                                if (!f.renameTo(File(bin, f.name))) activity.longToast("File could not be moved")
+                                if (!f.renameTo(File(bin, f.name))) activity.toast("File could not be moved")
                                 viewHolder.img.setImageResource(R.drawable.ic_delete)
                             }
                             5 -> {
                                 val clipboard = activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                                 clipboard.primaryClip = ClipData.newPlainText(f.absolutePath, f.absolutePath)
-                                activity.longToast("Set clipboard to: ${f.absolutePath}")
+                                activity.toast("Set clipboard to: ${f.absolutePath}")
                             }
                             6 -> {
 

@@ -3,14 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/Scroll"
-    tools:context="zz.utility.InfoActivity">
+    tools:context="zz.utility.utility.InfoActivity">
 
-    <GridLayout
+    <LinearLayout
         android:id="@+id/listy"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:alignmentMode="alignMargins"
-        android:columnCount="2"
-        android:columnOrderPreserved="false"/>
+        style="@style/Linear.Padding"
+        android:layout_height="0dp"/>
 
 </ScrollView>

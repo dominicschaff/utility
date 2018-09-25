@@ -1,10 +1,11 @@
-package zz.utility
+package zz.utility.utility
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.text.Html
+import androidx.appcompat.app.AppCompatActivity
 import com.koushikdutta.ion.Ion
 import kotlinx.android.synthetic.main.activity_quote_api.*
+import zz.utility.R
 import zz.utility.helpers.o
 import zz.utility.helpers.s
 

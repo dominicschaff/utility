@@ -3,9 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/Scroll"
-    tools:context=".MainActivity"
     tools:ignore="HardcodedText">
-
 
     <GridLayout
         android:id="@+id/mainGrid"
@@ -74,6 +72,7 @@
         <TextView
             android:id="@+id/goto_qr"
             style="@style/MainTitle"
+            android:layout_height="wrap_content"
             android:drawableTop="@drawable/main_barcode_scan"
             android:text="QR Code"/>
 

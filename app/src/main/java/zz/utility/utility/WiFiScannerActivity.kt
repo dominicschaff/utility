@@ -1,4 +1,4 @@
-package zz.utility
+package zz.utility.utility
 
 import android.app.Activity
 import android.content.BroadcastReceiver
@@ -10,6 +10,7 @@ import android.net.wifi.WifiManager
 import android.os.Bundle
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_wi_fi_scanner.*
+import zz.utility.R
 import java.util.*
 
 class WiFiScannerActivity : Activity() {
