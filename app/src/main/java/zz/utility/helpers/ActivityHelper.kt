@@ -10,6 +10,11 @@ import androidx.core.content.ContextCompat
 import android.util.Log
 
 inline fun Activity.goto(c: Class<*>) = startActivity(Intent(this, c))
+inline fun Activity.gotoNewWindow(c: Class<*>) {
+    startActivity(Intent(this, c).setFlags(Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT or
+            Intent.FLAG_ACTIVITY_NEW_TASK or
+            Intent.FLAG_ACTIVITY_MULTIPLE_TASK))
+}
 
 inline fun Activity.hasLocationPermissions(): Boolean = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
         ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED

@@ -329,12 +329,12 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
                 if (!resp.hasErrors()) {
                     currentResponse = resp
                     val t = resp.time / 1000
-                    debug.text = "%d turns, %.1f km (%02d:%02d)".format(
+                    path.text = "%d turns, %.1f km (%02d:%02d)".format(
                             resp.instructions.size,
                             resp.distance / 1000.0,
                             t / 60,
                             t % 60)
-                    debug.see()
+                    path.see()
                     toast("Took ${(time * 1000).toInt()} ms to compute")
 
 

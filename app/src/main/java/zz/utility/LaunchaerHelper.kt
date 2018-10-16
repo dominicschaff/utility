@@ -11,13 +11,22 @@ import android.widget.TextView
 
 data class AppInfo(
         val label: CharSequence,
-        val packageName: CharSequence,
-        val icon: Drawable
+        val packageName: CharSequence
 )
+
+fun CharSequence.firstLetters(): String {
+    val a = this.split(" ")
+    return when (a.size) {
+        0 -> "-"
+        1 -> "${a[0].first()}"
+        else -> "${a[0].first()}${a[1].first()}"
+    }
+}
 
 class ViewHolder(val view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
     val title: TextView = view.findViewById(R.id.title)
-    val img: ImageView = view.findViewById(R.id.img)
+    val img: TextView = view.findViewById(R.id.img)
+    val subtitle: TextView = view.findViewById(R.id.subtitle)
 }
 
 fun getAppIcon(mPackageManager: PackageManager, packageName: String): Bitmap? {

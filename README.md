@@ -10,20 +10,27 @@ First some warnings:
 ## Some things this app does:
 
 1. Has a continuous barcode reader (click to copy).
-    * Scanning a WiFi barcode will attempt adding it to your WiFi.
-2. A book library manager, it only sort of works, so use with caution.
+2. Open Street Map browser with routing.
 3. Device Info
-4. Very basic file browser, with image viewer
+4. Very basic file browser, with image viewer, and video viewer
 5. GPS info
-6. Keypad (testing a layout)
-7. QR Code generator (insert text, click on image to save)
-8. Random quote (there are a few thousand)
-9. Sensor information.
-10. Random Data
-11. Android version, names and codes included
-12. WiFi scanner
-13. Test if you device supports a second display
-14. Open Street maps browser.
+6. QR Code generator (insert text, click on image to save)
+7. Random quote either from file, or API.
+8. Sensor information.
+9. Android version, names and codes included
+10. WiFi scanner (but seems to only work on some devices)
+11. Test if you device supports a second display
+12. Open Street maps browser.
+13. Car dock (takes a photo every x seconds, and routes to a location)
+14. Scrum Poker
+15. Camera f stop scales
+16. Image Downloader
+17. Latest XKCD comic
+18. Basic drawer (shows coords and pressure/size)
+19. Attempt at a knowledge game (but it sometimes fails)
+20. The POC screens are for testing, they change quite often
+21. A map browser for points (draw many points on the device) (tested up to around 150 000 points on a phone)
+22. A very basic launcher.
 
 # Required files and their contents:
 
@@ -37,7 +44,7 @@ Some files are required to be on your device:
       >- area.map - this can be taken from a mapsforge server, just rename the file. (the app will exit the map viewer)
       >- area.gz - this is a compiled graphhopper routes, for car and foot traffic. (without this the app won't do routing)
       >- quotes.json - a list of quotes, at some point the app will generate a sample. (without this the app might crash)
-      >- locations.json -  a list of locations to be shown on the map, at some point the app will generate a sample (this should just be ignored if this isn't there)
+      >- utility.json -  a list of locations to be shown on the map, at some point the app will generate a sample (this should just be ignored if this isn't there)
       >- lists/
           |
           >- file.json - a list of strings, at some point the app will generate a sample
@@ -51,32 +58,50 @@ This can be any file from: <http://download.mapsforge.org>
 
 The routing comes from <https://github.com/graphhopper/graphhopper> but follow the following bash script:
 
-Update the `COUNTRY` field based on which place you want from <https://download.geofabrik.de>
+*This script is setup for South Africa, but minor changes are required to make it work on other countries.*
 
 ```bash
-TOOLS="graphhopper-tools-0.10.1-jar-with-dependencies.jar"
+set -e
 
-COUNTRY="africa/south-africa-latest.osm.pbf"
+TOOLS="graphhopper-web-0.11.0.jar"
 
-wget http://central.maven.org/maven2/com/graphhopper/graphhopper-tools/0.10.1/$TOOLS -O $TOOLS
-wget "https://download.geofabrik.de/$COUNTRY" -O area.osm.pbf
-cat - > config.properties <<EOF
-graph.dataaccess = RAM_STORE
-graph.flag_encoders = car,foot|turn_costs=true
-prepare.ch.weightings = fastest
-prepare.min_network_size = 1
-prepare.min_one_way_network_size = 1
-prepare.minNetworkSize = 1
-prepare.minOnewayNetworkSize = 1
-routing.non_ch.max_waypoint_distance = 1000000
+wget "http://central.maven.org/maven2/com/graphhopper/graphhopper-web/0.11.0/$TOOLS" -O $TOOLS &
+wget "https://download.geofabrik.de/africa/south-africa-latest.osm.pbf" -O area.osm.pbf &
+wget "http://download.mapsforge.org/maps/v5/africa/south-africa-and-lesotho.map" -O area.map &
+wait
+
+cat - > config.yml <<EOF
+graphhopper:
+  datareader.file: area.osm.pbf
+  graph.flag_encoders: car,foot|turn_costs=true
+  prepare.ch.weightings: fastest
+  prepare.min_network_size: 1
+  prepare.min_one_way_network_size: 1
+  routing.non_ch.max_waypoint_distance: 1000000
+  graph.dataaccess: RAM_STORE
+server:
+  applicationConnectors:
+  - type: http
+    port: 8989
+    # for security reasons bind to localhost
+    bindHost: localhost
+  requestLog:
+      appenders: []
+  adminConnectors:
+  - type: http
+    port: 8990
+    bindHost: localhost
 EOF
 
-java -Xmx4000m -Xms4000m -server -cp "$TOOLS" com.graphhopper.tools.Import config=config.properties graph.location=area datareader.file=area.osm.pbf
+java -Xmx4000m -Xms4000m -server \
+  -Dgraphhopper.graph.location="area" \
+  -jar "$TOOLS" \
+  import config.yml
 
 cd area; zip -r ../area.ghz *
+
+rm config.yml
 ```
-
-
 
 `/sdcard/utility/quotes.json`
 
@@ -89,16 +114,35 @@ cd area; zip -r ../area.ghz *
 ]
 ```
 
-`/sdcard/utility/locations.json`
+`/sdcard/utility/utility.json`
 
 ```json
-[
-  {
-    "name": "First location",
-    "latitude": -31.123,
-    "longitude": 20.123
+{
+  "locations": [
+    {
+      "name": "Location",
+      "latitude": -33.1,
+      "longitude": 18.1
+    }
+  ],
+  "imageUrls": [
+    {
+      "title": "Cape Town Tide Information",
+      "url": "https://www.tide-forecast.com/tides/Cape-Town-South-Africa.png"
+    }
+  ],
+  "launcher": {
+    "fave": [
+      "com.google.android.dialer",
+      "com.android.chrome",
+      "com.whatsapp"
+    ],
+    "hide": [
+      "zz.utility"
+    ]
   }
-]
+}
+
 ```
 
 `/sdcard/utility/lists/file.json`

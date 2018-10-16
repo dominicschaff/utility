@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     flavorDimensions "default"
     compileSdkVersion 28
-    buildToolsVersion '28.0.2'
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
         multiDexEnabled true
@@ -62,7 +62,7 @@ dependencies {
     implementation 'org.slf4j:slf4j-api:1.7.25'
     implementation 'org.slf4j:slf4j-android:1.7.25'
 
-    implementation('com.graphhopper:graphhopper-core:0.10.3') {
+    implementation('com.graphhopper:graphhopper-core:0.11.0') {
         exclude group: 'com.google.protobuf', module: 'protobuf-java'
         exclude group: 'org.openstreetmap.osmosis', module: 'osmosis-osm-binary'
         exclude group: 'org.apache.xmlgraphics', module: 'xmlgraphics-commons'
@@ -77,4 +77,5 @@ dependencies {
     implementation 'io.fotoapparat.fotoapparat:library:2.3.1'
 
     implementation 'com.github.chrisbanes:PhotoView:2.1.4'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }

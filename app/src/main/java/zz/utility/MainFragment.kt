@@ -8,11 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.GridLayout
-import android.widget.ImageView
+import android.widget.TextView
 import kotlinx.android.synthetic.main.fragment_launcher_main.view.*
-import zz.utility.helpers.a
-import zz.utility.helpers.fileAsJsonObject
-import zz.utility.helpers.o
+import zz.utility.helpers.*
 
 class MainFragment : androidx.fragment.app.Fragment() {
     override fun onCreateView(inflater: LayoutInflater,
@@ -30,22 +28,23 @@ class MainFragment : androidx.fragment.app.Fragment() {
 
     }
 
-    private fun doLoad(gl: GridLayout, s: String, pm: PackageManager) {
-        val d = getActivityIcon(s) ?: return
-        val im = layoutInflater.inflate(R.layout.launcher_icon_main, gl, false) as ImageView
+    private fun doLoad(gl: GridLayout, packageName: String, packageManager: PackageManager) {
+        val d = getActivity(packageName) ?: return
+        val im = layoutInflater.inflate(R.layout.launcher_icon_main, gl, false) as TextView
 
-        val b = getAppIcon(pm, s)
+        val s = d.loadLabel(packageManager)
 
-        if (b != null) im.setImageBitmap(b)
-        else im.setImageDrawable(d.activityInfo.loadIcon(pm))
+        im.text = s.firstLetters()
 
+        im.setOnLongClickListener { consume { context?.toast(s.toString()) } }
         im.setOnClickListener { context!!.startActivity(context!!.packageManager.getLaunchIntentForPackage(d.activityInfo.packageName.toString())) }
         gl.addView(im)
     }
 
-    private fun getActivityIcon(packageName: String): ResolveInfo? {
+    private fun getActivity(packageName: String): ResolveInfo? {
         val pm = context!!.packageManager
         val intent = Intent()
+        intent.addCategory(Intent.CATEGORY_LAUNCHER)
         intent.`package` = packageName
 
         val p = pm.queryIntentActivities(intent, 0)
