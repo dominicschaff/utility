@@ -1,22 +1,22 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-        android:width="72dp"
-        android:height="72dp"
-        android:alpha="0.65"
-        android:viewportHeight="48.0"
-        android:viewportWidth="48.0">
+    android:width="72dp"
+    android:height="72dp"
+    android:alpha="0.65"
+    android:viewportHeight="48.0"
+    android:viewportWidth="48.0">
     <path
         android:fillColor="@color/colorButtons"
-        android:pathData="M32,21L32,9.96L36,9.96L36,21L32,21ZM32,27L32,37.96L36,37.96L36,27L32,27ZM41.98,21L41.98,13.94C41.98,12.47 41.19,11.19 40,10.5L40,21L41.98,21ZM41.98,27L41.98,33.98C41.98,35.45 41.18,36.73 40,37.42L40,27L41.98,27ZM28,21L28,9.96L30,9.96L30,21L28,21ZM28,27L28,37.96L30,37.96L30,27L28,27ZM22,21L22,9.96L26,9.96L26,21L22,21ZM22,27L22,37.96L26,37.96L26,27L22,27ZM18,21L18,9.96L20,9.96L20,21L18,21ZM18,27L18,37.96L20,37.96L20,27L18,27ZM9.97,21L9.95,9.96C9.96,9.96 9.98,9.96 9.99,9.96L14,9.96L14,21L9.97,21ZM9.98,27L10,37.96L14,37.96L14,27L9.98,27ZM5.99,21L6,13.94C6,12.48 6.78,11.2 7.96,10.51L7.96,21L5.99,21ZM5.99,27L5.98,33.98C5.98,35.46 6.78,36.74 7.96,37.43L7.96,27L5.99,27ZM2,23L46,23L46,25L2,25L2,23Z"/>
+        android:pathData="M32,21L32,9.96L36,9.96L36,21L32,21ZM32,27L32,37.96L36,37.96L36,27L32,27ZM41.98,21L41.98,13.94C41.98,12.47 41.19,11.19 40,10.5L40,21L41.98,21ZM41.98,27L41.98,33.98C41.98,35.45 41.18,36.73 40,37.42L40,27L41.98,27ZM28,21L28,9.96L30,9.96L30,21L28,21ZM28,27L28,37.96L30,37.96L30,27L28,27ZM22,21L22,9.96L26,9.96L26,21L22,21ZM22,27L22,37.96L26,37.96L26,27L22,27ZM18,21L18,9.96L20,9.96L20,21L18,21ZM18,27L18,37.96L20,37.96L20,27L18,27ZM9.97,21L9.95,9.96C9.96,9.96 9.98,9.96 9.99,9.96L14,9.96L14,21L9.97,21ZM9.98,27L10,37.96L14,37.96L14,27L9.98,27ZM5.99,21L6,13.94C6,12.48 6.78,11.2 7.96,10.51L7.96,21L5.99,21ZM5.99,27L5.98,33.98C5.98,35.46 6.78,36.74 7.96,37.43L7.96,27L5.99,27ZM2,23L46,23L46,25L2,25L2,23Z" />
     <path
         android:fillColor="@color/colorButtonsSecond"
-        android:pathData="M2,4l6,0l0,2l-4,0l0,4l-2,0z"/>
+        android:pathData="M2,4l6,0l0,2l-4,0l0,4l-2,0z" />
     <path
         android:fillColor="@color/colorButtonsSecond"
-        android:pathData="M46,4l0,6l-2,0l0,-4l-4,0l0,-2z"/>
+        android:pathData="M46,4l0,6l-2,0l0,-4l-4,0l0,-2z" />
     <path
         android:fillColor="@color/colorButtonsSecond"
-        android:pathData="M46,44l-6,0l0,-2l4,0l0,-4l2,0z"/>
+        android:pathData="M46,44l-6,0l0,-2l4,0l0,-4l2,0z" />
     <path
         android:fillColor="@color/colorButtonsSecond"
-        android:pathData="M2,44l0,-6l2,0l0,4l4,0l0,2z"/>
+        android:pathData="M2,44l0,-6l2,0l0,4l4,0l0,2z" />
 </vector>

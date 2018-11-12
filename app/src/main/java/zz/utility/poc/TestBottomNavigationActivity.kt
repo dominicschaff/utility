@@ -1,8 +1,8 @@
 package zz.utility.poc
 
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_test_bottom_navigation.*
 import zz.utility.R
 

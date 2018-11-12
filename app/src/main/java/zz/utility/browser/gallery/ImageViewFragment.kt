@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.webkit.MimeTypeMap
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_gallery.view.*
 import zz.utility.R
@@ -22,7 +23,6 @@ import zz.utility.helpers.openFile
 import zz.utility.helpers.see
 import zz.utility.helpers.toast
 import java.io.File
-import androidx.fragment.app.Fragment
 
 class ImageViewFragment : Fragment() {
 

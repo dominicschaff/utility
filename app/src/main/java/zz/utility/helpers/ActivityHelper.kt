@@ -6,8 +6,8 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.core.content.ContextCompat
 import android.util.Log
+import androidx.core.content.ContextCompat
 
 inline fun Activity.goto(c: Class<*>) = startActivity(Intent(this, c))
 inline fun Activity.gotoNewWindow(c: Class<*>) {

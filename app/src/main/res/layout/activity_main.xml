@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/Scroll"
     tools:ignore="HardcodedText">
@@ -19,127 +18,127 @@
             android:id="@+id/goto_scan"
             style="@style/MainTitle"
             android:drawableTop="@drawable/main_barcode_scan"
-            android:text="Barcode Scan"/>
+            android:text="Barcode Scan" />
 
         <TextView
             android:id="@+id/goto_osm_maps"
             style="@style/MainTitle"
             android:drawableTop="@drawable/main_maps"
-            android:text="OSM Maps"/>
+            android:text="OSM Maps" />
 
         <TextView
             android:id="@+id/goto_files"
             style="@style/MainTitle"
             android:drawableTop="@drawable/main_file"
-            android:text="File Browser"/>
+            android:text="File Browser" />
 
         <TextView
             android:id="@+id/goto_quote"
             style="@style/MainTitle"
             android:drawableTop="@drawable/main_quote"
-            android:text="Quote"/>
+            android:text="Quote" />
 
         <TextView
             android:id="@+id/goto_quote_api"
             style="@style/MainTitle"
             android:drawableTop="@drawable/main_quote"
-            android:text="Quote API"/>
+            android:text="Quote API" />
 
         <TextView
             android:id="@+id/goto_list"
             style="@style/MainTitle"
             android:drawableTop="@drawable/main_list"
-            android:text="File List"/>
+            android:text="File List" />
 
         <TextView
             android:id="@+id/goto_car_dock"
             style="@style/MainTitle"
             android:drawableTop="@drawable/main_car"
-            android:text="Car Dock"/>
+            android:text="Car Dock" />
 
         <TextView
             android:id="@+id/goto_info"
             style="@style/MainTitle"
             android:drawableTop="@drawable/main_device"
-            android:text="Device Info"/>
+            android:text="Device Info" />
 
         <TextView
             android:id="@+id/goto_gps"
             style="@style/MainTitle"
             android:drawableTop="@drawable/main_gps"
-            android:text="GPS"/>
+            android:text="GPS" />
 
         <TextView
             android:id="@+id/goto_qr"
             style="@style/MainTitle"
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/main_barcode_scan"
-            android:text="QR Code"/>
+            android:text="QR Code" />
 
         <TextView
             android:id="@+id/goto_sensors"
             style="@style/MainTitle"
             android:drawableTop="@drawable/main_sensors"
-            android:text="Sensors"/>
+            android:text="Sensors" />
 
         <TextView
             android:id="@+id/goto_wifi"
             style="@style/MainTitle"
             android:drawableTop="@drawable/main_wifi"
-            android:text="WiFi Scanner"/>
+            android:text="WiFi Scanner" />
 
         <TextView
             android:id="@+id/goto_scrum_poker"
             style="@style/MainTitle"
             android:drawableTop="@drawable/main_scrum"
-            android:text="Scrum Poker"/>
+            android:text="Scrum Poker" />
 
         <TextView
             android:id="@+id/goto_camera"
             style="@style/MainTitle"
             android:drawableTop="@drawable/main_camera"
-            android:text="Camera Scales"/>
+            android:text="Camera Scales" />
 
         <TextView
             android:id="@+id/goto_versions"
             style="@style/MainTitle"
             android:drawableTop="@drawable/main_android_versions"
-            android:text="Versions"/>
+            android:text="Versions" />
 
         <TextView
             android:id="@+id/goto_images"
             style="@style/MainTitle"
             android:drawableTop="@drawable/main_images"
-            android:text="Image Downloader"/>
+            android:text="Image Downloader" />
 
         <TextView
             android:id="@+id/goto_daily_comic"
             style="@style/MainTitle"
             android:drawableTop="@drawable/main_images"
-            android:text="Daily Comic"/>
+            android:text="Daily Comic" />
 
         <TextView
             android:id="@+id/goto_draw"
             style="@style/MainTitle"
             android:drawableTop="@drawable/main_draw"
-            android:text="Draw"/>
+            android:text="Draw" />
 
         <TextView
             android:id="@+id/goto_knowledge"
             style="@style/MainTitle"
             android:drawableTop="@drawable/main_game"
-            android:text="Knowledge"/>
+            android:text="Knowledge" />
 
         <TextView
             android:id="@+id/goto_poc"
             style="@style/MainTitle"
             android:drawableTop="@drawable/main_poc"
-            android:text="POC Screens"/>
+            android:text="POC Screens" />
 
         <TextView
             android:id="@+id/goto_map_points"
             style="@style/MainTitle"
             android:drawableTop="@drawable/main_maps"
-            android:text="Map points"/>
+            android:text="Map points" />
     </GridLayout>
 </ScrollView>

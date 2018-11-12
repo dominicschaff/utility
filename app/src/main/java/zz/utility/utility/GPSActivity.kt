@@ -7,8 +7,8 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
-import androidx.core.app.NavUtils
 import android.view.MenuItem
+import androidx.core.app.NavUtils
 import kotlinx.android.synthetic.main.activity_gps.*
 import zz.utility.R
 import zz.utility.helpers.*

@@ -8,9 +8,9 @@ import android.location.LocationManager
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Environment
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import android.view.View
 import com.graphhopper.GHRequest
 import com.graphhopper.GraphHopper
 import com.graphhopper.PathWrapper

@@ -1,25 +1,25 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-        android:width="72dp"
-        android:height="72dp"
-        android:alpha="0.65"
-        android:viewportHeight="24"
-        android:viewportWidth="24">
+    android:width="72dp"
+    android:height="72dp"
+    android:alpha="0.65"
+    android:viewportHeight="24"
+    android:viewportWidth="24">
     <path
         android:fillColor="@color/colorButtonsSecond"
-        android:pathData="M5,13l-1.8,0l1.8,-2.1l0,-0.9l-3,0l0,1l1.8,0l-1.8,2.1l0,0.9l3,0z"/>
+        android:pathData="M5,13l-1.8,0l1.8,-2.1l0,-0.9l-3,0l0,1l1.8,0l-1.8,2.1l0,0.9l3,0z" />
     <path
         android:fillColor="@color/colorButtons"
-        android:pathData="M7,5h14v2h-14z"/>
+        android:pathData="M7,5h14v2h-14z" />
     <path
         android:fillColor="@color/colorButtonsSecond"
-        android:pathData="M5,16l-3,0l0,1l2,0l0,0.5l-1,0l0,1l1,0l0,0.5l-2,0l0,1l3,0z"/>
+        android:pathData="M5,16l-3,0l0,1l2,0l0,0.5l-1,0l0,1l1,0l0,0.5l-2,0l0,1l3,0z" />
     <path
         android:fillColor="@color/colorButtons"
-        android:pathData="M7,17h14v2h-14z"/>
+        android:pathData="M7,17h14v2h-14z" />
     <path
         android:fillColor="@color/colorButtonsSecond"
-        android:pathData="M3,8l1,0l0,-4l-2,0l0,1l1,0z"/>
+        android:pathData="M3,8l1,0l0,-4l-2,0l0,1l1,0z" />
     <path
         android:fillColor="@color/colorButtons"
-        android:pathData="M7,11h14v2h-14z"/>
+        android:pathData="M7,11h14v2h-14z" />
 </vector>

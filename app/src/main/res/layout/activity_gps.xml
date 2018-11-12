@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeLayout"
@@ -17,7 +16,7 @@
         android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/gps_acceleration"/>
+        app:layout_constraintStart_toStartOf="@+id/gps_acceleration" />
 
     <TextView
         android:id="@+id/gps_lat_long"
@@ -27,7 +26,7 @@
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/gps_speed"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
@@ -40,7 +39,7 @@
         android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/gps_acceleration"
-        app:layout_constraintTop_toBottomOf="@+id/gps_lat_long"/>
+        app:layout_constraintTop_toBottomOf="@+id/gps_lat_long" />
 
     <TextView
         android:id="@+id/gps_acceleration"
@@ -51,7 +50,7 @@
         android:gravity="center_horizontal"
         android:textAppearance="?android:attr/textAppearanceLarge"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/gps_speed"/>
+        app:layout_constraintTop_toTopOf="@+id/gps_speed" />
 
 
     <TextView
@@ -63,7 +62,7 @@
         android:layout_marginStart="44dp"
         app:layout_constraintBaseline_toBaselineOf="@+id/gps_altitude"
         app:layout_constraintEnd_toStartOf="@+id/gps_altitude"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/gps_altitude"
@@ -75,7 +74,7 @@
         android:layout_marginRight="1dp"
         app:layout_constraintBottom_toTopOf="@+id/gps_time_data"
         app:layout_constraintEnd_toStartOf="@+id/gps_accuracy"
-        app:layout_constraintStart_toEndOf="@+id/gps_bearing"/>
+        app:layout_constraintStart_toEndOf="@+id/gps_bearing" />
 
     <TextView
         android:id="@+id/gps_accuracy"
@@ -86,7 +85,7 @@
         android:layout_marginRight="12dp"
         app:layout_constraintBaseline_toBaselineOf="@+id/gps_altitude"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/gps_altitude"/>
+        app:layout_constraintStart_toEndOf="@+id/gps_altitude" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

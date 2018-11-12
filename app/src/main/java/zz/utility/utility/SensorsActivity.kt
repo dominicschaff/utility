@@ -7,8 +7,8 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_sensors.*
 import zz.utility.R
 import java.util.*
@@ -26,7 +26,7 @@ class SensorsActivity : AppCompatActivity(), SensorEventListener {
         mSensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         deviceSensors = mSensorManager.getSensorList(Sensor.TYPE_ALL)
         deviceSensors.forEach {
-            val cv = layoutInflater.inflate(R.layout.card_view_grid, list_sensors, false)
+            val cv = layoutInflater.inflate(R.layout.card_view, list_sensors, false)
             cv.findViewById<TextView>(R.id.heading).text = it.name
 
             sensors[it.name] = cv.findViewById(R.id.content)

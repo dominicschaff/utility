@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/Scroll"
     tools:context="zz.utility.utility.CameraScalesActivity">
@@ -15,175 +14,175 @@
 
         <TextView
             style="@style/Text.WithBackground.Full"
-            android:text="f/0.7"/>
+            android:text="f/0.7" />
 
         <TextView
             style="@style/Text.WithBackground.Third"
             android:background="@drawable/side_pad_bg_pink"
-            android:text="f/0.8"/>
+            android:text="f/0.8" />
 
         <TextView
             style="@style/Text.WithBackground.TwoThirds"
-            android:text="f/0.9"/>
+            android:text="f/0.9" />
 
         <TextView
             style="@style/Text.WithBackground.Full"
-            android:text="f/1.0"/>
+            android:text="f/1.0" />
 
         <TextView
             style="@style/Text.WithBackground.Third"
-            android:text="f/1.1"/>
+            android:text="f/1.1" />
 
         <TextView
             style="@style/Text.WithBackground.TwoThirds"
-            android:text="f/1.2"/>
+            android:text="f/1.2" />
 
         <TextView
             style="@style/Text.WithBackground.Full"
-            android:text="f/1.4"/>
+            android:text="f/1.4" />
 
         <TextView
             style="@style/Text.WithBackground.Third"
-            android:text="f/1.6"/>
+            android:text="f/1.6" />
 
         <TextView
             style="@style/Text.WithBackground.TwoThirds"
-            android:text="f/1.8"/>
+            android:text="f/1.8" />
 
         <TextView
             style="@style/Text.WithBackground.Full"
-            android:text="f/2"/>
+            android:text="f/2" />
 
         <TextView
             style="@style/Text.WithBackground.Third"
-            android:text="f/2.2"/>
+            android:text="f/2.2" />
 
         <TextView
             style="@style/Text.WithBackground.TwoThirds"
-            android:text="f/2.5"/>
+            android:text="f/2.5" />
 
         <TextView
             style="@style/Text.WithBackground.Full"
-            android:text="f/2.8"/>
+            android:text="f/2.8" />
 
         <TextView
             style="@style/Text.WithBackground.Third"
-            android:text="f/3.2"/>
+            android:text="f/3.2" />
 
         <TextView
             style="@style/Text.WithBackground.TwoThirds"
-            android:text="f/3.5"/>
+            android:text="f/3.5" />
 
         <TextView
             style="@style/Text.WithBackground.Full"
-            android:text="f/4"/>
+            android:text="f/4" />
 
         <TextView
             style="@style/Text.WithBackground.Third"
-            android:text="f/4.5"/>
+            android:text="f/4.5" />
 
         <TextView
             style="@style/Text.WithBackground.TwoThirds"
-            android:text="f/5.0"/>
+            android:text="f/5.0" />
 
         <TextView
             style="@style/Text.WithBackground.Full"
-            android:text="f/5.6"/>
+            android:text="f/5.6" />
 
         <TextView
             style="@style/Text.WithBackground.Third"
-            android:text="f/6.3"/>
+            android:text="f/6.3" />
 
         <TextView
             style="@style/Text.WithBackground.TwoThirds"
-            android:text="f/7.1"/>
+            android:text="f/7.1" />
 
         <TextView
             style="@style/Text.WithBackground.Full"
-            android:text="f/8"/>
+            android:text="f/8" />
 
         <TextView
             style="@style/Text.WithBackground.Third"
-            android:text="f/9"/>
+            android:text="f/9" />
 
         <TextView
             style="@style/Text.WithBackground.TwoThirds"
-            android:text="f/10"/>
+            android:text="f/10" />
 
         <TextView
             style="@style/Text.WithBackground.Full"
-            android:text="f/11"/>
+            android:text="f/11" />
 
         <TextView
             style="@style/Text.WithBackground.Third"
-            android:text="f/13"/>
+            android:text="f/13" />
 
         <TextView
             style="@style/Text.WithBackground.TwoThirds"
-            android:text="f/14"/>
+            android:text="f/14" />
 
         <TextView
             style="@style/Text.WithBackground.Full"
-            android:text="f/16"/>
+            android:text="f/16" />
 
         <TextView
             style="@style/Text.WithBackground.Third"
-            android:text="f/18"/>
+            android:text="f/18" />
 
         <TextView
             style="@style/Text.WithBackground.TwoThirds"
-            android:text="f/20"/>
+            android:text="f/20" />
 
         <TextView
             style="@style/Text.WithBackground.Full"
-            android:text="f/22"/>
+            android:text="f/22" />
 
         <TextView
             style="@style/Text.WithBackground.Third"
-            android:text="f/25"/>
+            android:text="f/25" />
 
         <TextView
             style="@style/Text.WithBackground.TwoThirds"
-            android:text="f/29"/>
+            android:text="f/29" />
 
         <TextView
             style="@style/Text.WithBackground.Full"
-            android:text="f/32"/>
+            android:text="f/32" />
 
         <TextView
             style="@style/Text.WithBackground.Third"
-            android:text="f/36"/>
+            android:text="f/36" />
 
         <TextView
             style="@style/Text.WithBackground.TwoThirds"
-            android:text="f/40"/>
+            android:text="f/40" />
 
         <TextView
             style="@style/Text.WithBackground.Full"
-            android:text="f/45"/>
+            android:text="f/45" />
 
         <TextView
             style="@style/Text.WithBackground.Third"
-            android:text="f/51"/>
+            android:text="f/51" />
 
         <TextView
             style="@style/Text.WithBackground.TwoThirds"
-            android:text="f/57"/>
+            android:text="f/57" />
 
         <TextView
             style="@style/Text.WithBackground.Full"
-            android:text="f/64"/>
+            android:text="f/64" />
 
         <TextView
             style="@style/Text.WithBackground.Third"
-            android:text="f/72"/>
+            android:text="f/72" />
 
         <TextView
             style="@style/Text.WithBackground.TwoThirds"
-            android:text="f/80"/>
+            android:text="f/80" />
 
         <TextView
             style="@style/Text.WithBackground.Full"
-            android:text="f/90"/>
+            android:text="f/90" />
     </GridLayout>
 </ScrollView>

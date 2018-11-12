@@ -2,7 +2,6 @@ package zz.utility
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +29,7 @@ class AllAppsFragment : Fragment() {
         val allApps = pm.queryIntentActivities(i, 0)
         val h = MAIN.fileAsJsonObject().o("launcher").a("hide").map { it.asString }
         val appsList = allApps.asSequence().map { AppInfo(it.loadLabel(pm), it.activityInfo.packageName) }.filter {
-            !h.contains(it.packageName.toString())
+            !h.contains(it.packageName.toString()) && it.packageName.toString() != "zz.utility"
         }.toList().toTypedArray()
 
         appsList.sortWith(Comparator { o1, o2 ->
@@ -38,7 +37,10 @@ class AllAppsFragment : Fragment() {
         })
         view.recycler_view.adapter = AppAdapter(context!!, appsList)
 
-        return view
+        view.play_store_link.setOnClickListener {
+            context!!.startActivity(context!!.packageManager.getLaunchIntentForPackage("com.android.vending"))
+        }
 
+        return view
     }
 }

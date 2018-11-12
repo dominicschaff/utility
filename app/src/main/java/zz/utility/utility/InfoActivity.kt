@@ -7,7 +7,10 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_info.*
 import zz.utility.R
 import zz.utility.helpers.formatSize
-import zz.utility.helpers.stats.*
+import zz.utility.helpers.stats.getDeviceStats
+import zz.utility.helpers.stats.getMemoryStats
+import zz.utility.helpers.stats.getNetworkStats
+import zz.utility.helpers.stats.getStorageStats
 import zz.utility.helpers.toTimeFormat
 
 fun Boolean.eng(): String = if (this) "yes" else "no"

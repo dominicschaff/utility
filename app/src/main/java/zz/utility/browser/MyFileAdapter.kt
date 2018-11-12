@@ -5,13 +5,12 @@ import android.app.Activity
 import android.content.*
 import android.net.Uri
 import android.os.Environment
-import androidx.appcompat.app.AlertDialog
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import zz.utility.*
 import zz.utility.browser.gallery.GalleryActivity

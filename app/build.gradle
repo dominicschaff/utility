@@ -21,17 +21,23 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     api 'androidx.legacy:legacy-support-v13:1.0.0'
-    api 'androidx.appcompat:appcompat:1.0.0'
+    api 'androidx.appcompat:appcompat:1.0.2'
     api 'androidx.legacy:legacy-support-v4:1.0.0'
     api 'com.google.android.material:material:1.0.0'
     api 'androidx.cardview:cardview:1.0.0'
     api 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
 
-    implementation 'androidx.core:core-ktx:1.0.0'
+    implementation 'androidx.core:core-ktx:1.0.1'
     implementation 'androidx.fragment:fragment-ktx:1.0.0'
     implementation 'androidx.collection:collection-ktx:1.0.0'
 
@@ -69,13 +75,11 @@ dependencies {
     }
 
     implementation 'com.github.bumptech.glide:glide:4.8.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
 
-    implementation 'com.google.android.exoplayer:exoplayer:2.8.4'
+    implementation 'com.google.android.exoplayer:exoplayer:2.9.1'
 
-    implementation 'io.fotoapparat.fotoapparat:library:2.3.1'
+    implementation 'io.fotoapparat:fotoapparat:2.6.1'
 
     implementation 'com.github.chrisbanes:PhotoView:2.1.4'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }

@@ -3,13 +3,12 @@ package zz.utility.browser
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Environment
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
 import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_file_browser.*
 import zz.utility.R
 import zz.utility.helpers.*

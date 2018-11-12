@@ -4,10 +4,10 @@ import android.app.Activity
 import android.app.Fragment
 import android.app.FragmentManager
 import android.os.Bundle
-import androidx.legacy.app.FragmentPagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.legacy.app.FragmentPagerAdapter
 import kotlinx.android.synthetic.main.activity_scrum_poker.*
 import kotlinx.android.synthetic.main.fragment_scrum_poker.view.*
 import zz.utility.R

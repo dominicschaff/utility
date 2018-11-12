@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeLayout4"
@@ -22,7 +21,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/answer_d"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/answer_a"/>
+        app:layout_constraintTop_toBottomOf="@+id/answer_a" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/answer_d"
@@ -38,7 +37,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/answer_c"
-        app:layout_constraintTop_toBottomOf="@+id/answer_b"/>
+        app:layout_constraintTop_toBottomOf="@+id/answer_b" />
 
 
     <androidx.appcompat.widget.AppCompatButton
@@ -55,7 +54,7 @@
         app:layout_constraintBottom_toTopOf="@id/answer_c"
         app:layout_constraintEnd_toStartOf="@+id/answer_b"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/question_view"/>
+        app:layout_constraintTop_toBottomOf="@+id/question_view" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/answer_b"
@@ -71,7 +70,7 @@
         app:layout_constraintBottom_toTopOf="@+id/answer_d"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/answer_a"
-        app:layout_constraintTop_toBottomOf="@+id/question_view"/>
+        app:layout_constraintTop_toBottomOf="@+id/question_view" />
 
 
     <TextView
@@ -86,7 +85,7 @@
         app:layout_constraintBottom_toTopOf="@+id/answer_b"
         app:layout_constraintEnd_toStartOf="@+id/score"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/score"
@@ -94,5 +93,5 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/question_view"
-        app:layout_constraintTop_toTopOf="@+id/question_view"/>
+        app:layout_constraintTop_toTopOf="@+id/question_view" />
 </androidx.constraintlayout.widget.ConstraintLayout>

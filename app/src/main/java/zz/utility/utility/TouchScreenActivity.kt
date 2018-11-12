@@ -1,8 +1,8 @@
 package zz.utility.utility
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_touch_screen.*
 import zz.utility.R
 

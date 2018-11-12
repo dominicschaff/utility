@@ -2,9 +2,9 @@ package zz.utility.utility
 
 import android.content.DialogInterface
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import com.koushikdutta.ion.Ion
 import kotlinx.android.synthetic.main.activity_image_download.*
 import zz.utility.MAIN_CONFIG

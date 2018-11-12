@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -23,7 +22,7 @@
             android:adjustViewBounds="true"
             android:contentDescription="@string/file_image"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_file"/>
+            android:src="@drawable/ic_file" />
 
         <TextView
             android:id="@+id/description"
@@ -35,7 +34,7 @@
             android:background="@drawable/text_background"
             android:padding="4dp"
             android:textSize="10sp"
-            android:text="DIR"/>
+            android:text="DIR" />
 
         <TextView
             android:id="@+id/title"
@@ -49,7 +48,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:padding="4dp"
-            android:text="file.mp3"/>
+            android:text="file.mp3" />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
