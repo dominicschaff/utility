@@ -20,7 +20,6 @@ import zz.utility.helpers.*
 
 class MainFragment : androidx.fragment.app.Fragment() {
     private lateinit var mDetector: GestureDetectorCompat
-    private lateinit var stats: TextView
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -37,39 +36,7 @@ class MainFragment : androidx.fragment.app.Fragment() {
             mDetector.onTouchEvent(event)
         }
 
-        stats = view.stats
-
         return view
-    }
-
-    @SuppressLint("SetTextI18n")
-    override fun onResume() {
-        super.onResume()
-
-        val a = activity ?: return
-
-        val batteryIntent = a.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
-        val level = batteryIntent!!.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
-        val scale = batteryIntent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
-        val temp = batteryIntent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1) / 10.0
-
-        val battery = if (level == -1 || scale == -1) 50.0f else level.toFloat() / scale.toFloat() * 100.0f
-
-        val actManager = a.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        val memInfo = ActivityManager.MemoryInfo()
-        actManager.getMemoryInfo(memInfo)
-
-        val mif = Utilities.getFreeInternalMemory(a)
-        val mit = Utilities.getTotalInternalMemory(a)
-        val f = Utilities.getFreeExternalMemory(a)
-        val t = Utilities.getTotalExternalMemory(a)
-        val o = (1 until f.size).joinToString("\n") { "External : ${(t[it] - f[it]).formatSize()} / ${t[it].formatSize()}" }
-
-        stats.text = """$battery % ($temp)
-            |${(memInfo.totalMem - memInfo.availMem).formatSize()} / ${memInfo.totalMem.formatSize()} [${(memInfo.totalMem - memInfo.threshold).formatSize()}]
-            |Internal : ${(mit - mif).formatSize()} / ${mit.formatSize()}
-            |$o
-        """.trimMargin()
     }
 
     private fun doLoad(gl: GridLayout, packageName: String, packageManager: PackageManager) {
@@ -107,9 +74,7 @@ class MainFragment : androidx.fragment.app.Fragment() {
                 velocityX: Float,
                 velocityY: Float
         ): Boolean {
-            if (event1.y > event2.y) {
-                activity.startActivity(activity.packageManager.getLaunchIntentForPackage("com.google.android.googlequicksearchbox"))
-            } else {
+            if (event1.y < event2.y) {
                 val sbservice = activity.getSystemService("statusbar")
                 val statusbarManager = Class.forName("android.app.StatusBarManager")
                 val showsb = statusbarManager.getMethod("expandNotificationsPanel")
