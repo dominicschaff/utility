@@ -1,10 +1,11 @@
-package zz.utility
+package zz.utility.launcher
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import zz.utility.R
 
 class AppAdapter(private val context: Context, private val appsList: Array<AppInfo>) : RecyclerView.Adapter<ViewHolder>() {
 

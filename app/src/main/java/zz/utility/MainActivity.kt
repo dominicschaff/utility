@@ -56,7 +56,6 @@ class MainActivity : Activity() {
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.READ_SMS,
-                Manifest.permission.RECEIVE_SMS,
                 Manifest.permission.READ_CONTACTS,
                 Manifest.permission.CAMERA,
                 Manifest.permission.EXPAND_STATUS_BAR

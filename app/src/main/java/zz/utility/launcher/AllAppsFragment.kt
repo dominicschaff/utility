@@ -1,4 +1,4 @@
-package zz.utility
+package zz.utility.launcher
 
 import android.annotation.SuppressLint
 import android.app.ActivityManager
@@ -14,11 +14,15 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.fragment_launcher_all.view.*
+import zz.utility.MAIN
+import zz.utility.R
 import zz.utility.helpers.*
 
 
 class AllAppsFragment : Fragment() {
     private lateinit var stats: TextView
+
+
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -26,7 +30,8 @@ class AllAppsFragment : Fragment() {
 
         view.recycler_view.layoutManager = GridLayoutManager(context!!, if (resources.getBoolean(R.bool.is_landscape)) 3 else 2)
 
-        val pm = context!!.packageManager
+
+        val pm = activity!!.packageManager
 
         val i = Intent(Intent.ACTION_MAIN, null)
         i.addCategory(Intent.CATEGORY_LAUNCHER)
@@ -38,8 +43,9 @@ class AllAppsFragment : Fragment() {
         }.toList().toTypedArray()
 
         appsList.sortWith(Comparator { o1, o2 ->
-            o1.label.toString().compareTo(o2.label.toString())
+            o1.label.toString().compareTo(o2.label.toString(), true)
         })
+
         view.recycler_view.adapter = AppAdapter(context!!, appsList)
 
         view.play_store_link.setOnClickListener {

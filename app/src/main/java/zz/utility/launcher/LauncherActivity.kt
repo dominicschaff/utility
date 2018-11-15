@@ -1,4 +1,4 @@
-package zz.utility
+package zz.utility.launcher
 
 import android.os.Bundle
 import android.view.View
@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import kotlinx.android.synthetic.main.activity_launcher.*
+import zz.utility.R
 
 class LauncherActivity : AppCompatActivity() {
 

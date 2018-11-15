@@ -1,10 +1,12 @@
-package zz.utility
+package zz.utility.launcher
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.launcher_utility_fragment.view.*
+import zz.utility.MainActivity
+import zz.utility.R
 import zz.utility.browser.FileBrowserActivity
 import zz.utility.helpers.gotoNewWindow
 import zz.utility.maps.MapsActivity

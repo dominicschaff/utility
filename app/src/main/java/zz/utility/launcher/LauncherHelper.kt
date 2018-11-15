@@ -1,4 +1,4 @@
-package zz.utility
+package zz.utility.launcher
 
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -10,6 +10,7 @@ import android.graphics.drawable.LayerDrawable
 import android.os.Build
 import android.view.View
 import android.widget.TextView
+import zz.utility.R
 
 data class AppInfo(
         val label: CharSequence,
