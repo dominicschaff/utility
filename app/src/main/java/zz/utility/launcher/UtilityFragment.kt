@@ -18,7 +18,7 @@ class UtilityFragment : androidx.fragment.app.Fragment() {
                               savedInstanceState: Bundle?): View {
 
         return inflater.inflate(R.layout.launcher_utility_fragment, null).apply {
-            goto_scan.setOnClickListener { activity?.gotoNewWindow(ScanningActivity::class.java) }
+            goto_scan.setOnClickListener { activity?.gotoNewWindow(BarcodeScanningActivity::class.java) }
             goto_osm_maps.setOnClickListener { activity?.gotoNewWindow(MapsActivity::class.java) }
             goto_files.setOnClickListener { activity?.gotoNewWindow(FileBrowserActivity::class.java) }
             goto_quote.setOnClickListener { activity?.gotoNewWindow(QuoteActivity::class.java) }

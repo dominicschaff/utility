@@ -39,7 +39,7 @@ class AllAppsFragment : Fragment() {
         val allApps = pm.queryIntentActivities(i, 0)
         val h = MAIN.fileAsJsonObject().o("launcher").a("hide").map { it.asString }
         val appsList: Array<AppInfo> = allApps.asSequence().map { AppInfo(it.loadLabel(pm), it.activityInfo.packageName) }.filter {
-            !h.contains(it.packageName.toString()) && it.packageName.toString() != "zz.utility"
+            !h.contains(it.packageName.toString()) && it.packageName.toString() != "zz.utility" && it.packageName.toString() != "com.android.vending"
         }.toList().toTypedArray()
 
         appsList.sortWith(Comparator { o1, o2 ->

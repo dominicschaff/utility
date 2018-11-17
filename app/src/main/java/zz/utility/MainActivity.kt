@@ -25,7 +25,7 @@ class MainActivity : Activity() {
         goto_qr.setOnClickListener { goto(QRCodeGeneratorActivity::class.java) }
         goto_info.setOnClickListener { goto(InfoActivity::class.java) }
         goto_versions.setOnClickListener { goto(AndroidVersionsActivity::class.java) }
-        goto_scan.setOnClickListener { goto(ScanningActivity::class.java) }
+        goto_scan.setOnClickListener { goto(BarcodeScanningActivity::class.java) }
         goto_osm_maps.setOnClickListener { goto(MapsActivity::class.java) }
         goto_camera.setOnClickListener { goto(CameraScalesActivity::class.java) }
         goto_scrum_poker.setOnClickListener { goto(ScrumPokerActivity::class.java) }

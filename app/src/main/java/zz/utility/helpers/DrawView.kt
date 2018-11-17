@@ -10,6 +10,8 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import zz.utility.R
 
 class DrawView : View {
     private var mX: Float = 0.toFloat()
@@ -30,11 +32,11 @@ class DrawView : View {
     private fun setPenSize() {
         mPaint.isAntiAlias = true
         mPaint.isDither = true
-        mPaint.color = Color.BLACK
+        mPaint.color = ContextCompat.getColor(context, R.color.colorAccent)
         mPaint.style = Paint.Style.STROKE
         mPaint.strokeJoin = Paint.Join.ROUND
         mPaint.strokeCap = Paint.Cap.ROUND
-        mPaint.strokeWidth = 10f
+        mPaint.strokeWidth = 5f
     }
 
     override fun onDraw(canvas: Canvas) {

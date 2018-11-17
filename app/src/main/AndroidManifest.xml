@@ -82,7 +82,7 @@
             android:label="@string/title_activity_versions"
             android:parentActivityName=".MainActivity"/>
         <activity
-            android:name=".utility.ScanningActivity"
+            android:name=".utility.BarcodeScanningActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
