@@ -39,12 +39,6 @@
             android:text="Quote" />
 
         <TextView
-            android:id="@+id/goto_list"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/main_list"
-            android:text="File List" />
-
-        <TextView
             android:id="@+id/goto_gps"
             style="@style/MainTitle"
             android:drawableTop="@drawable/main_gps"
@@ -67,6 +61,12 @@
             style="@style/MainTitle"
             android:drawableTop="@drawable/main_draw"
             android:text="Draw" />
+
+        <TextView
+            android:id="@+id/goto_physical_environment"
+            style="@style/MainTitle"
+            android:drawableTop="@drawable/main_environment"
+            android:text="Physical Environment" />
 
         <TextView
             android:id="@+id/goto_main"

@@ -3,7 +3,6 @@
 First some warnings:
 
 1. Usage of this code is at your own risk!.
-2. This app records all sorts of data, but it never leaves the device.
 3. Some permissions are not requested and need to be granted in the App Settings.
 4. I use this app for testing new functionalities, so not everything will be working.
 
@@ -19,7 +18,6 @@ First some warnings:
 8. Sensor information.
 9. Android version, names and codes included
 10. WiFi scanner (but seems to only work on some devices)
-11. Test if you device supports a second display
 12. Open Street maps browser.
 13. Car dock (takes a photo every x seconds, and routes to a location)
 14. Scrum Poker

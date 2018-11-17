@@ -5,6 +5,7 @@ import android.app.Activity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
 import zz.utility.browser.FileBrowserActivity
+import zz.utility.environment.PhysicalEnvironmentActivity
 import zz.utility.helpers.goto
 import zz.utility.helpers.requestPermissions
 import zz.utility.maps.MapsActivity
@@ -39,6 +40,7 @@ class MainActivity : Activity() {
         goto_quote_api.setOnClickListener { goto(QuoteApiActivity::class.java) }
         goto_draw.setOnClickListener { goto(TouchScreenActivity::class.java) }
         goto_map_points.setOnClickListener { goto(MapsPointsActivity::class.java) }
+        goto_physical_environment.setOnClickListener { goto(PhysicalEnvironmentActivity::class.java) }
 
         mainGrid.columnCount = if (resources.getBoolean(R.bool.is_landscape)) 4 else 2
         requestPermissions(arrayOf(
@@ -58,7 +60,8 @@ class MainActivity : Activity() {
                 Manifest.permission.READ_SMS,
                 Manifest.permission.READ_CONTACTS,
                 Manifest.permission.CAMERA,
-                Manifest.permission.EXPAND_STATUS_BAR
+                Manifest.permission.EXPAND_STATUS_BAR,
+                Manifest.permission.RECORD_AUDIO
         ))
     }
 }
