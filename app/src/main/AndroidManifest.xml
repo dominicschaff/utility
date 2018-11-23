@@ -204,6 +204,11 @@
             android:name=".environment.PhysicalEnvironmentActivity"
             android:label="Physical Environment"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".browser.SorterActivity"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

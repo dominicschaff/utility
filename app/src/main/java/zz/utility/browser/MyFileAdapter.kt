@@ -107,7 +107,7 @@ class MyFileAdapter(private val activity: Activity, private val galleryList: Arr
                             }
                             6 -> {
 
-                                activity.alert("Total file size is ${getFileSize(f).formatSize()}\nTotal Files: ${getFileCount(f)}")
+                                activity.alert("Total file size is ${f.getFileSize().formatSize()}\nTotal Files: ${f.getFileCount()}")
                             }
                             else -> activity.openFile(f)
                         }
@@ -118,8 +118,4 @@ class MyFileAdapter(private val activity: Activity, private val galleryList: Arr
     }
 
     override fun getItemCount(): Int = galleryList.size
-
-    private fun getFileSize(f: File): Long = if (f.isFile) f.length() else f.listFiles().map { getFileSize(it) }.sum()
-    private fun getFileCount(f: File): Long = if (f.isFile) 1 else f.listFiles().map { getFileCount(it) }.sum()
-
 }

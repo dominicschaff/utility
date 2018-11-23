@@ -1,5 +1,6 @@
 package zz.utility.browser
 
+import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Environment
@@ -74,6 +75,12 @@ class FileBrowserActivity : AppCompatActivity() {
             File(path, ".nomedia").createNewFile()
             refreshList()
         }
+        R.id.action_sort_folder -> consume {
+            startActivity(Intent(this, SorterActivity::class.java).putExtra(PATH, path.absolutePath))
+        }
+        R.id.action_details -> consume {
+            alert("Total file size is ${path.getFileSize().formatSize()}\nTotal Files: ${path.getFileCount()}")
+        }
         android.R.id.home -> consume { finish() }
         else -> super.onOptionsItemSelected(item)
     }
@@ -83,17 +90,18 @@ class FileBrowserActivity : AppCompatActivity() {
 
         FileRefresh(path) { totalSize: Long, result: Array<File>?, foldersResult: Array<File>? ->
             swipe_to_refresh.isRefreshing = false
+            files.clear()
             if (result == null || result.isEmpty()) {
                 empty_directory.see()
+                adapter.notifyDataSetChanged()
                 return@FileRefresh
             }
-            empty_directory.unsee()
-            files.clear()
             files.addAll(result)
+            adapter.notifyDataSetChanged()
+            empty_directory.unsee()
             folders.clear()
             if (foldersResult != null && foldersResult.isNotEmpty())
                 folders.addAll(foldersResult)
-            adapter.notifyDataSetChanged()
             title = "${path.name} [${result.size} : ${totalSize.formatSize()}]"
         }.execute()
     }

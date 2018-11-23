@@ -24,3 +24,7 @@ object Utilities {
 
     private fun getTotalMemory(file: File): Long = StatFs(file.path).totalBytes
 }
+
+
+fun File.getFileSize(): Long = if (isFile) length() else listFiles().map { it.getFileSize() }.sum()
+fun File.getFileCount(): Long = if (isFile) 1 else listFiles().map { it.getFileCount() }.sum()

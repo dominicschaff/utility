@@ -3,14 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_create_directory"
+        android:id="@+id/action_details"
         android:orderInCategory="1"
+        android:icon="@drawable/ic_browser_info"
+        android:title="Folder Details"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_sort_folder"
+        android:orderInCategory="2"
+        android:icon="@drawable/ic_browser_sort"
+        android:title="Sort Content"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_create_directory"
+        android:orderInCategory="3"
         android:title="Create Directory"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_create_nomedia"
-        android:orderInCategory="1"
+        android:orderInCategory="4"
         android:title="Create .nomedia"
         app:showAsAction="never" />
 </menu>
