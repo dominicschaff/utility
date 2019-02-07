@@ -154,9 +154,7 @@ rm config.yml
 
 ## SPY activity
 
-This app records phone call info (number, duration) and SMSes. I also try recording other data but have not had much success yet.
-
-The file is stored in `/sdcard/log.json` - be warned this file can get very big
+This app no longer tracks the user. You can find this code in the history if you so wish to see what it did
 
 ## Scrum Poker cards
 
