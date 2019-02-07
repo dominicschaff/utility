@@ -16,11 +16,11 @@ class LauncherActivity : AppCompatActivity() {
         setContentView(R.layout.activity_launcher)
         pager.adapter = SectionsPagerAdapter(supportFragmentManager)
         pager.offscreenPageLimit = 2
-        pager.currentItem = 1
+        pager.currentItem = 0
     }
 
     override fun onBackPressed() {
-        pager.currentItem = 1
+        pager.currentItem = 0
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -35,18 +35,13 @@ class LauncherActivity : AppCompatActivity() {
 
     inner class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
-        override fun getItem(position: Int): Fragment = when (position) {
-            0 -> AllAppsFragment()
-            1 -> MainFragment()
-            else -> UtilityFragment()
-        }
+        override fun getItem(position: Int): Fragment = if (position == 0) MainFragment() else UtilityFragment()
 
-        override fun getCount(): Int = 3
+        override fun getCount(): Int = 2
 
         override fun getPageTitle(position: Int): CharSequence? = when (position) {
-            0 -> "All Apps"
-            1 -> "Main"
-            2 -> "Utility"
+            0 -> "Main"
+            1 -> "Utility"
             else -> null
         }
     }

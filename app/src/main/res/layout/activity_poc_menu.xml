@@ -48,6 +48,12 @@
             style="@style/MainTitle"
             android:drawableTop="@drawable/main_dashboard"
             android:text="Graphs" />
+
+        <TextView
+            android:id="@+id/goto_notifications"
+            style="@style/MainTitle"
+            android:drawableTop="@drawable/main_notifications"
+            android:text="Notifications" />
     </GridLayout>
 
 </ScrollView>

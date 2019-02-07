@@ -32,7 +32,7 @@ class FileBrowserActivity : AppCompatActivity() {
                 ?: Environment.getExternalStorageDirectory().absolutePath)
 
         title = path.name
-        supportActionBar?.subtitle = path.absolutePath
+        supportActionBar?.subtitle = path.absolutePath.replace(Environment.getExternalStorageDirectory().absolutePath + "/", "")
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         recycler_view.setHasFixedSize(true)
@@ -102,7 +102,7 @@ class FileBrowserActivity : AppCompatActivity() {
             folders.clear()
             if (foldersResult != null && foldersResult.isNotEmpty())
                 folders.addAll(foldersResult)
-            title = "${path.name} [${result.size} : ${totalSize.formatSize()}]"
+            title = "${result.size}:${totalSize.formatSize()}"
         }.execute()
     }
 

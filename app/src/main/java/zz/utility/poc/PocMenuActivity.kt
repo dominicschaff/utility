@@ -17,5 +17,6 @@ class PocMenuActivity : AppCompatActivity() {
         goto_test_bot.setOnClickListener { goto(BotActivity::class.java) }
         goto_test_pos.setOnClickListener { goto(POSActivity::class.java) }
         goto_dashboard.setOnClickListener { goto(DashboardActivity::class.java) }
+        goto_notifications.setOnClickListener { goto(NotificationActivity::class.java) }
     }
 }

@@ -3,6 +3,7 @@ package zz.utility.maps
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
@@ -34,6 +35,8 @@ import org.oscim.layers.marker.MarkerSymbol
 import org.oscim.layers.tile.buildings.BuildingLayer
 import org.oscim.layers.tile.vector.labeling.LabelLayer
 import org.oscim.layers.vector.PathLayer
+import org.oscim.layers.vector.VectorLayer
+import org.oscim.layers.vector.geometries.PolygonDrawable
 import org.oscim.layers.vector.geometries.Style
 import org.oscim.renderer.GLViewport
 import org.oscim.scalebar.DefaultMapScaleBar
@@ -51,6 +54,11 @@ data class LocationPoint(
         val latitude: Double,
         val longitude: Double
 )
+
+fun colourStyle(f: Int): Style = Style.builder()
+        .buffer(0.5)
+        .fillColor(f)
+        .fillAlpha(0.2F).build()
 
 @SuppressLint("MissingPermission")
 class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItemGestureListener<MarkerItem> {
@@ -181,6 +189,30 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
             }
 
         })
+        val vectorLayer = VectorLayer(mapView.map())
+
+        val points = ArrayList<GeoPoint>().apply {
+            add(GeoPoint(-33.806609, 18.678335))
+            add(GeoPoint(-33.819444, 18.698420))
+            add(GeoPoint(-33.836772, 18.677004))
+            add(GeoPoint(-33.827324, 18.680867))
+            add(GeoPoint(-33.827395, 18.662971))
+            add(GeoPoint(-33.822797, 18.677992))
+        }
+        vectorLayer.add(PolygonDrawable(points, colourStyle(Color.RED)))
+
+        val points2 = ArrayList<GeoPoint>().apply {
+            add(GeoPoint(-33.813919, 18.667522))
+            add(GeoPoint(-33.813634, 18.683956))
+            add(GeoPoint(-33.828358, 18.683099))
+            add(GeoPoint(-33.831030, 18.654429))
+            add(GeoPoint(-33.816733, 18.654562))
+        }
+        vectorLayer.add(PolygonDrawable(points2, colourStyle(Color.CYAN)))
+
+
+        vectorLayer.update()
+        mapView.map().layers().add(vectorLayer)
 
         vehicle.setOnClickListener {
             vehicle.setImageDrawable(getDrawable(if (useCar) R.drawable.map_walk else R.drawable.map_car))
@@ -257,7 +289,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
             mapView.map().viewport().setTilt(60F)
         }
         mapView.map().updateMap(true)
-        gps_data.text = "%.8f, %.8f (%d:%s)".format(location.latitude, location.longitude, location.accuracy.toInt(), location.provider)
+        gps_data.text = "%.8f, %.8f\n%.0f m\nType: %s".format(location.latitude, location.longitude, location.accuracy, location.provider)
     }
 
     private fun centerOn(latitude: Double, longitude: Double) {

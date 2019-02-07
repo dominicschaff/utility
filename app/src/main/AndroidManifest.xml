@@ -209,6 +209,7 @@
             android:parentActivityName=".MainActivity"
             android:screenOrientation="sensorLandscape"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".poc.NotificationActivity"></activity>
     </application>
 
 </manifest>
