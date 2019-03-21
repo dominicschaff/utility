@@ -10,9 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/launcher_bk"
-        android:paddingTop="24dp"
+        android:paddingTop="8dp"
         app:behavior_hideable="false"
-        app:behavior_peekHeight="160dp"
+        app:behavior_peekHeight="220dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,9 +21,9 @@
 
         <GridLayout
             android:id="@+id/grid"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:alignmentMode="alignMargins"
+            android:alignmentMode="alignBounds"
             android:columnCount="5"
             app:layout_constraintBottom_toTopOf="@id/stats"
             app:layout_constraintEnd_toEndOf="parent"

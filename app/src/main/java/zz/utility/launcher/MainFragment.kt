@@ -103,31 +103,9 @@ class MainFragment : androidx.fragment.app.Fragment() {
         val t = Utilities.getTotalExternalMemory(a)
         val o = (1 until f.size).joinToString("\n") { "External : ${(t[it] - f[it]).formatSize()} / ${t[it].formatSize()}" }
 
-        stats.text = """Battery  : $battery% | $temp°
-            |Memory   : ${(memInfo.totalMem - memInfo.availMem).formatSize()} / ${memInfo.totalMem.formatSize()}
+        stats.text = """$battery% | $temp° | ${(memInfo.totalMem - memInfo.availMem).formatSize()} / ${memInfo.totalMem.formatSize()}
             |Internal : ${(mit - mif).formatSize()} / ${mit.formatSize()}
             |$o
         """.trimMargin()
     }
-
-//    class MyGestureListener(val activity: Activity) : GestureDetector.SimpleOnGestureListener() {
-//
-//        override fun onDown(event: MotionEvent): Boolean = true
-//
-//        @SuppressLint("WrongConstant", "PrivateApi")
-//        override fun onFling(
-//                event1: MotionEvent,
-//                event2: MotionEvent,
-//                velocityX: Float,
-//                velocityY: Float
-//        ): Boolean {
-//            if (event1.y < event2.y) {
-//                val sbservice = activity.getSystemService("statusbar")
-//                val statusbarManager = Class.forName("android.app.StatusBarManager")
-//                val showsb = statusbarManager.getMethod("expandNotificationsPanel")
-//                showsb.invoke(sbservice)
-//            }
-//            return true
-//        }
-//    }
 }
