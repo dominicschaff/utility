@@ -205,11 +205,16 @@
             android:label="Physical Environment"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".browser.SorterActivity"
-            android:parentActivityName=".MainActivity"
+            android:name=".browser.QuickSortActivity"
+            android:parentActivityName=".browser.FileBrowserActivity"
             android:screenOrientation="sensorLandscape"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".poc.NotificationActivity"></activity>
+        <activity
+            android:name=".browser.SorterActivity"
+            android:parentActivityName=".browser.FileBrowserActivity"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".poc.NotificationActivity" />
     </application>
 
 </manifest>

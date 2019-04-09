@@ -22,6 +22,7 @@ import zz.utility.helpers.formatSize
 import zz.utility.helpers.openFile
 import zz.utility.helpers.see
 import zz.utility.helpers.toast
+import zz.utility.metaData
 import java.io.File
 
 class ImageViewFragment : Fragment() {
@@ -41,7 +42,8 @@ class ImageViewFragment : Fragment() {
         val total = bundle.getInt(TOTAL)
         val rootView = inflater.inflate(R.layout.fragment_gallery, container, false)
         rootView.image_details.text = "[$spot/$total]"
-        rootView.path.text = path.name
+
+        rootView.path.text = path.metaData() + path.name
         if (path.exists()) {
             Glide.with(this)
                     .load(Uri.fromFile(path))

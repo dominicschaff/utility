@@ -34,5 +34,6 @@
         <item>Delete</item>
         <item>Copy Path</item>
         <item>Details</item>
+        <item>Meta Sort</item>
     </string-array>
 </resources>

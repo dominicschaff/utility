@@ -109,6 +109,9 @@ class MyFileAdapter(private val activity: Activity, private val galleryList: Arr
 
                                 activity.alert("Total file size is ${f.getFileSize().formatSize()}\nTotal Files: ${f.getFileCount()}")
                             }
+                            7 -> {
+                                activity.startActivity(Intent(activity, QuickSortActivity::class.java).putExtra(PATH, f.absolutePath))
+                            }
                             else -> activity.openFile(f)
                         }
                     }

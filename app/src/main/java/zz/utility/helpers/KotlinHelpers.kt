@@ -20,12 +20,15 @@ import kotlin.experimental.and
 
 fun Context.alert(content: String, clickListener: DialogInterface.OnClickListener? = null) {
     {
-        AlertDialog.Builder(this)
-                .setCancelable(false)
-                .setMessage(content)
-                .setNeutralButton("OK", clickListener
-                        ?: DialogInterface.OnClickListener { _, _ -> })
-                .show()
+        AlertDialog.Builder(this).apply {
+            setCancelable(clickListener == null)
+            setMessage(content)
+
+            if (clickListener != null)
+                setNeutralButton("OK", clickListener)
+
+            show()
+        }
     }.ignore()
 
 }
