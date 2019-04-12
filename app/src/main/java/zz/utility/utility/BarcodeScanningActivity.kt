@@ -80,14 +80,14 @@ class BarcodeScanningActivity : Activity() {
         }.appendToFile(File(Environment.getExternalStorageDirectory(), "barcodes.json"))
     }
 
-    private fun setClipboard(message:String){
+    private fun setClipboard(message: String) {
         val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clip = ClipData.newPlainText(message, message)
         clipboard.primaryClip = clip
         Toast.makeText(this@BarcodeScanningActivity, "Set clipboard to: $message", Toast.LENGTH_LONG).show()
     }
 
-    private fun wifiBarcode(message:String) {
+    private fun wifiBarcode(message: String) {
 
         val p1 = message.indexOf(";")
         val part1 = message.substring(0, p1).split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()

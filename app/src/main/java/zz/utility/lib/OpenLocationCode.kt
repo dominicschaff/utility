@@ -90,7 +90,8 @@ class OpenLocationCode {
      * Creates Open Location Code from the provided latitude, longitude and desired code length.
      */
     @Throws(IllegalArgumentException::class)
-    @JvmOverloads constructor(latitude: Double, longitude: Double, codeLength: Int = 10) {
+    @JvmOverloads
+    constructor(latitude: Double, longitude: Double, codeLength: Int = 10) {
         var latitude = latitude
         var longitude = longitude
         if (codeLength < 4 || (codeLength < 10) and (codeLength % 2 == 1)) {

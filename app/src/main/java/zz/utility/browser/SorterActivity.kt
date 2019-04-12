@@ -7,7 +7,6 @@ import android.os.Environment
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_sorter.*
@@ -99,7 +98,7 @@ class SorterActivity : AppCompatActivity() {
     private fun showImage() {
 
         val path = paths[current]
-        info.text ="${current+1} / ${paths.size}"
+        info.text = "${current + 1} / ${paths.size}"
 
         if (path.exists()) {
             Glide.with(this)

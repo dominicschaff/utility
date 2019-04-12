@@ -6,21 +6,15 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import kotlinx.android.synthetic.main.activity_notification.*
-import zz.utility.R
-import zz.utility.browser.PATH
-import zz.utility.browser.gallery.GalleryActivity
-import android.graphics.drawable.BitmapDrawable
-import android.R.drawable
 import androidx.core.graphics.drawable.toBitmap
+import kotlinx.android.synthetic.main.activity_notification.*
 import zz.utility.MainActivity
+import zz.utility.R
 
 
 const val CHANNEL_ID = "myDefault"
@@ -45,7 +39,7 @@ class NotificationActivity : AppCompatActivity() {
         }
         do_send_image.setOnClickListener {
 
-            val bitmap = getDrawable(R.drawable.ic_place_pink)!!.toBitmap(width=100, height=100)
+            val bitmap = getDrawable(R.drawable.ic_place_pink)!!.toBitmap(width = 100, height = 100)
 
             val intent = Intent(this, MainActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

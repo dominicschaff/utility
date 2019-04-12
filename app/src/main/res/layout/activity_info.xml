@@ -6,6 +6,6 @@
 
     <LinearLayout
         android:id="@+id/listy"
-        style="@style/Linear.Padding"/>
+        style="@style/Linear.Padding" />
 
 </ScrollView>

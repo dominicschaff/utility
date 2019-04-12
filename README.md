@@ -61,9 +61,9 @@ The routing comes from <https://github.com/graphhopper/graphhopper> but follow t
 ```bash
 set -e
 
-TOOLS="graphhopper-web-0.11.0.jar"
+TOOLS="graphhopper-web-0.12.0.jar"
 
-wget "http://central.maven.org/maven2/com/graphhopper/graphhopper-web/0.11.0/$TOOLS" -O $TOOLS &
+wget "http://central.maven.org/maven2/com/graphhopper/graphhopper-web/0.12.0/$TOOLS" -O $TOOLS &
 wget "https://download.geofabrik.de/africa/south-africa-latest.osm.pbf" -O area.osm.pbf &
 wget "http://download.mapsforge.org/maps/v5/africa/south-africa-and-lesotho.map" -O area.map &
 wait
@@ -97,6 +97,7 @@ java -Xmx4000m -Xms4000m -server \
   import config.yml
 
 cd area; zip -r ../area.ghz *
+cd ..
 
 rm config.yml
 ```

@@ -58,8 +58,8 @@
         style="@style/Text.Right.Mono"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="44dp"
         android:layout_marginStart="44dp"
+        android:layout_marginLeft="44dp"
         app:layout_constraintBaseline_toBaselineOf="@+id/gps_altitude"
         app:layout_constraintEnd_toStartOf="@+id/gps_altitude"
         app:layout_constraintStart_toStartOf="parent" />
@@ -69,9 +69,9 @@
         style="@style/Text.Right.Mono"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="13dp"
         android:layout_marginEnd="1dp"
         android:layout_marginRight="1dp"
+        android:layout_marginBottom="13dp"
         app:layout_constraintBottom_toTopOf="@+id/gps_time_data"
         app:layout_constraintEnd_toStartOf="@+id/gps_accuracy"
         app:layout_constraintStart_toEndOf="@+id/gps_bearing" />

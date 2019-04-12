@@ -12,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
-import kotlinx.android.synthetic.main.fragment_launcher_main.*
 import kotlinx.android.synthetic.main.fragment_launcher_main.view.*
 import zz.utility.MAIN
 import zz.utility.R
@@ -21,7 +20,7 @@ import zz.utility.helpers.*
 
 class MainFragment : androidx.fragment.app.Fragment() {
     private lateinit var stats: TextView
-    //    private lateinit var mDetector: GestureDetectorCompat
+    @SuppressLint("InflateParams")
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -39,25 +38,25 @@ class MainFragment : androidx.fragment.app.Fragment() {
         val i = Intent(Intent.ACTION_MAIN, null)
         i.addCategory(Intent.CATEGORY_LAUNCHER)
 
-        val allApps = pm.queryIntentActivities(i, 0).asSequence().map { AppInfo(it.loadLabel(pm), it.activityInfo.packageName) }
+        val allApps = pm.queryIntentActivities(i, 0).asSequence().map { AppInfo(it.loadLabel(pm).toString(), it.activityInfo.packageName) }
 
         favourites.forEach { fave ->
             val p = allApps.firstOrNull() { it.packageName == fave }
             if (p != null) {
                 val im = layoutInflater.inflate(R.layout.launcher_icon_main, view.grid, false) as TextView
                 im.text = p.label.firstLetters()
-                im.setOnLongClickListener { consume { context?.toast(p.label.toString()) } }
-                im.setOnClickListener { context!!.startActivity(context!!.packageManager.getLaunchIntentForPackage(p.packageName.toString())) }
+                im.setOnLongClickListener { consume { context?.toast(p.label) } }
+                im.setOnClickListener { context!!.startActivity(context!!.packageManager.getLaunchIntentForPackage(p.packageName)) }
                 view.grid.addView(im)
             }
         }
 
         val appsList: Array<AppInfo> = allApps.filter {
-            !hidden.contains(it.packageName.toString()) && it.packageName.toString() != "zz.utility" && it.packageName.toString() != "com.android.vending"
+            !hidden.contains(it.packageName) && it.packageName != "zz.utility" && it.packageName != "com.android.vending"
         }.toList().toTypedArray()
 
         appsList.sortWith(Comparator { o1, o2 ->
-            o1.label.toString().compareTo(o2.label.toString(), true)
+            o1.label.compareTo(o2.label, true)
         })
 
         view.recycler_view.adapter = AppAdapter(context!!, appsList)
@@ -68,10 +67,6 @@ class MainFragment : androidx.fragment.app.Fragment() {
 
         stats = view.stats
         stats.setOnClickListener { updateStats() }
-
-//        mDetector = GestureDetectorCompat(context, MyGestureListener(activity!!))
-
-//        view.setOnTouchListener { _, event -> mDetector.onTouchEvent(event) }
 
         return view
     }

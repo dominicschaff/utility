@@ -13,8 +13,8 @@ import android.widget.TextView
 import zz.utility.R
 
 data class AppInfo(
-        val label: CharSequence,
-        val packageName: CharSequence
+        val label: String,
+        val packageName: String
 )
 
 fun CharSequence.firstLetters(): String {

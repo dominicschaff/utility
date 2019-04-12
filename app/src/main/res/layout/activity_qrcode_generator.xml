@@ -12,19 +12,19 @@
         android:layout_height="wrap_content"
         android:hint="Content of QR Code"
         app:layout_constraintEnd_toStartOf="@id/generate"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_chainStyle="spread" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/generate"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:text="Generate"
+        app:layout_constraintBottom_toBottomOf="@id/text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/text"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/text" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/qr_code"
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

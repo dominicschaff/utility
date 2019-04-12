@@ -1,7 +1,6 @@
 package zz.utility.browser.gallery
 
 import android.os.Bundle
-import android.os.Environment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import zz.utility.browser.PATH
@@ -21,13 +20,6 @@ class GalleryPagerAdapter(private val files: ArrayList<File>, fm: FragmentManage
             putInt(TOTAL, files.size)
         }
         return fragment
-    }
-
-    fun delete(item: Int): Boolean {
-        val path = files[item]
-        val bin = File(Environment.getExternalStorageDirectory(), ".bin")
-        if (!bin.exists()) bin.mkdir()
-        return path.renameTo(File(bin, path.name))
     }
 
     override fun getPageTitle(position: Int): CharSequence = files[position].name

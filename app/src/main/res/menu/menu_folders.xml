@@ -4,15 +4,15 @@
 
     <item
         android:id="@+id/action_details"
-        android:orderInCategory="1"
         android:icon="@drawable/ic_browser_info"
+        android:orderInCategory="1"
         android:title="Folder Details"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_sort_folder"
-        android:orderInCategory="2"
         android:icon="@drawable/ic_browser_sort"
+        android:orderInCategory="2"
         android:title="Sort Content"
         app:showAsAction="ifRoom" />
 

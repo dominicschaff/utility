@@ -55,12 +55,12 @@
             android:id="@+id/info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
             app:cardCornerRadius="8dp"
             app:layout_constraintBottom_toTopOf="@id/center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/move_icon"
-            android:layout_marginBottom="@dimen/activity_vertical_margin">
+            app:layout_constraintTop_toBottomOf="@id/move_icon">
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_quick_sort.*
 import zz.utility.R
 import zz.utility.helpers.alert
+import zz.utility.helpers.formatSize
 import zz.utility.helpers.toast
 import zz.utility.isImage
 import zz.utility.metaData
@@ -86,7 +87,7 @@ class QuickSortActivity : AppCompatActivity() {
     private fun showImage() {
 
         val path = paths[current]
-        info.text = "${current + 1} / ${paths.size}\n${path.absolutePath}\n${path.metaData().trim()}"
+        info.text = "${current + 1} / ${paths.size} : (${path.length().formatSize()})\n${path.absolutePath}\n${path.metaData().trim()}"
 
         if (path.exists()) {
             Glide.with(this)

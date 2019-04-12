@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
     <shortcut
-        android:shortcutId="open_map"
         android:enabled="true"
         android:icon="@drawable/main_maps"
-        android:shortcutShortLabel="@string/shortcut_map"
+        android:shortcutDisabledMessage="@string/shortcut_disabled"
+        android:shortcutId="open_map"
         android:shortcutLongLabel="@string/shortcut_map"
-        android:shortcutDisabledMessage="@string/shortcut_disabled">
+        android:shortcutShortLabel="@string/shortcut_map">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetPackage="zz.utility"
-            android:targetClass="zz.utility.maps.MapsActivity" />
+            android:targetClass="zz.utility.maps.MapsActivity"
+            android:targetPackage="zz.utility" />
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
     <shortcut
-        android:shortcutId="open_file_browser"
         android:enabled="true"
         android:icon="@drawable/main_file"
-        android:shortcutShortLabel="@string/shortcut_file_browser"
+        android:shortcutDisabledMessage="@string/shortcut_disabled"
+        android:shortcutId="open_file_browser"
         android:shortcutLongLabel="@string/shortcut_file_browser"
-        android:shortcutDisabledMessage="@string/shortcut_disabled">
+        android:shortcutShortLabel="@string/shortcut_file_browser">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetPackage="zz.utility"
-            android:targetClass="zz.utility.browser.FileBrowserActivity" />
+            android:targetClass="zz.utility.browser.FileBrowserActivity"
+            android:targetPackage="zz.utility" />
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
 </shortcuts>

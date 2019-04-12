@@ -11,8 +11,8 @@
         android:alignmentMode="alignBounds"
         android:columnCount="2"
         android:columnOrderPreserved="true"
-        android:paddingBottom="72dp"
-        android:paddingTop="24dp">
+        android:paddingTop="24dp"
+        android:paddingBottom="72dp">
 
         <TextView
             android:id="@+id/goto_scan"

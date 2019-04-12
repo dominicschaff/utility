@@ -24,8 +24,8 @@
     <TextView
         android:id="@+id/empty_directory"
         style="@style/IconView"
-        android:text="Directory is empty"
         android:paddingTop="@dimen/activity_vertical_margin"
+        android:text="Directory is empty"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

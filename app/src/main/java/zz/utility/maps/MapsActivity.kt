@@ -110,8 +110,9 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
         locationLayer.isEnabled = false
         mapView.map().layers().add(locationLayer)
 
-        lastLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER) ?: (locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-                ?: locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER))
+        lastLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+                ?: (locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+                        ?: locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER))
 
         mapView.map().setMapPosition(lastLocation.latitude, lastLocation.longitude, (1 shl 12).toDouble())
 

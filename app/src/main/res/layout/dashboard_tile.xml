@@ -21,9 +21,9 @@
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/black_overlay"
             android:gravity="center"
-            android:padding="8dp"
-            android:background="@color/black_overlay" />
+            android:padding="8dp" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

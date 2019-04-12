@@ -1,14 +1,12 @@
 package zz.utility.browser.gallery
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.MimeTypeMap
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -19,7 +17,6 @@ import zz.utility.browser.PATH
 import zz.utility.browser.SPOT
 import zz.utility.browser.TOTAL
 import zz.utility.helpers.formatSize
-import zz.utility.helpers.openFile
 import zz.utility.helpers.see
 import zz.utility.helpers.toast
 import zz.utility.metaData
@@ -53,8 +50,6 @@ class ImageViewFragment : Fragment() {
 
             rootView.image.setOnClickListener {
                 rootView.fab_delete.see()
-                rootView.fab_open.see()
-                rootView.fab_share.see()
                 rootView.image_size.see()
                 rootView.path.see()
             }
@@ -64,19 +59,7 @@ class ImageViewFragment : Fragment() {
                 if (!path.renameTo(File(bin, path.name))) it.context?.toast("File could not be moved")
                 rootView.image.setImageResource(R.drawable.ic_delete)
             }
-            rootView.fab_open.setOnClickListener {
-                activity?.openFile(path)
-            }
-            rootView.fab_share.setOnClickListener {
-                val shareIntent = Intent()
-                shareIntent.action = Intent.ACTION_SEND
-                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(path))
-                shareIntent.type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(path.extension)
-                startActivity(Intent.createChooser(shareIntent, "Send image to..."))
-            }
-        } else {
-            rootView.image.setImageResource(R.drawable.ic_block)
-        }
+        } else rootView.image.setImageResource(R.drawable.ic_block)
         return rootView
     }
 }
