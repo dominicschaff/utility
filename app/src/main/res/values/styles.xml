@@ -120,11 +120,7 @@
 
     <style name="Text.Mono">
         <item name="android:typeface">monospace</item>
-    </style>
-
-    <style name="Text.Right.Mono">
-        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
-        <item name="android:typeface">monospace</item>
+        <item name="android:textSize">20sp</item>
     </style>
     <!-- END Text Styles -->
 

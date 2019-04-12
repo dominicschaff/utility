@@ -59,7 +59,8 @@
         </activity>
         <activity
             android:name=".utility.GPSActivity"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".utility.QuoteActivity"
             android:parentActivityName=".MainActivity"
@@ -70,14 +71,16 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".utility.WiFiScannerActivity"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".utility.QRCodeGeneratorActivity"
             android:label="@string/title_activity_qr_code_generator"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".utility.InfoActivity"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".utility.AndroidVersionsActivity"
             android:label="@string/title_activity_versions"

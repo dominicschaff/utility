@@ -22,15 +22,9 @@ class UtilityFragment : androidx.fragment.app.Fragment() {
             goto_scan.setOnClickListener { activity?.gotoNewWindow(BarcodeScanningActivity::class.java) }
             goto_osm_maps.setOnClickListener { activity?.gotoNewWindow(MapsActivity::class.java) }
             goto_files.setOnClickListener { activity?.gotoNewWindow(FileBrowserActivity::class.java) }
-            goto_quote.setOnClickListener { activity?.gotoNewWindow(QuoteActivity::class.java) }
             goto_gps.setOnClickListener { activity?.gotoNewWindow(GPSActivity::class.java) }
             goto_camera.setOnClickListener { activity?.gotoNewWindow(CameraScalesActivity::class.java) }
-            goto_versions.setOnClickListener { activity?.gotoNewWindow(AndroidVersionsActivity::class.java) }
-            goto_draw.setOnClickListener { activity?.gotoNewWindow(TouchScreenActivity::class.java) }
             goto_main.setOnClickListener { activity?.gotoNewWindow(MainActivity::class.java) }
-            goto_physical_environment.setOnClickListener { activity?.gotoNewWindow(PhysicalEnvironmentActivity::class.java) }
-
-            mainGrid.columnCount = if (this@UtilityFragment.resources.getBoolean(R.bool.is_landscape)) 4 else 2
         }
     }
 }

@@ -35,26 +35,18 @@ class GPSActivity : Activity(), LocationListener {
         return super.onOptionsItemSelected(item)
     }
 
-    private var previousLocation: Location? = null
-
     @SuppressLint("SetTextI18n")
     override fun onLocationChanged(location: Location) {
         if (location.hasAccuracy())
             gps_accuracy.text = "%3.1f m".format(location.accuracy)
         if (location.hasSpeed())
-            gps_speed.text = "%.1f m/s<-> %.1f km/h".format(location.speed, location.speed * 3.6)
+            gps_speed.text = "%.1f m/s : %.1f km/h".format(location.speed, location.speed * 3.6)
         if (location.hasAltitude())
             gps_altitude.text = "%3.1f m".format(location.altitude)
         if (location.hasBearing())
-            gps_bearing.text = "${location.bearing}"
+            gps_bearing.text = "%.0f°".format(location.bearing)
 
-        if (previousLocation != null) {
-            gps_acceleration.text = "%.2f  km/h/s".format((location.speed * 3.6 - previousLocation!!.speed * 3.6) / ((location.time - previousLocation!!.time) / 1000))
-        }
-        previousLocation = location
-
-
-        gps_lat_long.text = "%.8f, %.8f".format(location.latitude, location.longitude)
+        gps_lat_long.text = "%.8f\n%.8f".format(location.latitude, location.longitude)
 
         val ss = SunriseSunset(location.latitude, location.longitude, Date(location.time), 0.0)
 
