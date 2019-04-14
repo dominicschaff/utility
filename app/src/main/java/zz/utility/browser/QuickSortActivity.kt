@@ -22,16 +22,15 @@ class QuickSortActivity : AppCompatActivity() {
     private val paths = ArrayList<File>()
     private var current = 0
 
+    private val bin = File(Environment.getExternalStorageDirectory(), ".bin")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quick_sort)
 
-        var path = File(intent.extras?.getString(PATH) ?: return)
-        if (path.isFile) {
-            path = path.parentFile
-        }
+        val path = File(intent.extras?.getString(PATH) ?: return)
 
-        paths += path.listFiles().filter { it.isImage() }
+        paths += (if (path.isFile) path.parentFile else path).listFiles().filter { it.isImage() }
 
         paths.sortWith(Comparator { o1, o2 ->
             o1.name.compareTo(o2.name, ignoreCase = true)
@@ -42,8 +41,6 @@ class QuickSortActivity : AppCompatActivity() {
             return
         }
 
-        showImage()
-
         fab_next.setOnClickListener {
             moveOn()
         }
@@ -52,12 +49,16 @@ class QuickSortActivity : AppCompatActivity() {
         }
 
         fab_delete.setOnClickListener {
-            val bin = File(Environment.getExternalStorageDirectory(), ".bin")
             if (!bin.exists()) bin.mkdir()
             if (!paths[current].renameTo(File(bin, paths[current].name))) toast("File could not be moved")
             image.setImageResource(R.drawable.ic_delete)
             moveOn()
         }
+
+        if (path.isFile)
+            current = paths.indexOfFirst { it.name == path.name }
+
+        showImage()
     }
 
 

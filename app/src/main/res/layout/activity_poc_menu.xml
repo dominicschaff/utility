@@ -54,6 +54,12 @@
             style="@style/MainTitle"
             android:drawableTop="@drawable/main_notifications"
             android:text="Notifications" />
+
+        <TextView
+            android:id="@+id/goto_demo"
+            style="@style/MainTitle"
+            android:drawableTop="@drawable/main_android_versions"
+            android:text="Test Accessors" />
     </GridLayout>
 
 </ScrollView>

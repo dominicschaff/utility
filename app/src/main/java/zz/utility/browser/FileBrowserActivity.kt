@@ -10,9 +10,14 @@ import android.view.MenuItem
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_file_browser.*
 import zz.utility.R
 import zz.utility.helpers.*
+import zz.utility.views.ALERT_OPTION_CHOSE
+import zz.utility.views.RETURNED_INDEX
+import zz.utility.views.RETURNED_VALUE
+import zz.utility.views.chooser
 import java.io.File
 
 
@@ -23,16 +28,13 @@ class FileBrowserActivity : AppCompatActivity() {
     private val folders = ArrayList<File>()
     private lateinit var adapter: MyFileAdapter
 
+    private var choosing = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_file_browser)
 
-        path = File(intent.extras?.getString(PATH)
-                ?: Environment.getExternalStorageDirectory().absolutePath)
-
-        title = path.name
-        supportActionBar?.subtitle = path.absolutePath.replace(Environment.getExternalStorageDirectory().absolutePath + "/", "")
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         recycler_view.setHasFixedSize(true)
@@ -41,8 +43,57 @@ class FileBrowserActivity : AppCompatActivity() {
         recycler_view.layoutManager = layoutManager
         adapter = MyFileAdapter(this, files, folders)
         recycler_view.adapter = adapter
-        refreshList()
         swipe_to_refresh.setOnRefreshListener { refreshList() }
+
+
+        val localPath = intent.extras?.getString(PATH)
+
+        if (localPath == null) {
+            choosing = true
+            val x = ContextCompat.getExternalFilesDirs(this, null).map { getRootOfInnerSdCardFolder(it) }
+
+            val list = ArrayList<File>()
+            list.add(Environment.getExternalStorageDirectory())
+            for (i in 1 until x.size) {
+                if (x[i] != null) {
+                    list.add(x[i]!!)
+                }
+            }
+
+            chooser("Select Base Path", list.map { it.absolutePath }.toTypedArray())
+        } else {
+            path = File(localPath)
+            if (path.isDirectory)
+                getFileList()
+            else alert("This is not a directory and shouldn't be opened")
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            ALERT_OPTION_CHOSE -> {
+                if (resultCode == RESULT_OK) {
+                    "Is this initial selection: ${if (choosing) "yes" else "no"}".error()
+                    if (choosing) {
+                        choosing = false
+                        path = File(data!!.getStringExtra(RETURNED_VALUE))
+                        if (path.isDirectory)
+                            getFileList()
+                    } else {
+                        adapter.runAction(data!!.getIntExtra(RETURNED_INDEX, 0))
+                        refreshList()
+                    }
+                }
+            }
+            else -> super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
+
+    private fun getFileList() {
+        title = path.name
+        supportActionBar?.subtitle = path.absolutePath
+
+        refreshList()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean = consume { menuInflater.inflate(R.menu.menu_folders, menu) }
@@ -85,7 +136,7 @@ class FileBrowserActivity : AppCompatActivity() {
         else -> super.onOptionsItemSelected(item)
     }
 
-    private fun refreshList() {
+    fun refreshList() {
         swipe_to_refresh.isRefreshing = true
 
         FileRefresh(path) { totalSize: Long, result: Array<File>?, foldersResult: Array<File>? ->
@@ -130,5 +181,16 @@ class FileBrowserActivity : AppCompatActivity() {
         }
 
         override fun onPostExecute(result: Array<File>?) = f(totalSize, result, folders.toTypedArray())
+    }
+
+    private fun getRootOfInnerSdCardFolder(file: File?): File? {
+        var localFile: File? = file ?: return null
+        val totalSpace = localFile!!.totalSpace
+        while (true) {
+            val parentFile = localFile!!.parentFile
+            if (parentFile == null || parentFile.totalSpace != totalSpace)
+                return localFile
+            localFile = parentFile
+        }
     }
 }

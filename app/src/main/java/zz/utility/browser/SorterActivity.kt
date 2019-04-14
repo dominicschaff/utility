@@ -23,6 +23,7 @@ class SorterActivity : AppCompatActivity() {
     private val paths = ArrayList<File>()
     private val folders = ArrayList<File>()
     private var current = 0
+    private val bin = File(Environment.getExternalStorageDirectory(), ".bin")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +31,10 @@ class SorterActivity : AppCompatActivity() {
 
         val path = File(intent.extras?.getString(PATH) ?: return)
 
-        paths += path.listFiles().filter { it.isImage() }
-        folders += path.listFiles().filter { it.isDirectory }
+        val allFiles = (if (path.isFile) path.parentFile else path).listFiles()
+
+        paths += allFiles.filter { it.isImage() }
+        folders += allFiles.filter { it.isDirectory }
 
         paths.sortWith(Comparator { o1, o2 ->
             o1.name.compareTo(o2.name, ignoreCase = true)
@@ -46,14 +49,11 @@ class SorterActivity : AppCompatActivity() {
             return
         }
 
-        showImage()
-
         fab_next.setOnClickListener {
             moveOn()
         }
 
         fab_delete.setOnClickListener {
-            val bin = File(Environment.getExternalStorageDirectory(), ".bin")
             if (!bin.exists()) bin.mkdir()
             if (!paths[current].renameTo(File(bin, paths[current].name))) toast("File could not be moved")
             image.setImageResource(R.drawable.ic_delete)
@@ -74,6 +74,10 @@ class SorterActivity : AppCompatActivity() {
             }
             folder_list.addView(t)
         }
+        if (path.isFile)
+            current = paths.indexOfFirst { it.name == path.name }
+
+        showImage()
     }
 
 

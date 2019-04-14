@@ -6,6 +6,11 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <style name="AppThemeDialog" parent="Base.Theme.AppCompat.Dialog.Alert">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
 
     <style name="AppTheme.Light" parent="Base.Theme.AppCompat.Light">
         <item name="colorPrimary">@color/colorPrimary</item>
