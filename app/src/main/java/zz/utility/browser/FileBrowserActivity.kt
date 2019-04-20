@@ -14,9 +14,6 @@ import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_file_browser.*
 import zz.utility.R
 import zz.utility.helpers.*
-import zz.utility.views.ALERT_OPTION_CHOSE
-import zz.utility.views.RETURNED_INDEX
-import zz.utility.views.RETURNED_VALUE
 import zz.utility.views.chooser
 import java.io.File
 
@@ -60,32 +57,16 @@ class FileBrowserActivity : AppCompatActivity() {
                 }
             }
 
-            chooser("Select Base Path", list.map { it.absolutePath }.toTypedArray())
+            chooser("Select Base Path", list.map { it.absolutePath }.toTypedArray(), callback = { option, text ->
+                path = File(text)
+                if (path.isDirectory)
+                    getFileList()
+            })
         } else {
             path = File(localPath)
             if (path.isDirectory)
                 getFileList()
             else alert("This is not a directory and shouldn't be opened")
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            ALERT_OPTION_CHOSE -> {
-                if (resultCode == RESULT_OK) {
-                    "Is this initial selection: ${if (choosing) "yes" else "no"}".error()
-                    if (choosing) {
-                        choosing = false
-                        path = File(data!!.getStringExtra(RETURNED_VALUE))
-                        if (path.isDirectory)
-                            getFileList()
-                    } else {
-                        adapter.runAction(data!!.getIntExtra(RETURNED_INDEX, 0))
-                        refreshList()
-                    }
-                }
-            }
-            else -> super.onActivityResult(requestCode, resultCode, data)
         }
     }
 
