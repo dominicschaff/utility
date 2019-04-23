@@ -5,14 +5,17 @@ import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.net.Uri
 import android.os.BatteryManager
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.fragment_launcher_main.view.*
+import kotlinx.android.synthetic.main.launcher_icon.view.*
+import zz.utility.BuildConfig
 import zz.utility.MAIN
 import zz.utility.R
 import zz.utility.helpers.*
@@ -32,7 +35,7 @@ class MainFragment : androidx.fragment.app.Fragment() {
         val hidden = config.a("hide").map { it.asString }
         val pm = activity!!.packageManager
 
-        view.recycler_view.layoutManager = GridLayoutManager(context!!, if (resources.getBoolean(R.bool.is_landscape)) 3 else 2)
+        view.grid_all_apps.columnCount = if (resources.getBoolean(R.bool.is_landscape)) 3 else 2
         view.grid.columnCount = if (resources.getBoolean(R.bool.is_landscape)) 8 else 5
 
         val i = Intent(Intent.ACTION_MAIN, null)
@@ -59,48 +62,68 @@ class MainFragment : androidx.fragment.app.Fragment() {
             o1.label.compareTo(o2.label, true)
         })
 
-        view.recycler_view.adapter = AppAdapter(context!!, appsList)
+        appsList.forEach { app ->
+            val im = layoutInflater.inflate(R.layout.launcher_icon, view.grid_all_apps, false)
+            im.title.text = app.label
+            im.subtitle.text = app.packageName
+            im.img.text = app.label.firstLetters().toUpperCase()
+            im.setOnLongClickListener { consume { context?.toast(app.label) } }
+            im.setOnLongClickListener {
+                consume { context!!.startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + app.packageName))) }
+            }
+            im.setOnClickListener { context!!.startActivity(context!!.packageManager.getLaunchIntentForPackage(app.packageName)) }
+            view.grid_all_apps.addView(im)
+        }
 
         view.play_store_link.setOnClickListener {
             context!!.startActivity(context!!.packageManager.getLaunchIntentForPackage("com.android.vending"))
         }
 
-        stats = view.stats
-        stats.setOnClickListener { updateStats() }
+        view.this_link.setOnLongClickListener {
+            consume { context!!.startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + BuildConfig.APPLICATION_ID))) }
+        }
+
+        view.this_link.setOnClickListener {
+            val a = activity ?: return@setOnClickListener
+            val batteryIntent = a.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+            val level = batteryIntent!!.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
+            val scale = batteryIntent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
+            val temp = (batteryIntent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1) / 10.0).toInt()
+            val status = when(batteryIntent.getIntExtra(BatteryManager.EXTRA_STATUS, -1)) {
+                BatteryManager.BATTERY_STATUS_CHARGING -> "charging"
+                BatteryManager.BATTERY_STATUS_DISCHARGING -> "discharging"
+                BatteryManager.BATTERY_STATUS_FULL -> "fully charged"
+                BatteryManager.BATTERY_STATUS_NOT_CHARGING -> "not charging"
+                else -> "Unknown"
+            }
+            val plugged = when(batteryIntent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1)) {
+                1 -> "on AC"
+                2 -> "on USB"
+                0 -> "unplugged"
+                4 -> "on Wireless"
+                else -> "unknown"
+            }
+
+            val battery = (if (level == -1 || scale == -1) 50.0f else level.toFloat() / scale.toFloat() * 100.0f).toInt()
+
+            val actManager = a.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+            val memInfo = ActivityManager.MemoryInfo()
+            actManager.getMemoryInfo(memInfo)
+
+            val mif = Utilities.getFreeInternalMemory(a)
+            val mit = Utilities.getTotalInternalMemory(a)
+            val f = Utilities.getFreeExternalMemory(a)
+            val t = Utilities.getTotalExternalMemory(a)
+            val o = (1 until f.size).joinToString("\n") { "External: ${(t[it] - f[it]).formatSize()} / ${t[it].formatSize()}" }
+            val text = """Battery: $battery% | $temp°
+                |Battery: $status $plugged
+                |Memory: ${(memInfo.totalMem - memInfo.availMem).formatSize()} / ${memInfo.totalMem.formatSize()}
+                |Internal: ${(mit - mif).formatSize()} / ${mit.formatSize()}
+                |$o
+            """.trimMargin()
+            a.alert(text)
+        }
 
         return view
-    }
-
-    override fun onResume() {
-        super.onResume()
-        updateStats()
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun updateStats() {
-
-        val a = activity ?: return
-
-        val batteryIntent = a.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
-        val level = batteryIntent!!.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
-        val scale = batteryIntent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
-        val temp = (batteryIntent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1) / 10.0).toInt()
-
-        val battery = (if (level == -1 || scale == -1) 50.0f else level.toFloat() / scale.toFloat() * 100.0f).toInt()
-
-        val actManager = a.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        val memInfo = ActivityManager.MemoryInfo()
-        actManager.getMemoryInfo(memInfo)
-
-        val mif = Utilities.getFreeInternalMemory(a)
-        val mit = Utilities.getTotalInternalMemory(a)
-        val f = Utilities.getFreeExternalMemory(a)
-        val t = Utilities.getTotalExternalMemory(a)
-        val o = (1 until f.size).joinToString("\n") { "External : ${(t[it] - f[it]).formatSize()} / ${t[it].formatSize()}" }
-
-        stats.text = """$battery% | $temp° | ${(memInfo.totalMem - memInfo.availMem).formatSize()} / ${memInfo.totalMem.formatSize()}
-            |Internal : ${(mit - mif).formatSize()} / ${mit.formatSize()}
-            |$o
-        """.trimMargin()
     }
 }

@@ -68,8 +68,8 @@ dependencies {
         exclude group: 'com.vividsolutions', module: 'jts'
     }
 
-    implementation 'org.slf4j:slf4j-api:1.7.25'
-    implementation 'org.slf4j:slf4j-android:1.7.25'
+    implementation 'org.slf4j:slf4j-api:1.8.0-beta4'
+    implementation 'org.slf4j:slf4j-android:1.7.26'
 
     implementation('com.graphhopper:graphhopper-core:0.12.0') {
         exclude group: 'com.google.protobuf', module: 'protobuf-java'
