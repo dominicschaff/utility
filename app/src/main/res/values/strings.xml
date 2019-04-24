@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Utility</string>
     <string name="title_activity_launcher">Launcher</string>
+    <string name="title_activity_launcher_big">Big Launcher</string>
     <string name="title_activity_sensors">Device Sensors</string>
     <string name="title_activity_list">List Randomizer</string>
     <string name="title_activity_qr_code_generator">Generate QR Code</string>

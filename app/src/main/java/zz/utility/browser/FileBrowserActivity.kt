@@ -47,7 +47,7 @@ class FileBrowserActivity : AppCompatActivity() {
 
         if (localPath == null) {
             choosing = true
-            val x = ContextCompat.getExternalFilesDirs(this, null).map { getRootOfInnerSdCardFolder(it) }
+            val x = ContextCompat.getExternalFilesDirs(this, null).map { it.getRootOfInnerSdCardFolder() }
 
             val list = ArrayList<File>()
             list.add(Environment.getExternalStorageDirectory())
@@ -162,16 +162,5 @@ class FileBrowserActivity : AppCompatActivity() {
         }
 
         override fun onPostExecute(result: Array<File>?) = f(totalSize, result, folders.toTypedArray())
-    }
-
-    private fun getRootOfInnerSdCardFolder(file: File?): File? {
-        var localFile: File? = file ?: return null
-        val totalSpace = localFile!!.totalSpace
-        while (true) {
-            val parentFile = localFile!!.parentFile
-            if (parentFile == null || parentFile.totalSpace != totalSpace)
-                return localFile
-            localFile = parentFile
-        }
     }
 }

@@ -3,7 +3,6 @@ package zz.utility.browser.gallery
 import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +15,7 @@ import zz.utility.R
 import zz.utility.browser.PATH
 import zz.utility.browser.SPOT
 import zz.utility.browser.TOTAL
+import zz.utility.browser.moveToBin
 import zz.utility.helpers.formatSize
 import zz.utility.helpers.see
 import zz.utility.helpers.toast
@@ -54,10 +54,8 @@ class ImageViewFragment : Fragment() {
                 rootView.path.see()
             }
             rootView.fab_delete.setOnClickListener {
-                val bin = File(Environment.getExternalStorageDirectory(), ".bin")
-                if (!bin.exists()) bin.mkdir()
-                if (!path.renameTo(File(bin, path.name))) it.context?.toast("File could not be moved")
-                rootView.image.setImageResource(R.drawable.ic_delete)
+                if (path.moveToBin()) rootView.image.setImageResource(R.drawable.ic_delete)
+                else it.context?.toast("File could not be moved")
             }
         } else rootView.image.setImageResource(R.drawable.ic_block)
         return rootView

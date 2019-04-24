@@ -101,11 +101,10 @@ class MyFileAdapter(private val activity: FileBrowserActivity, private val galle
                         )
                     }
                     4 -> {
-                        val bin = File(Environment.getExternalStorageDirectory(), ".bin")
-                        if (!bin.exists()) bin.mkdir()
-                        if (!f.renameTo(File(bin, f.name))) activity.toast("File could not be moved")
-                        viewHolder.img.setImageResource(R.drawable.ic_delete)
-                        activity.refreshList()
+                        if (f.moveToBin()) {
+                            viewHolder.img.setImageResource(R.drawable.ic_delete)
+                            activity.refreshList()
+                        } else activity.toast("File could not be moved")
                     }
                     5 -> {
                         val clipboard = activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager

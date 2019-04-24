@@ -1,8 +1,10 @@
 package zz.utility.helpers.stats
 
 import android.content.Context
-
-import zz.utility.helpers.Utilities
+import zz.utility.helpers.getFreeExternalMemory
+import zz.utility.helpers.getFreeInternalMemory
+import zz.utility.helpers.getTotalExternalMemory
+import zz.utility.helpers.getTotalInternalMemory
 
 class StorageStats(
         val internal: Long,
@@ -11,8 +13,8 @@ class StorageStats(
         val externalFull: Array<Long>)
 
 fun Context.getStorageStats() = StorageStats(
-        Utilities.getFreeInternalMemory(this),
-        Utilities.getFreeExternalMemory(this),
-        Utilities.getTotalInternalMemory(this),
-        Utilities.getTotalExternalMemory(this)
+        this.getFreeInternalMemory(),
+        this.getFreeExternalMemory(),
+        this.getTotalInternalMemory(),
+        this.getTotalExternalMemory()
 )

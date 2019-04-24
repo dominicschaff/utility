@@ -110,10 +110,10 @@ class MainFragment : androidx.fragment.app.Fragment() {
             val memInfo = ActivityManager.MemoryInfo()
             actManager.getMemoryInfo(memInfo)
 
-            val mif = Utilities.getFreeInternalMemory(a)
-            val mit = Utilities.getTotalInternalMemory(a)
-            val f = Utilities.getFreeExternalMemory(a)
-            val t = Utilities.getTotalExternalMemory(a)
+            val mif = a.getFreeInternalMemory()
+            val mit = a.getTotalInternalMemory()
+            val f = a.getFreeExternalMemory()
+            val t = a.getTotalExternalMemory()
             val o = (1 until f.size).joinToString("\n") { "External: ${(t[it] - f[it]).formatSize()} / ${t[it].formatSize()}" }
             val text = """Battery: $battery% | $temp°
                 |Battery: $status $plugged

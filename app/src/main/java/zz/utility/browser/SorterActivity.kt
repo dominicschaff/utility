@@ -23,7 +23,6 @@ class SorterActivity : AppCompatActivity() {
     private val paths = ArrayList<File>()
     private val folders = ArrayList<File>()
     private var current = 0
-    private val bin = File(Environment.getExternalStorageDirectory(), ".bin")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,10 +53,8 @@ class SorterActivity : AppCompatActivity() {
         }
 
         fab_delete.setOnClickListener {
-            if (!bin.exists()) bin.mkdir()
-            if (!paths[current].renameTo(File(bin, paths[current].name))) toast("File could not be moved")
-            image.setImageResource(R.drawable.ic_delete)
-            moveOn()
+            if (paths[current].moveToBin()) moveOn()
+            else toast("File could not be moved")
         }
 
         folders.forEach { folder ->

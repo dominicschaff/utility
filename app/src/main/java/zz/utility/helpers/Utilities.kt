@@ -5,25 +5,23 @@ import android.os.StatFs
 import androidx.core.content.ContextCompat
 import java.io.File
 
-object Utilities {
-    fun getFreeInternalMemory(context: Context): Long = getFreeMemory(context.filesDir)
+fun Context.getFreeInternalMemory(): Long = filesDir.getFreeMemory()
 
-    fun getTotalInternalMemory(context: Context): Long = getTotalMemory(context.filesDir)
+fun Context.getTotalInternalMemory(): Long = filesDir.getTotalMemory()
 
-    fun getFreeExternalMemory(context: Context): Array<Long> =
-            ContextCompat.getExternalFilesDirs(context, null)
-                    .filter { it != null }
-                    .map { getFreeMemory(it) }.toTypedArray()
+fun Context.getFreeExternalMemory(): Array<Long> =
+        ContextCompat.getExternalFilesDirs(this, null)
+                .filter { it != null }
+                .map { it.getFreeMemory() }.toTypedArray()
 
-    fun getTotalExternalMemory(context: Context): Array<Long> =
-            ContextCompat.getExternalFilesDirs(context, null)
-                    .filter { it != null }
-                    .map { getTotalMemory(it) }.toTypedArray()
+fun Context.getTotalExternalMemory(): Array<Long> =
+        ContextCompat.getExternalFilesDirs(this, null)
+                .filter { it != null }
+                .map { it.getTotalMemory() }.toTypedArray()
 
-    private fun getFreeMemory(file: File): Long = StatFs(file.path).availableBytes
+private fun File.getFreeMemory(): Long = StatFs(path).availableBytes
 
-    private fun getTotalMemory(file: File): Long = StatFs(file.path).totalBytes
-}
+private fun File.getTotalMemory(): Long = StatFs(path).totalBytes
 
 
 fun File.getFileSize(): Long = if (isFile) length() else listFiles().map { it.getFileSize() }.sum()
