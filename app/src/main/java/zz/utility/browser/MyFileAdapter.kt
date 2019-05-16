@@ -6,7 +6,6 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -69,26 +68,7 @@ class MyFileAdapter(private val activity: FileBrowserActivity, private val galle
         viewHolder.view.setOnLongClickListener {
             activity.chooser(f.name, activity.resources.getStringArray(R.array.file_actions), callback = { option, _ ->
                 when (option) {
-                    0 ->
-                        when {
-                            f.isDirectory -> activity.startActivity(Intent(activity, FileBrowserActivity::class.java).putExtra(PATH, f.absolutePath))
-                            f.isImage() -> activity.startActivity(Intent(activity, GalleryActivity::class.java).putExtra(PATH, f.absolutePath))
-                            f.isVideo() -> activity.startActivity(Intent(activity, VideoPlayerActivity::class.java).putExtra(PATH, f.absolutePath))
-                            f.isText() -> activity.startActivity(Intent(activity, TextViewActivity::class.java).putExtra(PATH, f.absolutePath))
-                            else -> activity.openFile(f)
-                        }
-                    1 -> {
-                        f.parentFile.parentFile.let { parent ->
-                            File(parent, f.name).let { newFile ->
-                                if (newFile.exists()) activity.alert("There already exists the same file in directory above")
-                                else {
-                                    f.renameTo(newFile)
-                                    activity.refreshList()
-                                }
-                            }
-                        }
-                    }
-                    2 -> {
+                    0 -> {
                         activity.chooser("Select destination folder", folderList.map { it.name }.toTypedArray(), callback = { option, _ ->
                             File(folderList[option], f.name).let { newFile ->
                                 if (newFile.exists()) activity.alert("There already exists the same file in directory ${newFile.parentFile.name}")
@@ -100,19 +80,38 @@ class MyFileAdapter(private val activity: FileBrowserActivity, private val galle
                         }
                         )
                     }
-                    4 -> {
-                        if (f.moveToBin()) {
-                            viewHolder.img.setImageResource(R.drawable.ic_delete)
-                            activity.refreshList()
-                        } else activity.toast("File could not be moved")
+                    1 -> {
+                        f.parentFile.parentFile.let { parent ->
+                            File(parent, f.name).let { newFile ->
+                                if (newFile.exists()) activity.alert("There already exists the same file in directory above")
+                                else {
+                                    f.renameTo(newFile)
+                                    activity.refreshList()
+                                }
+                            }
+                        }
                     }
-                    5 -> {
+                    2 -> activity.startActivity(Intent(activity, QuickSortActivity::class.java).putExtra(PATH, f.absolutePath))
+                    3 -> activity.alert("Total file size is ${f.getFileSize().formatSize()}\nTotal Files: ${f.getFileCount()}")
+                    4 -> activity.startActivity(Intent(activity, SlideshowActivity::class.java).putExtra(PATH, f.absolutePath))
+                    5 -> activity.startActivity(Intent(activity, SlideshowActivity::class.java).putExtra(PATH, f.absolutePath).putExtra(SLOW, true))
+                    6 -> {
+                        if (f.moveToBin()) activity.refreshList()
+                        else activity.toast("File could not be moved")
+                    }
+                    7 -> {
                         val clipboard = activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                         clipboard.primaryClip = ClipData.newPlainText(f.absolutePath, f.absolutePath)
                         activity.toast("Set clipboard to: ${f.absolutePath}")
                     }
-                    6 -> activity.alert("Total file size is ${f.getFileSize().formatSize()}\nTotal Files: ${f.getFileCount()}")
-                    7 -> activity.startActivity(Intent(activity, QuickSortActivity::class.java).putExtra(PATH, f.absolutePath))
+                    8 -> when {
+                        f.isDirectory -> activity.startActivity(Intent(activity, FileBrowserActivity::class.java).putExtra(PATH, f.absolutePath))
+                        f.isImage() -> activity.startActivity(Intent(activity, GalleryActivity::class.java).putExtra(PATH, f.absolutePath))
+                        f.isVideo() -> activity.startActivity(Intent(activity, VideoPlayerActivity::class.java).putExtra(PATH, f.absolutePath))
+                        f.isText() -> activity.startActivity(Intent(activity, TextViewActivity::class.java).putExtra(PATH, f.absolutePath))
+                        else -> activity.openFile(f)
+                    }
+                    9 -> activity.openFile(f)
                     else -> activity.openFile(f)
                 }
             })

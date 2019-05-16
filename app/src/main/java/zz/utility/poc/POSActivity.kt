@@ -1,14 +1,21 @@
 package zz.utility.poc
 
-import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.google.zxing.ResultPoint
-import com.journeyapps.barcodescanner.BarcodeCallback
-import com.journeyapps.barcodescanner.BarcodeResult
-import kotlinx.android.synthetic.main.activity_pos.*
 import zz.utility.R
+import android.print.pdf.PrintedPdfDocument
+import android.graphics.pdf.PdfDocument
+import android.print.PrintAttributes.Margins
+import android.print.PrintAttributes
+import android.graphics.pdf.PdfDocument.PageInfo
+import android.os.Environment
+import androidx.core.content.FileProvider
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+
 
 class POSActivity : AppCompatActivity() {
 
@@ -16,7 +23,6 @@ class POSActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pos)
 
-        barcode_scanner.decodeContinuous(callback)
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -31,24 +37,35 @@ class POSActivity : AppCompatActivity() {
         }
     }
 
-    private val callback = object : BarcodeCallback {
-        override fun barcodeResult(result: BarcodeResult) = processScan(result.barcodeFormat.name, result.text)
+    private fun doprint() {
+        val printAttrs = PrintAttributes.Builder()
+                .setColorMode(PrintAttributes.COLOR_MODE_COLOR)
+                .setMediaSize(PrintAttributes.MediaSize.ISO_A4)
+                .setResolution(PrintAttributes.Resolution("zooey", Context.PRINT_SERVICE, 300, 300))
+                .setMinMargins(Margins.NO_MARGINS).build()
+        val document = PrintedPdfDocument(this, printAttrs)
 
-        override fun possibleResultPoints(resultPoints: List<ResultPoint>) = Unit
-    }
+        // crate a page description
+        val pageInfo = PageInfo.Builder(300, 300, 1).create()
+        // create a new page from the PageInfo
+        val page = document.startPage(pageInfo)
 
-    override fun onResume() {
-        super.onResume()
-        barcode_scanner.resume()
-    }
+//        page.canvas.
 
-    override fun onPause() {
-        super.onPause()
-        barcode_scanner.pause()
-    }
+        // do final processing of the page
+        document.finishPage(page)
+        // accept a String/CharSequence. Meh.
+        try {
+            val pdfDirPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)
+            pdfDirPath.mkdirs()
+            val file = File(pdfDirPath, "pdfsend.pdf")
+            val os = FileOutputStream(file)
+            document.writeTo(os)
+            document.close()
+            os.close()
+        } catch (e: IOException) {
+            throw RuntimeException("Error generating file", e)
+        }
 
-    @SuppressLint("SetTextI18n")
-    fun processScan(type: String, code: String) {
-        scanned_barcode.text = """$type : $code"""
     }
 }

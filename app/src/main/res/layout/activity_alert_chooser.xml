@@ -8,6 +8,5 @@
         android:layout_height="0dp"
         android:alignmentMode="alignBounds"
         android:columnCount="2"
-        android:columnOrderPreserved="true"
-        android:paddingTop="24dp" />
+        android:columnOrderPreserved="true" />
 </ScrollView>

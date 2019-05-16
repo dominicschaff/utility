@@ -1,1 +1,3 @@
-<TextView style="@style/MainTitle" />
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/MainTitle"
+    android:layout_height="72dp" />

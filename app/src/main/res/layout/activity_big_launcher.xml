@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@color/black_overlay"
     tools:context=".launcher.BigLauncherActivity">
 
     <LinearLayout
@@ -59,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:alignmentMode="alignBounds"
-            android:columnCount="2"
+            android:columnCount="@integer/column_count"
             android:paddingBottom="72dp" />
     </ScrollView>
 

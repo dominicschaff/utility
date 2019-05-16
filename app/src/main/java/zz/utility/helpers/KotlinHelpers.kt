@@ -42,9 +42,9 @@ fun Context.createChooser(title: String, options: Array<String>, clickListener: 
 
 
 fun Activity.requestPermissions(permissions: Array<String>): Boolean {
-    if (permissions.isEmpty()) return true
     permissions.forEach {
         if (ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED) {
+            toast("Ask for $it")
             ActivityCompat.requestPermissions(this, permissions, 1)
             return false
         }

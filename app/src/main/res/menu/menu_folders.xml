@@ -27,4 +27,10 @@
         android:orderInCategory="4"
         android:title="Create .nomedia"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_pick_external_storage"
+        android:orderInCategory="4"
+        android:title="Open External Storage (RO)"
+        app:showAsAction="never" />
 </menu>

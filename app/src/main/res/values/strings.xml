@@ -28,13 +28,15 @@
     <string name="file_image">File Image</string>
 
     <string-array name="file_actions">
-        <item>Open</item>
-        <item>Move Up</item>
         <item>Move</item>
-        <item>Open External</item>
+        <item>Move Up</item>
+        <item>Meta Sort</item>
+        <item>Details</item>
+        <item>Slideshow</item>
+        <item>Slow Slideshow</item>
         <item>Delete</item>
         <item>Copy Path</item>
-        <item>Details</item>
-        <item>Meta Sort</item>
+        <item>Open</item>
+        <item>Open External</item>
     </string-array>
 </resources>

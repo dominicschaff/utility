@@ -1,5 +1,6 @@
 package zz.utility.browser
 
+import android.Manifest
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
@@ -25,9 +26,6 @@ class FileBrowserActivity : AppCompatActivity() {
     private val folders = ArrayList<File>()
     private lateinit var adapter: MyFileAdapter
 
-    private var choosing = false
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_file_browser)
@@ -46,22 +44,10 @@ class FileBrowserActivity : AppCompatActivity() {
         val localPath = intent.extras?.getString(PATH)
 
         if (localPath == null) {
-            choosing = true
-            val x = ContextCompat.getExternalFilesDirs(this, null).map { it.getRootOfInnerSdCardFolder() }
+            path = Environment.getExternalStorageDirectory()
+            getFileList()
 
-            val list = ArrayList<File>()
-            list.add(Environment.getExternalStorageDirectory())
-            for (i in 1 until x.size) {
-                if (x[i] != null) {
-                    list.add(x[i]!!)
-                }
-            }
-
-            chooser("Select Base Path", list.map { it.absolutePath }.toTypedArray(), callback = { option, text ->
-                path = File(text)
-                if (path.isDirectory)
-                    getFileList()
-            })
+            requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE))
         } else {
             path = File(localPath)
             if (path.isDirectory)
@@ -112,6 +98,27 @@ class FileBrowserActivity : AppCompatActivity() {
         }
         R.id.action_details -> consume {
             alert("Total file size is ${path.getFileSize().formatSize()}\nTotal Files: ${path.getFileCount()}")
+        }
+        R.id.action_pick_external_storage -> consume {
+            val x = ContextCompat.getExternalFilesDirs(this, null).map { it.getRootOfInnerSdCardFolder() }
+            if (x.size > 1) {
+                val list = ArrayList<File>()
+                (1 until x.size).filter { x[it] != null }.mapTo(list) { x[it]!! }
+                if (list.size == 1) {
+                    startActivity(
+                            Intent(this, FileBrowserActivity::class.java)
+                                    .putExtra(PATH, list[0].absolutePath)
+                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    )
+                } else
+                    chooser("Select Base Path", list.map { it.absolutePath }.toTypedArray(), callback = { _, text ->
+                        startActivity(
+                                Intent(this, FileBrowserActivity::class.java)
+                                        .putExtra(PATH, text)
+                                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        )
+                    })
+            } else toast("No other storage")
         }
         android.R.id.home -> consume { finish() }
         else -> super.onOptionsItemSelected(item)
