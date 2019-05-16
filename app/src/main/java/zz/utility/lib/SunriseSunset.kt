@@ -460,30 +460,18 @@ class SunriseSunset
         get() {
             if (bSunriseToday && bSunsetToday) {
                 if (dateSunrise!!.before(dateSunset)) {
-                    if ((dateInput.after(dateSunrise) || dateInput == dateSunrise) && dateInput.before(dateSunset))
-                        bDaytime = true
-                    else
-                        bDaytime = false
+                    bDaytime = (dateInput.after(dateSunrise) || dateInput == dateSunrise) && dateInput.before(dateSunset)
                 } else {
-                    if (dateInput.after(dateSunrise) || dateInput == dateSunrise || dateInput.before(dateSunset))
-                        bDaytime = true
-                    else
-                        bDaytime = false
+                    bDaytime = dateInput.after(dateSunrise) || dateInput == dateSunrise || dateInput.before(dateSunset)
                 }
             } else if (bSunUpAllDay)
                 bDaytime = true
             else if (bSunDownAllDay)
                 bDaytime = false
             else if (bSunriseToday) {
-                if (dateInput.before(dateSunrise))
-                    bDaytime = false
-                else
-                    bDaytime = true
+                bDaytime = !dateInput.before(dateSunrise)
             } else if (bSunsetToday) {
-                if (dateInput.before(dateSunset))
-                    bDaytime = true
-                else
-                    bDaytime = false
+                bDaytime = dateInput.before(dateSunset)
             } else
                 bDaytime = false
 

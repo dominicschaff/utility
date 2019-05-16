@@ -8,10 +8,11 @@ import kotlinx.android.synthetic.main.launcher_utility_fragment.view.*
 import zz.utility.MainActivity
 import zz.utility.R
 import zz.utility.browser.FileBrowserActivity
-import zz.utility.environment.PhysicalEnvironmentActivity
 import zz.utility.helpers.gotoNewWindow
 import zz.utility.maps.MapsActivity
-import zz.utility.utility.*
+import zz.utility.utility.BarcodeScanningActivity
+import zz.utility.utility.CameraScalesActivity
+import zz.utility.utility.GPSActivity
 
 class UtilityFragment : androidx.fragment.app.Fragment() {
     override fun onCreateView(inflater: LayoutInflater,

@@ -44,7 +44,7 @@ class MainFragment : androidx.fragment.app.Fragment() {
         val allApps = pm.queryIntentActivities(i, 0).asSequence().map { AppInfo(it.loadLabel(pm).toString(), it.activityInfo.packageName) }
 
         favourites.forEach { fave ->
-            val p = allApps.firstOrNull() { it.packageName == fave }
+            val p = allApps.firstOrNull { it.packageName == fave }
             if (p != null) {
                 val im = layoutInflater.inflate(R.layout.launcher_icon_main, view.grid, false) as TextView
                 im.text = p.label.firstLetters()
@@ -89,14 +89,14 @@ class MainFragment : androidx.fragment.app.Fragment() {
             val level = batteryIntent!!.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
             val scale = batteryIntent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
             val temp = (batteryIntent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1) / 10.0).toInt()
-            val status = when(batteryIntent.getIntExtra(BatteryManager.EXTRA_STATUS, -1)) {
+            val status = when (batteryIntent.getIntExtra(BatteryManager.EXTRA_STATUS, -1)) {
                 BatteryManager.BATTERY_STATUS_CHARGING -> "charging"
                 BatteryManager.BATTERY_STATUS_DISCHARGING -> "discharging"
                 BatteryManager.BATTERY_STATUS_FULL -> "fully charged"
                 BatteryManager.BATTERY_STATUS_NOT_CHARGING -> "not charging"
                 else -> "Unknown"
             }
-            val plugged = when(batteryIntent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1)) {
+            val plugged = when (batteryIntent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1)) {
                 1 -> "on AC"
                 2 -> "on USB"
                 0 -> "unplugged"

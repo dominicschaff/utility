@@ -4,11 +4,10 @@ import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.storage.StorageManager
 import zz.utility.helpers.error
 import java.io.File
-import android.content.UriPermission
-import android.net.Uri
 
 
 fun File?.getRootOfInnerSdCardFolder(): File? {
@@ -45,7 +44,7 @@ fun Activity.takeCardUriPermission(sdCardRootPath: String) {
     }
 }
 
-fun Activity.checkStoragePermissions(requestCode: Int, resultCode: Int, data: Intent?):Boolean {
+fun Activity.checkStoragePermissions(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
     if (requestCode == 4010 && resultCode == Activity.RESULT_OK && data != null) {
 
         val uri = data.data!!

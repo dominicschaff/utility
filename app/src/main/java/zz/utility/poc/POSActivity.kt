@@ -1,17 +1,15 @@
 package zz.utility.poc
 
 import android.content.Context
+import android.graphics.pdf.PdfDocument.PageInfo
 import android.os.Bundle
+import android.os.Environment
+import android.print.PrintAttributes
+import android.print.PrintAttributes.Margins
+import android.print.pdf.PrintedPdfDocument
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import zz.utility.R
-import android.print.pdf.PrintedPdfDocument
-import android.graphics.pdf.PdfDocument
-import android.print.PrintAttributes.Margins
-import android.print.PrintAttributes
-import android.graphics.pdf.PdfDocument.PageInfo
-import android.os.Environment
-import androidx.core.content.FileProvider
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException

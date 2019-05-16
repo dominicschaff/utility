@@ -259,7 +259,7 @@ class OpenLocationCode {
         val recoveredPrefix = OpenLocationCode(referenceLatitude, referenceLongitude)
                 .code!!
                 .substring(0, digitsToRecover)
-        val recovered = OpenLocationCode(recoveredPrefix + code!!)
+        val recovered = OpenLocationCode(recoveredPrefix + code)
         val recoveredCodeArea = recovered.decode()
         var recoveredLatitude = recoveredCodeArea.centerLatitude
         var recoveredLongitude = recoveredCodeArea.centerLongitude
