@@ -1,17 +1,16 @@
 package zz.utility.browser.gallery
 
 import android.os.Bundle
-import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_gallery.*
 import zz.utility.R
 import zz.utility.browser.PATH
+import zz.utility.helpers.PipActivity
 import zz.utility.isImage
 import java.io.File
 import java.util.ArrayList
 import kotlin.Comparator
 
-class GalleryActivity : AppCompatActivity() {
+class GalleryActivity : PipActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,17 +28,5 @@ class GalleryActivity : AppCompatActivity() {
 
         val page: Int = paths.indexOfFirst { it.name == path.name }
         pager.currentItem = page
-    }
-
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
-        if (hasFocus) {
-            window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    or View.SYSTEM_UI_FLAG_FULLSCREEN
-                    or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
-        }
     }
 }

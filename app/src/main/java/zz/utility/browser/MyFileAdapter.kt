@@ -66,8 +66,8 @@ class MyFileAdapter(private val activity: FileBrowserActivity, private val galle
             }
         }
         viewHolder.view.setOnLongClickListener {
-            activity.chooser(f.name, activity.resources.getStringArray(R.array.file_actions), callback = { option, _ ->
-                when (option) {
+            activity.chooser(f.name, activity.resources.getStringArray(R.array.file_actions), callback = { action, _ ->
+                when (action) {
                     0 -> {
                         activity.chooser("Select destination folder", folderList.map { it.name }.toTypedArray(), callback = { option, _ ->
                             File(folderList[option], f.name).let { newFile ->

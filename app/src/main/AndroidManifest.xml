@@ -134,10 +134,12 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".scrum.ScrumPokerActivity"
+            android:label="Scrum Poker"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".browser.FileBrowserActivity"
+            android:label="File Browser"
             android:parentActivityName=".MainActivity" />
 
         <provider
@@ -160,14 +162,27 @@
             android:parentActivityName=".poc.PocMenuActivity" />
         <activity
             android:name=".browser.gallery.GalleryActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:label="@string/title_activity_gallery"
             android:parentActivityName=".browser.FileBrowserActivity"
+            android:resizeableActivity="true"
+            android:supportsPictureInPicture="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".browser.SlideshowActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:label="Slideshow"
             android:parentActivityName=".browser.FileBrowserActivity"
             android:resizeableActivity="true"
+            android:supportsPictureInPicture="true"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".browser.VideoPlayerActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:label="Video Player"
+            android:parentActivityName=".browser.FileBrowserActivity"
+            android:resizeableActivity="true"
+            android:screenOrientation="sensorLandscape"
             android:supportsPictureInPicture="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -180,11 +195,6 @@
         <activity
             android:name=".utility.KnowledgeActivity"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="sensorLandscape"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".browser.VideoPlayerActivity"
-            android:parentActivityName=".browser.FileBrowserActivity"
             android:screenOrientation="sensorLandscape"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
