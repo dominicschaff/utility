@@ -45,7 +45,7 @@ import org.oscim.scalebar.MapScaleBarLayer
 import org.oscim.theme.VtmThemes
 import org.oscim.tiling.source.mapfile.MapFileTileSource
 import zz.utility.HOME
-import zz.utility.MAIN
+import zz.utility.MAIN_CONFIG
 import zz.utility.R
 import zz.utility.helpers.*
 
@@ -123,7 +123,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
         mMarkerLayer = ItemizedLayer(mapView.map(), ArrayList<MarkerItem>(), MarkerSymbol(bitmapPoi, MarkerSymbol.HotspotPlace.BOTTOM_CENTER, true), this)
         mapView.map().layers().add(mMarkerLayer)
 
-        val pts = MAIN.fileAsJsonObject().a("locations").mapObject {
+        val pts = MAIN_CONFIG.a("locations").mapObject {
             val lp = LocationPoint(s("name"), d("latitude"), d("longitude"))
             locationsSaved.add(lp)
             MarkerItem(lp.name, lp.name, GeoPoint(lp.latitude, lp.longitude))

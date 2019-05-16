@@ -12,7 +12,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_big_launcher.*
 import kotlinx.android.synthetic.main.launcher_big_app.view.*
-import zz.utility.MAIN
+import zz.utility.MAIN_CONFIG
 import zz.utility.MainActivity
 import zz.utility.R
 import zz.utility.browser.FileBrowserActivity
@@ -34,7 +34,7 @@ class BigLauncherActivity : AppCompatActivity() {
         goto_main.setOnClickListener { gotoNewWindow(MainActivity::class.java) }
 
 
-        val hidden = MAIN.fileAsJsonObject().o("launcher").a("hide").map { it.asString }
+        val hidden = MAIN_CONFIG.o("launcher").a("hide").map { it.asString }
         val pm = packageManager
 
         val i = Intent(Intent.ACTION_MAIN, null)

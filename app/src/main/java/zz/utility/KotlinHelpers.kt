@@ -4,6 +4,7 @@ package zz.utility
 
 import android.os.Environment
 import androidx.exifinterface.media.ExifInterface
+import com.google.gson.JsonObject
 import zz.utility.helpers.fileAsJsonObject
 import java.io.File
 
@@ -128,5 +129,8 @@ fun File.imageIcon(): Int =
 
 val HOME = "${Environment.getExternalStorageDirectory().absolutePath}/utility"
 val LOG = "$HOME/log.json"
-val MAIN = "$HOME/utility.json"
-val MAIN_CONFIG = MAIN.fileAsJsonObject()
+val MAIN_CONFIG = try {
+    "$HOME/utility.json".fileAsJsonObject()
+} catch (e: java.lang.Exception) {
+    JsonObject()
+}

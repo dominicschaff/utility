@@ -16,7 +16,7 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.fragment_launcher_main.view.*
 import kotlinx.android.synthetic.main.launcher_icon.view.*
 import zz.utility.BuildConfig
-import zz.utility.MAIN
+import zz.utility.MAIN_CONFIG
 import zz.utility.R
 import zz.utility.helpers.*
 
@@ -30,7 +30,7 @@ class MainFragment : androidx.fragment.app.Fragment() {
         val view = inflater.inflate(R.layout.fragment_launcher_main, null)
 
 
-        val config = MAIN.fileAsJsonObject().o("launcher")
+        val config = MAIN_CONFIG.o("launcher")
         val favourites = config.a("fave").map { it.asString }
         val hidden = config.a("hide").map { it.asString }
         val pm = activity!!.packageManager
