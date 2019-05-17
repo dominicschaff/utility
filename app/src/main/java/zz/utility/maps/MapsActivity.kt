@@ -3,7 +3,6 @@ package zz.utility.maps
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
@@ -52,10 +51,11 @@ import zz.utility.helpers.*
 data class LocationPoint(
         val name: String,
         val latitude: Double,
-        val longitude: Double
+        val longitude: Double,
+        val colour: String = "blue"
 )
 
-fun colourStyle(f: Int): Style = Style.builder()
+fun colourStyle(f: String): Style = Style.builder()
         .buffer(0.5)
         .fillColor(f)
         .fillAlpha(0.2F).build()
@@ -75,7 +75,6 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
 
     private lateinit var lastLocation: Location
 
-    private lateinit var mMarkerLayer: ItemizedLayer<MarkerItem>
     private lateinit var pathLayer: PathLayer
 
     private var currentResponse: PathWrapper? = null
@@ -118,18 +117,41 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
 
         onLocationChanged(lastLocation)
 
-        val bitmapPoi = drawableToBitmap(getDrawable(R.drawable.ic_place))
+        val locations = MAIN_CONFIG.a("locations").mapObject { LocationPoint(s("name"), d("latitude"), d("longitude"), s("colour", "blue")) }
+        locationsSaved.addAll(locations)
 
-        mMarkerLayer = ItemizedLayer(mapView.map(), ArrayList<MarkerItem>(), MarkerSymbol(bitmapPoi, MarkerSymbol.HotspotPlace.BOTTOM_CENTER, true), this)
-        mapView.map().layers().add(mMarkerLayer)
-
-        val pts = MAIN_CONFIG.a("locations").mapObject {
-            val lp = LocationPoint(s("name"), d("latitude"), d("longitude"))
-            locationsSaved.add(lp)
-            MarkerItem(lp.name, lp.name, GeoPoint(lp.latitude, lp.longitude))
+        arrayOf(
+                R.drawable.ic_place_green,
+                R.drawable.ic_place_blue,
+                R.drawable.ic_place_pink,
+                R.drawable.ic_place_red,
+                R.drawable.ic_place_black,
+                R.drawable.ic_place_light_blue,
+                R.drawable.ic_place_purple
+        ).forEachIndexed { index, image ->
+            ItemizedLayer(
+                    mapView.map(),
+                    ArrayList<MarkerItem>(),
+                    MarkerSymbol(drawableToBitmap(getDrawable(image)), MarkerSymbol.HotspotPlace.BOTTOM_CENTER, true),
+                    this@MapsActivity
+            ).apply {
+                mapView.map().layers().add(this)
+                addItems(locations.filter {
+                    when (index) {
+                        0 -> it.colour == "green"
+                        1 -> it.colour == "blue"
+                        2 -> it.colour == "pink"
+                        3 -> it.colour == "red"
+                        4 -> it.colour == "black"
+                        5 -> it.colour == "light_blue"
+                        6 -> it.colour == "purple"
+                        else -> false
+                    }
+                }.map {
+                    MarkerItem(it.name, it.name, GeoPoint(it.latitude, it.longitude))
+                })
+            }
         }
-
-        mMarkerLayer.addItems(pts)
         setupGraphhopper()
 
         navigate.setOnClickListener {
@@ -192,25 +214,13 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
         })
         val vectorLayer = VectorLayer(mapView.map())
 
-        val points = ArrayList<GeoPoint>().apply {
-            add(GeoPoint(-33.806609, 18.678335))
-            add(GeoPoint(-33.819444, 18.698420))
-            add(GeoPoint(-33.836772, 18.677004))
-            add(GeoPoint(-33.827324, 18.680867))
-            add(GeoPoint(-33.827395, 18.662971))
-            add(GeoPoint(-33.822797, 18.677992))
+        MAIN_CONFIG.a("layers").mapObject {
+            vectorLayer.add(PolygonDrawable(ArrayList<GeoPoint>().apply {
+                a("points").mapObject {
+                    add(GeoPoint(d("latitude"), d("longitude")))
+                }
+            }, colourStyle(s("colour"))))
         }
-        vectorLayer.add(PolygonDrawable(points, colourStyle(Color.RED)))
-
-        val points2 = ArrayList<GeoPoint>().apply {
-            add(GeoPoint(-33.813919, 18.667522))
-            add(GeoPoint(-33.813634, 18.683956))
-            add(GeoPoint(-33.828358, 18.683099))
-            add(GeoPoint(-33.831030, 18.654429))
-            add(GeoPoint(-33.816733, 18.654562))
-        }
-        vectorLayer.add(PolygonDrawable(points2, colourStyle(Color.CYAN)))
-
 
         vectorLayer.update()
         mapView.map().layers().add(vectorLayer)
@@ -254,8 +264,6 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
                 }
             }
         }.start()
-
-
     }
 
     @SuppressLint("MissingPermission")
@@ -285,7 +293,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
 
         // Follow location
         if (followMe) centerOn(location.latitude, location.longitude)
-        if (rotateFollow) {
+        if (rotateFollow && location.speed > 1.0) {
             mapView.map().viewport().setRotation(location.bearing.toDouble() * -1.0)
             mapView.map().viewport().setTilt(60F)
         }

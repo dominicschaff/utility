@@ -11,6 +11,8 @@ import org.oscim.layers.marker.ItemizedLayer
 import org.oscim.layers.marker.MarkerItem
 import org.oscim.layers.marker.MarkerSymbol
 import org.oscim.layers.tile.vector.labeling.LabelLayer
+import org.oscim.layers.vector.VectorLayer
+import org.oscim.layers.vector.geometries.PolygonDrawable
 import org.oscim.renderer.GLViewport
 import org.oscim.scalebar.DefaultMapScaleBar
 import org.oscim.scalebar.MapScaleBar
@@ -60,29 +62,53 @@ class MapsPointsActivity : AppCompatActivity(), ItemizedLayer.OnItemGestureListe
             mapView.map().layers().add(mapScaleBarLayer)
         }
 
+        val obj = "$HOME/map.json".fileAsJsonObject()
+
+        val locations = obj.a("locations").mapObject { LocationPoint(s("name"), d("latitude"), d("longitude"), s("colour", "blue")) }
         arrayOf(
                 R.drawable.ic_place_green,
-                R.drawable.ic_place,
+                R.drawable.ic_place_blue,
                 R.drawable.ic_place_pink,
-                R.drawable.ic_place_red
+                R.drawable.ic_place_red,
+                R.drawable.ic_place_black,
+                R.drawable.ic_place_light_blue,
+                R.drawable.ic_place_purple
         ).forEachIndexed { index, image ->
-            val f = "$HOME/points${index + 1}.json"
-            if (f.fileExists()) {
-                ItemizedLayer(
-                        mapView.map(),
-                        ArrayList<MarkerItem>(),
-                        MarkerSymbol(drawableToBitmap(getDrawable(image)), MarkerSymbol.HotspotPlace.BOTTOM_CENTER, true),
-                        this@MapsPointsActivity
-                ).apply {
-                    mapView.map().layers().add(this)
-                    val pts = f.fileAsJsonArray().mapObject {
-                        val lp = LocationPoint(s("name"), d("latitude"), d("longitude"))
-                        MarkerItem(lp.name, "${index + 1}", GeoPoint(lp.latitude, lp.longitude))
+            ItemizedLayer(
+                    mapView.map(),
+                    ArrayList<MarkerItem>(),
+                    MarkerSymbol(drawableToBitmap(getDrawable(image)), MarkerSymbol.HotspotPlace.BOTTOM_CENTER, true),
+                    this@MapsPointsActivity
+            ).apply {
+                mapView.map().layers().add(this)
+                addItems(locations.filter {
+                    when (index) {
+                        0 -> it.colour == "green"
+                        1 -> it.colour == "blue"
+                        2 -> it.colour == "pink"
+                        3 -> it.colour == "red"
+                        4 -> it.colour == "black"
+                        5 -> it.colour == "light_blue"
+                        6 -> it.colour == "purple"
+                        else -> false
                     }
-                    addItems(pts)
-                }
+                }.map {
+                    MarkerItem(it.name, it.name, GeoPoint(it.latitude, it.longitude))
+                })
             }
         }
+
+        val vectorLayer = VectorLayer(mapView.map())
+
+        obj.a("layers").mapObject {
+            vectorLayer.add(PolygonDrawable(ArrayList<GeoPoint>().apply {
+                a("points").mapObject {
+                    add(GeoPoint(d("latitude"), d("longitude")))
+                }
+            }, colourStyle(s("colour"))))
+        }
+        vectorLayer.update()
+        mapView.map().layers().add(vectorLayer)
 
         mapView.map().setMapPosition(-33.0, 18.0, (1 shl 8).toDouble())
 

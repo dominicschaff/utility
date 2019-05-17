@@ -1,16 +1,21 @@
 package zz.utility.browser.gallery
 
 import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.MimeTypeMap
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_gallery.view.*
+import zz.utility.BuildConfig
 import zz.utility.R
 import zz.utility.browser.PATH
 import zz.utility.browser.SPOT
@@ -21,6 +26,7 @@ import zz.utility.helpers.see
 import zz.utility.helpers.toast
 import zz.utility.metaData
 import java.io.File
+
 
 class ImageViewFragment : Fragment() {
 
@@ -49,6 +55,7 @@ class ImageViewFragment : Fragment() {
             rootView.image_size.text = path.length().formatSize()
 
             rootView.image.setOnClickListener {
+                rootView.fab_set_as_wallpaper.see()
                 rootView.fab_delete.see()
                 rootView.image_size.see()
                 rootView.path.see()
@@ -57,7 +64,26 @@ class ImageViewFragment : Fragment() {
                 if (path.moveToBin()) rootView.image.setImageResource(R.drawable.ic_delete)
                 else it.context?.toast("File could not be moved")
             }
+            rootView.fab_set_as_wallpaper.setOnClickListener { setAsWallpaper(path) }
         } else rootView.image.setImageResource(R.drawable.ic_block)
         return rootView
+    }
+
+    private fun setAsWallpaper(file: File) {
+        try {
+            val intent = Intent()
+            intent.action = Intent.ACTION_ATTACH_DATA
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            intent.setDataAndType(FileProvider.getUriForFile(context!!, BuildConfig.APPLICATION_ID + ".provider", file), getMimeType(file.absolutePath))
+            context!!.startActivity(intent)
+        } catch (e: ActivityNotFoundException) {
+            context?.toast("No application to handle wallpapers")
+        }
+    }
+
+
+    private fun getMimeType(url: String): String? {
+        val extension = MimeTypeMap.getFileExtensionFromUrl(url)
+        return if (extension != null) MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension) else null
     }
 }

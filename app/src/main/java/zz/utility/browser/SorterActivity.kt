@@ -27,20 +27,20 @@ class SorterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sorter)
 
-        val path = File(intent.extras?.getString(PATH) ?: return)
+        val path = File(intent.extras?.getString(PATH) ?: "/1")
+        if (!path.exists()) {
+            finish()
+            return
+        }
 
         val allFiles = (if (path.isFile) path.parentFile else path).listFiles()
 
         paths += allFiles.filter { it.isImage() }
         folders += allFiles.filter { it.isDirectory }
 
-        paths.sortWith(Comparator { o1, o2 ->
-            o1.name.compareTo(o2.name, ignoreCase = true)
-        })
+        paths.sortFiles()
 
-        folders.sortWith(Comparator { o1, o2 ->
-            o1.name.compareTo(o2.name, ignoreCase = true)
-        })
+        folders.sortFiles()
 
         if (paths.isEmpty()) {
             alert("No images")
@@ -73,6 +73,7 @@ class SorterActivity : AppCompatActivity() {
         if (path.isFile)
             current = paths.indexOfFirst { it.name == path.name }
 
+        if (current < 0) current = 0
         showImage()
     }
 

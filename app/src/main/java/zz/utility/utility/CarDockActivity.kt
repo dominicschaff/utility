@@ -111,7 +111,7 @@ class CarDockActivity : AppCompatActivity(), LocationListener {
 
         onLocationChanged(lastLocation)
 
-        val bitmapPoi = AndroidGraphics.drawableToBitmap(getDrawable(R.drawable.ic_place))
+        val bitmapPoi = AndroidGraphics.drawableToBitmap(getDrawable(R.drawable.ic_place_blue))
 
         mMarkerLayer = ItemizedLayer(mapView.map(), ArrayList<MarkerItem>(), MarkerSymbol(bitmapPoi, MarkerSymbol.HotspotPlace.CENTER, false), null)
         mapView.map().layers().add(mMarkerLayer)

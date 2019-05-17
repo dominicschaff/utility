@@ -120,6 +120,9 @@ class FileBrowserActivity : AppCompatActivity() {
                     })
             } else toast("No other storage")
         }
+        R.id.action_play_video -> consume {
+            startActivity(Intent(this, VideoPlayerActivity::class.java).putExtra(PATH, path.absolutePath))
+        }
         android.R.id.home -> consume { finish() }
         else -> super.onOptionsItemSelected(item)
     }

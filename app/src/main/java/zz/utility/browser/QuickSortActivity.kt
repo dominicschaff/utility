@@ -25,13 +25,15 @@ class QuickSortActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quick_sort)
 
-        val path = File(intent.extras?.getString(PATH) ?: return)
+        val path = File(intent.extras?.getString(PATH) ?: "/1")
+        if (!path.exists()) {
+            finish()
+            return
+        }
 
         paths += (if (path.isFile) path.parentFile else path).listFiles().filter { it.isImage() }
 
-        paths.sortWith(Comparator { o1, o2 ->
-            o1.name.compareTo(o2.name, ignoreCase = true)
-        })
+        paths.sortFiles()
 
         if (paths.isEmpty()) {
             alert("No images")
@@ -54,6 +56,7 @@ class QuickSortActivity : AppCompatActivity() {
         if (path.isFile)
             current = paths.indexOfFirst { it.name == path.name }
 
+        if (current < 0) current = 0
         showImage()
     }
 

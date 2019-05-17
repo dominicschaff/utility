@@ -33,4 +33,10 @@
         android:orderInCategory="4"
         android:title="Open External Storage (RO)"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_play_video"
+        android:orderInCategory="5"
+        android:title="Play all videos"
+        app:showAsAction="never" />
 </menu>

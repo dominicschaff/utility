@@ -3,6 +3,7 @@ package zz.utility.browser
 import android.net.Uri
 import android.os.Bundle
 import com.google.android.exoplayer2.*
+import com.google.android.exoplayer2.source.ConcatenatingMediaSource
 import com.google.android.exoplayer2.source.ExtractorMediaSource
 import com.google.android.exoplayer2.source.TrackGroupArray
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
@@ -11,6 +12,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import kotlinx.android.synthetic.main.activity_video_player.*
 import zz.utility.R
 import zz.utility.helpers.PipActivity
+import zz.utility.isVideo
 import java.io.File
 
 class VideoPlayerActivity : PipActivity() {
@@ -20,12 +22,27 @@ class VideoPlayerActivity : PipActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_video_player)
-        val u = Uri.fromFile(File(intent.extras?.getString(PATH) ?: return))
+
+        val file = File(intent.extras?.getString(PATH) ?: return)
 
         player = ExoPlayerFactory.newSimpleInstance(this, DefaultTrackSelector()).also { player_view.player = it }
 
         player.playWhenReady = true
-        player.prepare(ExtractorMediaSource.Factory(DefaultDataSourceFactory(this, "videoapp")).createMediaSource(u))
+
+        val source = ConcatenatingMediaSource()
+
+        if (file.isFile) {
+            source.addMediaSource(ExtractorMediaSource.Factory(DefaultDataSourceFactory(this, "videoapp")).createMediaSource(Uri.fromFile(file)))
+        } else {
+            val files = file.listFiles().filter { it.isVideo() }.toTypedArray()
+            files.sortFiles()
+            files.forEach {
+                source.addMediaSource(ExtractorMediaSource.Factory(DefaultDataSourceFactory(this, "videoapp")).createMediaSource(Uri.fromFile(it)))
+            }
+        }
+
+        player.prepare(source)
+
         player.addListener(object : Player.EventListener {
             override fun onPlaybackParametersChanged(playbackParameters: PlaybackParameters?) {}
             override fun onSeekProcessed() {}

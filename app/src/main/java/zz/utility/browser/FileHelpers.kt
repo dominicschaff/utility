@@ -5,6 +5,7 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Environment
 import android.os.storage.StorageManager
 import zz.utility.helpers.error
 import java.io.File
@@ -27,8 +28,7 @@ fun File?.getRootOfInnerSdCardFolder(): File? {
 }
 
 fun File.moveToBin(): Boolean {
-    val bin = File(this.getRootOfInnerSdCardFolder(), ".bin")
-    "BIN Location: ${bin.absolutePath}".error()
+    val bin = File(Environment.getExternalStorageDirectory(), ".bin")
     if (!bin.exists()) bin.mkdir()
     return renameTo(File(bin, name))
 }
@@ -66,4 +66,14 @@ fun Activity.getUri(): Uri? {
         return uriPermission.uri
     }
     return null
+}
+
+fun ArrayList<File>.sortFiles() {
+    sortWith(Comparator { o1, o2 ->
+        o1.name.compareTo(o2.name, ignoreCase = true)
+    })
+}fun Array<File>.sortFiles() {
+    sortWith(Comparator { o1, o2 ->
+        o1.name.compareTo(o2.name, ignoreCase = true)
+    })
 }

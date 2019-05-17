@@ -16,7 +16,11 @@ class GalleryActivity : PipActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gallery)
 
-        val path = File(intent.extras?.getString(PATH) ?: return)
+        val path = File(intent.extras?.getString(PATH) ?: "/1")
+        if (!path.exists()) {
+            finish()
+            return
+        }
 
         val paths = ArrayList<File>()
         paths.addAll(path.parentFile.listFiles().filter { it.isImage() })
