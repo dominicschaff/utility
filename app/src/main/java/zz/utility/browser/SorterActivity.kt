@@ -11,11 +11,11 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_sorter.*
 import zz.utility.R
 import zz.utility.helpers.alert
+import zz.utility.helpers.formatSize
 import zz.utility.helpers.toast
 import zz.utility.isImage
 import java.io.File
-import java.util.ArrayList
-import kotlin.Comparator
+import java.util.*
 
 class SorterActivity : AppCompatActivity() {
 
@@ -47,9 +47,7 @@ class SorterActivity : AppCompatActivity() {
             return
         }
 
-        fab_next.setOnClickListener {
-            moveOn()
-        }
+        fab_next.setOnClickListener { moveOn() }
 
         fab_delete.setOnClickListener {
             if (paths[current].moveToBin()) moveOn()
@@ -99,12 +97,16 @@ class SorterActivity : AppCompatActivity() {
     private fun showImage() {
 
         val path = paths[current]
-        info.text = "${current + 1} / ${paths.size}"
 
-        if (path.exists()) {
+        val infoText = if (path.exists()) {
             Glide.with(this)
                     .load(Uri.fromFile(path))
                     .into(image as ImageView)
-        } else image.setImageResource(R.drawable.ic_block)
+            path.length().formatSize()
+        } else {
+            image.setImageResource(R.drawable.ic_block)
+            "no Image"
+        }
+        info.text = "${current + 1} / ${paths.size}\n$infoText"
     }
 }

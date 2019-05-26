@@ -25,6 +25,11 @@
         android:supportsRtl="false"
         android:theme="@style/AppTheme"
         tools:replace="android:supportsRtl">
+        <activity
+            android:name=".poc.CarDashActivity"
+            android:parentActivityName=".poc.PocMenuActivity"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".poc.TestAccessorsActivity" />
         <activity
             android:name=".MainActivity"
@@ -152,7 +157,9 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name=".browser.TextViewActivity" />
+        <activity
+            android:name=".browser.TextViewActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".utility.ListActivity"
             android:label="@string/title_activity_list"

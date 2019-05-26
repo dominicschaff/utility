@@ -60,6 +60,12 @@
             style="@style/MainTitle"
             android:drawableTop="@drawable/main_android_versions"
             android:text="Test Accessors" />
+
+        <TextView
+            android:id="@+id/goto_car_dash"
+            style="@style/MainTitle"
+            android:drawableTop="@drawable/main_car"
+            android:text="Car Dashboard" />
     </GridLayout>
 
 </ScrollView>

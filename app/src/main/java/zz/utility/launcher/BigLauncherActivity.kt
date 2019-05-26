@@ -9,9 +9,13 @@ import android.os.BatteryManager
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_big_launcher.*
+import kotlinx.android.synthetic.main.alert_info.view.*
 import kotlinx.android.synthetic.main.launcher_big_app.view.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import zz.utility.MAIN_CONFIG
 import zz.utility.MainActivity
 import zz.utility.R
@@ -32,28 +36,34 @@ class BigLauncherActivity : AppCompatActivity() {
         goto_files.setOnClickListener { gotoNewWindow(FileBrowserActivity::class.java) }
         goto_gps.setOnClickListener { gotoNewWindow(GPSActivity::class.java) }
         goto_main.setOnClickListener { gotoNewWindow(MainActivity::class.java) }
-
-
-        val hidden = MAIN_CONFIG.o("launcher").a("hide").map { it.asString }
-        val pm = packageManager
-
-        val i = Intent(Intent.ACTION_MAIN, null)
-        i.addCategory(Intent.CATEGORY_LAUNCHER)
-
-        pm.queryIntentActivities(i, 0)
-                .map { AppInfo(it.loadLabel(pm).toString(), it.activityInfo.packageName) }
-                .filter { !hidden.contains(it.packageName) && it.packageName != "zz.utility" }
-                .sortedWith(Comparator { o1, o2 -> o1.label.compareTo(o2.label, true) })
-                .forEach {
-                    "${it.label} : ${it.packageName}".error()
-                    this.addToGrid(it)
-                }
-
         goto_main.setOnLongClickListener { consume { displayDeviceInfo() } }
+
+        updateApps()
     }
 
     override fun onBackPressed() {
         scroll.fullScroll(View.FOCUS_UP)
+    }
+
+    private fun updateApps() {
+        GlobalScope.launch {
+            val hidden = MAIN_CONFIG.o("launcher").a("hide").map { it.asString }
+            val pm = packageManager
+
+            val i = Intent(Intent.ACTION_MAIN, null)
+            i.addCategory(Intent.CATEGORY_LAUNCHER)
+
+            val list = pm.queryIntentActivities(i, 0)
+                    .map { AppInfo(it.loadLabel(pm).toString(), it.activityInfo.packageName) }
+                    .filter { !hidden.contains(it.packageName) && it.packageName != "zz.utility" }
+                    .sortedWith(Comparator { o1, o2 -> o1.label.compareTo(o2.label, true) })
+
+
+            runOnUiThread {
+                main_grid.removeAllViews()
+                list.forEach { addToGrid(it) }
+            }
+        }
     }
 
     private fun addToGrid(app: AppInfo) {
@@ -98,12 +108,28 @@ class BigLauncherActivity : AppCompatActivity() {
         val f = getFreeExternalMemory()
         val t = getTotalExternalMemory()
         val o = (1 until f.size).joinToString("\n") { "External: ${(t[it] - f[it]).formatSize()} / ${t[it].formatSize()}" }
-        val text = """Battery: $battery% | $temp°
-                |Battery: $status $plugged
-                |Memory: ${(memInfo.totalMem - memInfo.availMem).formatSize()} / ${memInfo.totalMem.formatSize()}
+        val text = """Battery:  $battery% | $temp°
+                |Battery:  $status $plugged
+                |Memory:   ${(memInfo.totalMem - memInfo.availMem).formatSize()} / ${memInfo.totalMem.formatSize()}
                 |Internal: ${(mit - mif).formatSize()} / ${mit.formatSize()}
                 |$o
             """.trimMargin()
-        alert(text)
+
+        val l = layoutInflater.inflate(R.layout.alert_info, null)
+
+        val dialog = AlertDialog.Builder(this)
+        dialog.setView(l)
+        dialog.setCancelable(true)
+        val finalDialog = dialog.show()
+
+
+        l.clear_storage.setOnClickListener {
+            cacheDir.deleteRecursively()
+            finalDialog.dismiss()
+        }
+
+        l.reload_apps.setOnClickListener { updateApps() }
+
+        l.device_info.text = text
     }
 }

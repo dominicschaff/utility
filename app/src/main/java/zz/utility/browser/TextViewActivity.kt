@@ -4,11 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_text_view.*
 import zz.utility.R
-import java.io.BufferedReader
 import java.io.File
-import java.io.FileReader
-import java.io.IOException
-
 
 class TextViewActivity : AppCompatActivity() {
 
@@ -16,24 +12,7 @@ class TextViewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_text_view)
         val path = File(intent.extras?.getString(PATH) ?: return)
-        title = path.absolutePath
-
-        //Read text from file
-        val sb = StringBuilder()
-
-        try {
-            val br = BufferedReader(FileReader(path))
-            var line: String? = br.readLine()
-
-            while (line != null) {
-                sb.append(line).append('\n')
-                line = br.readLine()
-            }
-            br.close()
-        } catch (e: IOException) {
-            //You'll need to add proper error handling here
-        }
-
-        text.setText(sb.toString())
+        filename.text = path.absolutePath
+        text.text = path.readText()
     }
 }

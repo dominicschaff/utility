@@ -17,7 +17,13 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -25,6 +31,10 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dexOptions {
+        javaMaxHeapSize "8g"
     }
 }
 
@@ -40,11 +50,11 @@ dependencies {
     implementation 'androidx.exifinterface:exifinterface:1.1.0-alpha01'
 
     implementation 'androidx.core:core-ktx:1.2.0-alpha01'
-    implementation 'androidx.fragment:fragment-ktx:1.1.0-alpha08'
+    implementation 'androidx.fragment:fragment-ktx:1.1.0-alpha09'
     implementation 'androidx.collection:collection-ktx:1.1.0-rc01'
 
 
-    implementation 'com.google.zxing:core:3.3.3'
+    implementation 'com.google.zxing:core:3.4.0'
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
     implementation 'com.google.code.gson:gson:2.8.5'
 
