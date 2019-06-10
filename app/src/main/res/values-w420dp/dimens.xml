@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="launcher_size">90dp</dimen>
+    <dimen name="launcher_size_text">36sp</dimen>
+    <integer name="browser_column_count">3</integer>
+    <integer name="column_count">4</integer>
+    <integer name="launcher_column_count">6</integer>
+    <dimen name="big_launcher_padding">4dp</dimen>
+</resources>

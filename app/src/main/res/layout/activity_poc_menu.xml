@@ -16,55 +16,55 @@
         <TextView
             android:id="@+id/goto_test_bot"
             style="@style/MainTitle"
-            android:drawableTop="@drawable/main_bot"
+            android:drawableTop="@drawable/ic_main_bot"
             android:text="Bot Interface" />
 
         <TextView
             android:id="@+id/goto_test_login"
             style="@style/MainTitle"
-            android:drawableTop="@drawable/main_login"
+            android:drawableTop="@drawable/ic_main_login"
             android:text="Login" />
 
         <TextView
             android:id="@+id/goto_test_pos"
             style="@style/MainTitle"
-            android:drawableTop="@drawable/main_pos"
+            android:drawableTop="@drawable/ic_main_pos"
             android:text="POS System" />
 
         <TextView
             android:id="@+id/goto_test_stock_take"
             style="@style/MainTitle"
-            android:drawableTop="@drawable/main_pos"
+            android:drawableTop="@drawable/ic_main_pos"
             android:text="Stock Take" />
 
         <TextView
             android:id="@+id/goto_test_bottom_navigation"
             style="@style/MainTitle"
-            android:drawableTop="@drawable/main_bottom_nav"
+            android:drawableTop="@drawable/ic_main_bottom_nav"
             android:text="Bottom Nav" />
 
         <TextView
             android:id="@+id/goto_dashboard"
             style="@style/MainTitle"
-            android:drawableTop="@drawable/main_dashboard"
+            android:drawableTop="@drawable/ic_main_dashboard"
             android:text="Graphs" />
 
         <TextView
             android:id="@+id/goto_notifications"
             style="@style/MainTitle"
-            android:drawableTop="@drawable/main_notifications"
+            android:drawableTop="@drawable/ic_main_notifications"
             android:text="Notifications" />
 
         <TextView
             android:id="@+id/goto_demo"
             style="@style/MainTitle"
-            android:drawableTop="@drawable/main_android_versions"
+            android:drawableTop="@drawable/ic_main_android_versions"
             android:text="Test Accessors" />
 
         <TextView
             android:id="@+id/goto_car_dash"
             style="@style/MainTitle"
-            android:drawableTop="@drawable/main_car"
+            android:drawableTop="@drawable/ic_main_car"
             android:text="Car Dashboard" />
     </GridLayout>
 

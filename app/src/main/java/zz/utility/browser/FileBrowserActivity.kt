@@ -34,7 +34,7 @@ class FileBrowserActivity : AppCompatActivity() {
 
         recycler_view.setHasFixedSize(true)
 
-        val layoutManager = androidx.recyclerview.widget.GridLayoutManager(applicationContext, if (resources.getBoolean(R.bool.is_landscape)) 4 else 2)
+        val layoutManager = androidx.recyclerview.widget.GridLayoutManager(applicationContext, resources.getInteger(R.integer.browser_column_count))
         recycler_view.layoutManager = layoutManager
         adapter = MyFileAdapter(this, files, folders)
         recycler_view.adapter = adapter

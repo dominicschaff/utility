@@ -10,6 +10,7 @@ import java.io.File
 
 fun File.isImage(): Boolean = extension.toLowerCase() in arrayOf("jpg", "jpeg", "png", "gif")
 fun File.isVideo(): Boolean = extension.toLowerCase() in arrayOf("mp4", "avi", "m4v", "webm")
+fun File.isMusic(): Boolean = extension.toLowerCase() in arrayOf("mp3", "wav", "m4a")
 fun File.isText(): Boolean = extension.toLowerCase() in arrayOf("txt", "md", "py", "json", "java", "kt")
 
 
@@ -107,6 +108,25 @@ fun File.metaData(): String {
         sb.add("Exposure Index: %.2f", exifInterface.getAttributeDouble(ExifInterface.TAG_EXPOSURE_INDEX, 0.0))
         sb.add("Lens Specification: %s", exifInterface.getAttribute(ExifInterface.TAG_LENS_SPECIFICATION))
 
+        return sb.toString()
+    } catch (e: Exception) {
+        return ""
+    }
+}
+
+
+fun File.metaDataShort(): String {
+    try {
+        val exifInterface = ExifInterface(this.absolutePath)
+
+        val sb = StringBuilder()
+        try {
+            val w = exifInterface.getAttributeInt(ExifInterface.TAG_IMAGE_WIDTH, 0)
+            val h = exifInterface.getAttributeInt(ExifInterface.TAG_IMAGE_LENGTH, 0)
+            if (w != 0 && h != 0)
+                sb.append("Size: %dx%d\n".format(w, h))
+        } catch (e: Exception) {
+        }
         return sb.toString()
     } catch (e: Exception) {
         return ""

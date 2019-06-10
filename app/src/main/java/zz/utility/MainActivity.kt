@@ -43,7 +43,6 @@ class MainActivity : Activity() {
         goto_map_points.setOnClickListener { goto(MapsPointsActivity::class.java) }
         goto_physical_environment.setOnClickListener { goto(PhysicalEnvironmentActivity::class.java) }
 
-        mainGrid.columnCount = if (resources.getBoolean(R.bool.is_landscape)) 4 else 2
         if (!requestPermissions(arrayOf(
                         Manifest.permission.INTERNET,
                         Manifest.permission.ACCESS_FINE_LOCATION,

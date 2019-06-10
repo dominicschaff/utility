@@ -10,8 +10,7 @@ import zz.utility.R
 import zz.utility.helpers.PipActivity
 import zz.utility.isImage
 import java.io.File
-import java.util.ArrayList
-import kotlin.Comparator
+import java.util.*
 
 class SlideshowActivity : PipActivity() {
 

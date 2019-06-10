@@ -22,7 +22,6 @@ import zz.utility.helpers.*
 
 
 class MainFragment : androidx.fragment.app.Fragment() {
-    private lateinit var stats: TextView
     @SuppressLint("InflateParams")
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,

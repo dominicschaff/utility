@@ -12,6 +12,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import kotlinx.android.synthetic.main.activity_video_player.*
 import zz.utility.R
 import zz.utility.helpers.PipActivity
+import zz.utility.isMusic
 import zz.utility.isVideo
 import java.io.File
 
@@ -34,7 +35,7 @@ class VideoPlayerActivity : PipActivity() {
         if (file.isFile) {
             source.addMediaSource(ExtractorMediaSource.Factory(DefaultDataSourceFactory(this, "videoapp")).createMediaSource(Uri.fromFile(file)))
         } else {
-            val files = file.listFiles().filter { it.isVideo() }.toTypedArray()
+            val files = file.listFiles().filter { it.isVideo() || it.isMusic() }.toTypedArray()
             files.sortFiles()
             files.forEach {
                 source.addMediaSource(ExtractorMediaSource.Factory(DefaultDataSourceFactory(this, "videoapp")).createMediaSource(Uri.fromFile(it)))

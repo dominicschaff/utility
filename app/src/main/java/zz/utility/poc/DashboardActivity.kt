@@ -18,7 +18,7 @@ class DashboardActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
 
-        val layoutManager = androidx.recyclerview.widget.GridLayoutManager(applicationContext, if (resources.getBoolean(R.bool.is_landscape)) 4 else 2)
+        val layoutManager = androidx.recyclerview.widget.GridLayoutManager(applicationContext, resources.getInteger(R.integer.browser_column_count))
         recycler_view.layoutManager = layoutManager
 
         swipe_to_refresh.setOnRefreshListener { createMetrics() }

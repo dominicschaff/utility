@@ -9,6 +9,7 @@
     <color name="colorButtonsSecond">#06BEE1</color>
     <color name="colorAccentFaded">#333C92CA</color>
 
+    <color name="clear_overlay">#33000000</color>
     <color name="black_overlay">#66000000</color>
     <color name="black_overlay_darker">#BB000000</color>
     <color name="white_overlay">#66FFFFFF</color>

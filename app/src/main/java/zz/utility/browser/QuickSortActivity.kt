@@ -13,7 +13,7 @@ import zz.utility.helpers.alert
 import zz.utility.helpers.formatSize
 import zz.utility.helpers.toast
 import zz.utility.isImage
-import zz.utility.metaData
+import zz.utility.metaDataShort
 import java.io.File
 
 class QuickSortActivity : AppCompatActivity() {
@@ -31,7 +31,9 @@ class QuickSortActivity : AppCompatActivity() {
             return
         }
 
-        paths += (if (path.isFile) path.parentFile else path).listFiles().filter { it.isImage() }
+        val basePath = if (path.isFile) path.parentFile else path
+
+        paths += basePath.listFiles().filter { it.isImage() }
 
         paths.sortFiles()
 
@@ -40,11 +42,19 @@ class QuickSortActivity : AppCompatActivity() {
             return
         }
 
-        fab_next.setOnClickListener {
+        fab_skip.setOnClickListener {
             moveOn()
         }
-        fab_previous.setOnClickListener {
-            moveBack()
+        fab_keep.setOnClickListener {
+            val keep = File(basePath, "keep")
+            if (!keep.exists() || !keep.isDirectory) keep.mkdir()
+            File(keep, paths[current].name).let { newFile ->
+                if (newFile.exists()) alert("There already exists the same file in directory ${newFile.parentFile.name}")
+                else {
+                    paths[current].renameTo(newFile)
+                    moveOn()
+                }
+            }
         }
 
         fab_delete.setOnClickListener {
@@ -78,16 +88,11 @@ class QuickSortActivity : AppCompatActivity() {
         showImage()
     }
 
-    private fun moveBack() {
-        current = (current - 1 + paths.size) % paths.size
-        showImage()
-    }
-
     @SuppressLint("SetTextI18n")
     private fun showImage() {
 
         val path = paths[current]
-        info.text = "${current + 1} / ${paths.size} : (${path.length().formatSize()})\n${path.absolutePath}\n${path.metaData().trim()}"
+        info.text = "${current + 1} / ${paths.size} | ${path.length().formatSize()} | ${path.metaDataShort().trim()} | ${path.absolutePath}"
 
         if (path.exists()) {
             Glide.with(this)

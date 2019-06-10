@@ -14,6 +14,7 @@ import android.widget.TextView
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.main.fragment_gallery.view.*
 import zz.utility.BuildConfig
 import zz.utility.R
@@ -50,6 +51,7 @@ class ImageViewFragment : Fragment() {
         if (path.exists()) {
             Glide.with(this)
                     .load(Uri.fromFile(path))
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .into(rootView.image as ImageView)
 
             rootView.image_size.text = path.length().formatSize()

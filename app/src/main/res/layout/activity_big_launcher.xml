@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_overlay"
     tools:context=".launcher.BigLauncherActivity">
 
     <LinearLayout
         android:id="@+id/shortcuts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/black_overlay"
         android:orientation="horizontal"
         android:paddingTop="24dp"
         app:layout_constraintBottom_toTopOf="@id/scroll"
@@ -21,27 +21,27 @@
         <ImageView
             android:id="@+id/goto_scan"
             style="@style/MainIcon"
-            android:src="@drawable/main_barcode_scan" />
+            android:src="@drawable/ic_main_barcode_scan" />
 
         <ImageView
             android:id="@+id/goto_osm_maps"
             style="@style/MainIcon"
-            android:src="@drawable/main_maps" />
+            android:src="@drawable/ic_main_maps" />
 
         <ImageView
             android:id="@+id/goto_files"
             style="@style/MainIcon"
-            android:src="@drawable/main_file" />
+            android:src="@drawable/ic_main_file" />
 
         <ImageView
             android:id="@+id/goto_gps"
             style="@style/MainIcon"
-            android:src="@drawable/main_gps" />
+            android:src="@drawable/ic_main_gps" />
 
         <ImageView
             android:id="@+id/goto_main"
             style="@style/MainIcon"
-            android:src="@drawable/main_utility" />
+            android:src="@drawable/ic_main_utility" />
     </LinearLayout>
 
     <ScrollView
@@ -59,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:alignmentMode="alignBounds"
-            android:columnCount="@integer/column_count"
+            android:columnCount="@integer/launcher_column_count"
             android:paddingBottom="72dp" />
     </ScrollView>
 

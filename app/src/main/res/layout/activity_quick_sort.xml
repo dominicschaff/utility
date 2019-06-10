@@ -17,40 +17,38 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_next"
+        android:id="@+id/fab_keep"
         style="@style/Fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:src="@drawable/ic_skip_next_black_24dp"
+        android:src="@drawable/ic_sort_keep"
         app:backgroundTint="@color/black_overlay"
-        app:layout_constraintBottom_toTopOf="@id/fab_previous"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="spread_inside" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/fab_skip"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_previous"
+        android:id="@+id/fab_skip"
         style="@style/Fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_skip_previous_black_24dp"
+        android:src="@drawable/ic_skip_next_black_24dp"
         app:backgroundTint="@color/black_overlay"
-        app:layout_constraintBottom_toTopOf="@id/fab_delete"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fab_next" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/fab_delete"
+        app:layout_constraintStart_toEndOf="@id/fab_keep" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_delete"
         style="@style/Fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:src="@drawable/ic_delete"
         app:backgroundTint="@color/black_overlay"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fab_previous" />
+        app:layout_constraintStart_toEndOf="@id/fab_skip" />
 
     <TextView
         android:id="@+id/info"
@@ -58,10 +56,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/gallery_bk"
         android:gravity="bottom"
-        android:paddingStart="@dimen/activity_horizontal_margin"
-        android:paddingEnd="@dimen/activity_horizontal_margin"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

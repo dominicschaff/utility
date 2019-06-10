@@ -226,7 +226,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
         mapView.map().layers().add(vectorLayer)
 
         vehicle.setOnClickListener {
-            vehicle.setImageDrawable(getDrawable(if (useCar) R.drawable.map_walk else R.drawable.map_car))
+            vehicle.setImageDrawable(getDrawable(if (useCar) R.drawable.ic_map_walk else R.drawable.ic_map_car))
             useCar = !useCar
         }
 
@@ -298,7 +298,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
             mapView.map().viewport().setTilt(60F)
         }
         mapView.map().updateMap(true)
-        gps_data.text = "%.8f, %.8f\n%.0f m\nType: %s".format(location.latitude, location.longitude, location.accuracy, location.provider)
+        gps_data.text = "%.8f, %.8f\n%.0f m [%s]".format(location.latitude, location.longitude, location.accuracy, location.provider)
     }
 
     private fun centerOn(latitude: Double, longitude: Double) {

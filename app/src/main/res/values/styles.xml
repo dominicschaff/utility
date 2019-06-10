@@ -85,17 +85,17 @@
 
     <style name="Text.WithBackground.Full">
         <item name="android:background">@drawable/side_pad_bg_blue</item>
-        <item name="android:drawableLeft">@drawable/camera_full</item>
+        <item name="android:drawableLeft">@drawable/ic_camera_full</item>
     </style>
 
     <style name="Text.WithBackground.Third">
         <item name="android:background">@drawable/side_pad_bg_pink</item>
-        <item name="android:drawableLeft">@drawable/camera_one</item>
+        <item name="android:drawableLeft">@drawable/ic_camera_one</item>
     </style>
 
     <style name="Text.WithBackground.TwoThirds">
         <item name="android:background">@drawable/side_pad_bg_purple</item>
-        <item name="android:drawableLeft">@drawable/camera_two</item>
+        <item name="android:drawableLeft">@drawable/ic_camera_two</item>
     </style>
 
     <style name="Text.Fit">

@@ -72,7 +72,9 @@ fun ArrayList<File>.sortFiles() {
     sortWith(Comparator { o1, o2 ->
         o1.name.compareTo(o2.name, ignoreCase = true)
     })
-}fun Array<File>.sortFiles() {
+}
+
+fun Array<File>.sortFiles() {
     sortWith(Comparator { o1, o2 ->
         o1.name.compareTo(o2.name, ignoreCase = true)
     })
