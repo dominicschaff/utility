@@ -1,6 +1,9 @@
 package zz.utility.maps
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_maps_points.*
@@ -12,7 +15,10 @@ import org.oscim.layers.marker.MarkerItem
 import org.oscim.layers.marker.MarkerSymbol
 import org.oscim.layers.tile.vector.labeling.LabelLayer
 import org.oscim.layers.vector.VectorLayer
+import org.oscim.layers.vector.geometries.CircleDrawable
+import org.oscim.layers.vector.geometries.LineDrawable
 import org.oscim.layers.vector.geometries.PolygonDrawable
+import org.oscim.layers.vector.geometries.RectangleDrawable
 import org.oscim.renderer.GLViewport
 import org.oscim.scalebar.DefaultMapScaleBar
 import org.oscim.scalebar.MapScaleBar
@@ -100,17 +106,43 @@ class MapsPointsActivity : AppCompatActivity(), ItemizedLayer.OnItemGestureListe
 
         val vectorLayer = VectorLayer(mapView.map())
 
-        obj.a("layers").mapObject {
-            vectorLayer.add(PolygonDrawable(ArrayList<GeoPoint>().apply {
-                a("points").mapObject {
-                    add(GeoPoint(d("latitude"), d("longitude")))
+        obj.a("shapes").mapObject {
+            "Type of object: ${s("type")}".error()
+            when (s("type")) {
+                "circle" -> {
+                    vectorLayer.add(CircleDrawable(GeoPoint(d("latitude"), d("longitude")), d("size"), colourStyle(s("colour"))))
                 }
-            }, colourStyle(s("colour"))))
+                "rectangle" -> {
+                    vectorLayer.add(RectangleDrawable(GeoPoint(d("left"), d("top")), GeoPoint(d("right"), d("bottom")), colourStyle(s("colour"))))
+                }
+                "line" -> {
+                    vectorLayer.add(LineDrawable(ArrayList<GeoPoint>().apply {
+                        a("points").mapObject {
+                            add(GeoPoint(d("latitude"), d("longitude")))
+                        }
+                    }, colourStyle(s("colour"))))
+                }
+                "layer" -> {
+                    vectorLayer.add(PolygonDrawable(ArrayList<GeoPoint>().apply {
+                        a("points").mapObject {
+                            add(GeoPoint(d("latitude"), d("longitude")))
+                        }
+                    }, colourStyle(s("colour"))))
+                }
+            }
         }
         vectorLayer.update()
         mapView.map().layers().add(vectorLayer)
 
-        mapView.map().setMapPosition(-33.0, 18.0, (1 shl 8).toDouble())
+        val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val lastLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+                ?: locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+                ?: locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER)
+                ?: Location("tmp").apply {
+                    latitude = -32.0
+                    longitude = 18.0
+                }
+        mapView.map().setMapPosition(lastLocation.latitude, lastLocation.longitude, (1 shl 8).toDouble())
 
         progress.unsee()
     }

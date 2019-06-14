@@ -2,7 +2,7 @@
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
     <shortcut
         android:enabled="true"
-        android:icon="@drawable/main_maps"
+        android:icon="@drawable/ic_main_maps"
         android:shortcutDisabledMessage="@string/shortcut_disabled"
         android:shortcutId="open_map"
         android:shortcutLongLabel="@string/shortcut_map"
@@ -15,7 +15,7 @@
     </shortcut>
     <shortcut
         android:enabled="true"
-        android:icon="@drawable/main_file"
+        android:icon="@drawable/ic_main_file"
         android:shortcutDisabledMessage="@string/shortcut_disabled"
         android:shortcutId="open_file_browser"
         android:shortcutLongLabel="@string/shortcut_file_browser"

@@ -47,9 +47,11 @@ class MyFileAdapter(private val activity: FileBrowserActivity, private val galle
                         .load(Uri.fromFile(f))
                         .thumbnail(0.1f)
                         .into(viewHolder.img)
+                viewHolder.img.setPadding(0, 0, 0, 0)
             } else {
                 viewHolder.img.setImageResource(f.imageIcon())
                 viewHolder.img.scaleType = ImageView.ScaleType.FIT_CENTER
+                viewHolder.img.setPadding(10, 10, 10, 10)
             }
         } else {
             viewHolder.img.setImageResource(R.drawable.ic_block)

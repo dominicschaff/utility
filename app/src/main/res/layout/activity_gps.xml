@@ -23,7 +23,7 @@
 
 
     <TextView
-        android:id="@+id/gps_speed"
+        android:id="@+id/gps_code"
         style="@style/Text.Mono"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -32,6 +32,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gps_lat_long" />
+
+
+    <TextView
+        android:id="@+id/gps_speed"
+        style="@style/Text.Mono"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gps_code" />
 
 
     <TextView

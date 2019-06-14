@@ -92,7 +92,8 @@ class QuickSortActivity : AppCompatActivity() {
     private fun showImage() {
 
         val path = paths[current]
-        info.text = "${current + 1} / ${paths.size} | ${path.length().formatSize()} | ${path.metaDataShort().trim()} | ${path.absolutePath}"
+        info.text = "${current + 1} / ${paths.size}\n${path.length().formatSize()}\n${path.metaDataShort().trim()}"
+        file_path.text = path.absolutePath
 
         if (path.exists()) {
             Glide.with(this)

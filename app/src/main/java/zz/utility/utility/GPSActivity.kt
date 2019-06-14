@@ -12,6 +12,7 @@ import androidx.core.app.NavUtils
 import kotlinx.android.synthetic.main.activity_gps.*
 import zz.utility.R
 import zz.utility.helpers.*
+import zz.utility.lib.OpenLocationCode
 import zz.utility.lib.SunriseSunset
 import java.util.*
 
@@ -49,6 +50,8 @@ class GPSActivity : Activity(), LocationListener {
         gps_lat_long.text = "%.8f\n%.8f".format(location.latitude, location.longitude)
 
         val ss = SunriseSunset(location.latitude, location.longitude, Date(location.time), 0.0)
+
+        gps_code.text = OpenLocationCode.encode(location.latitude, location.longitude)
 
         gps_time_data.text = "${Date(location.time).fullDateDay()}\n${ss.sunrise?.fullTime()} -> ${ss.sunset?.fullTime()}"
 
