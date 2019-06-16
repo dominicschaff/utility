@@ -39,21 +39,23 @@ class GPSActivity : Activity(), LocationListener {
     @SuppressLint("SetTextI18n")
     override fun onLocationChanged(location: Location) {
         if (location.hasAccuracy())
-            gps_accuracy.text = "%3.1f m".format(location.accuracy)
-        if (location.hasSpeed())
-            gps_speed.text = "%.1f m/s : %.1f km/h".format(location.speed, location.speed * 3.6)
+            gps_accuracy.text = "%.0f m".format(location.accuracy)
+        if (location.hasSpeed()) {
+            gps_speed_m.text = "%.1f".format(location.speed)
+            gps_speed_km.text = "%.1f".format(location.speed * 3.6)
+        }
         if (location.hasAltitude())
-            gps_altitude.text = "%3.1f m".format(location.altitude)
+            gps_altitude.text = "%.0f m".format(location.altitude)
         if (location.hasBearing())
             gps_bearing.text = "%.0f°".format(location.bearing)
 
-        gps_lat_long.text = "%.8f\n%.8f".format(location.latitude, location.longitude)
+        gps_lat_long.text = "%.5f %.5f".format(location.latitude, location.longitude)
 
         val ss = SunriseSunset(location.latitude, location.longitude, Date(location.time), 0.0)
 
         gps_code.text = OpenLocationCode.encode(location.latitude, location.longitude)
 
-        gps_time_data.text = "${Date(location.time).fullDateDay()}\n${ss.sunrise?.fullTime()} -> ${ss.sunset?.fullTime()}"
+        gps_time_data.text = "${Date(location.time).fullDateDay()}\n${ss.sunrise?.shortTime()} -> ${ss.sunset?.shortTime()}"
 
     }
 

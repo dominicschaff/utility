@@ -16,10 +16,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:textSize="36sp"
+        android:textSize="48sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="-32.12345 18.12345" />
 
 
     <TextView
@@ -31,26 +32,59 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gps_lat_long" />
-
+        app:layout_constraintTop_toBottomOf="@+id/gps_lat_long"
+        tools:text="123+12" />
 
     <TextView
-        android:id="@+id/gps_speed"
+        android:id="@+id/gps_speed_m"
         style="@style/Text.Mono"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:gravity="center_horizontal"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toStartOf="@id/gps_speed_km"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gps_code" />
+        app:layout_constraintTop_toBottomOf="@id/gps_code"
+        tools:text="12.0" />
 
+    <TextView
+        android:id="@+id/gps_speed_km"
+        style="@style/Text.Mono"
+        android:layout_width="wrap_content"
+        android:gravity="center_horizontal"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/gps_speed_m"
+        app:layout_constraintTop_toBottomOf="@id/gps_code"
+        tools:text="60.0" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="m/s"
+        android:textColor="@color/white_overlay"
+        app:layout_constraintBottom_toBottomOf="@id/gps_speed_m"
+        app:layout_constraintEnd_toEndOf="@id/gps_speed_m" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="km/s"
+        android:textColor="@color/white_overlay"
+        app:layout_constraintBottom_toBottomOf="@id/gps_speed_km"
+        app:layout_constraintEnd_toEndOf="@id/gps_speed_km" />
 
     <TextView
         android:id="@+id/gps_bearing"
         style="@style/Text.Mono"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/ic_gps_heading"
+        android:gravity="center"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/gps_time_data"
         app:layout_constraintEnd_toStartOf="@+id/gps_altitude"
         app:layout_constraintStart_toStartOf="parent" />
@@ -60,6 +94,9 @@
         style="@style/Text.Mono"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/ic_gps_height"
+        android:gravity="center"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/gps_time_data"
         app:layout_constraintEnd_toStartOf="@+id/gps_accuracy"
         app:layout_constraintStart_toEndOf="@+id/gps_bearing" />
@@ -69,6 +106,9 @@
         style="@style/Text.Mono"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/ic_gps_accuracy"
+        android:gravity="center"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/gps_time_data"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/gps_altitude" />
