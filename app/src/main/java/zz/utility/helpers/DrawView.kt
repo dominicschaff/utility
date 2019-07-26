@@ -18,7 +18,6 @@ class DrawView : View {
 
     private val mPath = Path()
     private val mPaint = Paint()
-    var currentData: TextView? = null
 
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
         setPenSize()
@@ -26,6 +25,11 @@ class DrawView : View {
 
     constructor(c: Context) : super(c) {
         setPenSize()
+    }
+
+    public fun clearSpace() {
+        mPath.reset()
+        invalidate()
     }
 
     private fun setPenSize() {
@@ -57,7 +61,6 @@ class DrawView : View {
     @SuppressLint("SetTextI18n")
     private fun drawEvents(event: MotionEvent) {
         (0 until event.historySize).forEach { touchMove(event.getHistoricalX(it), event.getHistoricalY(it)) }
-        currentData?.text = "%.0f/%.0f => %.3f (%.3f)".format(event.x, event.y, event.pressure, event.size)
         touchMove(event.x, event.y)
     }
 

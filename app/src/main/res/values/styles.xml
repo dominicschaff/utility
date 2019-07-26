@@ -25,6 +25,8 @@
         <item name="android:statusBarColor">@color/black_overlay</item>
     </style>
 
+    <style name="AppTheme.NoActionBar.IgnoreCutout"/>
+
     <style name="AppTheme.NavOverlay">
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:statusBarColor">@color/black_overlay</item>
@@ -49,6 +51,13 @@
 
     <style name="Linear.Horizontal">
         <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="Linear.Horizontal.Padding">
+        <item name="android:paddingLeft">@dimen/activity_horizontal_margin</item>
+        <item name="android:paddingRight">@dimen/activity_horizontal_margin</item>
+        <item name="android:paddingBottom">@dimen/activity_vertical_margin</item>
+        <item name="android:paddingTop">@dimen/activity_vertical_margin</item>
     </style>
 
     <style name="Linear.Padding">
@@ -256,6 +265,11 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="MainIcon.Vert">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">0dp</item>
     </style>
 
     <style name="KnowledgeAnswer">

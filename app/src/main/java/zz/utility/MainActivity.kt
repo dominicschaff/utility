@@ -42,6 +42,7 @@ class MainActivity : Activity() {
         goto_draw.setOnClickListener { goto(TouchScreenActivity::class.java) }
         goto_map_points.setOnClickListener { goto(MapsPointsActivity::class.java) }
         goto_physical_environment.setOnClickListener { goto(PhysicalEnvironmentActivity::class.java) }
+        goto_dev_rant.setOnClickListener { goto(DevRantActivity::class.java) }
 
         if (!requestPermissions(arrayOf(
                         Manifest.permission.INTERNET,
@@ -51,7 +52,8 @@ class MainActivity : Activity() {
                         Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.ACCESS_COARSE_LOCATION,
                         Manifest.permission.CAMERA,
-                        Manifest.permission.RECORD_AUDIO
+                        Manifest.permission.RECORD_AUDIO,
+                        Manifest.permission.READ_PHONE_STATE
                 ))) {
             toast("Something went wrong")
         }

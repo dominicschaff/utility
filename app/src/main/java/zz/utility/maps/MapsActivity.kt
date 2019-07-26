@@ -9,6 +9,7 @@ import android.location.LocationManager
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -79,6 +80,9 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
 
     private var currentResponse: PathWrapper? = null
 
+    private var hidden = true
+    private var daylight = true
+
     @SuppressLint("MissingPermission")
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,6 +97,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
             mapView.map().layers().add(BuildingLayer(mapView.map(), tileLayer))
             mapView.map().layers().add(LabelLayer(mapView.map(), tileLayer))
             mapView.map().setTheme(VtmThemes.OSMARENDER)
+//            mapView.map().setTheme(VtmThemes.NEWTRON)
 
             // Scale bar
             mapScaleBar = DefaultMapScaleBar(mapView.map())
@@ -100,6 +105,75 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
             mapScaleBarLayer.renderer.setPosition(GLViewport.Position.BOTTOM_LEFT)
             mapScaleBarLayer.renderer.setOffset(5 * CanvasAdapter.getScale(), 0f)
             mapView.map().layers().add(mapScaleBarLayer)
+        }
+
+        fab_menu.setOnClickListener {
+            val state = if (hidden) {
+                fab_menu.setImageDrawable(getDrawable(R.drawable.ic_clear))
+                View.VISIBLE
+            } else {
+                fab_menu.setImageDrawable(getDrawable(R.drawable.ic_menu))
+                View.GONE
+            }
+
+            hidden = !hidden
+
+            center.visibility = state
+            vehicle.visibility = state
+            share.visibility = state
+            navigate.visibility = state
+            center_on_me.visibility = state
+            fab_theme.visibility = state
+        }
+
+        fab_theme.setOnClickListener {
+            mapView.map().setTheme(if (daylight) VtmThemes.NEWTRON else VtmThemes.OSMARENDER)
+            daylight = !daylight
+        }
+
+        navigate.setOnClickListener {
+            val titles = Array(locationsSaved.size) { locationsSaved[it].name }
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Select location")
+                    .setItems(titles) { _, which ->
+                        calcPath(lastLocation.latitude, lastLocation.longitude, locationsSaved[which].latitude, locationsSaved[which].longitude)
+                    }
+            builder.show()
+        }
+
+        center_on_me.setOnClickListener {
+            followMe = !followMe
+            if (!rotateFollow)
+                rotateFollow = true
+            mapView.map().viewport().setMapViewCenter(0f, 0.5f)
+            onLocationChanged(lastLocation)
+            val mp = mapView.map().mapPosition
+            mapView.map().setMapPosition(mp.latitude, mp.longitude, (1 shl 18).toDouble())
+        }
+
+        share.setOnClickListener {
+            val i = Intent(Intent.ACTION_SEND)
+
+            i.type = "text/plain"
+            i.putExtra(Intent.EXTRA_SUBJECT, "Shared Location")
+            i.putExtra(Intent.EXTRA_TEXT, "http://maps.google.com/maps?q=loc:%.10f,%.10f".format(lastLocation.latitude, lastLocation.longitude))
+
+            try {
+                startActivity(Intent.createChooser(i, "Share Location"))
+            } catch (ex: android.content.ActivityNotFoundException) {
+                toast("There is no activity to share location to.")
+            }
+        }
+
+        vehicle.setOnClickListener {
+            useCar = !useCar
+            vehicle.setImageDrawable(getDrawable(if (useCar) R.drawable.ic_map_car else R.drawable.ic_map_walk))
+        }
+
+        center.setOnClickListener {
+            mapView.map().viewport().setRotation(0.0)
+            mapView.map().viewport().setMapViewCenter(0f, 0f)
+            rotateFollow = false
         }
 
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -158,35 +232,6 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
         }
         setupGraphhopper()
 
-        navigate.setOnClickListener {
-            val titles = Array(locationsSaved.size) { locationsSaved[it].name }
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("Select location")
-                    .setItems(titles) { _, which ->
-                        calcPath(lastLocation.latitude, lastLocation.longitude, locationsSaved[which].latitude, locationsSaved[which].longitude)
-                    }
-            builder.show()
-        }
-        center_on_me.setOnClickListener {
-            followMe = !followMe
-            if (!rotateFollow)
-                rotateFollow = true
-            onLocationChanged(lastLocation)
-        }
-
-        share.setOnClickListener {
-            val i = Intent(Intent.ACTION_SEND)
-
-            i.type = "text/plain"
-            i.putExtra(Intent.EXTRA_SUBJECT, "Shared Location")
-            i.putExtra(Intent.EXTRA_TEXT, "http://maps.google.com/maps?q=loc:%.10f,%.10f".format(lastLocation.latitude, lastLocation.longitude))
-
-            try {
-                startActivity(Intent.createChooser(i, "Share Location"))
-            } catch (ex: android.content.ActivityNotFoundException) {
-                toast("There is no activity to share location to.")
-            }
-        }
 
         val style = Style.builder()
                 .fixed(true)
@@ -228,16 +273,6 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
 
         vectorLayer.update()
         mapView.map().layers().add(vectorLayer)
-
-        vehicle.setOnClickListener {
-            vehicle.setImageDrawable(getDrawable(if (useCar) R.drawable.ic_map_walk else R.drawable.ic_map_car))
-            useCar = !useCar
-        }
-
-        center.setOnClickListener {
-            mapView.map().viewport().setRotation(0.0)
-            rotateFollow = false
-        }
 
         val intent = intent ?: return
         val data = intent.data ?: return
@@ -294,6 +329,17 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
         lastLocation = location
         locationLayer.isEnabled = true
         locationLayer.setPosition(location.latitude, location.longitude, location.accuracy.toDouble())
+
+
+        if (location.hasSpeed()) {
+            map_speed.text = "%.1f".format(location.speed * 3.6)
+        }
+
+        if (location.hasAltitude())
+            map_altitude.text = "%.0f m".format(location.altitude)
+
+        if (location.hasBearing())
+            map_bearing.text = "%s %.0f°".format(location.bearing.bearingToCompass(), location.bearing)
 
         // Follow location
         if (followMe) centerOn(location.latitude, location.longitude)

@@ -9,61 +9,50 @@
 
     <LinearLayout
         android:id="@+id/shortcuts"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:background="@color/black_overlay"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:paddingTop="8dp"
-        app:layout_constraintBottom_toTopOf="@id/scroll"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/goto_draw"
-            style="@style/MainIcon"
-            android:elevation="8dp"
-            android:src="@drawable/ic_main_draw"
-            android:tint="@color/white" />
+            style="@style/MainIcon.Vert"
+            android:src="@drawable/ic_main_draw" />
 
         <ImageView
             android:id="@+id/goto_osm_maps"
-            style="@style/MainIcon"
-            android:elevation="8dp"
-            android:src="@drawable/ic_main_maps"
-            android:tint="@color/white" />
+            style="@style/MainIcon.Vert"
+            android:src="@drawable/ic_main_maps" />
 
         <ImageView
             android:id="@+id/goto_files"
-            style="@style/MainIcon"
-            android:elevation="8dp"
-            android:src="@drawable/ic_main_file"
-            android:tint="@color/white" />
+            style="@style/MainIcon.Vert"
+            android:src="@drawable/ic_main_file" />
 
         <ImageView
             android:id="@+id/goto_gps"
-            style="@style/MainIcon"
-            android:elevation="8dp"
-            android:src="@drawable/ic_main_gps"
-            android:tint="@color/white" />
+            style="@style/MainIcon.Vert"
+            android:src="@drawable/ic_main_gps" />
 
         <ImageView
             android:id="@+id/goto_main"
-            style="@style/MainIcon"
-            android:elevation="8dp"
-            android:src="@drawable/ic_main_utility"
-            android:tint="@color/white" />
+            style="@style/MainIcon.Vert"
+            android:src="@drawable/ic_main_utility" />
     </LinearLayout>
 
     <ScrollView
         android:id="@+id/scroll"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:scrollbars="none"
         app:layout_constraintBottom_toTopOf="@id/shortcuts_bottom"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/shortcuts">
+        app:layout_constraintStart_toEndOf="@id/shortcuts"
+        app:layout_constraintTop_toTopOf="parent">
 
         <GridLayout
             android:id="@+id/main_grid"
@@ -75,7 +64,7 @@
 
     <LinearLayout
         android:id="@+id/shortcuts_bottom"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/black_overlay"
         android:orientation="horizontal"
@@ -83,47 +72,37 @@
         android:paddingBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/shortcuts"
         app:layout_constraintTop_toBottomOf="@id/scroll">
 
         <ImageView
             android:id="@+id/open_phone"
             style="@style/MainIcon"
-            android:elevation="8dp"
             android:src="@drawable/ic_launcher_phone"
-            android:tint="@color/white"
             android:visibility="gone" />
 
         <ImageView
             android:id="@+id/open_whatsapp"
             style="@style/MainIcon"
-            android:elevation="8dp"
             android:src="@drawable/ic_launcher_whatsapp"
-            android:tint="@color/white"
             android:visibility="gone" />
 
         <ImageView
             android:id="@+id/open_telegram"
             style="@style/MainIcon"
-            android:elevation="8dp"
             android:src="@drawable/ic_launcher_telegram"
-            android:tint="@color/white"
             android:visibility="gone" />
 
         <ImageView
             android:id="@+id/open_browser"
             style="@style/MainIcon"
-            android:elevation="8dp"
             android:src="@drawable/ic_launcher_chrome"
-            android:tint="@color/white"
             android:visibility="gone" />
 
         <ImageView
             android:id="@+id/open_music"
             style="@style/MainIcon"
-            android:elevation="8dp"
             android:src="@drawable/ic_launcher_music"
-            android:tint="@color/white"
             android:visibility="gone" />
     </LinearLayout>
 

@@ -33,6 +33,12 @@
             android:text="File Browser" />
 
         <TextView
+            android:id="@+id/goto_dev_rant"
+            style="@style/MainTitle"
+            android:drawableTop="@drawable/ic_main_images"
+            android:text="Dev Rant" />
+
+        <TextView
             android:id="@+id/goto_quote"
             style="@style/MainTitle"
             android:drawableTop="@drawable/ic_main_quote"

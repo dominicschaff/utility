@@ -4,6 +4,9 @@ package zz.utility.helpers
 
 import android.location.Location
 import com.google.gson.JsonObject
+import zz.utility.lib.OpenLocationCode
+import zz.utility.lib.SunriseSunset
+import java.util.*
 
 fun Location.toJson(): JsonObject {
     return JsonObject().apply {
@@ -36,3 +39,39 @@ fun Location.viz() = "%.7f, %.7f".format(latitude, longitude)
 
 fun Location.basicDistance(latitude: Double, longitude: Double) = ((latitude - this.latitude + longitude - this.longitude) * 10000000).toInt()
 fun Location.isNullIsland() = provider == "none" && latitude == 0.0 && longitude == 0.0
+
+
+fun Float.bearingToCompass(): String = when {
+    this < 23 -> "N"
+    this < 68 -> "NE"
+    this < 113 -> "E"
+    this < 158 -> "SE"
+    this < 203 -> "S"
+    this < 148 -> "SW"
+    this < 293 -> "W"
+    this < 338 -> "NW"
+    else -> "N"
+}
+
+fun Location.saveToFile() {
+    val ss = SunriseSunset(latitude, longitude, Date(time), 0.0)
+    JsonObject().apply {
+        addProperty("event_time", Date().fullDate())
+        addProperty("latitude", latitude)
+        addProperty("longitude", longitude)
+        addProperty("accuracy", accuracy)
+        addProperty("speed", speed)
+
+        addProperty("altitude", altitude)
+
+        addProperty("bearing", bearing)
+        addProperty("provider", provider)
+        addProperty("bearingAccuracyDegrees", bearingAccuracyDegrees)
+        addProperty("speedAccuracyMetersPerSecond", speedAccuracyMetersPerSecond)
+        addProperty("verticalAccuracyMeters", verticalAccuracyMeters)
+        addProperty("openLocationCode", OpenLocationCode.encode(latitude, longitude))
+        addProperty("time", Date(time).fullDateDay())
+        addProperty("sunrise", ss.sunrise?.fullDateDay())
+        addProperty("sunset", ss.sunset?.fullDateDay())
+    }.appendToFile("utility/location.json".externalFile())
+}

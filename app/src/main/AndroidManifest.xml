@@ -17,6 +17,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="false"
@@ -25,6 +26,10 @@
         android:supportsRtl="false"
         android:theme="@style/AppTheme"
         tools:replace="android:supportsRtl">
+        <activity
+            android:name=".utility.DevRantActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".poc.CarDashActivity"
             android:parentActivityName=".poc.PocMenuActivity"
@@ -174,7 +179,7 @@
             android:parentActivityName=".browser.FileBrowserActivity"
             android:resizeableActivity="true"
             android:supportsPictureInPicture="true"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar.IgnoreCutout" />
         <activity
             android:name=".browser.SlideshowActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
@@ -230,7 +235,7 @@
         <activity
             android:name=".utility.TouchScreenActivity"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar.IgnoreCutout" />
         <activity
             android:name=".maps.MapsPointsActivity"
             android:theme="@style/AppTheme.NavOverlay.NoActionBar" />

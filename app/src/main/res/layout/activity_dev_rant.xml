@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_to_refresh"
+    style="@style/Outer"
+    tools:context=".utility.DevRantActivity">
+
+    <ScrollView style="@style/Scroll">
+
+        <LinearLayout style="@style/Linear.Padding">
+
+            <TextView
+                android:id="@+id/text"
+                style="@style/Text.Medium" />
+
+            <TextView
+                android:id="@+id/author"
+                android:gravity="end"
+                style="@style/Text.Fit" />
+
+            <TextView
+                android:id="@+id/url"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                style="@style/Text.Fit" />
+        </LinearLayout>
+    </ScrollView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -1,17 +1,30 @@
 package zz.utility.utility
 
 import android.os.Bundle
+import android.os.Environment
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_touch_screen.*
 import zz.utility.R
+import zz.utility.helpers.fileDate
+import zz.utility.helpers.screenshot
+import java.io.File
+import java.util.*
 
 class TouchScreenActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_touch_screen)
-        draw_area.currentData = currentData
+
+        fab_screenshot.setOnClickListener {
+            val notes = File(Environment.getExternalStorageDirectory(), "notes")
+            if (!notes.exists()) notes.mkdir()
+            draw_area.screenshot(File(notes, "/${Date().fileDate()}.jpeg"))
+        }
+        fab_clear.setOnClickListener {
+            draw_area.clearSpace()
+        }
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {

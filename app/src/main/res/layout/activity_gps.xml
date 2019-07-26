@@ -84,7 +84,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/ic_gps_heading"
         android:gravity="center"
-        android:textSize="24sp"
+        android:textSize="32sp"
         app:layout_constraintBottom_toTopOf="@+id/gps_time_data"
         app:layout_constraintEnd_toStartOf="@+id/gps_altitude"
         app:layout_constraintStart_toStartOf="parent" />
@@ -96,7 +96,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/ic_gps_height"
         android:gravity="center"
-        android:textSize="24sp"
+        android:textSize="32sp"
         app:layout_constraintBottom_toTopOf="@+id/gps_time_data"
         app:layout_constraintEnd_toStartOf="@+id/gps_accuracy"
         app:layout_constraintStart_toEndOf="@+id/gps_bearing" />
@@ -108,7 +108,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/ic_gps_accuracy"
         android:gravity="center"
-        android:textSize="24sp"
+        android:textSize="32sp"
         app:layout_constraintBottom_toTopOf="@+id/gps_time_data"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/gps_altitude" />
@@ -123,5 +123,21 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/gps_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_save"
+        style="@style/Fab"
+        android:src="@drawable/ic_save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

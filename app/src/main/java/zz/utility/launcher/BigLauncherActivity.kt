@@ -22,8 +22,8 @@ import zz.utility.R
 import zz.utility.browser.FileBrowserActivity
 import zz.utility.helpers.*
 import zz.utility.maps.MapsActivity
-import zz.utility.utility.BarcodeScanningActivity
 import zz.utility.utility.GPSActivity
+import zz.utility.utility.TouchScreenActivity
 
 class BigLauncherActivity : AppCompatActivity() {
 
@@ -31,7 +31,7 @@ class BigLauncherActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_big_launcher)
 
-        goto_scan.setOnClickListener { gotoNewWindow(BarcodeScanningActivity::class.java) }
+        goto_draw.setOnClickListener { goto(TouchScreenActivity::class.java) }
         goto_osm_maps.setOnClickListener { gotoNewWindow(MapsActivity::class.java) }
         goto_files.setOnClickListener { gotoNewWindow(FileBrowserActivity::class.java) }
         goto_gps.setOnClickListener { gotoNewWindow(GPSActivity::class.java) }
@@ -47,21 +47,72 @@ class BigLauncherActivity : AppCompatActivity() {
 
     private fun updateApps() {
         GlobalScope.launch {
-            val hidden = MAIN_CONFIG.o("launcher").a("hide").map { it.asString }
+            val config = MAIN_CONFIG.o("launcher")
+            val hidden = config.a("hide").map { it.asString }
             val pm = packageManager
 
             val i = Intent(Intent.ACTION_MAIN, null)
             i.addCategory(Intent.CATEGORY_LAUNCHER)
 
-            val list = pm.queryIntentActivities(i, 0)
+            val apps = pm.queryIntentActivities(i, 0)
                     .map { AppInfo(it.loadLabel(pm).toString(), it.activityInfo.packageName) }
-                    .filter { !hidden.contains(it.packageName) && it.packageName != "zz.utility" }
-                    .sortedWith(Comparator { o1, o2 -> o1.label.compareTo(o2.label, true) })
 
+            val phone = apps.find { it.packageName == config.o("dedicated").s("phone") }
+            val whatsapp = apps.find { it.packageName == config.o("dedicated").s("messaging1") }
+            val telegram = apps.find { it.packageName == config.o("dedicated").s("messaging2") }
+            val browser = apps.find { it.packageName == config.o("dedicated").s("browser") }
+            val music = apps.find { it.packageName == config.o("dedicated").s("music") }
+
+            val faves = ArrayList<String>().apply {
+                if (phone != null) add(phone.packageName)
+                if (whatsapp != null) add(whatsapp.packageName)
+                if (telegram != null) add(telegram.packageName)
+                if (browser != null) add(browser.packageName)
+                if (music != null) add(music.packageName)
+            }
+
+            val list = apps
+                    .filter { !hidden.contains(it.packageName) && !faves.contains(it.packageName) && it.packageName != "zz.utility" }
+                    .sortedWith(Comparator { o1, o2 -> o1.label.compareTo(o2.label, true) })
 
             runOnUiThread {
                 main_grid.removeAllViews()
                 list.forEach { addToGrid(it) }
+
+                if (phone != null) {
+                    open_phone.see()
+                    open_phone.setOnClickListener {
+                        startActivity(packageManager.getLaunchIntentForPackage(phone.packageName))
+                    }
+                }
+
+                if (whatsapp != null) {
+                    open_whatsapp.see()
+                    open_whatsapp.setOnClickListener {
+                        startActivity(packageManager.getLaunchIntentForPackage(whatsapp.packageName))
+                    }
+                }
+
+                if (telegram != null) {
+                    open_telegram.see()
+                    open_telegram.setOnClickListener {
+                        startActivity(packageManager.getLaunchIntentForPackage(telegram.packageName))
+                    }
+                }
+
+                if (browser != null) {
+                    open_browser.see()
+                    open_browser.setOnClickListener {
+                        startActivity(packageManager.getLaunchIntentForPackage(browser.packageName))
+                    }
+                }
+
+                if (music != null) {
+                    open_music.see()
+                    open_music.setOnClickListener {
+                        startActivity(packageManager.getLaunchIntentForPackage(music.packageName))
+                    }
+                }
             }
         }
     }
