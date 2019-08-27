@@ -49,7 +49,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scrollbars="none"
-        app:layout_constraintBottom_toTopOf="@id/shortcuts_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/shortcuts"
         app:layout_constraintTop_toTopOf="parent">
@@ -61,49 +61,5 @@
             android:alignmentMode="alignBounds"
             android:columnCount="@integer/launcher_column_count" />
     </ScrollView>
-
-    <LinearLayout
-        android:id="@+id/shortcuts_bottom"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/black_overlay"
-        android:orientation="horizontal"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/shortcuts"
-        app:layout_constraintTop_toBottomOf="@id/scroll">
-
-        <ImageView
-            android:id="@+id/open_phone"
-            style="@style/MainIcon"
-            android:src="@drawable/ic_launcher_phone"
-            android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/open_whatsapp"
-            style="@style/MainIcon"
-            android:src="@drawable/ic_launcher_whatsapp"
-            android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/open_telegram"
-            style="@style/MainIcon"
-            android:src="@drawable/ic_launcher_telegram"
-            android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/open_browser"
-            style="@style/MainIcon"
-            android:src="@drawable/ic_launcher_chrome"
-            android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/open_music"
-            style="@style/MainIcon"
-            android:src="@drawable/ic_launcher_music"
-            android:visibility="gone" />
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

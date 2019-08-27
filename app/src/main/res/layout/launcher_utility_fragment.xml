@@ -39,12 +39,6 @@
             android:text="GPS" />
 
         <TextView
-            android:id="@+id/goto_camera"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_camera"
-            android:text="Camera Scales" />
-
-        <TextView
             android:id="@+id/goto_main"
             style="@style/MainTitle"
             android:drawableTop="@drawable/ic_main_utility"

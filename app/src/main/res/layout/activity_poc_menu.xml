@@ -26,12 +26,6 @@
             android:text="Login" />
 
         <TextView
-            android:id="@+id/goto_test_pos"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_pos"
-            android:text="POS System" />
-
-        <TextView
             android:id="@+id/goto_test_stock_take"
             style="@style/MainTitle"
             android:drawableTop="@drawable/ic_main_pos"
@@ -44,28 +38,22 @@
             android:text="Bottom Nav" />
 
         <TextView
-            android:id="@+id/goto_dashboard"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_dashboard"
-            android:text="Graphs" />
-
-        <TextView
-            android:id="@+id/goto_notifications"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_notifications"
-            android:text="Notifications" />
-
-        <TextView
             android:id="@+id/goto_demo"
             style="@style/MainTitle"
             android:drawableTop="@drawable/ic_main_android_versions"
-            android:text="Test Accessors" />
+            android:text="Demo Screen" />
 
         <TextView
             android:id="@+id/goto_car_dash"
             style="@style/MainTitle"
             android:drawableTop="@drawable/ic_main_car"
             android:text="Car Dashboard" />
+
+        <TextView
+            android:id="@+id/goto_data_heavy"
+            style="@style/MainTitle"
+            android:drawableTop="@drawable/ic_main_bot"
+            android:text="Heavy Data" />
     </GridLayout>
 
 </ScrollView>

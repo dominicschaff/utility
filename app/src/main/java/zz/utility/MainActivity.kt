@@ -20,22 +20,17 @@ class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        goto_quote.setOnClickListener { goto(QuoteActivity::class.java) }
         goto_gps.setOnClickListener { goto(GPSActivity::class.java) }
         goto_sensors.setOnClickListener { goto(SensorsActivity::class.java) }
-        goto_wifi.setOnClickListener { goto(WiFiScannerActivity::class.java) }
         goto_qr.setOnClickListener { goto(QRCodeGeneratorActivity::class.java) }
         goto_info.setOnClickListener { goto(InfoActivity::class.java) }
-        goto_versions.setOnClickListener { goto(AndroidVersionsActivity::class.java) }
         goto_scan.setOnClickListener { goto(BarcodeScanningActivity::class.java) }
         goto_osm_maps.setOnClickListener { goto(MapsActivity::class.java) }
-        goto_camera.setOnClickListener { goto(CameraScalesActivity::class.java) }
         goto_scrum_poker.setOnClickListener { goto(ScrumPokerActivity::class.java) }
         goto_files.setOnClickListener { goto(FileBrowserActivity::class.java) }
         goto_list.setOnClickListener { goto(ListActivity::class.java) }
         goto_poc.setOnClickListener { goto(PocMenuActivity::class.java) }
         goto_images.setOnClickListener { goto(ImageDownloadActivity::class.java) }
-        goto_knowledge.setOnClickListener { goto(KnowledgeActivity::class.java) }
         goto_car_dock.setOnClickListener { goto(CarDockActivity::class.java) }
         goto_daily_comic.setOnClickListener { goto(DailyComicActivity::class.java) }
         goto_quote_api.setOnClickListener { goto(QuoteApiActivity::class.java) }

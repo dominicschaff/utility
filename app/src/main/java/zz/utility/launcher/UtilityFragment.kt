@@ -11,7 +11,6 @@ import zz.utility.browser.FileBrowserActivity
 import zz.utility.helpers.gotoNewWindow
 import zz.utility.maps.MapsActivity
 import zz.utility.utility.BarcodeScanningActivity
-import zz.utility.utility.CameraScalesActivity
 import zz.utility.utility.GPSActivity
 
 class UtilityFragment : androidx.fragment.app.Fragment() {
@@ -24,7 +23,6 @@ class UtilityFragment : androidx.fragment.app.Fragment() {
             goto_osm_maps.setOnClickListener { activity?.gotoNewWindow(MapsActivity::class.java) }
             goto_files.setOnClickListener { activity?.gotoNewWindow(FileBrowserActivity::class.java) }
             goto_gps.setOnClickListener { activity?.gotoNewWindow(GPSActivity::class.java) }
-            goto_camera.setOnClickListener { activity?.gotoNewWindow(CameraScalesActivity::class.java) }
             goto_main.setOnClickListener { activity?.gotoNewWindow(MainActivity::class.java) }
         }
     }

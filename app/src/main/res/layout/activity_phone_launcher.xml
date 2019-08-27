@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".launcher.PhoneLauncherActivity">
+
+    <TextView
+        android:id="@+id/screen_text"
+        style="@style/Text.Fit"
+        android:textColor="@color/white_overlay"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_overlay"
+        app:behavior_hideable="false"
+        android:fitsSystemWindows="true"
+        app:behavior_peekHeight="172dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrolly"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingBottom="72dp"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <LinearLayout
+                    android:id="@+id/shortcuts_bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="72dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/shortcuts">
+
+                    <ImageView
+                        android:id="@+id/open_phone"
+                        style="@style/MainIcon"
+                        android:elevation="8dp"
+                        android:src="@drawable/ic_launcher_phone"
+                        android:tint="@color/white"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/open_whatsapp"
+                        style="@style/MainIcon"
+                        android:elevation="8dp"
+                        android:src="@drawable/ic_launcher_whatsapp"
+                        android:tint="@color/white"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/open_telegram"
+                        style="@style/MainIcon"
+                        android:elevation="8dp"
+                        android:src="@drawable/ic_launcher_telegram"
+                        android:tint="@color/white"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/open_browser"
+                        style="@style/MainIcon"
+                        android:elevation="8dp"
+                        android:src="@drawable/ic_launcher_chrome"
+                        android:tint="@color/white"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/open_music"
+                        style="@style/MainIcon"
+                        android:elevation="8dp"
+                        android:src="@drawable/ic_launcher_music"
+                        android:tint="@color/white"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/shortcuts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="8dp"
+                    app:layout_constraintBottom_toTopOf="@id/scroll"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/shortcuts_bottom">
+
+                    <ImageView
+                        android:id="@+id/goto_draw"
+                        style="@style/MainIcon"
+                        android:elevation="8dp"
+                        android:src="@drawable/ic_main_draw"
+                        android:tint="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/goto_osm_maps"
+                        style="@style/MainIcon"
+                        android:elevation="8dp"
+                        android:src="@drawable/ic_main_maps"
+                        android:tint="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/goto_files"
+                        style="@style/MainIcon"
+                        android:elevation="8dp"
+                        android:src="@drawable/ic_main_file"
+                        android:tint="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/goto_gps"
+                        style="@style/MainIcon"
+                        android:elevation="8dp"
+                        android:src="@drawable/ic_main_gps"
+                        android:tint="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/goto_main"
+                        style="@style/MainIcon"
+                        android:elevation="8dp"
+                        android:src="@drawable/ic_main_utility"
+                        android:tint="@color/white" />
+                </LinearLayout>
+
+                <ScrollView
+                    android:id="@+id/scroll"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="none"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/shortcuts">
+
+                    <GridLayout
+                        android:id="@+id/main_grid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:alignmentMode="alignBounds"
+                        android:columnCount="@integer/launcher_column_count" />
+                </ScrollView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

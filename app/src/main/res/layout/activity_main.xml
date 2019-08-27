@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/Scroll"
+    android:fitsSystemWindows="true"
     tools:ignore="HardcodedText">
 
     <GridLayout
@@ -10,9 +11,7 @@
         android:layout_height="0dp"
         android:alignmentMode="alignBounds"
         android:columnCount="@integer/column_count"
-        android:columnOrderPreserved="true"
-        android:paddingTop="24dp"
-        android:paddingBottom="72dp">
+        android:columnOrderPreserved="true">
 
         <TextView
             android:id="@+id/goto_scan"
@@ -39,22 +38,16 @@
             android:text="Dev Rant" />
 
         <TextView
-            android:id="@+id/goto_quote"
+            android:id="@+id/goto_list"
             style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_quote"
-            android:text="Quote" />
+            android:drawableTop="@drawable/ic_main_list"
+            android:text="File List" />
 
         <TextView
             android:id="@+id/goto_quote_api"
             style="@style/MainTitle"
             android:drawableTop="@drawable/ic_main_quote"
             android:text="Quote API" />
-
-        <TextView
-            android:id="@+id/goto_list"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_list"
-            android:text="File List" />
 
         <TextView
             android:id="@+id/goto_car_dock"
@@ -88,28 +81,10 @@
             android:text="Sensors" />
 
         <TextView
-            android:id="@+id/goto_wifi"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_wifi"
-            android:text="WiFi Scanner" />
-
-        <TextView
             android:id="@+id/goto_scrum_poker"
             style="@style/MainTitle"
             android:drawableTop="@drawable/ic_main_scrum"
             android:text="Scrum Poker" />
-
-        <TextView
-            android:id="@+id/goto_camera"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_camera"
-            android:text="Camera Scales" />
-
-        <TextView
-            android:id="@+id/goto_versions"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_android_versions"
-            android:text="Versions" />
 
         <TextView
             android:id="@+id/goto_images"
@@ -128,12 +103,6 @@
             style="@style/MainTitle"
             android:drawableTop="@drawable/ic_main_draw"
             android:text="Draw" />
-
-        <TextView
-            android:id="@+id/goto_knowledge"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_game"
-            android:text="Knowledge" />
 
         <TextView
             android:id="@+id/goto_poc"
