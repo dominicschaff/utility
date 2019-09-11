@@ -15,6 +15,19 @@
     </shortcut>
     <shortcut
         android:enabled="true"
+        android:icon="@drawable/ic_main_barcode_scan"
+        android:shortcutDisabledMessage="@string/shortcut_disabled"
+        android:shortcutId="open_map"
+        android:shortcutLongLabel="@string/shortcut_barcode"
+        android:shortcutShortLabel="@string/shortcut_barcode">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="zz.utility.utility.BarcodeScanningActivity"
+            android:targetPackage="zz.utility" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+    <shortcut
+        android:enabled="true"
         android:icon="@drawable/ic_main_file"
         android:shortcutDisabledMessage="@string/shortcut_disabled"
         android:shortcutId="open_file_browser"

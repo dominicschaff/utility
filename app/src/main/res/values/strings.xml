@@ -16,8 +16,9 @@
 
     <string name="wait">Please wait…</string>
 
-    <string name="shortcut_map">Go to maps</string>
-    <string name="shortcut_file_browser">Go to file browser</string>
+    <string name="shortcut_map">Maps</string>
+    <string name="shortcut_barcode">Barcode Scanner</string>
+    <string name="shortcut_file_browser">File Browser</string>
     <string name="shortcut_disabled">Shortcut disabled</string>
 
     <!-- Strings related to login -->

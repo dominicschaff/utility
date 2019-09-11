@@ -115,11 +115,5 @@
             style="@style/MainTitle"
             android:drawableTop="@drawable/ic_main_maps"
             android:text="Map points" />
-
-        <TextView
-            android:id="@+id/goto_physical_environment"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_environment"
-            android:text="Physical Environment" />
     </GridLayout>
 </ScrollView>

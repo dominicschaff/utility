@@ -2,7 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/relativeLayout3"
     style="@style/Outer"
-    android:background="@color/black"
     android:keepScreenOn="true">
 
     <com.github.chrisbanes.photoview.PhotoView

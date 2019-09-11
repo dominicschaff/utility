@@ -10,7 +10,7 @@ android {
     defaultConfig {
         multiDexEnabled true
         applicationId "zz.utility"
-        minSdkVersion 27
+        minSdkVersion 28
         targetSdkVersion 28
         versionCode 6
         versionName "5.0"
@@ -21,11 +21,6 @@ android {
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-//        debug {
-//            minifyEnabled true
-//            shrinkResources true
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//        }
     }
 
     compileOptions {
@@ -46,7 +41,7 @@ dependencies {
     api 'androidx.legacy:legacy-support-v13:1.0.0'
     api 'androidx.appcompat:appcompat:1.1.0-rc01'
     api 'androidx.legacy:legacy-support-v4:1.0.0'
-    api 'com.google.android.material:material:1.1.0-alpha09'
+    api 'com.google.android.material:material:1.1.0-alpha10'
     api 'androidx.cardview:cardview:1.0.0'
     api 'androidx.recyclerview:recyclerview:1.1.0-beta03'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
