@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
+import coil.api.load
 import kotlinx.android.synthetic.main.activity_sorter.*
 import zz.utility.R
 import zz.utility.helpers.alert
@@ -99,9 +99,7 @@ class SorterActivity : AppCompatActivity() {
         val path = paths[current]
 
         val infoText = if (path.exists()) {
-            Glide.with(this)
-                    .load(Uri.fromFile(path))
-                    .into(image as ImageView)
+            image.load(path)
             path.length().formatSize()
         } else {
             image.setImageResource(R.drawable.ic_block)

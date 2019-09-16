@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
+import coil.api.load
 import kotlinx.android.synthetic.main.activity_quick_sort.*
 import zz.utility.R
 import zz.utility.helpers.alert
@@ -95,10 +95,7 @@ class QuickSortActivity : AppCompatActivity() {
         info.text = "${current + 1} / ${paths.size}\n${path.length().formatSize()}\n${path.metaDataShort().trim()}"
         file_path.text = path.absolutePath
 
-        if (path.exists()) {
-            Glide.with(this)
-                    .load(Uri.fromFile(path))
-                    .into(image as ImageView)
-        } else image.setImageResource(R.drawable.ic_block)
+        if (path.exists()) image.load(path)
+        else image.setImageResource(R.drawable.ic_block)
     }
 }
