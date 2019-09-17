@@ -5,13 +5,13 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import coil.api.load
-import coil.size.Scale
+import com.bumptech.glide.Glide
 import zz.utility.*
 import zz.utility.browser.gallery.GalleryActivity
 import zz.utility.helpers.*
@@ -41,12 +41,12 @@ class MyFileAdapter(private val activity: FileBrowserActivity, private val galle
 
             if (f.isImage() || f.isVideo()) {
                 viewHolder.img.scaleType = ImageView.ScaleType.CENTER_CROP
-                viewHolder.img.load(f) {
-                    size(200)
-                    scale(Scale.FIT)
-                    crossfade(true)
-                    placeholder(f.imageIcon())
-                }
+                Glide
+                        .with(activity)
+                        .asBitmap()
+                        .load(Uri.fromFile(f))
+                        .thumbnail(0.1f)
+                        .into(viewHolder.img)
                 viewHolder.img.setPadding(0, 0, 0, 0)
             } else {
                 viewHolder.img.setImageResource(f.imageIcon())

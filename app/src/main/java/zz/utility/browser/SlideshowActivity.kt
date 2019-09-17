@@ -1,8 +1,11 @@
 package zz.utility.browser
 
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
-import coil.api.load
+import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.main.activity_slideshow.*
 import zz.utility.R
 import zz.utility.helpers.PipActivity
@@ -58,7 +61,12 @@ class SlideshowActivity : PipActivity() {
 
         val path = paths[current]
 
-        if (path.exists()) image.load(path)
+        if (path.exists()) {
+            Glide.with(this)
+                    .load(Uri.fromFile(path))
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .into(image as ImageView)
+        }
         else image.setImageResource(R.drawable.ic_block)
     }
 }

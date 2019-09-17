@@ -10,6 +10,10 @@ import android.os.BatteryManager
 import android.os.Build
 import android.os.SystemClock
 import android.telephony.TelephonyManager
+import android.util.DisplayMetrics
+import android.view.Display
+
+
 
 class DeviceStats(
         var deviceSerial: String = "",
@@ -25,7 +29,10 @@ class DeviceStats(
         var height: Int = 0,
         var simSerialNumber: String = "",
         var deviceIdNumber: String = "",
-        var uptime: Long = 0
+        var uptime: Long = 0,
+        val density:Float = 0F,
+        val dpHeight:Float = 0.0F,
+        val dpWidth:Float = 0.0F
 )
 
 @SuppressLint("HardwareIds", "MissingPermission")
@@ -38,6 +45,13 @@ fun Activity.getDeviceStats(): DeviceStats {
     val display = windowManager.defaultDisplay
     val size = Point()
     display.getSize(size)
+
+    val outMetrics = DisplayMetrics()
+    display.getMetrics(outMetrics)
+
+    val density = resources.displayMetrics.density
+    val dpHeight = outMetrics.heightPixels / density
+    val dpWidth = outMetrics.widthPixels / density
 
     val telManager = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
 
@@ -56,6 +70,9 @@ fun Activity.getDeviceStats(): DeviceStats {
             size.y,
             telManager.simSerialNumber ?: "",
             telManager.imei,
-            SystemClock.uptimeMillis()
+            SystemClock.uptimeMillis(),
+            density,
+            dpHeight,
+            dpWidth
     )
 }

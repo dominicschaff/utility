@@ -3,16 +3,18 @@ package zz.utility.browser.gallery
 import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.MimeTypeMap
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
-import coil.api.load
-import coil.request.CachePolicy
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.main.fragment_gallery.view.*
 import zz.utility.BuildConfig
 import zz.utility.R
@@ -47,9 +49,10 @@ class ImageViewFragment : Fragment() {
 
         rootView.path.text = path.metaData() + path.name
         if (path.exists()) {
-            rootView.image.load(path) {
-                diskCachePolicy(CachePolicy.DISABLED)
-            }
+            Glide.with(this)
+                    .load(Uri.fromFile(path))
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .into(rootView.image as ImageView)
 
             rootView.image_size.text = path.length().formatSize()
 

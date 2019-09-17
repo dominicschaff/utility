@@ -7,7 +7,8 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import coil.api.load
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.main.activity_sorter.*
 import zz.utility.R
 import zz.utility.helpers.alert
@@ -99,7 +100,10 @@ class SorterActivity : AppCompatActivity() {
         val path = paths[current]
 
         val infoText = if (path.exists()) {
-            image.load(path)
+            Glide.with(this)
+                    .load(Uri.fromFile(path))
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .into(image as ImageView)
             path.length().formatSize()
         } else {
             image.setImageResource(R.drawable.ic_block)

@@ -65,6 +65,7 @@ class InfoActivity : Activity() {
             addThing("Threshold Memory", ms.threshold.formatSize())
 
             addThing("Screen Size", "${ds.width} x ${ds.height}")
+            addThing("Screen Density", "${ds.density} : ${ds.dpWidth} x ${ds.dpHeight}")
             addThing("Uptime", ds.uptime.toTimeFormat())
             addThing("Operator Name", ns.operatorName)
             addThing("Network State", ns.serviceStateDescription)
