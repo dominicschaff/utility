@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorPrimaryDarkOverlay">#DD303F9F</color>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorPrimaryDarkOverlay">#000000</color>
     <color name="colorAccent">#3C92CA</color>
     <color name="colorButtons">#3C92CA</color>
-    <color name="colorButtonsBackground">#EA526F</color>
-    <color name="colorButtonsSecond">#06BEE1</color>
+    <color name="colorButtonsBackground">#3C92CA</color>
+    <color name="colorButtonsSecond">#3C92CA</color>
     <color name="colorAccentFaded">#333C92CA</color>
 
-    <color name="clear_overlay">#33000000</color>
-    <color name="black_overlay">#66000000</color>
-    <color name="black_overlay_darker">#BB000000</color>
-    <color name="white_overlay">#66FFFFFF</color>
     <color name="file_browser_icon">#CC3C92CA</color>
-    <color name="muted">#CCCCCC</color>
-    <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
 </resources>

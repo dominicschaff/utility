@@ -17,19 +17,25 @@
             android:id="@+id/goto_scan"
             style="@style/MainTitle"
             android:drawableTop="@drawable/ic_main_barcode_scan"
-            android:text="Barcode Scan" />
+            android:text="Scanner" />
+
+        <TextView
+            android:id="@+id/goto_auth"
+            style="@style/MainTitle"
+            android:drawableTop="@drawable/ic_lock"
+            android:text="Auth" />
 
         <TextView
             android:id="@+id/goto_osm_maps"
             style="@style/MainTitle"
             android:drawableTop="@drawable/ic_main_maps"
-            android:text="OSM Maps" />
+            android:text="Maps" />
 
         <TextView
             android:id="@+id/goto_files"
             style="@style/MainTitle"
             android:drawableTop="@drawable/ic_main_file"
-            android:text="File Browser" />
+            android:text="Files" />
 
         <TextView
             android:id="@+id/goto_dev_rant"
@@ -41,7 +47,7 @@
             android:id="@+id/goto_list"
             style="@style/MainTitle"
             android:drawableTop="@drawable/ic_main_list"
-            android:text="File List" />
+            android:text="List" />
 
         <TextView
             android:id="@+id/goto_quote_api"
@@ -53,13 +59,13 @@
             android:id="@+id/goto_car_dock"
             style="@style/MainTitle"
             android:drawableTop="@drawable/ic_main_car"
-            android:text="Car Dock" />
+            android:text="Dock" />
 
         <TextView
             android:id="@+id/goto_info"
             style="@style/MainTitle"
             android:drawableTop="@drawable/ic_main_device"
-            android:text="Device Info" />
+            android:text="Device" />
 
         <TextView
             android:id="@+id/goto_gps"
@@ -84,19 +90,19 @@
             android:id="@+id/goto_scrum_poker"
             style="@style/MainTitle"
             android:drawableTop="@drawable/ic_main_scrum"
-            android:text="Scrum Poker" />
+            android:text="Cards" />
 
         <TextView
             android:id="@+id/goto_images"
             style="@style/MainTitle"
             android:drawableTop="@drawable/ic_main_images"
-            android:text="Image Downloader" />
+            android:text="Image" />
 
         <TextView
             android:id="@+id/goto_daily_comic"
             style="@style/MainTitle"
             android:drawableTop="@drawable/ic_main_images"
-            android:text="Daily Comic" />
+            android:text="Comic" />
 
         <TextView
             android:id="@+id/goto_draw"
@@ -108,12 +114,18 @@
             android:id="@+id/goto_poc"
             style="@style/MainTitle"
             android:drawableTop="@drawable/ic_main_poc"
-            android:text="POC Screens" />
+            android:text="POC" />
 
         <TextView
             android:id="@+id/goto_map_points"
             style="@style/MainTitle"
             android:drawableTop="@drawable/ic_main_maps"
-            android:text="Map points" />
+            android:text="Points" />
+
+        <TextView
+            android:id="@+id/goto_dashboard"
+            style="@style/MainTitle"
+            android:drawableTop="@drawable/ic_main_bot"
+            android:text="Dash" />
     </GridLayout>
 </ScrollView>

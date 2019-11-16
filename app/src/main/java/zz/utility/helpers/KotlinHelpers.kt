@@ -51,13 +51,13 @@ fun Activity.requestPermissions(permissions: Array<String>): Boolean {
     }
     return true
 }
-
 inline fun <T> (() -> T).or(f: () -> T): T =
         try {
             this()
         } catch (e: Exception) {
             f()
         }
+
 
 inline fun (() -> Unit?).or(f: (e: Exception) -> Unit) {
     try {

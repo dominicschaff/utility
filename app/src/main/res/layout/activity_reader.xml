@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/Outer"
     android:background="@color/black"
-    tools:context=".browser.TextViewActivity">
+    tools:context=".browser.ReaderActivity">
 
     <TextView
         android:id="@+id/filename"

@@ -11,6 +11,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.*
 import zz.utility.R
 import zz.utility.helpers.prefGetSet
+import zz.utility.helpers.see
 import java.util.*
 
 /**
@@ -51,7 +52,7 @@ class LoginActivity : Activity() {
 
     private fun doLogin() {
         Toast.makeText(applicationContext, "You clicked enter", Toast.LENGTH_LONG).show()
-        login_progress.visibility = View.VISIBLE
+        login_progress.see()
         Handler().postDelayed({
             login_progress.visibility = View.GONE
             Toast.makeText(applicationContext, "Done", Toast.LENGTH_LONG).show()
