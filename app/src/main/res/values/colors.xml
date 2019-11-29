@@ -10,4 +10,6 @@
     <color name="colorAccentFaded">#333C92CA</color>
 
     <color name="file_browser_icon">#CC3C92CA</color>
+
+    <color name="magenta_red">#E1295B</color>
 </resources>

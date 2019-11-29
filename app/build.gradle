@@ -41,14 +41,14 @@ dependencies {
     api 'androidx.legacy:legacy-support-v13:1.0.0'
     api 'androidx.appcompat:appcompat:1.1.0'
     api 'androidx.legacy:legacy-support-v4:1.0.0'
-    api 'com.google.android.material:material:1.2.0-alpha01'
+    api 'com.google.android.material:material:1.2.0-alpha02'
     api 'androidx.cardview:cardview:1.0.0'
-    api 'androidx.recyclerview:recyclerview:1.1.0-rc01'
+    api 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta3'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0-rc01'
-    implementation 'androidx.exifinterface:exifinterface:1.1.0-rc01'
+    implementation 'androidx.exifinterface:exifinterface:1.1.0'
 
-    implementation 'androidx.core:core-ktx:1.2.0-beta02'
+    implementation 'androidx.core:core-ktx:1.2.0-rc01'
     implementation 'androidx.fragment:fragment-ktx:1.2.0-rc02'
     implementation 'androidx.collection:collection-ktx:1.1.0'
 
@@ -77,8 +77,8 @@ dependencies {
         exclude group: 'com.vividsolutions', module: 'jts'
     }
 
-    implementation 'org.slf4j:slf4j-api:2.0.0-alpha0'
-    implementation 'org.slf4j:slf4j-android:1.7.28'
+    implementation 'org.slf4j:slf4j-api:2.0.0-alpha1'
+    implementation 'org.slf4j:slf4j-android:1.7.29'
 
     implementation('com.graphhopper:graphhopper-core:0.13.0') {
         exclude group: 'com.google.protobuf', module: 'protobuf-java'

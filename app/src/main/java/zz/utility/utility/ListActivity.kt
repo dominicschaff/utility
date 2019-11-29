@@ -38,6 +38,7 @@ class ListActivity : AppCompatActivity() {
                 return@doAsync { files[which].asJsonArray().mapObject { Entry(s("text"), s("author"), s("source")) } }.or { ArrayList() }
             }, {
                 items.addAll(it!!)
+                supportActionBar?.subtitle = "${files[which].name} [${items.size}]"
                 doRefresh()
             })
         })
