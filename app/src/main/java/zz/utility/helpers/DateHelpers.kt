@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 val fullDate = SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.ENGLISH)
+val fullDateShortTime = SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.ENGLISH)
 val onlyDate = SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH)
 val fullTime = SimpleDateFormat("HH:mm:ss", Locale.ENGLISH)
 val shortTime = SimpleDateFormat("HH:mm", Locale.ENGLISH)
@@ -13,6 +14,7 @@ val longDateTime = SimpleDateFormat("yyyy-MM-dd EEE HH:mm:ss", Locale.ENGLISH)
 val fileDate = SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.ENGLISH)
 
 inline fun Date.fullDate(): String = fullDate.format(this)
+inline fun Date.fullDateShortTime(): String = fullDateShortTime.format(this)
 inline fun Date.fullDateDay(): String = longDateTime.format(this)
 inline fun Date.fullTime(): String = fullTime.format(this)
 inline fun Date.shortTime(): String = shortTime.format(this)

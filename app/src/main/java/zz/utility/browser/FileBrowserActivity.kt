@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_file_browser.*
 import zz.utility.R
+import zz.utility.browser.sound.SoundSorterActivity
 import zz.utility.helpers.*
 import zz.utility.views.chooser
 import java.io.File
@@ -39,7 +40,6 @@ class FileBrowserActivity : AppCompatActivity() {
         adapter = MyFileAdapter(this, files, folders)
         recycler_view.adapter = adapter
         swipe_to_refresh.setOnRefreshListener { refreshList() }
-
 
         val localPath = intent.extras?.getString(PATH)
 
@@ -92,6 +92,9 @@ class FileBrowserActivity : AppCompatActivity() {
         R.id.action_create_nomedia -> consume {
             File(path, ".nomedia").createNewFile()
             refreshList()
+        }
+        R.id.action_audio_sorter -> consume {
+            startActivity(Intent(this, SoundSorterActivity::class.java).putExtra(PATH, path.absolutePath))
         }
         R.id.action_sort_folder -> consume {
             startActivity(Intent(this, SorterActivity::class.java).putExtra(PATH, path.absolutePath))

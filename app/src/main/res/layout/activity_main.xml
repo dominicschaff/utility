@@ -127,5 +127,11 @@
             style="@style/MainTitle"
             android:drawableTop="@drawable/ic_main_bot"
             android:text="Dash" />
+
+        <TextView
+            android:id="@+id/goto_moon"
+            style="@style/MainTitle"
+            android:drawableTop="@drawable/ic_main_camera"
+            android:text="Cycles" />
     </GridLayout>
 </ScrollView>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".utility.PhotographyActivity">
+
+    <ImageView
+        android:id="@+id/sun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_sun"
+        app:layout_constraintBottom_toBottomOf="@id/horizontal"
+        app:layout_constraintEnd_toEndOf="@id/vertical"
+        app:layout_constraintStart_toStartOf="@id/vertical"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/moon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_moon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/vertical"
+        app:layout_constraintStart_toStartOf="@id/vertical"
+        app:layout_constraintTop_toTopOf="@id/horizontal" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <TextView
+        android:id="@+id/sun_rise"
+        style="@style/Text.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="42sp"
+        android:drawableTop="@drawable/ic_weather_sun_rise"
+        app:layout_constraintEnd_toStartOf="@id/vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/sun"
+        tools:text="RISE" />
+
+    <TextView
+        android:id="@+id/sun_set"
+        style="@style/Text.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="42sp"
+        android:drawableTop="@drawable/ic_weather_sun_set"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/vertical"
+        app:layout_constraintTop_toTopOf="@id/sun"
+        tools:text="SET" />
+
+    <TextView
+        android:id="@+id/moon_rise"
+        style="@style/Text.Large"
+        android:layout_width="wrap_content"
+        android:textSize="42sp"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/ic_weather_moon_rise"
+        app:layout_constraintEnd_toStartOf="@id/vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/moon"
+        tools:text="RISE" />
+
+    <TextView
+        android:id="@+id/moon_set"
+        style="@style/Text.Large"
+        android:layout_width="wrap_content"
+        android:textSize="42sp"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/ic_weather_moon_set"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/vertical"
+        app:layout_constraintTop_toTopOf="@id/moon"
+        tools:text="SET" />
+
+    <TextView
+        android:id="@+id/moon_next_new"
+        style="@style/Text.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:drawableTop="@drawable/ic_weather_moon_new"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/vertical"
+        app:layout_constraintTop_toBottomOf="@id/moon"
+        tools:text="NEW MOON" />
+
+    <TextView
+        android:id="@+id/moon_next_full"
+        style="@style/Text.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:drawableTop="@drawable/ic_weather_moon_full"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/vertical"
+        app:layout_constraintTop_toBottomOf="@id/moon"
+        tools:text="FULL MOON" />
+
+    <TextView
+        android:id="@+id/moon_height"
+        style="@style/Text.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/moon"
+        app:layout_constraintEnd_toEndOf="@id/moon"
+        app:layout_constraintStart_toStartOf="@id/moon"
+        tools:text="Moon Height" />
+
+    <ProgressBar
+        android:id="@+id/moon_percentage_progress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:progress="45"
+        app:layout_constraintBottom_toTopOf="@id/moon_height"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/moon_percentage_cycle"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="180"
+        android:min="-180"
+        android:progress="-65"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

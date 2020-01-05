@@ -82,8 +82,7 @@ class BarcodeScanningActivity : Activity() {
 
     private fun setClipboard(message: String) {
         val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clip = ClipData.newPlainText(message, message)
-        clipboard.primaryClip = clip
+        clipboard.setPrimaryClip(ClipData.newPlainText(message, message))
         Toast.makeText(this@BarcodeScanningActivity, "Set clipboard to: $message", Toast.LENGTH_LONG).show()
     }
 

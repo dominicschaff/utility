@@ -103,7 +103,7 @@ class MyFileAdapter(private val activity: FileBrowserActivity, private val galle
                     }
                     7 -> {
                         val clipboard = activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                        clipboard.primaryClip = ClipData.newPlainText(f.absolutePath, f.absolutePath)
+                        clipboard.setPrimaryClip(ClipData.newPlainText(f.absolutePath, f.absolutePath))
                         activity.toast("Set clipboard to: ${f.absolutePath}")
                     }
                     8 -> when {

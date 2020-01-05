@@ -38,6 +38,7 @@ class MainActivity : Activity() {
         goto_dev_rant.setOnClickListener { goto(DevRantActivity::class.java) }
         goto_dashboard.setOnClickListener { goto(DashboardActivity::class.java) }
         goto_auth.setOnClickListener { goto(AuthActivity::class.java) }
+        goto_moon.setOnClickListener { goto(PhotographyActivity::class.java) }
 
         if (!requestPermissions(arrayOf(
                         Manifest.permission.INTERNET,

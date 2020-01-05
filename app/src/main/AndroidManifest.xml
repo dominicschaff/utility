@@ -28,7 +28,11 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:supportsRtl">
-        <activity android:name=".utility.AuthActivity"></activity>
+        <activity android:name=".browser.sound.SoundSorterActivity"></activity>
+        <activity
+            android:name=".utility.PhotographyActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".utility.AuthActivity" />
         <activity android:name=".browser.ReaderActivity" />
         <activity
             android:name=".utility.DashboardActivity"

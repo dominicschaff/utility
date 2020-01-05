@@ -17,26 +17,27 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/action_audio_sorter"
+        android:title="Audio Sorter"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_create_directory"
-        android:orderInCategory="3"
         android:title="Create Directory"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_create_nomedia"
-        android:orderInCategory="4"
         android:title="Create .nomedia"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_pick_external_storage"
-        android:orderInCategory="4"
         android:title="Open External Storage (RO)"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_play_video"
-        android:orderInCategory="5"
         android:title="Play all videos"
         app:showAsAction="never" />
 </menu>
