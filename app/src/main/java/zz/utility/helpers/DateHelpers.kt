@@ -30,7 +30,23 @@ inline fun Long.toTimeFormat(): String {
     val hours = time / 60
     return "%02d:%02d:%02d.%d".format(hours, minutes, seconds, milli)
 }
+inline fun Long.toTimeTinyFormat(): String {
+    var time = this
+    time /= 1000
+    time /= 60
+    val minutes = time % 60
+    val hours = time / 60
+    return "%02d:%02d".format(hours, minutes)
+}
 
 inline fun now(): Long = System.currentTimeMillis()
 
 inline fun Int.days(): Long = this * 24L * 60L * 60L * 1000L
+
+fun Date?.addHours(hours: Int): Date? {
+    this ?: return null
+    val cal = Calendar.getInstance()
+    cal.time = this
+    cal.add(Calendar.HOUR_OF_DAY, hours)
+    return cal.time
+}

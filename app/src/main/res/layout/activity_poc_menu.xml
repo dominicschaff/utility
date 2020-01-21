@@ -54,6 +54,12 @@
             style="@style/MainTitle"
             android:drawableTop="@drawable/ic_main_bot"
             android:text="Heavy Data" />
+
+        <TextView
+            android:id="@+id/goto_stars"
+            style="@style/MainTitle"
+            android:drawableTop="@drawable/ic_main_sun"
+            android:text="Stars" />
     </GridLayout>
 
 </ScrollView>

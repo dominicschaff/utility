@@ -9,4 +9,21 @@
         <attr name="metaButtonBarButtonStyle" format="reference" />
     </declare-styleable>
 
+    <integer-array name="star_colors">
+        <item>0x78C0E0</item>
+        <item>0x39A0ED</item>
+        <item>0x78C3FB</item>
+        <item>0x745296</item>
+        <item>0x43BCCD</item>
+    </integer-array>
+
+
+    <integer-array name="meteorites_colors">
+        <item>0x736CED</item>
+        <item>0x7BDFF2</item>
+        <item>0xF694C1</item>
+        <item>0x454ADE</item>
+        <item>0xCAA8F5</item>
+    </integer-array>
+
 </resources>

@@ -99,4 +99,6 @@ dependencies {
 
     implementation 'org.shredzone.commons:commons-suncalc:2.6'
 
+    implementation 'com.sofakingforever.libraries:animated-stars-android:1.1.4@aar'
+
 }

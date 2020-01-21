@@ -28,7 +28,12 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:supportsRtl">
-        <activity android:name=".browser.sound.SoundSorterActivity"></activity>
+        <activity android:name=".browser.SpecialDisplayActivity"></activity>
+        <activity android:name=".utility.ConversionsActivity" />
+        <activity
+            android:name=".poc.StarsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".browser.sound.SoundSorterActivity" />
         <activity
             android:name=".utility.PhotographyActivity"
             android:theme="@style/AppTheme.NoActionBar" />

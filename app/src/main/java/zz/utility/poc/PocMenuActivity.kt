@@ -19,5 +19,6 @@ class PocMenuActivity : AppCompatActivity() {
         goto_demo.setOnClickListener { goto(TestScreenActivity::class.java) }
         goto_car_dash.setOnClickListener { goto(CarDashActivity::class.java) }
         goto_data_heavy.setOnClickListener { goto(DataHeavyActivity::class.java) }
+        goto_stars.setOnClickListener { goto(StarsActivity::class.java) }
     }
 }

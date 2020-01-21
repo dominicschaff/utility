@@ -45,6 +45,7 @@ class GPSActivity : Activity(), LocationListener {
 
     @SuppressLint("SetTextI18n")
     override fun onLocationChanged(location: Location) {
+        progress.unsee()
         if (location.hasAccuracy())
             gps_accuracy.text = "%.0f m".format(location.accuracy)
 
