@@ -47,6 +47,23 @@
         <item name="android:orientation">vertical</item>
     </style>
 
+    <style name="Linear.Holo">
+        <item name="android:background">@drawable/holo_background_blue</item>
+        <item name="android:layout_margin">2dp</item>
+    </style>
+    <style name="Linear.Holo.Pink">
+        <item name="android:background">@drawable/holo_background_pink</item>
+    </style>
+    <style name="Linear.Holo.Orange">
+        <item name="android:background">@drawable/holo_background_orange</item>
+    </style>
+    <style name="Linear.Holo.Cyan">
+        <item name="android:background">@drawable/holo_background_cyan</item>
+    </style>
+    <style name="Linear.Holo.Red">
+        <item name="android:background">@drawable/holo_background_red</item>
+    </style>
+
     <style name="Linear.Horizontal">
         <item name="android:orientation">horizontal</item>
     </style>
@@ -80,6 +97,15 @@
 
     <style name="Text.Fit">
         <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="Text.Heading">
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:paddingLeft">@dimen/activity_horizontal_margin</item>
+        <item name="android:paddingRight">@dimen/activity_horizontal_margin</item>
+        <item name="android:paddingTop">@dimen/activity_vertical_margin</item>
     </style>
 
     <style name="Text.Medium" parent="TextAppearance.AppCompat.Medium">

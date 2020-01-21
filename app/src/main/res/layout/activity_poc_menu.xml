@@ -60,6 +60,12 @@
             style="@style/MainTitle"
             android:drawableTop="@drawable/ic_main_sun"
             android:text="Stars" />
+
+        <TextView
+            android:id="@+id/goto_dashboard"
+            style="@style/MainTitle"
+            android:drawableTop="@drawable/ic_main_bot"
+            android:text="Dash" />
     </GridLayout>
 
 </ScrollView>

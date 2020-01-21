@@ -40,6 +40,9 @@
         <item name="android:layout_marginBottom">12dp</item>
         <item name="android:padding">64dp</item>
     </style>
+    <style name="Card.Holo">
+        <item name="android:backgroundTint">@color/black</item>
+    </style>
 
     <style name="Column">
         <item name="android:layout_width">wrap_content</item>
@@ -108,7 +111,7 @@
     </style>
 
     <style name="KnowledgeAnswer">
-        <item name="android:background">@drawable/knowledge_bg</item>
+        <item name="android:background">@drawable/holo_background_blue</item>
         <item name="android:layout_margin">4dp</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>

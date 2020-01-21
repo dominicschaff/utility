@@ -56,4 +56,16 @@
         <item>Open</item>
         <item>Open External</item>
     </string-array>
+
+    <string-array name="conversion_types">
+        <item>Distance (mm)</item>
+        <item>Distance (m)</item>
+        <item>Distance (km)</item>
+        <item>Area (m²)</item>
+        <item>Area (km²)</item>
+        <item>Volume (l)</item>
+        <item>Weight (g)</item>
+        <item>Weight (kg)</item>
+        <item>Temperature (C°)</item>
+    </string-array>
 </resources>

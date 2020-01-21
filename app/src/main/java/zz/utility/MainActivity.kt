@@ -36,9 +36,8 @@ class MainActivity : Activity() {
         goto_draw.setOnClickListener { goto(TouchScreenActivity::class.java) }
         goto_map_points.setOnClickListener { goto(MapsPointsActivity::class.java) }
         goto_dev_rant.setOnClickListener { goto(DevRantActivity::class.java) }
-        goto_dashboard.setOnClickListener { goto(DashboardActivity::class.java) }
-        goto_auth.setOnClickListener { goto(AuthActivity::class.java) }
         goto_moon.setOnClickListener { goto(PhotographyActivity::class.java) }
+        goto_conversion.setOnClickListener { goto(ConversionsActivity::class.java) }
 
         if (!requestPermissions(arrayOf(
                         Manifest.permission.INTERNET,

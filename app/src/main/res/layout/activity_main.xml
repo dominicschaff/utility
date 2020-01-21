@@ -5,133 +5,196 @@
     android:fitsSystemWindows="true"
     tools:ignore="HardcodedText">
 
-    <GridLayout
-        android:id="@+id/mainGrid"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:alignmentMode="alignBounds"
-        android:columnCount="@integer/column_count"
-        android:columnOrderPreserved="true">
+    <LinearLayout style="@style/Linear.Padding">
 
-        <TextView
-            android:id="@+id/goto_scan"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_barcode_scan"
-            android:text="Scanner" />
+        <LinearLayout style="@style/Linear.Holo">
 
-        <TextView
-            android:id="@+id/goto_auth"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_lock"
-            android:text="Auth" />
+            <TextView
+                style="@style/Text.Heading"
+                android:text="Main" />
 
-        <TextView
-            android:id="@+id/goto_osm_maps"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_maps"
-            android:text="Maps" />
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:alignmentMode="alignBounds"
+                android:columnCount="@integer/column_count"
+                android:columnOrderPreserved="true">
 
-        <TextView
-            android:id="@+id/goto_files"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_file"
-            android:text="Files" />
+                <TextView
+                    android:id="@+id/goto_osm_maps"
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/ic_main_maps"
+                    android:text="Maps" />
 
-        <TextView
-            android:id="@+id/goto_dev_rant"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_images"
-            android:text="Dev Rant" />
+                <TextView
+                    android:id="@+id/goto_files"
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/ic_main_file"
+                    android:text="Files" />
 
-        <TextView
-            android:id="@+id/goto_list"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_list"
-            android:text="List" />
+                <TextView
+                    android:id="@+id/goto_list"
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/ic_main_list"
+                    android:text="List" />
+            </GridLayout>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/goto_quote_api"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_quote"
-            android:text="Quote API" />
+        <LinearLayout style="@style/Linear.Holo.Red">
 
-        <TextView
-            android:id="@+id/goto_car_dock"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_car"
-            android:text="Dock" />
+            <TextView
+                style="@style/Text.Heading"
+                android:text="GPS / Location" />
 
-        <TextView
-            android:id="@+id/goto_info"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_device"
-            android:text="Device" />
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:alignmentMode="alignBounds"
+                android:columnCount="@integer/column_count"
+                android:columnOrderPreserved="true">
 
-        <TextView
-            android:id="@+id/goto_gps"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_gps"
-            android:text="GPS" />
+                <TextView
+                    android:id="@+id/goto_gps"
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/ic_main_gps"
+                    android:text="GPS" />
 
-        <TextView
-            android:id="@+id/goto_qr"
-            style="@style/MainTitle"
-            android:layout_height="wrap_content"
-            android:drawableTop="@drawable/ic_main_barcode_scan"
-            android:text="QR Code" />
+                <TextView
+                    android:id="@+id/goto_moon"
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/ic_main_camera"
+                    android:text="Cycles" />
 
-        <TextView
-            android:id="@+id/goto_sensors"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_sensors"
-            android:text="Sensors" />
+                <TextView
+                    android:id="@+id/goto_map_points"
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/ic_main_maps"
+                    android:text="Points" />
+            </GridLayout>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/goto_scrum_poker"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_scrum"
-            android:text="Cards" />
+        <LinearLayout style="@style/Linear.Holo.Cyan">
 
-        <TextView
-            android:id="@+id/goto_images"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_images"
-            android:text="Image" />
+            <TextView
+                style="@style/Text.Heading"
+                android:text="Internet" />
 
-        <TextView
-            android:id="@+id/goto_daily_comic"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_images"
-            android:text="Comic" />
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:alignmentMode="alignBounds"
+                android:columnCount="@integer/column_count"
+                android:columnOrderPreserved="true">
 
-        <TextView
-            android:id="@+id/goto_draw"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_draw"
-            android:text="Draw" />
+                <TextView
+                    android:id="@+id/goto_dev_rant"
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/ic_main_images"
+                    android:text="Dev Rant" />
 
-        <TextView
-            android:id="@+id/goto_poc"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_poc"
-            android:text="POC" />
+                <TextView
+                    android:id="@+id/goto_quote_api"
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/ic_main_quote"
+                    android:text="Quote" />
 
-        <TextView
-            android:id="@+id/goto_map_points"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_maps"
-            android:text="Points" />
+                <TextView
+                    android:id="@+id/goto_daily_comic"
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/ic_main_images"
+                    android:text="Comic" />
 
-        <TextView
-            android:id="@+id/goto_dashboard"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_bot"
-            android:text="Dash" />
+                <TextView
+                    android:id="@+id/goto_images"
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/ic_main_images"
+                    android:text="Image" />
+            </GridLayout>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/goto_moon"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_camera"
-            android:text="Cycles" />
-    </GridLayout>
+        <LinearLayout style="@style/Linear.Holo.Pink">
+
+            <TextView
+                style="@style/Text.Heading"
+                android:text="Device" />
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:alignmentMode="alignBounds"
+                android:columnCount="@integer/column_count"
+                android:columnOrderPreserved="true">
+
+                <TextView
+                    android:id="@+id/goto_scan"
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/ic_main_barcode_scan"
+                    android:text="Scanner" />
+
+                <TextView
+                    android:id="@+id/goto_info"
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/ic_main_device"
+                    android:text="Device" />
+
+                <TextView
+                    android:id="@+id/goto_sensors"
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/ic_main_sensors"
+                    android:text="Sensors" />
+
+                <TextView
+                    android:id="@+id/goto_draw"
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/ic_main_draw"
+                    android:text="Draw" />
+            </GridLayout>
+        </LinearLayout>
+
+        <LinearLayout style="@style/Linear.Holo.Orange">
+
+            <TextView
+                style="@style/Text.Heading"
+                android:text="Misc" />
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:alignmentMode="alignBounds"
+                android:columnCount="@integer/column_count"
+                android:columnOrderPreserved="true">
+
+                <TextView
+                    android:id="@+id/goto_conversion"
+                    style="@style/MainTitle"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_main_conversion"
+                    android:text="Conversions" />
+                <TextView
+                    android:id="@+id/goto_qr"
+                    style="@style/MainTitle"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_main_barcode_scan"
+                    android:text="QR Code" />
+
+                <TextView
+                    android:id="@+id/goto_scrum_poker"
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/ic_main_scrum"
+                    android:text="Cards" />
+
+                <TextView
+                    android:id="@+id/goto_poc"
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/ic_main_poc"
+                    android:text="POC" />
+
+                <TextView
+                    android:id="@+id/goto_car_dock"
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/ic_main_car"
+                    android:text="Dock" />
+            </GridLayout>
+        </LinearLayout>
+    </LinearLayout>
 </ScrollView>

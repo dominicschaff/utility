@@ -1,4 +1,4 @@
-package zz.utility.utility
+package zz.utility.poc
 
 import android.annotation.SuppressLint
 import android.os.Bundle

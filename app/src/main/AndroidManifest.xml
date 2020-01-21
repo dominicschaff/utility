@@ -28,8 +28,11 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:supportsRtl">
-        <activity android:name=".browser.SpecialDisplayActivity"></activity>
-        <activity android:name=".utility.ConversionsActivity" />
+        <activity android:name=".browser.SpecialDisplayActivity" />
+        <activity
+            android:name=".utility.ConversionsActivity"
+            android:label="Unit Conversions"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".poc.StarsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -37,10 +40,9 @@
         <activity
             android:name=".utility.PhotographyActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".utility.AuthActivity" />
         <activity android:name=".browser.ReaderActivity" />
         <activity
-            android:name=".utility.DashboardActivity"
+            android:name=".poc.DashboardActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="sensorLandscape"
             android:theme="@style/AppTheme.NoActionBar" />

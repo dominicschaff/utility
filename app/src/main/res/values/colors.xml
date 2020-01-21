@@ -11,5 +11,14 @@
 
     <color name="file_browser_icon">#CC3C92CA</color>
 
-    <color name="magenta_red">#E1295B</color>
+    <color name="holo_blue">#3C92CA</color>
+    <color name="holo_blue_muted">#333C92CA</color>
+    <color name="holo_red">#FF1053</color>
+    <color name="holo_red_muted">#33FF1053</color>
+    <color name="holo_cyan">#80DED9</color>
+    <color name="holo_cyan_muted">#3380DED9</color>
+    <color name="holo_orange">#FB5607</color>
+    <color name="holo_orange_muted">#33FB5607</color>
+    <color name="holo_pink">#F62DAE</color>
+    <color name="holo_pink_muted">#33F62DAE</color>
 </resources>

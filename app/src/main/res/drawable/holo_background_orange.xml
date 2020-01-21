@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_enabled="false">
-        <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+        <layer-list>
             <item>
                 <shape android:shape="rectangle">
                     <solid android:color="@color/black_overlay" />
@@ -11,24 +11,24 @@
         </layer-list>
     </item>
     <item android:state_enabled="true" android:state_pressed="true">
-        <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+        <layer-list>
             <item>
                 <shape android:shape="rectangle">
-                    <solid android:color="@color/colorAccentFaded" />
+                    <solid android:color="@color/holo_orange_muted" />
                     <corners android:radius="8dp" />
                 </shape>
             </item>
 
             <item>
                 <shape android:shape="rectangle">
-                    <stroke android:width="2dp" android:color="@color/colorAccent" />
+                    <stroke android:width="2dp" android:color="@color/holo_orange" />
                     <corners android:radius="8dp" />
                 </shape>
             </item>
         </layer-list>
     </item>
     <item android:state_enabled="true">
-        <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+        <layer-list>
             <item>
                 <shape android:shape="rectangle">
                     <solid android:color="@color/black_overlay" />
@@ -38,7 +38,7 @@
 
             <item>
                 <shape android:shape="rectangle">
-                    <stroke android:width="2dp" android:color="@color/colorAccent" />
+                    <stroke android:width="2dp" android:color="@color/holo_orange" />
                     <corners android:radius="8dp" />
                 </shape>
             </item>
