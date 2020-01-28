@@ -1,11 +1,11 @@
 package zz.utility.poc
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_stars.*
 import zz.utility.R
+import zz.utility.helpers.FullscreenActivity
 
-class StarsActivity : AppCompatActivity() {
+class StarsActivity : FullscreenActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

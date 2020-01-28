@@ -21,6 +21,6 @@
         app:starsView_meteoritesInterval="2000"
         app:starsView_minStarSize="1dp"
         app:starsView_starColors="@array/star_colors"
-        app:starsView_starCount="50" />
+        app:starsView_starCount="100" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

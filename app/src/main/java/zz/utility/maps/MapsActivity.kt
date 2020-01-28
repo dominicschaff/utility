@@ -328,18 +328,22 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
     override fun onLocationChanged(location: Location) {
         lastLocation = location
         locationLayer.isEnabled = true
-        locationLayer.setPosition(location.latitude, location.longitude, location.accuracy.toDouble())
+        locationLayer.setPosition(location.latitude, location.longitude, location.accuracy)
 
 
         if (location.hasSpeed()) {
+            if (location.speed < 1) map_speed.unsee()
+            else map_speed.see()
             map_speed.text = "%.1f".format(location.speed * 3.6)
         }
 
         if (location.hasAltitude())
             map_altitude.text = "%.0f m".format(location.altitude)
 
-        if (location.hasBearing())
-            map_bearing.text = "%s %.0f°".format(location.bearing.bearingToCompass(), location.bearing)
+        if (location.hasBearing()) {
+            map_bearing.see()
+            map_bearing.text = "%s".format(location.bearing.bearingToCompass())
+        }
 
         // Follow location
         if (followMe) centerOn(location.latitude, location.longitude)

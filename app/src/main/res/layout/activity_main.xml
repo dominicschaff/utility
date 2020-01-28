@@ -37,6 +37,12 @@
                     style="@style/MainTitle"
                     android:drawableTop="@drawable/ic_main_list"
                     android:text="List" />
+
+                <TextView
+                    android:id="@+id/goto_data"
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/ic_main_list"
+                    android:text="Data" />
             </GridLayout>
         </LinearLayout>
 
@@ -178,22 +184,10 @@
                     android:text="QR Code" />
 
                 <TextView
-                    android:id="@+id/goto_scrum_poker"
-                    style="@style/MainTitle"
-                    android:drawableTop="@drawable/ic_main_scrum"
-                    android:text="Cards" />
-
-                <TextView
                     android:id="@+id/goto_poc"
                     style="@style/MainTitle"
                     android:drawableTop="@drawable/ic_main_poc"
                     android:text="POC" />
-
-                <TextView
-                    android:id="@+id/goto_car_dock"
-                    style="@style/MainTitle"
-                    android:drawableTop="@drawable/ic_main_car"
-                    android:text="Dock" />
             </GridLayout>
         </LinearLayout>
     </LinearLayout>

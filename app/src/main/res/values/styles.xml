@@ -40,6 +40,7 @@
         <item name="android:layout_marginBottom">12dp</item>
         <item name="android:padding">64dp</item>
     </style>
+
     <style name="Card.Holo">
         <item name="android:backgroundTint">@color/black</item>
     </style>

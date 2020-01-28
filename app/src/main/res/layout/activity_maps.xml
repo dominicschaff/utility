@@ -24,9 +24,9 @@
         android:layout_marginTop="24dp"
         android:layout_marginBottom="72dp"
         app:cardCornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -112,25 +112,29 @@
         android:id="@+id/map_bearing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginStart="4dp"
         android:background="@drawable/card_background"
         android:drawableStart="@drawable/ic_map_bearing"
         android:drawablePadding="4dp"
         android:gravity="center_vertical"
-        app:layout_constraintBottom_toTopOf="@id/map_altitude"
+        android:textSize="24sp"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="NW : 320" />
 
     <TextView
         android:id="@+id/map_altitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="72dp"
         android:background="@drawable/card_background"
         android:drawableStart="@drawable/ic_map_altitude"
         android:drawablePadding="4dp"
         android:gravity="center_vertical"
-        app:layout_constraintBottom_toTopOf="@id/map_speed"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="123" />
 
@@ -138,13 +142,14 @@
         android:id="@+id/map_speed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="72dp"
+        android:layout_marginTop="42dp"
+        android:visibility="gone"
         android:background="@drawable/card_background"
-        android:drawableStart="@drawable/ic_map_speedometer"
-        android:drawablePadding="4dp"
+        android:layout_marginEnd="4dp"
         android:gravity="center_vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="42sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="86" />
 
     <include

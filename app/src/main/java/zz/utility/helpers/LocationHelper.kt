@@ -42,14 +42,14 @@ fun Location.isNullIsland() = provider == "none" && latitude == 0.0 && longitude
 
 
 fun Float.bearingToCompass(): String = when {
-    this < 23 -> "N"
-    this < 68 -> "NE"
-    this < 113 -> "E"
-    this < 158 -> "SE"
-    this < 203 -> "S"
-    this < 148 -> "SW"
-    this < 293 -> "W"
-    this < 338 -> "NW"
+    this < 28 -> "N"
+    this < 73 -> "NE"
+    this < 118 -> "E"
+    this < 163 -> "SE"
+    this < 208 -> "S"
+    this < 253 -> "SW"
+    this < 298 -> "W"
+    this < 343 -> "NW"
     else -> "N"
 }
 

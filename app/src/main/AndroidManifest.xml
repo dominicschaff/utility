@@ -28,6 +28,23 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:supportsRtl">
+        <activity
+            android:name=".utility.data.ItemListActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="zz.utility.MainActivity" />
+        </activity>
+        <activity
+            android:name=".utility.data.ItemDetailActivity"
+            android:parentActivityName=".utility.data.ItemListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="zz.utility.utility.data.ItemListActivity" />
+        </activity>
+        <activity android:name=".poc.CameraActivity" />
         <activity android:name=".browser.SpecialDisplayActivity" />
         <activity
             android:name=".utility.ConversionsActivity"
@@ -123,11 +140,6 @@
             android:parentActivityName=".poc.PocMenuActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".scrum.ScrumPokerActivity"
-            android:label="Scrum Poker"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".browser.FileBrowserActivity"
             android:label="File Browser"
             android:parentActivityName=".MainActivity" />
@@ -170,11 +182,6 @@
         <activity
             android:name=".utility.ImageDownloadActivity"
             android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".utility.CarDockActivity"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="sensorLandscape"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".text.TextReceiveActivity"
             android:theme="@android:style/Theme.NoDisplay">
