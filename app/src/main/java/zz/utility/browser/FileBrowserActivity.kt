@@ -102,6 +102,9 @@ class FileBrowserActivity : AppCompatActivity() {
         R.id.action_sort_folder -> consume {
             startActivity(Intent(this, SorterActivity::class.java).putExtra(PATH, path.absolutePath))
         }
+        R.id.action_screensaver -> consume {
+            startActivity(Intent(this, ScreensaverActivity::class.java).putExtra(PATH, path.absolutePath))
+        }
         R.id.action_details -> consume {
             alert("Total file size is ${path.getFileSize().formatSize()}\nTotal Files: ${path.getFileCount()}")
         }
@@ -140,13 +143,13 @@ class FileBrowserActivity : AppCompatActivity() {
             swipe_to_refresh.isRefreshing = false
             files.clear()
             if (result == null || result.isEmpty()) {
-                empty_directory.see()
+                empty_directory.show()
                 adapter.notifyDataSetChanged()
                 return@FileRefresh
             }
             files.addAll(result)
             adapter.notifyDataSetChanged()
-            empty_directory.unsee()
+            empty_directory.hide()
             folders.clear()
             if (foldersResult != null && foldersResult.isNotEmpty())
                 folders.addAll(foldersResult)

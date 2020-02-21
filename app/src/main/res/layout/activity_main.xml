@@ -105,6 +105,12 @@
                     android:text="Quote" />
 
                 <TextView
+                    android:id="@+id/goto_hacker_news"
+                    style="@style/MainTitle"
+                    android:drawableTop="@drawable/ic_main_quote"
+                    android:text="Hacker News" />
+
+                <TextView
                     android:id="@+id/goto_daily_comic"
                     style="@style/MainTitle"
                     android:drawableTop="@drawable/ic_main_images"

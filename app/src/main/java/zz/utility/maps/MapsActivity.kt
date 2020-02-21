@@ -88,7 +88,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_maps)
-        progress.see()
+        progress.show()
 
         // Tile source
         val tileSource = MapFileTileSource()
@@ -332,8 +332,8 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
 
 
         if (location.hasSpeed()) {
-            if (location.speed < 1) map_speed.unsee()
-            else map_speed.see()
+            if (location.speed < 1) map_speed.hide()
+            else map_speed.show()
             map_speed.text = "%.1f".format(location.speed * 3.6)
         }
 
@@ -341,7 +341,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
             map_altitude.text = "%.0f m".format(location.altitude)
 
         if (location.hasBearing()) {
-            map_bearing.see()
+            map_bearing.show()
             map_bearing.text = "%s".format(location.bearing.bearingToCompass())
         }
 
@@ -395,13 +395,13 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
                 log("found graph " + tmpHopp.graphHopperStorage.toString() + ", nodes:" + tmpHopp.graphHopperStorage.nodes)
                 hopper = tmpHopp
             }.orPrint()
-            runOnUiThread { progress.unsee() }
+            runOnUiThread { progress.hide() }
         }).start()
     }
 
     @SuppressLint("StaticFieldLeak")
     private fun calcPath(fromLat: Double, fromLon: Double, toLat: Double, toLon: Double) {
-        progress.see()
+        progress.show()
         object : AsyncTask<Void, Void, PathWrapper>() {
             var time: Float = 0.toFloat()
 
@@ -416,7 +416,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
 
             @SuppressLint("SetTextI18n")
             override fun onPostExecute(resp: PathWrapper?) {
-                progress.unsee()
+                progress.hide()
                 if (resp == null) {
                     toast("Unable to create route")
                     return
@@ -429,7 +429,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
                             resp.distance / 1000.0,
                             t / 60,
                             t % 60)
-                    path.see()
+                    path.show()
                     toast("Took ${(time * 1000).toInt()} ms to compute")
 
 

@@ -30,7 +30,7 @@ class GPSActivity : Activity(), LocationListener {
             locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
             fab_save.setOnClickListener {
                 record = true
-                fab_save.unsee()
+                fab_save.hide()
             }
         }.orPrint()
     }
@@ -45,7 +45,7 @@ class GPSActivity : Activity(), LocationListener {
 
     @SuppressLint("SetTextI18n")
     override fun onLocationChanged(location: Location) {
-        progress.unsee()
+        progress.hide()
         if (location.hasAccuracy())
             gps_accuracy.text = "%.0f m".format(location.accuracy)
 

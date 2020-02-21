@@ -50,7 +50,7 @@ class MapsPointsActivity : AppCompatActivity(), ItemizedLayer.OnItemGestureListe
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_maps_points)
-        progress.see()
+        progress.show()
 
         // Tile source
         val tileSource = MapFileTileSource()
@@ -144,7 +144,7 @@ class MapsPointsActivity : AppCompatActivity(), ItemizedLayer.OnItemGestureListe
                 }
         mapView.map().setMapPosition(lastLocation.latitude, lastLocation.longitude, (1 shl 8).toDouble())
 
-        progress.unsee()
+        progress.hide()
     }
 
     @SuppressLint("MissingPermission")

@@ -15,9 +15,9 @@ import kotlinx.android.synthetic.main.activity_sound_sorter.*
 import zz.utility.R
 import zz.utility.browser.PATH
 import zz.utility.browser.moveToBin
-import zz.utility.helpers.see
+import zz.utility.helpers.show
 import zz.utility.helpers.toast
-import zz.utility.helpers.unsee
+import zz.utility.helpers.hide
 import zz.utility.isMusic
 import java.io.File
 
@@ -51,13 +51,13 @@ class SoundSorterActivity : AppCompatActivity() {
             swipe_to_refresh.isRefreshing = false
             files.clear()
             if (result == null || result.isEmpty()) {
-                empty_directory.see()
+                empty_directory.show()
                 adapter.notifyDataSetChanged()
                 return@FileRefresh
             }
             files.addAll(result)
             adapter.notifyDataSetChanged()
-            empty_directory.unsee()
+            empty_directory.hide()
         }.execute()
     }
 

@@ -37,6 +37,7 @@ class MainActivity : Activity() {
         goto_moon.setOnClickListener { goto(PhotographyActivity::class.java) }
         goto_conversion.setOnClickListener { goto(ConversionsActivity::class.java) }
         goto_data.setOnClickListener { goto(ItemListActivity::class.java) }
+        goto_hacker_news.setOnClickListener { goto(HackerNewsActivity::class.java) }
 
         if (!requestPermissions(arrayOf(
                         Manifest.permission.INTERNET,

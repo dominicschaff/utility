@@ -23,7 +23,7 @@ import zz.utility.browser.SPOT
 import zz.utility.browser.TOTAL
 import zz.utility.browser.moveToBin
 import zz.utility.helpers.formatSize
-import zz.utility.helpers.see
+import zz.utility.helpers.show
 import zz.utility.helpers.toast
 import zz.utility.metaData
 import java.io.File
@@ -57,10 +57,10 @@ class ImageViewFragment : Fragment() {
             rootView.image_size.text = path.length().formatSize()
 
             rootView.image.setOnClickListener {
-                rootView.fab_set_as_wallpaper.see()
-                rootView.fab_delete.see()
-                rootView.image_size.see()
-                rootView.path.see()
+                rootView.fab_set_as_wallpaper.show()
+                rootView.fab_delete.show()
+                rootView.image_size.show()
+                rootView.path.show()
             }
             rootView.fab_delete.setOnClickListener {
                 if (path.moveToBin()) rootView.image.setImageResource(R.drawable.ic_delete)

@@ -61,7 +61,7 @@ class PhotographyActivity : AppCompatActivity(), LocationListener {
 
     @SuppressLint("SetTextI18n")
     private fun locationReceived(location: Location) {
-        progress.unsee()
+        progress.hide()
         val times = SunTimes.compute()
                 .on(Date(location.time))
                 .at(location.latitude, location.longitude)

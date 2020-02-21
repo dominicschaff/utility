@@ -102,11 +102,11 @@ inline fun (() -> String).orMessage(): String = try {
 
 
 inline fun Context.toast(s: String, length: Int = Toast.LENGTH_LONG) = Toast.makeText(this, s, length).show()
-inline fun View.see() {
+inline fun View.show() {
     visibility = View.VISIBLE
 }
 
-inline fun View.unsee() {
+inline fun View.hide() {
     visibility = View.GONE
 }
 
@@ -157,5 +157,5 @@ fun ByteArray.toHex(): String {
 inline fun <T> Array<T>.randomIndex() = (Math.random() * size).toInt()
 inline fun <T> List<T>.randomIndex() = (Math.random() * size).toInt()
 
-inline fun <T> List<T>.random(): T = this[(Math.random() * size).toInt()]
-inline fun <T> Array<T>.random() = this[(Math.random() * size).toInt()]
+inline fun <T> List<T>.random(): T = this[this.randomIndex()]
+inline fun <T> Array<T>.random() = this[this.randomIndex()]

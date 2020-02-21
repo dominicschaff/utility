@@ -17,6 +17,11 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/action_screensaver"
+        android:title="Screensaver"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_audio_sorter"
         android:title="Audio Sorter"
         app:showAsAction="never" />
