@@ -5,9 +5,12 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
-import coil.api.load
+import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.main.activity_screensaver.*
 import zz.utility.R
 import zz.utility.helpers.FullscreenActivity
@@ -71,9 +74,10 @@ class ScreensaverActivity : FullscreenActivity() {
     private fun showImage() {
         paths.random().apply {
             if (exists()) {
-                image.load(this) {
-                    crossfade(true)
-                }
+                Glide.with(this@ScreensaverActivity)
+                        .load(Uri.fromFile(this))
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .into(image as ImageView)
             } else image.setImageResource(R.drawable.ic_block)
         }
     }

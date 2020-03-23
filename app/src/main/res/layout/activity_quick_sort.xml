@@ -19,23 +19,23 @@
     <ImageButton
         android:id="@+id/fab_keep"
         style="@style/Fab"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:layout_width="128dp"
+        android:layout_height="0dp"
         android:src="@drawable/ic_sort_keep"
-        app:backgroundTint="@color/black_overlay"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:backgroundTint="@color/clear_overlay"
+        app:layout_constraintBottom_toTopOf="@id/guide_bot"
         app:layout_constraintEnd_toStartOf="@id/fab_skip"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guide_top" />
 
     <ImageButton
         android:id="@+id/fab_skip"
         style="@style/Fab"
-        android:layout_width="72dp"
+        android:layout_width="128dp"
         android:layout_height="72dp"
         android:src="@drawable/ic_skip_next_black_24dp"
-        app:backgroundTint="@color/black_overlay"
+        app:backgroundTint="@color/clear_overlay"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/fab_delete"
         app:layout_constraintStart_toEndOf="@id/fab_keep" />
@@ -43,14 +43,14 @@
     <ImageButton
         android:id="@+id/fab_delete"
         style="@style/Fab"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:layout_width="128dp"
+        android:layout_height="0dp"
         android:src="@drawable/ic_delete"
-        app:backgroundTint="@color/black_overlay"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:backgroundTint="@color/clear_overlay"
+        app:layout_constraintBottom_toTopOf="@id/guide_bot"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/fab_skip" />
+        app:layout_constraintStart_toEndOf="@id/fab_skip"
+        app:layout_constraintTop_toBottomOf="@id/guide_top" />
 
     <TextView
         android:id="@+id/info"
@@ -61,13 +61,28 @@
         app:layout_constraintEnd_toStartOf="@id/file_path"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/file_path"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/gallery_bk"
         android:gravity="end"
-        app:layout_constraintStart_toEndOf="@id/info"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/info"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_bot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75" />
 </androidx.constraintlayout.widget.ConstraintLayout>

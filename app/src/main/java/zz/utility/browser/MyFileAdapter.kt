@@ -34,28 +34,35 @@ class MyFileAdapter(private val activity: FileBrowserActivity, private val galle
         val f = galleryList[i]
 
         viewHolder.title.text = f.name
-        if (f.exists()) {
-            if (f.isFile) {
-                viewHolder.description.text = f.length().formatSize()
-            } else viewHolder.description.text = "DIR"
-
-            if (f.isImage() || f.isVideo()) {
-                viewHolder.img.scaleType = ImageView.ScaleType.CENTER_CROP
-                Glide
-                        .with(activity)
-                        .asBitmap()
-                        .load(Uri.fromFile(f))
-                        .thumbnail(0.1f)
-                        .into(viewHolder.img)
-                viewHolder.img.setPadding(0, 0, 0, 0)
-            } else {
-                viewHolder.img.setImageResource(f.imageIcon())
-                viewHolder.img.scaleType = ImageView.ScaleType.FIT_CENTER
+        when {
+            f.isDirectory -> {
+                viewHolder.img.setImageResource(R.drawable.ic_file_folder)
+                viewHolder.description.text = "DIR"
                 viewHolder.img.setPadding(10, 10, 10, 10)
             }
-        } else {
-            viewHolder.img.setImageResource(R.drawable.ic_block)
-            viewHolder.description.text = "GONE"
+            f.exists() -> {
+                viewHolder.description.text = f.length().formatSize()
+
+                when {
+                    f.isImage() or f.isVideo() -> {
+                        Glide
+                                .with(activity)
+                                .asBitmap()
+                                .load(Uri.fromFile(f))
+                                .thumbnail(0.1f)
+                                .into(viewHolder.img)
+                        viewHolder.img.setPadding(0, 0, 0, 0)
+                    }
+                    else -> {
+                        viewHolder.img.setImageResource(f.imageIcon())
+                        viewHolder.img.setPadding(10, 10, 10, 10)
+                    }
+                }
+            }
+            else -> {
+                viewHolder.img.setImageResource(R.drawable.ic_block)
+                viewHolder.description.text = "GONE"
+            }
         }
 
         viewHolder.view.setOnClickListener {
@@ -73,7 +80,7 @@ class MyFileAdapter(private val activity: FileBrowserActivity, private val galle
                     0 -> {
                         activity.chooser("Select destination folder", folderList.map { it.name }.toTypedArray(), callback = { option, _ ->
                             File(folderList[option], f.name).let { newFile ->
-                                if (newFile.exists()) activity.alert("There already exists the same file in directory ${newFile.parentFile.name}")
+                                if (newFile.exists()) activity.alert("There already exists the same file in directory ${newFile.parentFile!!.name}")
                                 else {
                                     f.renameTo(newFile)
                                     activity.refreshList()
@@ -83,7 +90,7 @@ class MyFileAdapter(private val activity: FileBrowserActivity, private val galle
                         )
                     }
                     1 -> {
-                        f.parentFile.parentFile.let { parent ->
+                        f.parentFile!!.parentFile.let { parent ->
                             File(parent, f.name).let { newFile ->
                                 if (newFile.exists()) activity.alert("There already exists the same file in directory above")
                                 else {

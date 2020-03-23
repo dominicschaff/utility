@@ -2,7 +2,6 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/Scroll"
-    android:fitsSystemWindows="true"
     tools:ignore="HardcodedText">
 
     <LinearLayout style="@style/Linear.Padding">
