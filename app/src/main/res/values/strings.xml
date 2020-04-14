@@ -14,6 +14,7 @@
     <string name="title_activity_login">Sign in</string>
     <string name="title_activity_gallery">GalleryActivity</string>
     <string name="title_data">Pieces of Data</string>
+    <string name="title_activity_info">Device Info</string>
 
     <string name="wait">Please wait…</string>
 

@@ -17,18 +17,18 @@ fun Activity.chooser(title: String, options: Array<String>, optionsIcons: Array<
 
     val grid = l.mainGrid
 
-    if (optionsIcons != null && optionsIcons.size == options.size) {
+    val useIcons = optionsIcons != null && optionsIcons.size == options.size
 
-    } else {
-        options.forEachIndexed { index, option ->
-            val v = layoutInflater.inflate(R.layout.activity_alert_chooser_text, grid, false) as TextView
+    options.forEachIndexed { index, option ->
+        val v = layoutInflater.inflate(R.layout.activity_alert_chooser_text, grid, false) as TextView
 
-            v.text = option
-            v.setOnClickListener {
-                callback(index, option)
-                finalDialog.dismiss()
-            }
-            grid.addView(v)
+        v.text = option
+        if (useIcons)
+            v.setCompoundDrawablesWithIntrinsicBounds(optionsIcons!![index], 0, 0, 0)
+        v.setOnClickListener {
+            callback(index, option)
+            finalDialog.dismiss()
         }
+        grid.addView(v)
     }
 }

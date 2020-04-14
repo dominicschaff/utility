@@ -26,47 +26,10 @@
             android:text="Login" />
 
         <TextView
-            android:id="@+id/goto_test_stock_take"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_pos"
-            android:text="Stock Take" />
-
-        <TextView
-            android:id="@+id/goto_test_bottom_navigation"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_bottom_nav"
-            android:text="Bottom Nav" />
-
-        <TextView
             android:id="@+id/goto_demo"
             style="@style/MainTitle"
             android:drawableTop="@drawable/ic_main_android_versions"
             android:text="Demo Screen" />
-
-        <TextView
-            android:id="@+id/goto_car_dash"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_car"
-            android:text="Car Dashboard" />
-
-        <TextView
-            android:id="@+id/goto_data_heavy"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_bot"
-            android:text="Heavy Data" />
-
-        <TextView
-            android:id="@+id/goto_stars"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_sun"
-            android:text="Stars" />
-
-        <TextView
-            android:id="@+id/goto_dashboard"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_bot"
-            android:text="Dash" />
-
         <TextView
             android:id="@+id/goto_camera"
             style="@style/MainTitle"

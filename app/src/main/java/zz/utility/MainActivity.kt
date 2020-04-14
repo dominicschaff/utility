@@ -35,9 +35,7 @@ class MainActivity : Activity() {
         goto_map_points.setOnClickListener { goto(MapsPointsActivity::class.java) }
         goto_dev_rant.setOnClickListener { goto(DevRantActivity::class.java) }
         goto_moon.setOnClickListener { goto(PhotographyActivity::class.java) }
-        goto_conversion.setOnClickListener { goto(ConversionsActivity::class.java) }
         goto_data.setOnClickListener { goto(ItemListActivity::class.java) }
-        goto_hacker_news.setOnClickListener { goto(HackerNewsActivity::class.java) }
 
         if (!requestPermissions(arrayOf(
                         Manifest.permission.INTERNET,

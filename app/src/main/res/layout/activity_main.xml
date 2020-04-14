@@ -104,12 +104,6 @@
                     android:text="Quote" />
 
                 <TextView
-                    android:id="@+id/goto_hacker_news"
-                    style="@style/MainTitle"
-                    android:drawableTop="@drawable/ic_main_quote"
-                    android:text="Hacker News" />
-
-                <TextView
                     android:id="@+id/goto_daily_comic"
                     style="@style/MainTitle"
                     android:drawableTop="@drawable/ic_main_images"
@@ -175,12 +169,6 @@
                 android:columnCount="@integer/column_count"
                 android:columnOrderPreserved="true">
 
-                <TextView
-                    android:id="@+id/goto_conversion"
-                    style="@style/MainTitle"
-                    android:layout_height="wrap_content"
-                    android:drawableTop="@drawable/ic_main_conversion"
-                    android:text="Conversions" />
                 <TextView
                     android:id="@+id/goto_qr"
                     style="@style/MainTitle"

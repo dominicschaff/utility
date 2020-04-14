@@ -27,7 +27,7 @@ class DrawView : View {
         setPenSize()
     }
 
-    public fun clearSpace() {
+    fun clearSpace() {
         mPath.reset()
         invalidate()
     }

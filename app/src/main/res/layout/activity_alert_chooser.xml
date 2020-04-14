@@ -7,6 +7,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:alignmentMode="alignBounds"
-        android:columnCount="2"
+        android:columnCount="@integer/file_chooser_columns"
         android:columnOrderPreserved="true" />
 </ScrollView>

@@ -33,8 +33,7 @@
         tools:replace="android:supportsRtl">
         <activity
             android:name=".browser.ScreensaverActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".utility.HackerNewsActivity" />
+            android:theme="@style/AppTheme.NoActionBar.IgnoreCutout" />
         <activity
             android:name=".utility.data.ItemListActivity"
             android:parentActivityName=".MainActivity"
@@ -54,36 +53,15 @@
         </activity>
         <activity android:name=".poc.CameraActivity" />
         <activity android:name=".browser.SpecialDisplayActivity" />
-        <activity
-            android:name=".utility.ConversionsActivity"
-            android:label="Unit Conversions"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".poc.StarsActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".browser.sound.SoundSorterActivity" />
         <activity
             android:name=".utility.PhotographyActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".browser.ReaderActivity" />
-        <activity
-            android:name=".poc.DashboardActivity"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="sensorLandscape"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".poc.TestScreenActivity" />
-        <activity
-            android:name=".poc.heavy.DataHeavyActivity"
-            android:label="@string/title_activity_data_heavy"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".utility.DevRantActivity"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".poc.CarDashActivity"
-            android:parentActivityName=".poc.PocMenuActivity"
-            android:screenOrientation="sensorLandscape"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
@@ -120,7 +98,8 @@
         <activity
             android:name=".utility.InfoActivity"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_info"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".utility.BarcodeScanningActivity"
             android:parentActivityName=".MainActivity"
@@ -134,10 +113,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".poc.TestBottomNavigationActivity"
-            android:label="@string/title_activity_test_bottom_navigation"
-            android:parentActivityName=".poc.PocMenuActivity" />
         <activity
             android:name=".poc.LoginActivity"
             android:label="@string/title_activity_login"
@@ -182,7 +157,8 @@
             android:resizeableActivity="true"
             android:screenOrientation="sensorLandscape"
             android:supportsPictureInPicture="true"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".poc.PocMenuActivity"
             android:label="POC Screens"
@@ -219,12 +195,14 @@
             android:name=".browser.QuickSortActivity"
             android:parentActivityName=".browser.FileBrowserActivity"
             android:screenOrientation="sensorLandscape"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".browser.SorterActivity"
             android:parentActivityName=".browser.FileBrowserActivity"
             android:screenOrientation="sensorLandscape"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

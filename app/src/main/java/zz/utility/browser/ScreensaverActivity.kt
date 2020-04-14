@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.Uri
+import android.os.BatteryManager
 import android.os.Bundle
 import android.os.Handler
 import android.widget.ImageView
@@ -13,11 +14,11 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.main.activity_screensaver.*
 import zz.utility.R
-import zz.utility.helpers.FullscreenActivity
-import zz.utility.helpers.shortTime
+import zz.utility.helpers.*
 import zz.utility.isImage
 import java.io.File
 import java.util.*
+import kotlin.collections.random
 
 
 class ScreensaverActivity : FullscreenActivity() {
@@ -25,7 +26,9 @@ class ScreensaverActivity : FullscreenActivity() {
     private val paths = ArrayList<File>()
     val handler = Handler()
     var count = 0
-    val iF = IntentFilter()
+    private val iF = IntentFilter()
+
+    private var lastActivity = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,20 +57,64 @@ class ScreensaverActivity : FullscreenActivity() {
         iF.addAction("com.android.music.playbackcomplete")
         iF.addAction("com.android.music.queuechanged")
         registerReceiver(musicReceiver, iF)
+
+        lastActivity = now()
+
+        image.setOnClickListener { lastActivity = now() }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        stars.onStart()
+    }
+
+    override fun onStop() {
+        stars.onStop()
+        super.onStop()
     }
 
     private fun doAll() {
         count--
+        updateText()
         if (count < 0) {
             showImage()
             count = 10
         }
+    }
+
+    private fun canUpdate(): Boolean = if (now() - lastActivity > 15.minutes()) {
+        date.hide()
+        time.hide()
+        songinfo.hide()
+        batteryinfo.hide()
+        false
+    } else {
+        date.show()
+        time.show()
+        songinfo.show()
+        batteryinfo.show()
+        true
+    }
+
+    private fun updateText() {
+        if (!canUpdate()) return
+
+        if (count < 0) batteryinfo.text = "%.0f %%".format(getBatteryStat())
         time.text = Date().shortTime()
+        date.text = Date().niceDate()
+    }
+
+    private fun getBatteryStat(): Float {
+
+        val batteryIntent = registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+        val level = batteryIntent!!.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
+        val scale = batteryIntent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
+        return if (level == -1 || scale == -1) 50.0f else level.toFloat() / scale.toFloat() * 100.0f
     }
 
     override fun onBackPressed() {
         handler.removeCallbacksAndMessages(null)
-        unregisterReceiver(musicReceiver);
+        unregisterReceiver(musicReceiver)
         super.onBackPressed()
     }
 
