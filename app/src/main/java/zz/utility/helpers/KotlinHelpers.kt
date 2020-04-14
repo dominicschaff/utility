@@ -51,6 +51,7 @@ fun Activity.requestPermissions(permissions: Array<String>): Boolean {
     }
     return true
 }
+
 inline fun <T> (() -> T).or(f: () -> T): T =
         try {
             this()

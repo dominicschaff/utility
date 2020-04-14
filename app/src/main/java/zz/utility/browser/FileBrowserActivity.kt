@@ -8,13 +8,10 @@ import android.os.Environment
 import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
-import android.view.Window
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.transition.Explode
-import androidx.transition.CircularPropagation
 import kotlinx.android.synthetic.main.activity_file_browser.*
 import zz.utility.R
 import zz.utility.browser.sound.SoundSorterActivity

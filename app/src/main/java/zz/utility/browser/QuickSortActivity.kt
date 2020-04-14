@@ -101,7 +101,6 @@ class QuickSortActivity : AppCompatActivity() {
                     .load(Uri.fromFile(path))
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .into(image as ImageView)
-        }
-        else image.setImageResource(R.drawable.ic_block)
+        } else image.setImageResource(R.drawable.ic_block)
     }
 }

@@ -52,15 +52,19 @@
         <item name="android:background">@drawable/holo_background_blue</item>
         <item name="android:layout_margin">2dp</item>
     </style>
+
     <style name="Linear.Holo.Pink">
         <item name="android:background">@drawable/holo_background_pink</item>
     </style>
+
     <style name="Linear.Holo.Orange">
         <item name="android:background">@drawable/holo_background_orange</item>
     </style>
+
     <style name="Linear.Holo.Cyan">
         <item name="android:background">@drawable/holo_background_cyan</item>
     </style>
+
     <style name="Linear.Holo.Red">
         <item name="android:background">@drawable/holo_background_red</item>
     </style>

@@ -257,6 +257,7 @@ class SunriseSunset
     private var bSunUpAllDay = false    // flag for sun up all day
     private var bSunDownAllDay = false    // flag for sun down all day
     private var bDaytime = false    // flag for daytime, given
+
     // hour and min in dateInput
     private var bSunrise = false        // sunrise during hour checked
     private var bSunset = false        // sunset during hour checked
@@ -279,6 +280,7 @@ class SunriseSunset
     private var dfmtYear: SimpleDateFormat? = null        // formatting for year
     private var dfmtMonth: SimpleDateFormat? = null        // formatting for month
     private var dfmtDay: SimpleDateFormat? = null        // formatting for day
+
     // Many variables in SUNUP.BAS have undocumented meanings,
     // and so are translated rather directly to avoid confusion:
     private var dfAA1 = 0.0

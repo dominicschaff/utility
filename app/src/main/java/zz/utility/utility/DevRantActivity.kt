@@ -1,7 +1,6 @@
 package zz.utility.utility
 
 import android.os.Bundle
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.koushikdutta.ion.Ion
 import kotlinx.android.synthetic.main.activity_dev_rant.*
@@ -9,7 +8,6 @@ import zz.utility.R
 import zz.utility.helpers.l
 import zz.utility.helpers.o
 import zz.utility.helpers.s
-import zz.utility.helpers.toast
 
 class DevRantActivity : AppCompatActivity() {
 
@@ -31,7 +29,7 @@ class DevRantActivity : AppCompatActivity() {
                     result.o("rant").apply {
                         text.text = s("text")
                         author.text = " - ${s("user_username")}"
-                        url.text="ID: ${l("id")}"
+                        url.text = "ID: ${l("id")}"
                     }
                 }
     }

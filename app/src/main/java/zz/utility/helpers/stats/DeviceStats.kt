@@ -11,8 +11,6 @@ import android.os.Build
 import android.os.SystemClock
 import android.telephony.TelephonyManager
 import android.util.DisplayMetrics
-import android.view.Display
-
 
 
 class DeviceStats(
@@ -30,9 +28,9 @@ class DeviceStats(
         var simSerialNumber: String = "",
         var deviceIdNumber: String = "",
         var uptime: Long = 0,
-        val density:Float = 0F,
-        val dpHeight:Float = 0.0F,
-        val dpWidth:Float = 0.0F
+        val density: Float = 0F,
+        val dpHeight: Float = 0.0F,
+        val dpWidth: Float = 0.0F
 )
 
 @SuppressLint("HardwareIds", "MissingPermission")

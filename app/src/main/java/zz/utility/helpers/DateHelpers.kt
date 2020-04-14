@@ -32,6 +32,7 @@ inline fun Long.toTimeFormat(): String {
     val hours = time / 60
     return "%02d:%02d:%02d.%d".format(hours, minutes, seconds, milli)
 }
+
 inline fun Long.toTimeTinyFormat(): String {
     var time = this
     time /= 1000

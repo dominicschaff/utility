@@ -1,7 +1,7 @@
 package zz.utility.browser
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import zz.utility.R
 import zz.utility.helpers.a
 import zz.utility.helpers.asJsonObject
@@ -10,19 +10,19 @@ import zz.utility.helpers.s
 import java.io.File
 
 data class Config(
-        val conf:File,
-        val dir:File,
-        val items:ArrayList<Item>
+        val conf: File,
+        val dir: File,
+        val items: ArrayList<Item>
 )
 
 data class Item(
-        val file:File,
-        val text:String
+        val file: File,
+        val text: String
 )
 
 class SpecialDisplayActivity : AppCompatActivity() {
 
-    lateinit var config:Config
+    lateinit var config: Config
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

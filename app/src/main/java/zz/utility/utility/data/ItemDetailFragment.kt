@@ -1,13 +1,13 @@
 package zz.utility.utility.data
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import zz.utility.R
+import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_item_detail.*
 import kotlinx.android.synthetic.main.item_detail.view.*
+import zz.utility.R
 
 /**
  * A fragment representing a single Item detail screen.
@@ -20,8 +20,8 @@ class ItemDetailFragment : Fragment() {
     /**
      * The dummy content this fragment is presenting.
      */
-    private lateinit var itemTitle:String
-    private lateinit var itemContent:String
+    private lateinit var itemTitle: String
+    private lateinit var itemContent: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

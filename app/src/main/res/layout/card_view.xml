@@ -6,7 +6,7 @@
 
         <TextView
             android:id="@+id/heading"
-            style="@style/Text.Large"/>
+            style="@style/Text.Large" />
 
         <TextView
             android:id="@+id/content"

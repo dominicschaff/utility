@@ -15,9 +15,9 @@ import kotlinx.android.synthetic.main.activity_sound_sorter.*
 import zz.utility.R
 import zz.utility.browser.PATH
 import zz.utility.browser.moveToBin
+import zz.utility.helpers.hide
 import zz.utility.helpers.show
 import zz.utility.helpers.toast
-import zz.utility.helpers.hide
 import zz.utility.isMusic
 import java.io.File
 
