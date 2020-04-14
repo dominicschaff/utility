@@ -30,7 +30,7 @@ class SensorsActivity : AppCompatActivity(), SensorEventListener {
             cv.findViewById<TextView>(R.id.heading).text = it.name
 
             sensors[it.name] = cv.findViewById(R.id.content)
-            list_sensors.addView(cv)
+            list_sensors.addView(cv)w
         }
     }
 

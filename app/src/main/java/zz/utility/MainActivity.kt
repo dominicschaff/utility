@@ -1,8 +1,8 @@
 package zz.utility
 
 import android.Manifest
-import android.app.Activity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import zz.utility.bot.BotActivity
 import zz.utility.browser.FileBrowserActivity
@@ -16,7 +16,7 @@ import zz.utility.poc.TestScreenActivity
 import zz.utility.utility.*
 import zz.utility.utility.data.ItemListActivity
 
-class MainActivity : Activity() {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

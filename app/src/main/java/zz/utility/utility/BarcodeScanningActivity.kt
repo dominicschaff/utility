@@ -1,6 +1,5 @@
 package zz.utility.utility
 
-import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -11,6 +10,7 @@ import android.os.Environment
 import android.view.KeyEvent
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.JsonObject
 import com.google.zxing.ResultPoint
 import com.journeyapps.barcodescanner.BarcodeCallback
@@ -23,7 +23,7 @@ import zz.utility.helpers.toast
 import java.io.File
 import java.util.*
 
-class BarcodeScanningActivity : Activity() {
+class BarcodeScanningActivity : AppCompatActivity() {
 
     private var lastText: String? = null
 

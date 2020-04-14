@@ -1,7 +1,6 @@
 package zz.utility.utility
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.location.GnssStatus
 import android.location.Location
@@ -9,6 +8,7 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NavUtils
 import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_gps.*
@@ -18,7 +18,7 @@ import zz.utility.lib.OpenLocationCode
 import zz.utility.lib.SunriseSunset
 import java.util.*
 
-class GPSActivity : Activity(), LocationListener {
+class GPSActivity : AppCompatActivity(), LocationListener {
 
     private lateinit var locationManager: LocationManager
     private var record = false
@@ -104,11 +104,11 @@ class GPSActivity : Activity(), LocationListener {
         if (hasLocationPermissions()) toast("We need GPS settings to make this screen work")
         else {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, this)
-            locationManager.registerGnssStatusCallback(object: GnssStatus.Callback() {
+            locationManager.registerGnssStatusCallback(object : GnssStatus.Callback() {
                 @SuppressLint("SetTextI18n")
                 override fun onSatelliteStatusChanged(status: GnssStatus?) {
                     super.onSatelliteStatusChanged(status)
-                    status?:return
+                    status ?: return
 
                     val usedInFix = (0 until status.satelliteCount).map { if (status.usedInFix(it)) 1 else 0 }.sum()
                     gps_status.text = "$usedInFix / ${status.satelliteCount} satelites"

@@ -97,8 +97,7 @@
         <activity
             android:name=".utility.InfoActivity"
             android:parentActivityName=".MainActivity"
-            android:label="@string/title_activity_info"
-            android:theme="@style/AppTheme" />
+            android:label="@string/title_activity_info" />
         <activity
             android:name=".utility.BarcodeScanningActivity"
             android:parentActivityName=".MainActivity"

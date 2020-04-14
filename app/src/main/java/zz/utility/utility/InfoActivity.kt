@@ -1,9 +1,9 @@
 package zz.utility.utility
 
-import android.app.Activity
 import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_info.*
 import zz.utility.R
 import zz.utility.helpers.formatSize
@@ -15,7 +15,7 @@ import zz.utility.helpers.toTimeFormat
 
 fun Boolean.eng(): String = if (this) "yes" else "no"
 
-class InfoActivity : Activity() {
+class InfoActivity : AppCompatActivity() {
     private fun LinearLayout.addThing(title: String, content: String) {
         val cv = layoutInflater.inflate(R.layout.card_view, this, false)
         cv.findViewById<TextView>(R.id.heading).text = title
