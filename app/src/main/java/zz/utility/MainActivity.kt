@@ -4,13 +4,15 @@ import android.Manifest
 import android.app.Activity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
+import zz.utility.bot.BotActivity
 import zz.utility.browser.FileBrowserActivity
 import zz.utility.helpers.goto
 import zz.utility.helpers.requestPermissions
 import zz.utility.helpers.toast
 import zz.utility.maps.MapsActivity
 import zz.utility.maps.MapsPointsActivity
-import zz.utility.poc.PocMenuActivity
+import zz.utility.poc.LoginActivity
+import zz.utility.poc.TestScreenActivity
 import zz.utility.utility.*
 import zz.utility.utility.data.ItemListActivity
 
@@ -27,7 +29,6 @@ class MainActivity : Activity() {
         goto_osm_maps.setOnClickListener { goto(MapsActivity::class.java) }
         goto_files.setOnClickListener { goto(FileBrowserActivity::class.java) }
         goto_list.setOnClickListener { goto(ListActivity::class.java) }
-        goto_poc.setOnClickListener { goto(PocMenuActivity::class.java) }
         goto_images.setOnClickListener { goto(ImageDownloadActivity::class.java) }
         goto_daily_comic.setOnClickListener { goto(DailyComicActivity::class.java) }
         goto_quote_api.setOnClickListener { goto(QuoteApiActivity::class.java) }
@@ -36,6 +37,10 @@ class MainActivity : Activity() {
         goto_dev_rant.setOnClickListener { goto(DevRantActivity::class.java) }
         goto_moon.setOnClickListener { goto(PhotographyActivity::class.java) }
         goto_data.setOnClickListener { goto(ItemListActivity::class.java) }
+
+        goto_test_login.setOnClickListener { goto(LoginActivity::class.java) }
+        goto_test_bot.setOnClickListener { goto(BotActivity::class.java) }
+        goto_demo.setOnClickListener { goto(TestScreenActivity::class.java) }
 
         if (!requestPermissions(arrayOf(
                         Manifest.permission.INTERNET,

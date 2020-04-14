@@ -189,7 +189,7 @@
 
         <TextView
             style="@style/Text.Heading"
-            android:text="Misc" />
+            android:text="Misc / POC" />
 
         <GridLayout
             android:layout_width="match_parent"
@@ -206,10 +206,22 @@
                 android:text="QR Code" />
 
             <TextView
-                android:id="@+id/goto_poc"
+                android:id="@+id/goto_test_bot"
                 style="@style/MainTitle"
-                android:drawableTop="@drawable/ic_main_poc"
-                android:text="POC" />
+                android:drawableTop="@drawable/ic_main_bot"
+                android:text="Bot Interface" />
+
+            <TextView
+                android:id="@+id/goto_test_login"
+                style="@style/MainTitle"
+                android:drawableTop="@drawable/ic_main_login"
+                android:text="Login" />
+
+            <TextView
+                android:id="@+id/goto_demo"
+                style="@style/MainTitle"
+                android:drawableTop="@drawable/ic_main_android_versions"
+                android:text="Demo Screen" />
         </GridLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

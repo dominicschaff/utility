@@ -51,7 +51,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="zz.utility.utility.data.ItemListActivity" />
         </activity>
-        <activity android:name=".poc.CameraActivity" />
         <activity android:name=".browser.SpecialDisplayActivity" />
         <activity android:name=".browser.sound.SoundSorterActivity" />
         <activity
@@ -116,11 +115,11 @@
         <activity
             android:name=".poc.LoginActivity"
             android:label="@string/title_activity_login"
-            android:parentActivityName=".poc.PocMenuActivity"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.Login" />
         <activity
             android:name=".bot.BotActivity"
-            android:parentActivityName=".poc.PocMenuActivity"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".browser.FileBrowserActivity"
@@ -159,10 +158,6 @@
             android:supportsPictureInPicture="true"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".poc.PocMenuActivity"
-            android:label="POC Screens"
-            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".utility.ImageDownloadActivity"
             android:parentActivityName=".MainActivity" />
