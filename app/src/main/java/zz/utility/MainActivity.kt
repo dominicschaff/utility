@@ -10,7 +10,6 @@ import zz.utility.helpers.goto
 import zz.utility.helpers.requestPermissions
 import zz.utility.helpers.toast
 import zz.utility.maps.MapsActivity
-import zz.utility.maps.MapsPointsActivity
 import zz.utility.poc.LoginActivity
 import zz.utility.poc.TestScreenActivity
 import zz.utility.utility.*
@@ -21,7 +20,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        goto_gps.setOnClickListener { goto(GPSActivity::class.java) }
         goto_sensors.setOnClickListener { goto(SensorsActivity::class.java) }
         goto_qr.setOnClickListener { goto(QRCodeGeneratorActivity::class.java) }
         goto_info.setOnClickListener { goto(InfoActivity::class.java) }
@@ -33,7 +31,6 @@ class MainActivity : AppCompatActivity() {
         goto_daily_comic.setOnClickListener { goto(DailyComicActivity::class.java) }
         goto_quote_api.setOnClickListener { goto(QuoteApiActivity::class.java) }
         goto_draw.setOnClickListener { goto(TouchScreenActivity::class.java) }
-        goto_map_points.setOnClickListener { goto(MapsPointsActivity::class.java) }
         goto_dev_rant.setOnClickListener { goto(DevRantActivity::class.java) }
         goto_moon.setOnClickListener { goto(PhotographyActivity::class.java) }
         goto_data.setOnClickListener { goto(ItemListActivity::class.java) }

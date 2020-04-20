@@ -1,5 +1,6 @@
 package zz.utility.utility
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -16,13 +17,7 @@ import zz.utility.helpers.toTimeFormat
 fun Boolean.eng(): String = if (this) "yes" else "no"
 
 class InfoActivity : AppCompatActivity() {
-    private fun LinearLayout.addThing(title: String, content: String) {
-        val cv = layoutInflater.inflate(R.layout.card_view, this, false)
-        cv.findViewById<TextView>(R.id.heading).text = title
-        cv.findViewById<TextView>(R.id.content).text = content
-        addView(cv)
-    }
-
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info)
@@ -32,52 +27,54 @@ class InfoActivity : AppCompatActivity() {
         val ms = getMemoryStats()
         val ds = getDeviceStats()
 
-        with(listy) {
-            addThing("Sim Serial", ds.simSerialNumber)
-            addThing("Device ID", ds.deviceIdNumber)
+        device_storage.text = "${ss.internal.formatSize()} / ${ss.internalFull.formatSize()}\n" + ss.external.indices.map {
+            "${ss.external[it].formatSize()} / ${ss.externalFull[it].formatSize()}"
+        }.joinToString { "\n" }
 
-            // Get all the info:
-            addThing("Internal Memory", "${ss.internal.formatSize()} / ${ss.internalFull.formatSize()}")
+        device_traffic.text = """
+            Mobile: ${ns.mobileRx.formatSize()} : ${ns.mobileTx.formatSize()}
+            App: ${ns.appRx.formatSize()} : ${ns.appTx.formatSize()}
+            Total: ${ns.totalRx.formatSize()} : ${ns.totalTx.formatSize()}
+        """.trimIndent()
 
-            ss.external.indices.forEach {
-                addThing("External Memory", "${ss.external[it].formatSize()} / ${ss.externalFull[it].formatSize()}")
-            }
+        device_battery.text = "%.1f :  %.1f".format(ds.battery, ds.battery_temperature)
 
-            addThing("Mobile RX", ns.mobileRx.formatSize())
-            addThing("Mobile TX", ns.mobileTx.formatSize())
-            addThing("Total RX", ns.totalRx.formatSize())
-            addThing("Total TX", ns.totalTx.formatSize())
-            addThing("App RX", ns.appRx.formatSize())
-            addThing("App TX", ns.appTx.formatSize())
+        device_memory.text = """
+            Total:  ${ms.total.formatSize()}
+            Available: ${ms.available.formatSize()}
+            Threshold: ${ms.threshold.formatSize()}
+        """.trimIndent()
 
-            addThing("Device Serial", ds.deviceSerial)
-            addThing("Battery Level", "%.1f".format(ds.battery))
-            addThing("Battery Temperature", "%.1f".format(ds.battery_temperature))
-            addThing("Manufacturer", ds.manufacturer)
-            addThing("Model", ds.model)
-            addThing("Brand", ds.brand)
-            addThing("Device", ds.device)
-            addThing("Display", ds.display)
-            addThing("Product", ds.product)
+        device_network.text = """
+            Operator Name: ${ns.operatorName}
+            Network State: ${ns.serviceStateDescription}
+            Network Strength: ${"${ns.signalStrength} dBM"}
+            Network Type: ${ns.cellType}
+            Is Wifi connected: ${ns.isWifiConnected.eng()}
+            Is Mobile connected: ${ns.isMobileConnected.eng()}
+            Is Emergency Only: ${ns.isEmergencyOnly.eng()}
+            Is In Service: ${ns.isInService.eng()}
+            Is Out Of Service: ${ns.isOutOfService.eng()}
+            Is Powered Off: ${ns.isPowerOff.eng()}
+        """.trimIndent()
 
-            addThing("Total Memory", ms.total.formatSize())
-            addThing("Available Memory", ms.available.formatSize())
-            addThing("Threshold Memory", ms.threshold.formatSize())
+        device_serials.text = """
+            Sim: ${ds.simSerialNumber}
+            Device ID: ${ds.deviceIdNumber}
+            Device: ${ds.deviceSerial}
+        """.trimIndent()
 
-            addThing("Screen Size", "${ds.width} x ${ds.height}")
-            addThing("Screen Density", "${ds.density} : ${ds.dpWidth} x ${ds.dpHeight}")
-            addThing("Uptime", ds.uptime.toTimeFormat())
-            addThing("Operator Name", ns.operatorName)
-            addThing("Network State", ns.serviceStateDescription)
-            addThing("Network Strength", "${ns.signalStrength} dBM")
-            addThing("Network Type", ns.cellType)
-            addThing("Is Wifi connected", ns.isWifiConnected.eng())
-            addThing("Is Mobile connected", ns.isMobileConnected.eng())
-            addThing("Is Emergency Only", ns.isEmergencyOnly.eng())
-            addThing("Is In Service", ns.isInService.eng())
-            addThing("Is Out Of Service", ns.isOutOfService.eng())
-            addThing("Is Powered Off", ns.isPowerOff.eng())
-        }
+        device_device.text = """
+            Manufacturer: ${ds.manufacturer}
+            Model: ${ds.model}
+            Brand: ${ds.brand}
+            Device: ${ds.device}
+            Display: ${ds.display}
+            Product: ${ds.product}
+            Uptime: ${ds.uptime.toTimeFormat()}
+        """.trimIndent()
+
+        device_screen.text = "${ds.width} x ${ds.height}\n${ds.density} : ${ds.dpWidth} x ${ds.dpHeight}"
     }
 
 

@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.google.gson.JsonObject
 import com.graphhopper.GHRequest
 import com.graphhopper.GraphHopper
 import com.graphhopper.PathWrapper
@@ -36,8 +37,7 @@ import org.oscim.layers.tile.buildings.BuildingLayer
 import org.oscim.layers.tile.vector.labeling.LabelLayer
 import org.oscim.layers.vector.PathLayer
 import org.oscim.layers.vector.VectorLayer
-import org.oscim.layers.vector.geometries.PolygonDrawable
-import org.oscim.layers.vector.geometries.Style
+import org.oscim.layers.vector.geometries.*
 import org.oscim.renderer.GLViewport
 import org.oscim.scalebar.DefaultMapScaleBar
 import org.oscim.scalebar.MapScaleBar
@@ -48,6 +48,10 @@ import zz.utility.HOME
 import zz.utility.MAIN_CONFIG
 import zz.utility.R
 import zz.utility.helpers.*
+import zz.utility.lib.OpenLocationCode
+import zz.utility.lib.SunriseSunset
+import java.util.*
+import kotlin.collections.ArrayList
 
 data class LocationPoint(
         val name: String,
@@ -73,6 +77,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
 
     private var useCar = true
     private var rotateFollow = false
+    private var overlayDrawn = false
 
     private lateinit var lastLocation: Location
 
@@ -82,6 +87,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
 
     private var hidden = true
     private var daylight = true
+    private var record = false
 
     @SuppressLint("MissingPermission")
     public override fun onCreate(savedInstanceState: Bundle?) {
@@ -124,6 +130,9 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
             navigate.visibility = state
             center_on_me.visibility = state
             fab_theme.visibility = state
+            draw_overlay.visibility = state
+            fab_save.visibility = state
+            show_extra.visibility = state
         }
 
         fab_theme.setOnClickListener {
@@ -174,6 +183,22 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
             mapView.map().viewport().setRotation(0.0)
             mapView.map().viewport().setMapViewCenter(0f, 0f)
             rotateFollow = false
+        }
+
+        draw_overlay.setOnClickListener {
+            drawMapOverlays()
+        }
+        fab_save.setOnClickListener {
+            record = true
+            fab_save.hide()
+        }
+
+        show_extra.setOnClickListener {
+            if (gps_data_info.visibility == View.VISIBLE) {
+                gps_data_info.hide()
+            } else {
+                gps_data_info.show()
+            }
         }
 
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -353,6 +378,52 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
         }
         mapView.map().updateMap(true)
         gps_data.text = "%.8f, %.8f\n%.0f m [%s]".format(location.latitude, location.longitude, location.accuracy, location.provider)
+
+        if (gps_data_info.visibility == View.VISIBLE) {
+            if (location.hasAccuracy())
+                gps_accuracy.text = "%.0f m".format(location.accuracy)
+
+            if (location.hasSpeed()) {
+                gps_speed_m.text = "%.1f".format(location.speed)
+                gps_speed_km.text = "%.1f".format(location.speed * 3.6)
+            }
+
+            if (location.hasAltitude())
+                gps_altitude.text = "%.0f m".format(location.altitude)
+
+            if (location.hasBearing())
+                gps_bearing.text = "%s %.0f°".format(location.bearing.bearingToCompass(), location.bearing)
+
+            gps_lat_long.text = "%.5f %.5f".format(location.latitude, location.longitude)
+
+            val ss = SunriseSunset(location.latitude, location.longitude, Date(location.time), 0.0)
+
+            gps_code.text = OpenLocationCode.encode(location.latitude, location.longitude)
+
+            gps_time_data.text = "${Date(location.time).fullDateDay()}\n${ss.sunrise?.shortTime()} -> ${ss.sunset?.shortTime()}"
+        }
+        if (record) {
+            val ss = SunriseSunset(location.latitude, location.longitude, Date(location.time), 0.0)
+            JsonObject().apply {
+                addProperty("event_time", Date().fullDate())
+                addProperty("latitude", location.latitude)
+                addProperty("longitude", location.longitude)
+                addProperty("accuracy", location.accuracy)
+                addProperty("speed", location.speed)
+
+                addProperty("altitude", location.altitude)
+
+                addProperty("bearing", location.bearing)
+                addProperty("provider", location.provider)
+                addProperty("bearingAccuracyDegrees", location.bearingAccuracyDegrees)
+                addProperty("speedAccuracyMetersPerSecond", location.speedAccuracyMetersPerSecond)
+                addProperty("verticalAccuracyMeters", location.verticalAccuracyMeters)
+                addProperty("openLocationCode", OpenLocationCode.encode(location.latitude, location.longitude))
+                addProperty("time", Date(location.time).fullDateDay())
+                addProperty("sunrise", ss.sunrise?.fullDateDay())
+                addProperty("sunset", ss.sunset?.fullDateDay())
+            }.appendToFile("utility/location.json".externalFile())
+        }
     }
 
     private fun centerOn(latitude: Double, longitude: Double) {
@@ -447,6 +518,76 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
                 }
             }
         }.execute()
+    }
+
+    private fun drawMapOverlays() {
+        if (overlayDrawn) return
+        overlayDrawn = true
+        val obj = "$HOME/map.json".fileAsJsonObject()
+
+        val locations = obj.a("locations").mapObject { LocationPoint(s("name"), d("latitude"), d("longitude"), s("colour", "blue")) }
+        arrayOf(
+                R.drawable.ic_place_green,
+                R.drawable.ic_place_blue,
+                R.drawable.ic_place_pink,
+                R.drawable.ic_place_red,
+                R.drawable.ic_place_black,
+                R.drawable.ic_place_light_blue,
+                R.drawable.ic_place_purple
+        ).forEachIndexed { index, image ->
+            ItemizedLayer(
+                    mapView.map(),
+                    ArrayList<MarkerItem>(),
+                    MarkerSymbol(drawableToBitmap(getDrawable(image)), MarkerSymbol.HotspotPlace.BOTTOM_CENTER, true),
+                    this@MapsActivity
+            ).apply {
+                mapView.map().layers().add(this)
+                addItems(locations.filter {
+                    when (index) {
+                        0 -> it.colour == "green"
+                        1 -> it.colour == "blue"
+                        2 -> it.colour == "pink"
+                        3 -> it.colour == "red"
+                        4 -> it.colour == "black"
+                        5 -> it.colour == "light_blue"
+                        6 -> it.colour == "purple"
+                        else -> false
+                    }
+                }.map {
+                    MarkerItem(it.name, it.name, GeoPoint(it.latitude, it.longitude))
+                })
+            }
+        }
+
+        val vectorLayer = VectorLayer(mapView.map())
+
+        obj.a("shapes").mapObject {
+            "Type of object: ${s("type")}".error()
+            when (s("type")) {
+                "circle" -> {
+                    vectorLayer.add(CircleDrawable(GeoPoint(d("latitude"), d("longitude")), d("size"), colourStyle(s("colour"))))
+                }
+                "rectangle" -> {
+                    vectorLayer.add(RectangleDrawable(GeoPoint(d("top"), d("left")), GeoPoint(d("bottom"), d("right")), colourStyle(s("colour"))))
+                }
+                "line" -> {
+                    vectorLayer.add(LineDrawable(ArrayList<GeoPoint>().apply {
+                        a("points").mapObject {
+                            add(GeoPoint(d("latitude"), d("longitude")))
+                        }
+                    }, colourStyle(s("colour"))))
+                }
+                "layer" -> {
+                    vectorLayer.add(PolygonDrawable(ArrayList<GeoPoint>().apply {
+                        a("points").mapObject {
+                            add(GeoPoint(d("latitude"), d("longitude")))
+                        }
+                    }, colourStyle(s("colour"))))
+                }
+            }
+        }
+        vectorLayer.update()
+        mapView.map().layers().add(vectorLayer)
     }
 
     private fun log(str: String) {

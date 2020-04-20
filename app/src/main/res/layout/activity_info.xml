@@ -4,8 +4,97 @@
     style="@style/Scroll"
     tools:context="zz.utility.utility.InfoActivity">
 
-    <LinearLayout
-        android:id="@+id/listy"
-        style="@style/Linear.Padding" />
+        <GridLayout
+            style="@style/Grid.Padding"
+            android:columnCount="@integer/file_chooser_columns">
 
+            <LinearLayout style="@style/GridCard">
+
+                <TextView
+                    style="@style/Text.Large"
+                    android:text="Device Storage" />
+
+                <TextView
+                    style="@style/Text"
+                    android:id="@+id/device_storage"/>
+            </LinearLayout>
+
+            <LinearLayout style="@style/GridCard">
+
+                <TextView
+                    style="@style/Text.Large"
+                    android:text="Traffic" />
+
+                <TextView
+                    style="@style/Text"
+                    android:id="@+id/device_traffic"/>
+            </LinearLayout>
+
+            <LinearLayout style="@style/GridCard">
+
+                <TextView
+                    style="@style/Text.Large"
+                    android:text="Battery" />
+
+                <TextView
+                    style="@style/Text"
+                    android:id="@+id/device_battery"/>
+            </LinearLayout>
+
+            <LinearLayout style="@style/GridCard">
+
+                <TextView
+                    style="@style/Text.Large"
+                    android:text="Memory" />
+
+                <TextView
+                    style="@style/Text"
+                    android:id="@+id/device_memory"/>
+            </LinearLayout>
+
+            <LinearLayout style="@style/GridCard">
+
+                <TextView
+                    style="@style/Text.Large"
+                    android:text="Screen" />
+
+                <TextView
+                    style="@style/Text"
+                    android:id="@+id/device_screen"/>
+            </LinearLayout>
+
+            <LinearLayout style="@style/GridCard">
+
+                <TextView
+                    style="@style/Text.Large"
+                    android:text="Serials" />
+
+                <TextView
+                    style="@style/Text"
+                    android:id="@+id/device_serials"/>
+            </LinearLayout>
+
+            <LinearLayout style="@style/GridCard">
+
+                <TextView
+                    style="@style/Text.Large"
+                    android:text="Network" />
+
+                <TextView
+                    style="@style/Text"
+                    android:id="@+id/device_network"/>
+            </LinearLayout>
+
+            <LinearLayout style="@style/GridCard">
+
+                <TextView
+                    style="@style/Text.Large"
+                    android:text="Device" />
+
+                <TextView
+                    style="@style/Text"
+                    android:id="@+id/device_device"/>
+            </LinearLayout>
+
+        </GridLayout>
 </ScrollView>

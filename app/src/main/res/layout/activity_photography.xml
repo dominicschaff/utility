@@ -136,8 +136,8 @@
         android:layout_height="wrap_content"
         android:text="Golden"
         app:layout_constraintBottom_toBottomOf="@id/sun_rise_golden"
-        app:layout_constraintEnd_toStartOf="@id/sun_set_golden"
-        app:layout_constraintStart_toEndOf="@id/sun_rise_golden"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/sun_rise_golden" />
 
     <TextView
@@ -145,8 +145,8 @@
         android:layout_height="wrap_content"
         android:text="Blue"
         app:layout_constraintBottom_toBottomOf="@id/sun_rise_blue"
-        app:layout_constraintEnd_toStartOf="@id/sun_set_blue"
-        app:layout_constraintStart_toEndOf="@id/sun_rise_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/sun_rise_blue" />
 
     <TextView
@@ -154,8 +154,8 @@
         android:layout_height="wrap_content"
         android:text="Twilight"
         app:layout_constraintBottom_toBottomOf="@id/sun_rise_twilight"
-        app:layout_constraintEnd_toStartOf="@id/sun_set_twilight"
-        app:layout_constraintStart_toEndOf="@id/sun_rise_twilight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/sun_rise_twilight" />
 
     <TextView

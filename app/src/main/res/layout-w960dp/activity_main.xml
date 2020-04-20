@@ -66,22 +66,10 @@
             android:columnOrderPreserved="true">
 
             <TextView
-                android:id="@+id/goto_gps"
-                style="@style/MainTitle"
-                android:drawableTop="@drawable/ic_main_gps"
-                android:text="GPS" />
-
-            <TextView
                 android:id="@+id/goto_moon"
                 style="@style/MainTitle"
                 android:drawableTop="@drawable/ic_main_camera"
                 android:text="Cycles" />
-
-            <TextView
-                android:id="@+id/goto_map_points"
-                style="@style/MainTitle"
-                android:drawableTop="@drawable/ic_main_maps"
-                android:text="Points" />
         </GridLayout>
     </LinearLayout>
 

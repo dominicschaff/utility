@@ -77,16 +77,6 @@
                 android:resource="@xml/shortcuts" />
         </activity>
         <activity
-            android:name=".utility.GPSActivity"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="zz.utility.GPS_ACTIVITY" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".utility.SensorsActivity"
             android:label="@string/title_activity_sensors"
             android:parentActivityName=".MainActivity" />
@@ -182,9 +172,6 @@
             android:name=".utility.TouchScreenActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar.IgnoreCutout" />
-        <activity
-            android:name=".maps.MapsPointsActivity"
-            android:theme="@style/AppTheme.NavOverlay.NoActionBar" />
         <activity
             android:name=".browser.QuickSortActivity"
             android:parentActivityName=".browser.FileBrowserActivity"
