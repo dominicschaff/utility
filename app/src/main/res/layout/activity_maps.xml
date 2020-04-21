@@ -21,19 +21,15 @@
         android:id="@+id/info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="72dp"
+        android:layout_marginBottom="@dimen/nav_bar_height"
         app:cardCornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp">
+            style="@style/Linear.Padding"
+            android:layout_width="wrap_content">
 
             <TextView
                 android:id="@+id/gps_data"
@@ -55,12 +51,12 @@
         android:id="@+id/gps_data_info"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/card_background"
-        android:visibility="gone"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:background="@drawable/card_background"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -98,10 +94,10 @@
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:textSize="36sp"
+            app:layout_constraintBottom_toTopOf="@id/gps_bearing"
             app:layout_constraintEnd_toStartOf="@id/gps_speed_km"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/gps_code"
-            app:layout_constraintBottom_toTopOf="@id/gps_bearing"
             tools:text="12.0" />
 
         <TextView
@@ -141,10 +137,10 @@
             android:background="@drawable/ic_gps_heading"
             android:gravity="center"
             android:textSize="32sp"
-            app:layout_constraintTop_toBottomOf="@id/gps_speed_km"
             app:layout_constraintBottom_toTopOf="@+id/gps_time_data"
             app:layout_constraintEnd_toStartOf="@+id/gps_altitude"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/gps_speed_km" />
 
         <TextView
             android:id="@+id/gps_altitude"
@@ -195,8 +191,8 @@
         style="@style/Fab"
         android:src="@drawable/ic_gps"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/vehicle"
-        app:layout_constraintEnd_toStartOf="@id/vehicle" />
+        app:layout_constraintBottom_toTopOf="@id/draw_overlay"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/draw_overlay"
@@ -204,7 +200,7 @@
         android:src="@drawable/ic_draw"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/navigate"
-        app:layout_constraintEnd_toStartOf="@id/fab_menu" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/navigate"
@@ -212,7 +208,7 @@
         android:src="@drawable/ic_directions"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/center"
-        app:layout_constraintEnd_toStartOf="@id/fab_menu" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/center"
@@ -220,15 +216,15 @@
         android:src="@drawable/ic_straighten"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/vehicle"
-        app:layout_constraintEnd_toStartOf="@id/fab_menu" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/vehicle"
         style="@style/Fab"
         android:src="@drawable/ic_map_car"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/fab_menu"
-        app:layout_constraintEnd_toStartOf="@id/fab_menu" />
+        app:layout_constraintBottom_toTopOf="@id/fab_save"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_save"
@@ -265,7 +261,8 @@
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_menu"
         style="@style/Fab"
-        android:layout_marginBottom="72dp"
+        android:layout_marginBottom="@dimen/nav_bar_height"
+        android:fitsSystemWindows="true"
         android:src="@drawable/ic_menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -291,7 +288,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginBottom="72dp"
+        android:layout_marginBottom="@dimen/nav_bar_height"
         android:background="@drawable/card_background"
         android:drawableStart="@drawable/ic_map_altitude"
         android:drawablePadding="4dp"

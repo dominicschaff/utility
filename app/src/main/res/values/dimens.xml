@@ -17,4 +17,5 @@
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="app_bar_height">200dp</dimen>
     <integer name="file_chooser_columns">2</integer>
+    <dimen name="nav_bar_height">72dp</dimen>
 </resources>

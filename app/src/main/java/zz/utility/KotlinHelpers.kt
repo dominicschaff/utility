@@ -12,6 +12,7 @@ fun File.isImage(): Boolean = extension.toLowerCase() in arrayOf("jpg", "jpeg", 
 fun File.isVideo(): Boolean = extension.toLowerCase() in arrayOf("mp4", "avi", "m4v", "webm", "mkv")
 fun File.isMusic(): Boolean = extension.toLowerCase() in arrayOf("mp3", "wav", "m4a")
 fun File.isText(): Boolean = extension.toLowerCase() in arrayOf("txt", "md", "py", "json", "java", "kt")
+fun File.isAudio(): Boolean = extension.toLowerCase() in arrayOf("mp3", "wav", "m4a")
 
 
 fun StringBuilder.add(format: String, value: Int) {

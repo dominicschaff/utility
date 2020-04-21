@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_file_browser.*
 import zz.utility.R
-import zz.utility.browser.sound.SoundSorterActivity
 import zz.utility.helpers.*
 import zz.utility.views.chooser
 import java.io.File
@@ -92,9 +91,6 @@ class FileBrowserActivity : AppCompatActivity() {
         R.id.action_create_nomedia -> consume {
             File(path, ".nomedia").createNewFile()
             refreshList()
-        }
-        R.id.action_audio_sorter -> consume {
-            startActivity(Intent(this, SoundSorterActivity::class.java).putExtra(PATH, path.absolutePath))
         }
         R.id.action_open_display -> consume {
             startActivity(Intent(this, SpecialDisplayActivity::class.java).putExtra(PATH, path.absolutePath))

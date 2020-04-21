@@ -89,6 +89,8 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
     private var daylight = true
     private var record = false
 
+    private lateinit var hopper: GraphHopper
+
     @SuppressLint("MissingPermission")
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -195,8 +197,10 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
 
         show_extra.setOnClickListener {
             if (gps_data_info.visibility == View.VISIBLE) {
+                show_extra.setImageDrawable(getDrawable(R.drawable.ic_gps))
                 gps_data_info.hide()
             } else {
+                show_extra.setImageDrawable(getDrawable(R.drawable.ic_gps_off))
                 gps_data_info.show()
             }
         }
@@ -219,6 +223,38 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
         mapView.map().setMapPosition(lastLocation.latitude, lastLocation.longitude, (1 shl 12).toDouble())
 
         onLocationChanged(lastLocation)
+
+        setupGraphhopper()
+
+
+        val style = Style.builder()
+                .fixed(true)
+                .generalization(Style.GENERALIZATION_SMALL)
+                .strokeColor(ContextCompat.getColor(this, R.color.colorAccent))
+                .strokeWidth(4 * resources.displayMetrics.density)
+                .build()
+        pathLayer = PathLayer(mapView.map(), style)
+        mapView.map().layers().add(pathLayer)
+
+        mapView.map().layers().add(object : Layer(mapView.map()), GestureListener {
+            override fun onGesture(g: Gesture?, e: MotionEvent?): Boolean {
+                g ?: return false
+                e ?: return false
+                return when (g) {
+                    is Gesture.Tap -> consume {
+                        val p = mMap.viewport().fromScreenPoint(e.x, e.y)
+                        toast("You clicked on ${p.latitude}, ${p.longitude}")
+                    }
+                    is Gesture.LongPress -> consume {
+                        val p = mMap.viewport().fromScreenPoint(e.x, e.y)
+                        toast("Navigating to ${p.latitude}, ${p.longitude}", Toast.LENGTH_SHORT)
+                        calcPath(lastLocation.latitude, lastLocation.longitude, p.latitude, p.longitude)
+                    }
+                    else -> false
+                }
+            }
+
+        })
 
         val locations = MAIN_CONFIG.a("locations").mapObject { LocationPoint(s("name"), d("latitude"), d("longitude"), s("colour", "blue")) }
         locationsSaved.addAll(locations)
@@ -255,79 +291,6 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
                 })
             }
         }
-        setupGraphhopper()
-
-
-        val style = Style.builder()
-                .fixed(true)
-                .generalization(Style.GENERALIZATION_SMALL)
-                .strokeColor(ContextCompat.getColor(this, R.color.colorAccent))
-                .strokeWidth(4 * resources.displayMetrics.density)
-                .build()
-        pathLayer = PathLayer(mapView.map(), style)
-        mapView.map().layers().add(pathLayer)
-
-        mapView.map().layers().add(object : Layer(mapView.map()), GestureListener {
-            override fun onGesture(g: Gesture?, e: MotionEvent?): Boolean {
-                g ?: return false
-                e ?: return false
-                return when (g) {
-                    is Gesture.Tap -> consume {
-                        val p = mMap.viewport().fromScreenPoint(e.x, e.y)
-                        toast("You clicked on ${p.latitude}, ${p.longitude}")
-                    }
-                    is Gesture.LongPress -> consume {
-                        val p = mMap.viewport().fromScreenPoint(e.x, e.y)
-                        toast("Navigating to ${p.latitude}, ${p.longitude}", Toast.LENGTH_SHORT)
-                        calcPath(lastLocation.latitude, lastLocation.longitude, p.latitude, p.longitude)
-                    }
-                    else -> false
-                }
-            }
-
-        })
-        val vectorLayer = VectorLayer(mapView.map())
-
-        MAIN_CONFIG.a("layers").mapObject {
-            vectorLayer.add(PolygonDrawable(ArrayList<GeoPoint>().apply {
-                a("points").mapObject {
-                    add(GeoPoint(d("latitude"), d("longitude")))
-                }
-            }, colourStyle(s("colour"))))
-        }
-
-        vectorLayer.update()
-        mapView.map().layers().add(vectorLayer)
-
-        val intent = intent ?: return
-        val data = intent.data ?: return
-        Thread {
-            Thread.sleep(2000)
-            runOnUiThread {
-                val path = data.pathSegments
-                when (path.size) {
-                    0 -> {
-                    }
-                    1 -> {
-                        val point = locationsSaved.find { it.name.toLowerCase().contains(path[0].toLowerCase()) }
-                                ?: return@runOnUiThread
-                        calcPath(lastLocation.latitude, lastLocation.longitude, point.latitude, point.longitude)
-                        centerOn(point.latitude, point.longitude)
-                    }
-                    2 -> {
-                        try {
-                            val latitude = path[0].toDouble()
-                            val longitude = path[1].toDouble()
-                            centerOn(latitude, longitude)
-                            calcPath(lastLocation.latitude, lastLocation.longitude, latitude, longitude)
-                        } catch (e: Exception) {
-                            toast("Couldn't decode: ${data.path}")
-                        }
-                    }
-                    else -> toast("Unable to understand given app link")
-                }
-            }
-        }.start()
     }
 
     @SuppressLint("MissingPermission")
@@ -441,7 +404,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
 
     override fun onItemSingleTapUp(index: Int, item: MarkerItem?): Boolean {
         item ?: return true
-        toast("Is here: " + item.getTitle())
+        toast("This is: " + item.getTitle())
         return true
     }
 
@@ -452,10 +415,6 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
 
         return true
     }
-
-
-    private lateinit var hopper: GraphHopper
-
 
     @SuppressLint("StaticFieldLeak")
     private fun setupGraphhopper() {

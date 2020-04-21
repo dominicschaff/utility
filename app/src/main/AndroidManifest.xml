@@ -38,21 +38,12 @@
             android:name=".utility.data.ItemListActivity"
             android:label="@string/title_data"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="zz.utility.MainActivity" />
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".utility.data.ItemDetailActivity"
             android:parentActivityName=".utility.data.ItemListActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="zz.utility.utility.data.ItemListActivity" />
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".browser.SpecialDisplayActivity" />
-        <activity android:name=".browser.sound.SoundSorterActivity" />
         <activity
             android:name=".utility.PhotographyActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -94,13 +85,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".maps.MapsActivity"
-            android:theme="@style/AppTheme.NavOverlay.NoActionBar">
-            <intent-filter>
-                <action android:name="zz.utility.MAPS_ACTIVITY" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/AppTheme.NavOverlay.NoActionBar" />
         <activity
             android:name=".poc.LoginActivity"
             android:label="@string/title_activity_login"

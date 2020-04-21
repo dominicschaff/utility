@@ -22,11 +22,6 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_audio_sorter"
-        android:title="Audio Sorter"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/action_create_directory"
         android:title="Create Directory"
         app:showAsAction="never" />
