@@ -2,8 +2,6 @@ package zz.utility.utility
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_info.*
 import zz.utility.R
@@ -27,9 +25,12 @@ class InfoActivity : AppCompatActivity() {
         val ms = getMemoryStats()
         val ds = getDeviceStats()
 
-        device_storage.text = "${ss.internal.formatSize()} / ${ss.internalFull.formatSize()}\n" + ss.external.indices.map {
-            "${ss.external[it].formatSize()} / ${ss.externalFull[it].formatSize()}"
-        }.joinToString { "\n" }
+        var tmpStr = "${ss.internal.formatSize()} / ${ss.internalFull.formatSize()}"
+
+        val s = ss.external.indices.forEach {
+            tmpStr += "\n${ss.external[it].formatSize()} / ${ss.externalFull[it].formatSize()}"
+        }
+        device_storage.text = tmpStr
 
         device_traffic.text = """
             Mobile: ${ns.mobileRx.formatSize()} : ${ns.mobileTx.formatSize()}
@@ -37,7 +38,7 @@ class InfoActivity : AppCompatActivity() {
             Total: ${ns.totalRx.formatSize()} : ${ns.totalTx.formatSize()}
         """.trimIndent()
 
-        device_battery.text = "%.1f :  %.1f".format(ds.battery, ds.battery_temperature)
+        device_battery.text = "Level %.1f %%\nTemperature %.1f °".format(ds.battery, ds.battery_temperature)
 
         device_memory.text = """
             Total:  ${ms.total.formatSize()}
