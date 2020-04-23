@@ -2,6 +2,7 @@ package zz.utility.views
 
 import android.app.Activity
 import android.media.MediaPlayer
+import android.os.PowerManager
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.net.toUri
@@ -51,6 +52,7 @@ fun Activity.playAudio(file: File) {
         mp.release()
         dialog.dismiss()
     }
+    mp.setWakeMode(this, PowerManager.PARTIAL_WAKE_LOCK)
     mp.start()
     dialog.setOnCancelListener {
         mp.stop()
