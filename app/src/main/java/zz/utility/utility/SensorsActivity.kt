@@ -7,7 +7,6 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_sensors.*
 import zz.utility.R
@@ -15,31 +14,57 @@ import java.util.*
 
 class SensorsActivity : AppCompatActivity(), SensorEventListener {
 
-    private var sensors = HashMap<String, TextView>()
     private lateinit var mSensorManager: SensorManager
-    private lateinit var deviceSensors: List<Sensor>
+    private val deviceSensors = ArrayList<Sensor>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sensors)
 
         mSensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        deviceSensors = mSensorManager.getSensorList(Sensor.TYPE_ALL)
-        deviceSensors.forEach {
-            val cv = layoutInflater.inflate(R.layout.card_view, list_sensors, false)
-            cv.findViewById<TextView>(R.id.heading).text = it.name
 
-            sensors[it.name] = cv.findViewById(R.id.content)
-            list_sensors.addView(cv)
-        }
+        deviceSensors.add(mSensorManager.getDefaultSensor(27))
+        deviceSensors.add(mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT))
+        deviceSensors.add(mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY))
+
+        deviceSensors.add(mSensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY))
+        deviceSensors.add(mSensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION))
+        deviceSensors.add(mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD))
+        deviceSensors.add(mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE))
     }
 
-    @SuppressLint("DefaultLocale")
+    @SuppressLint("DefaultLocale", "SetTextI18n")
     override fun onSensorChanged(event: SensorEvent) {
-        var s = String.format("%.2f", event.values[0])
-        for (x in 1 until event.values.size)
-            s = String.format("%s/%.2f", s, event.values[x])
-        sensors[event.sensor.name]?.text = "%s\n [A:%d | R:%.2f]".format(s, event.accuracy, event.sensor.resolution)
+        when (event.sensor.type) {
+            27 -> {
+                orientation.text = when (event.values[0].toInt()) {
+                    0 -> "Normal"
+                    1 -> "Landscape Left"
+                    2 -> "Upside Down"
+                    3 -> "Landscape Right"
+                    else -> "Flat | Unknown"
+                }
+            }
+            Sensor.TYPE_LIGHT -> {
+                light.text = "%.0f".format(event.values[0])
+            }
+            Sensor.TYPE_PROXIMITY -> {
+                proximity.text = "%s : %.0f".format(if (event.values[0] > 0) "Away" else "Close", event.values[0])
+            }
+            Sensor.TYPE_GRAVITY -> {
+                gravity.text = "Gravity\nX : %.2f\nY : %.2f\nZ : %.2f".format(event.values[0], event.values[1], event.values[2])
+            }
+            Sensor.TYPE_LINEAR_ACCELERATION -> {
+                acceleration.text = "Acceleration\nX : %.2f\nY : %.2f\nZ : %.2f".format(event.values[0], event.values[1], event.values[2])
+            }
+            Sensor.TYPE_MAGNETIC_FIELD -> {
+                magnetic.text = "Magnetic\nX : %.2f\nY : %.2f\nZ : %.2f".format(event.values[0], event.values[1], event.values[2])
+            }
+            Sensor.TYPE_GYROSCOPE -> {
+                gyroscope.text = "Gyroscope\nX : %.2f\nY : %.2f\nZ : %.2f".format(event.values[0], event.values[1], event.values[2])
+            }
+
+        }
     }
 
     override fun onAccuracyChanged(sensor: Sensor, i: Int) {}
