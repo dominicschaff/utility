@@ -40,9 +40,4 @@
         android:id="@+id/action_play_video"
         android:title="Play all videos"
         app:showAsAction="never" />
-
-    <item
-        android:id="@+id/action_open_display"
-        android:title="Open Special Display"
-        app:showAsAction="never" />
 </menu>

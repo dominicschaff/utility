@@ -27,7 +27,7 @@ class InfoActivity : AppCompatActivity() {
 
         var tmpStr = "${ss.internal.formatSize()} / ${ss.internalFull.formatSize()}"
 
-        val s = ss.external.indices.forEach {
+        ss.external.indices.forEach {
             tmpStr += "\n${ss.external[it].formatSize()} / ${ss.externalFull[it].formatSize()}"
         }
         device_storage.text = tmpStr

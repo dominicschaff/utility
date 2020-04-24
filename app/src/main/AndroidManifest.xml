@@ -19,6 +19,8 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission
         android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
@@ -31,28 +33,8 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:supportsRtl">
-        <activity
-            android:name=".browser.ScreensaverActivity"
-            android:theme="@style/AppTheme.NoActionBar.IgnoreCutout" />
-        <activity
-            android:name=".utility.data.ItemListActivity"
-            android:label="@string/title_data"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".utility.data.ItemDetailActivity"
-            android:parentActivityName=".utility.data.ItemListActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".browser.SpecialDisplayActivity" />
-        <activity
-            android:name=".utility.PhotographyActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".browser.ReaderActivity" />
-        <activity android:name=".poc.TestScreenActivity" />
-        <activity
-            android:name=".utility.DevRantActivity"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+
+        <!-- Main -->
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -67,34 +49,8 @@
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
         </activity>
-        <activity
-            android:name=".utility.SensorsActivity"
-            android:label="@string/title_activity_sensors"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".utility.QRCodeGeneratorActivity"
-            android:label="@string/title_activity_qr_code_generator"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".utility.InfoActivity"
-            android:label="@string/title_activity_info"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".utility.BarcodeScanningActivity"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".maps.MapsActivity"
-            android:theme="@style/AppTheme.NavOverlay.NoActionBar" />
-        <activity
-            android:name=".poc.LoginActivity"
-            android:label="@string/title_activity_login"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.Login" />
-        <activity
-            android:name=".bot.BotActivity"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+
+        <!-- File Browser -->
         <activity
             android:name=".browser.FileBrowserActivity"
             android:label="File Browser"
@@ -103,9 +59,8 @@
             android:name=".browser.TextViewActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".utility.ListActivity"
-            android:label="@string/title_activity_list"
-            android:parentActivityName=".MainActivity" />
+            android:name=".browser.ScreensaverActivity"
+            android:theme="@style/AppTheme.NoActionBar.IgnoreCutout" />
         <activity
             android:name=".browser.gallery.GalleryActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
@@ -133,31 +88,6 @@
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".utility.ImageDownloadActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".text.TextReceiveActivity"
-            android:theme="@android:style/Theme.NoDisplay">
-            <intent-filter>
-                <action android:name="android.intent.action.SEND" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data android:mimeType="text/plain" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".utility.DailyComicActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".utility.QuoteApiActivity"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".utility.TouchScreenActivity"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar.IgnoreCutout" />
-        <activity
             android:name=".browser.QuickSortActivity"
             android:parentActivityName=".browser.FileBrowserActivity"
             android:screenOrientation="sensorLandscape"
@@ -169,6 +99,84 @@
             android:screenOrientation="sensorLandscape"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
+
+        <!-- GPS -->
+        <activity
+            android:name=".utility.PhotographyActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".maps.MapsActivity"
+            android:theme="@style/AppTheme.NavOverlay.NoActionBar" />
+
+        <!-- API Based -->
+        <activity
+            android:name=".utility.DevRantActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".utility.ImageDownloadActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".utility.DailyComicActivity"
+            android:parentActivityName=".MainActivity" />
+
+        <!-- Utilities -->
+        <activity
+            android:name=".utility.data.ItemListActivity"
+            android:label="@string/title_data"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".utility.data.ItemDetailActivity"
+            android:parentActivityName=".utility.data.ItemListActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".utility.SensorsActivity"
+            android:label="@string/title_activity_sensors"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".utility.QRCodeGeneratorActivity"
+            android:label="@string/title_activity_qr_code_generator"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".utility.InfoActivity"
+            android:label="@string/title_activity_info"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".utility.BarcodeScanningActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".utility.ListActivity"
+            android:label="@string/title_activity_list"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".utility.TouchScreenActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar.IgnoreCutout" />
+
+        <!-- POC -->
+        <activity
+            android:name=".demo.TestScreenActivity"
+            android:parentActivityName=".demo.LoginActivity" />
+        <activity
+            android:name=".demo.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.Login" />
+
+        <!-- Service Related -->
+        <activity
+            android:name=".text.TextReceiveActivity"
+            android:theme="@android:style/Theme.NoDisplay">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"

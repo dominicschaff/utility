@@ -1,4 +1,4 @@
-package zz.utility.poc
+package zz.utility.demo
 
 import android.app.Activity
 import android.os.Bundle
@@ -10,7 +10,9 @@ import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.*
 import zz.utility.R
+import zz.utility.helpers.goto
 import zz.utility.helpers.prefGetSet
+import zz.utility.helpers.preferences
 import zz.utility.helpers.show
 import java.util.*
 
@@ -56,6 +58,13 @@ class LoginActivity : Activity() {
         Handler().postDelayed({
             login_progress.visibility = View.GONE
             Toast.makeText(applicationContext, "Done", Toast.LENGTH_LONG).show()
+            preferences {
+                previousUsers.add(email.text.toString())
+                putStringSet("previousUsers", previousUsers)
+            }
+            Handler().postDelayed({
+                goto(TestScreenActivity::class.java)
+            }, 250)
         }, 2000)
     }
 }

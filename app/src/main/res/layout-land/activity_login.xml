@@ -4,14 +4,28 @@
     style="@style/Outer"
     tools:context=".demo.LoginActivity">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.75" />
+
     <ImageView
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:src="@mipmap/ic_launcher"
         android:alpha="0.65"
         app:layout_constraintBottom_toBottomOf="@id/company_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guide_right"
+        app:layout_constraintStart_toStartOf="@id/guide_left"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
@@ -22,8 +36,8 @@
         android:layout_marginBottom="48dp"
         android:text="Company Name"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guide_right"
+        app:layout_constraintStart_toStartOf="@id/guide_left"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
 
@@ -36,7 +50,7 @@
         android:src="@drawable/ic_face"
         app:layout_constraintBottom_toBottomOf="@id/textInputLayout"
         app:layout_constraintEnd_toStartOf="@id/textInputLayout"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guide_left"
         app:layout_constraintTop_toTopOf="@id/textInputLayout" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -44,7 +58,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guide_right"
         app:layout_constraintStart_toEndOf="@id/user_image"
         app:layout_constraintTop_toBottomOf="@+id/company_name">
 
@@ -69,7 +83,7 @@
         android:src="@drawable/ic_lock"
         app:layout_constraintBottom_toBottomOf="@id/textInputLayout2"
         app:layout_constraintEnd_toStartOf="@id/textInputLayout2"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guide_left"
         app:layout_constraintTop_toTopOf="@id/textInputLayout2" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -77,7 +91,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/email_sign_in_button"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guide_right"
         app:layout_constraintStart_toEndOf="@id/password_image"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
 
@@ -97,14 +111,14 @@
     <Button
         android:id="@+id/email_sign_in_button"
         style="@style/Button.Login"
+        android:layout_width="0dp"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginBottom="72dp"
         android:text="@string/action_sign_in"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guide_right"
+        app:layout_constraintStart_toStartOf="@id/guide_left"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
-
 
     <include
         android:id="@+id/login_progress"

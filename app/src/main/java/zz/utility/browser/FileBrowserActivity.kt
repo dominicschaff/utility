@@ -92,9 +92,6 @@ class FileBrowserActivity : AppCompatActivity() {
             File(path, ".nomedia").createNewFile()
             refreshList()
         }
-        R.id.action_open_display -> consume {
-            startActivity(Intent(this, SpecialDisplayActivity::class.java).putExtra(PATH, path.absolutePath))
-        }
         R.id.action_sort_folder -> consume {
             startActivity(Intent(this, SorterActivity::class.java).putExtra(PATH, path.absolutePath))
         }
