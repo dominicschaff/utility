@@ -12,12 +12,10 @@ import kotlinx.android.synthetic.main.activity_item_list.*
 import kotlinx.android.synthetic.main.item_list.*
 import kotlinx.android.synthetic.main.item_list_content.view.*
 import zz.utility.R
-import zz.utility.helpers.asJsonArray
-import zz.utility.helpers.fileAsJsonArray
+import zz.utility.configFile
+import zz.utility.helpers.a
 import zz.utility.helpers.mapObject
 import zz.utility.helpers.s
-import zz.utility.homeDir
-import java.io.File
 
 /**
  * An activity representing a list of Pings. This activity
@@ -51,7 +49,7 @@ class ItemListActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        val content = File(homeDir(), "data.json").asJsonArray()
+        val content = configFile().a("data")
         val items = content.mapObject { Item(s("title"), s("content")) }
         recyclerView.adapter = SimpleItemRecyclerViewAdapter(this, items, twoPane)
     }
@@ -73,7 +71,7 @@ class ItemListActivity : AppCompatActivity() {
 
             with(holder.itemView) {
                 tag = item
-                setOnClickListener(View.OnClickListener { v ->
+                setOnClickListener { v ->
                     if (twoPane) {
                         val fragment = ItemDetailFragment().apply {
                             arguments = Bundle().apply {
@@ -92,7 +90,7 @@ class ItemListActivity : AppCompatActivity() {
                         }
                         v.context.startActivity(intent)
                     }
-                })
+                }
             }
         }
 

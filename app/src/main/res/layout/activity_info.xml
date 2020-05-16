@@ -126,24 +126,6 @@
     </LinearLayout>
 
     <LinearLayout
-        style="@style/Linear.Padding.Holo"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@id/guide_bot"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guide_vertical"
-        app:layout_constraintTop_toTopOf="@id/guide_mid">
-
-        <TextView
-            style="@style/Text.Large.Center"
-            android:text="Serials" />
-
-        <TextView
-            android:id="@+id/device_serials"
-            style="@style/Text" />
-    </LinearLayout>
-
-    <LinearLayout
         style="@style/Linear.Padding.Holo.Pink"
         android:layout_width="0dp"
         android:layout_height="0dp"

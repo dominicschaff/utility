@@ -4,7 +4,6 @@ import android.graphics.Bitmap
 import android.graphics.Color.BLACK
 import android.graphics.Color.WHITE
 import android.os.Bundle
-import android.os.Environment
 import androidx.appcompat.app.AppCompatActivity
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
@@ -12,11 +11,10 @@ import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
 import kotlinx.android.synthetic.main.activity_qrcode_generator.*
 import zz.utility.R
-import zz.utility.getRoot
+import zz.utility.externalFile
 import zz.utility.helpers.ignore
 import zz.utility.helpers.now
 import zz.utility.helpers.orPrint
-import java.io.File
 import java.io.FileOutputStream
 
 class QRCodeGeneratorActivity : AppCompatActivity() {
@@ -38,7 +36,7 @@ class QRCodeGeneratorActivity : AppCompatActivity() {
             val fileName = "qr_code_" + now() + ".png"
             var out: FileOutputStream? = null
             try {
-                out = FileOutputStream(File(getRoot(), fileName))
+                out = FileOutputStream(externalFile(fileName))
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, out) // bmp is your Bitmap instance
             } catch (e: Exception) {
                 e.printStackTrace()

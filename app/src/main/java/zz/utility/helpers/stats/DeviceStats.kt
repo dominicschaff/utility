@@ -14,7 +14,6 @@ import android.util.DisplayMetrics
 
 
 class DeviceStats(
-        var deviceSerial: String = "",
         var battery: Float = 0.toFloat(),
         var battery_temperature: Double = 0.toDouble(),
         var manufacturer: String = "",
@@ -25,8 +24,6 @@ class DeviceStats(
         var product: String = "",
         var width: Int = 0,
         var height: Int = 0,
-        var simSerialNumber: String = "",
-        var deviceIdNumber: String = "",
         var uptime: Long = 0,
         val density: Float = 0F,
         val dpHeight: Float = 0.0F,
@@ -55,7 +52,6 @@ fun Activity.getDeviceStats(): DeviceStats {
 
     @Suppress("DEPRECATION")
     return DeviceStats(
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) android.os.Build.getSerial() else android.os.Build.SERIAL,
             if (level == -1 || scale == -1) 50.0f else level.toFloat() / scale.toFloat() * 100.0f,
             temp / 10.0,
             Build.MANUFACTURER,
@@ -66,8 +62,6 @@ fun Activity.getDeviceStats(): DeviceStats {
             Build.PRODUCT,
             size.x,
             size.y,
-            telManager.simSerialNumber ?: "",
-            telManager.imei,
             SystemClock.uptimeMillis(),
             density,
             dpHeight,

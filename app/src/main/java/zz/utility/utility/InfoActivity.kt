@@ -59,12 +59,6 @@ class InfoActivity : AppCompatActivity() {
             Is Powered Off: ${ns.isPowerOff.eng()}
         """.trimIndent()
 
-        device_serials.text = """
-            Sim: ${ds.simSerialNumber}
-            Device ID: ${ds.deviceIdNumber}
-            Device: ${ds.deviceSerial}
-        """.trimIndent()
-
         device_device.text = """
             Manufacturer: ${ds.manufacturer}
             Model: ${ds.model}

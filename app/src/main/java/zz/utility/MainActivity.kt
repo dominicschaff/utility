@@ -2,10 +2,13 @@ package zz.utility
 
 import android.Manifest
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import zz.utility.browser.FileBrowserActivity
 import zz.utility.demo.LoginActivity
+import zz.utility.helpers.consume
 import zz.utility.helpers.goto
 import zz.utility.helpers.requestPermissions
 import zz.utility.helpers.toast
@@ -50,5 +53,15 @@ class MainActivity : AppCompatActivity() {
                 ))) {
             toast("Something went wrong")
         }
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean = consume { menuInflater.inflate(R.menu.menu_main, menu) }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.action_settings -> consume {
+            goto(SettingsActivity::class.java)
+        }
+        else -> super.onOptionsItemSelected(item)
     }
 }

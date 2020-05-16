@@ -1,9 +1,8 @@
-@file:Suppress("unused", "NOTHING_TO_INLINE")
+@file:Suppress("unused", "NOTHING_TO_INLINE", "DefaultLocale")
 
 package zz.utility
 
 import android.content.Context
-import androidx.core.content.ContextCompat
 import androidx.exifinterface.media.ExifInterface
 import com.google.gson.JsonObject
 import zz.utility.helpers.asJsonObject
@@ -119,7 +118,7 @@ fun File.metaData(): String {
 
 
 fun File.metaDataShort(): String {
-    try {
+    return try {
         val exifInterface = ExifInterface(this.absolutePath)
 
         val sb = StringBuilder()
@@ -130,9 +129,9 @@ fun File.metaDataShort(): String {
                 sb.append("Size: %dx%d\n".format(w, h))
         } catch (e: Exception) {
         }
-        return sb.toString()
+        sb.toString()
     } catch (e: Exception) {
-        return ""
+        ""
     }
 }
 
@@ -149,12 +148,12 @@ fun File.imageIcon(): Int =
             else -> R.drawable.ic_file
         } else R.drawable.ic_file_folder
 
-inline fun Context.getRoot() = getExternalFilesDir(null)!!
+inline fun Context.externalFile(path: String) = File(homeDir(), path)
 
-inline fun Context.homeDir() = File(getRoot(), "utility")
-inline fun Context.logFile() = File(homeDir(), "log.json")
+inline fun Context.homeDir() = getExternalFilesDir(null)!!
+inline fun Context.logFile() = externalFile("log.json")
 inline fun Context.configFile() = try {
-    File(homeDir(), "utility.json").asJsonObject()
+    externalFile("utility.json").asJsonObject()
 } catch (e: java.lang.Exception) {
     JsonObject()
 }

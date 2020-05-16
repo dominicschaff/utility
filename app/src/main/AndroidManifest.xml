@@ -33,15 +33,11 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:supportsRtl">
-        <activity android:name=".main.SettingsActivity"></activity>
-        <activity
-            android:name=".main.Main2Activity"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".browser.TextEditorActivity" /> <!-- Main -->
+        <activity android:name=".SettingsActivity" /> <!-- Main -->
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="Utility Main Screen"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -149,8 +145,7 @@
         <activity
             android:name=".utility.TouchScreenActivity"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar.IgnoreCutout" />
-         <!-- POC -->
+            android:theme="@style/AppTheme.NoActionBar.IgnoreCutout" /> <!-- POC -->
         <activity
             android:name=".demo.TestScreenActivity"
             android:parentActivityName=".demo.LoginActivity" />

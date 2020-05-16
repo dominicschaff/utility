@@ -48,6 +48,7 @@ import org.oscim.theme.VtmThemes
 import org.oscim.tiling.source.mapfile.MapFileTileSource
 import zz.utility.R
 import zz.utility.configFile
+import zz.utility.externalFile
 import zz.utility.helpers.*
 import zz.utility.homeDir
 import zz.utility.lib.OpenLocationCode
