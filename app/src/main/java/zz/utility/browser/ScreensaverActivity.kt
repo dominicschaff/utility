@@ -100,8 +100,8 @@ class ScreensaverActivity : FullscreenActivity() {
         if (!canUpdate()) return
 
         if (count < 0) batteryinfo.text = "%.0f %%".format(getBatteryStat())
-        time.text = Date().shortTime()
-        date.text = Date().niceDate()
+        time.text = Date().toTimeShort()
+        date.text = Date().toDatePretty()
     }
 
     private fun getBatteryStat(): Float {

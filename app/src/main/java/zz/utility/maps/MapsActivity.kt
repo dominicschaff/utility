@@ -8,8 +8,10 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.AsyncTask
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -44,26 +46,16 @@ import org.oscim.scalebar.MapScaleBar
 import org.oscim.scalebar.MapScaleBarLayer
 import org.oscim.theme.VtmThemes
 import org.oscim.tiling.source.mapfile.MapFileTileSource
-import zz.utility.HOME
-import zz.utility.MAIN_CONFIG
 import zz.utility.R
+import zz.utility.configFile
 import zz.utility.helpers.*
+import zz.utility.homeDir
 import zz.utility.lib.OpenLocationCode
 import zz.utility.lib.SunriseSunset
+import zz.utility.views.chooser
+import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
-
-data class LocationPoint(
-        val name: String,
-        val latitude: Double,
-        val longitude: Double,
-        val colour: String = "blue"
-)
-
-fun colourStyle(f: String): Style = Style.builder()
-        .buffer(0.5)
-        .fillColor(f)
-        .fillAlpha(0.2F).build()
 
 @SuppressLint("MissingPermission")
 class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItemGestureListener<MarkerItem> {
@@ -100,7 +92,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
 
         // Tile source
         val tileSource = MapFileTileSource()
-        if (tileSource.setMapFile("$HOME/area.map")) {
+        if (tileSource.setMapFile(File(homeDir(), "area.map").absolutePath)) {
             val tileLayer = mapView.map().setBaseMap(tileSource)
             mapView.map().layers().add(BuildingLayer(mapView.map(), tileLayer))
             mapView.map().layers().add(LabelLayer(mapView.map(), tileLayer))
@@ -247,8 +239,48 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
                     }
                     is Gesture.LongPress -> consume {
                         val p = mMap.viewport().fromScreenPoint(e.x, e.y)
-                        toast("Navigating to ${p.latitude}, ${p.longitude}", Toast.LENGTH_SHORT)
-                        calcPath(lastLocation.latitude, lastLocation.longitude, p.latitude, p.longitude)
+                        chooser("Select Action", resources.getStringArray(R.array.map_actions), callback = { action, _ ->
+                            when (action) {
+                                1 -> {
+                                    val builder = AlertDialog.Builder(this@MapsActivity)
+                                    builder.setTitle("New Directory Name")
+
+                                    val input = EditText(this@MapsActivity)
+                                    input.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_AUTO_CORRECT or InputType.TYPE_TEXT_FLAG_CAP_WORDS
+                                    builder.setView(input)
+
+                                    builder.setPositiveButton("OK") { _, _ ->
+                                        JsonObject().apply {
+                                            addProperty("unixtimestamp", now())
+                                            addProperty("date", Date(now()).toDateFull())
+                                            addProperty("name", input.text.toString())
+                                            addProperty("latitude", p.latitude)
+                                            addProperty("longitude", p.longitude)
+                                        }.appendToFile(File(homeDir(), "saved_locations.json"))
+                                    }
+                                    builder.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() }
+
+                                    builder.show()
+                                }
+                                2 -> {
+                                    val i = Intent(Intent.ACTION_SEND)
+
+                                    i.type = "text/plain"
+                                    i.putExtra(Intent.EXTRA_SUBJECT, "Shared Location")
+                                    i.putExtra(Intent.EXTRA_TEXT, "http://maps.google.com/maps?q=loc:%.10f,%.10f".format(p.latitude, p.longitude))
+
+                                    try {
+                                        startActivity(Intent.createChooser(i, "Share Location"))
+                                    } catch (ex: android.content.ActivityNotFoundException) {
+                                        toast("There is no activity to share location to.")
+                                    }
+                                }
+                                else -> {
+                                    toast("Navigating to ${p.latitude}, ${p.longitude}", Toast.LENGTH_SHORT)
+                                    calcPath(lastLocation.latitude, lastLocation.longitude, p.latitude, p.longitude)
+                                }
+                            }
+                        })
                     }
                     else -> false
                 }
@@ -256,18 +288,10 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
 
         })
 
-        val locations = MAIN_CONFIG.a("locations").mapObject { LocationPoint(s("name"), d("latitude"), d("longitude"), s("colour", "blue")) }
+        val locations = configFile().a("locations").mapObject { LocationPoint(s("name"), d("latitude"), d("longitude"), s("colour", "blue")) }
         locationsSaved.addAll(locations)
 
-        arrayOf(
-                R.drawable.ic_place_green,
-                R.drawable.ic_place_blue,
-                R.drawable.ic_place_pink,
-                R.drawable.ic_place_red,
-                R.drawable.ic_place_black,
-                R.drawable.ic_place_light_blue,
-                R.drawable.ic_place_purple
-        ).forEachIndexed { index, image ->
+        markerColours.forEach { (image, name) ->
             ItemizedLayer(
                     mapView.map(),
                     ArrayList<MarkerItem>(),
@@ -275,19 +299,22 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
                     this@MapsActivity
             ).apply {
                 mapView.map().layers().add(this)
-                addItems(locations.filter {
-                    when (index) {
-                        0 -> it.colour == "green"
-                        1 -> it.colour == "blue"
-                        2 -> it.colour == "pink"
-                        3 -> it.colour == "red"
-                        4 -> it.colour == "black"
-                        5 -> it.colour == "light_blue"
-                        6 -> it.colour == "purple"
-                        else -> false
-                    }
-                }.map {
-                    MarkerItem(it.name, it.name, GeoPoint(it.latitude, it.longitude))
+                addItems(locations.filter { it.colour == name }.map {
+                    MarkerItem(it.name, it.name, it.toGeoPoint())
+                })
+            }
+        }
+        val newLocations = File(homeDir(), "saved_locations.json")
+        if (newLocations.exists()) {
+            ItemizedLayer(
+                    mapView.map(),
+                    ArrayList<MarkerItem>(),
+                    MarkerSymbol(drawableToBitmap(getDrawable(R.drawable.ic_place_cyan)), MarkerSymbol.HotspotPlace.BOTTOM_CENTER, true),
+                    this@MapsActivity
+            ).apply {
+                mapView.map().layers().add(this)
+                addItems(newLocations.readLines().map { it.asJsonObject() }.map {
+                    MarkerItem(it.s("name"), it.s("name"), it.toGeoPoint())
                 })
             }
         }
@@ -363,12 +390,12 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
 
             gps_code.text = OpenLocationCode.encode(location.latitude, location.longitude)
 
-            gps_time_data.text = "${Date(location.time).fullDateDay()}\n${ss.sunrise?.shortTime()} -> ${ss.sunset?.shortTime()}"
+            gps_time_data.text = "${Date(location.time).toDateDay()}\n${ss.sunrise?.toTimeShort()} -> ${ss.sunset?.toTimeShort()}"
         }
         if (record) {
             val ss = SunriseSunset(location.latitude, location.longitude, Date(location.time), 0.0)
             JsonObject().apply {
-                addProperty("event_time", Date().fullDate())
+                addProperty("event_time", Date().toDateFull())
                 addProperty("latitude", location.latitude)
                 addProperty("longitude", location.longitude)
                 addProperty("accuracy", location.accuracy)
@@ -382,10 +409,10 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
                 addProperty("speedAccuracyMetersPerSecond", location.speedAccuracyMetersPerSecond)
                 addProperty("verticalAccuracyMeters", location.verticalAccuracyMeters)
                 addProperty("openLocationCode", OpenLocationCode.encode(location.latitude, location.longitude))
-                addProperty("time", Date(location.time).fullDateDay())
-                addProperty("sunrise", ss.sunrise?.fullDateDay())
-                addProperty("sunset", ss.sunset?.fullDateDay())
-            }.appendToFile("utility/location.json".externalFile())
+                addProperty("time", Date(location.time).toDateDay())
+                addProperty("sunrise", ss.sunrise?.toDateDay())
+                addProperty("sunset", ss.sunset?.toDateDay())
+            }.appendToFile(externalFile("utility/location.json"))
         }
     }
 
@@ -421,7 +448,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
         Thread(Runnable {
             {
                 val tmpHopp = GraphHopper().forMobile()
-                tmpHopp.load("$HOME/area")
+                tmpHopp.load(File(homeDir(), "area").absolutePath)
                 log("found graph " + tmpHopp.graphHopperStorage.toString() + ", nodes:" + tmpHopp.graphHopperStorage.nodes)
                 hopper = tmpHopp
             }.orPrint()
@@ -482,18 +509,10 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
     private fun drawMapOverlays() {
         if (overlayDrawn) return
         overlayDrawn = true
-        val obj = "$HOME/map.json".fileAsJsonObject()
+        val obj = File(homeDir(), "map.json").asJsonObject()
 
         val locations = obj.a("locations").mapObject { LocationPoint(s("name"), d("latitude"), d("longitude"), s("colour", "blue")) }
-        arrayOf(
-                R.drawable.ic_place_green,
-                R.drawable.ic_place_blue,
-                R.drawable.ic_place_pink,
-                R.drawable.ic_place_red,
-                R.drawable.ic_place_black,
-                R.drawable.ic_place_light_blue,
-                R.drawable.ic_place_purple
-        ).forEachIndexed { index, image ->
+        markerColours.forEach { (image, name) ->
             ItemizedLayer(
                     mapView.map(),
                     ArrayList<MarkerItem>(),
@@ -501,19 +520,8 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
                     this@MapsActivity
             ).apply {
                 mapView.map().layers().add(this)
-                addItems(locations.filter {
-                    when (index) {
-                        0 -> it.colour == "green"
-                        1 -> it.colour == "blue"
-                        2 -> it.colour == "pink"
-                        3 -> it.colour == "red"
-                        4 -> it.colour == "black"
-                        5 -> it.colour == "light_blue"
-                        6 -> it.colour == "purple"
-                        else -> false
-                    }
-                }.map {
-                    MarkerItem(it.name, it.name, GeoPoint(it.latitude, it.longitude))
+                addItems(locations.filter { it.colour == name }.map {
+                    MarkerItem(it.name, it.name, it.toGeoPoint())
                 })
             }
         }
@@ -524,7 +532,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
             "Type of object: ${s("type")}".error()
             when (s("type")) {
                 "circle" -> {
-                    vectorLayer.add(CircleDrawable(GeoPoint(d("latitude"), d("longitude")), d("size"), colourStyle(s("colour"))))
+                    vectorLayer.add(CircleDrawable(toGeoPoint(), d("size"), colourStyle(s("colour"))))
                 }
                 "rectangle" -> {
                     vectorLayer.add(RectangleDrawable(GeoPoint(d("top"), d("left")), GeoPoint(d("bottom"), d("right")), colourStyle(s("colour"))))
@@ -532,14 +540,14 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
                 "line" -> {
                     vectorLayer.add(LineDrawable(ArrayList<GeoPoint>().apply {
                         a("points").mapObject {
-                            add(GeoPoint(d("latitude"), d("longitude")))
+                            add(toGeoPoint())
                         }
                     }, colourStyle(s("colour"))))
                 }
                 "layer" -> {
                     vectorLayer.add(PolygonDrawable(ArrayList<GeoPoint>().apply {
                         a("points").mapObject {
-                            add(GeoPoint(d("latitude"), d("longitude")))
+                            add(toGeoPoint())
                         }
                     }, colourStyle(s("colour"))))
                 }

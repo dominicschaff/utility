@@ -12,6 +12,7 @@ import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
 import kotlinx.android.synthetic.main.activity_qrcode_generator.*
 import zz.utility.R
+import zz.utility.getRoot
 import zz.utility.helpers.ignore
 import zz.utility.helpers.now
 import zz.utility.helpers.orPrint
@@ -37,7 +38,7 @@ class QRCodeGeneratorActivity : AppCompatActivity() {
             val fileName = "qr_code_" + now() + ".png"
             var out: FileOutputStream? = null
             try {
-                out = FileOutputStream(File(Environment.getExternalStorageDirectory().toString(), fileName))
+                out = FileOutputStream(File(getRoot(), fileName))
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, out) // bmp is your Bitmap instance
             } catch (e: Exception) {
                 e.printStackTrace()

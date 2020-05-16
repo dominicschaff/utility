@@ -17,7 +17,7 @@
         android:enabled="true"
         android:icon="@drawable/ic_main_barcode_scan"
         android:shortcutDisabledMessage="@string/shortcut_disabled"
-        android:shortcutId="open_map"
+        android:shortcutId="open_barcode"
         android:shortcutLongLabel="@string/shortcut_barcode"
         android:shortcutShortLabel="@string/shortcut_barcode">
         <intent

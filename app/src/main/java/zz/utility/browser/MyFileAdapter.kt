@@ -5,14 +5,12 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import android.media.MediaPlayer
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.net.toUri
 import com.bumptech.glide.Glide
 import zz.utility.*
 import zz.utility.browser.gallery.GalleryActivity
@@ -125,6 +123,12 @@ class MyFileAdapter(private val activity: FileBrowserActivity, private val galle
                         else -> activity.openFile(f)
                     }
                     9 -> activity.openFile(f)
+                    10 -> {
+                        if (f.isText() || f.isMarkdown())
+                            activity.startActivity(Intent(activity, TextEditorActivity::class.java).putExtra(PATH, f.absolutePath))
+                        else
+                            activity.openFile(f)
+                    }
                     else -> activity.openFile(f)
                 }
             }

@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.JsonObject
 import zz.utility.helpers.appendToFile
 import zz.utility.helpers.externalFile
-import zz.utility.helpers.fullDate
+import zz.utility.helpers.toDateFull
 import zz.utility.helpers.toast
 import java.util.*
 import kotlin.math.min
@@ -36,10 +36,10 @@ class TextReceiveActivity : AppCompatActivity() {
         val sharedText: String? = intent.getStringExtra(Intent.EXTRA_TEXT)
         if (sharedText != null) {
             JsonObject().apply {
-                addProperty("event_time", Date().fullDate())
+                addProperty("event_time", Date().toDateFull())
                 addProperty("event_type", "sharedMessage")
                 addProperty("text", sharedText)
-            }.appendToFile("utility/shared.json".externalFile())
+            }.appendToFile(externalFile("shared.json"))
             toast("Received and saved text: ${sharedText.substring(0, min(sharedText.length, 200))}", Toast.LENGTH_SHORT)
         }
 

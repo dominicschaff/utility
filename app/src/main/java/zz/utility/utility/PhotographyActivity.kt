@@ -96,8 +96,8 @@ class PhotographyActivity : AppCompatActivity(), LocationListener {
         moon_rise.text = dateOrTime(moonTimes.rise)
         moon_set.text = dateOrTime(moonTimes.set)
 
-        moon_next_new.text = moonNew.time.onlyDate()
-        moon_next_full.text = moonFull.time.onlyDate()
+        moon_next_new.text = moonNew.time.toDate()
+        moon_next_full.text = moonFull.time.toDate()
 
         moon_percentage_progress.text = "${(moonIllumination.fraction * 100).toInt()} %"
         moon_percentage_cycle.text = "${(moonIllumination.phase / 180 * 100).toInt()}"
@@ -119,13 +119,13 @@ class PhotographyActivity : AppCompatActivity(), LocationListener {
 
         data.text = """
             %.5f, %.5f
-            ${Date(location.time).fullDate()}
+            ${Date(location.time).toDateFull()}
             Accuracy: ${location.accuracy.toInt()} m | Altitude: ${location.altitude.toInt()} m
         """.trimIndent().format(location.latitude, location.longitude)
 
         val ss = SunriseSunset(location.latitude, location.longitude, Date(location.time), 0.0)
-        sun_day_length.text = (ss.sunset!!.time - ss.sunrise!!.time).toTimeTinyFormat()
-        sun_night_length.text = (24 * 60 * 60 * 1000 - (ss.sunset!!.time - ss.sunrise!!.time)).toTimeTinyFormat()
+        sun_day_length.text = (ss.sunset!!.time - ss.sunrise!!.time).toTimeShort()
+        sun_night_length.text = (24 * 60 * 60 * 1000 - (ss.sunset!!.time - ss.sunrise!!.time)).toTimeShort()
     }
 
     private fun dateOrTime(date: Date?): String {
@@ -133,10 +133,10 @@ class PhotographyActivity : AppCompatActivity(), LocationListener {
         val now = Date(now())
 
         return if (now.year == date.year && now.month == date.month && now.date == date.date)
-            date.shortTime()
+            date.toTimeShort()
         else if (date.date - 1 == now.date)
-            "T " + date.shortTime()
-        else date.fullDateShortTime()
+            "T " + date.toTimeShort()
+        else date.toDateShortTime()
     }
 
     override fun onLocationChanged(location: Location?) {

@@ -2,10 +2,11 @@
 
 package zz.utility
 
-import android.os.Environment
+import android.content.Context
+import androidx.core.content.ContextCompat
 import androidx.exifinterface.media.ExifInterface
 import com.google.gson.JsonObject
-import zz.utility.helpers.fileAsJsonObject
+import zz.utility.helpers.asJsonObject
 import java.io.File
 
 fun File.isImage(): Boolean = extension.toLowerCase() in arrayOf("jpg", "jpeg", "png", "gif", "webp")
@@ -13,6 +14,7 @@ fun File.isVideo(): Boolean = extension.toLowerCase() in arrayOf("mp4", "avi", "
 fun File.isMusic(): Boolean = extension.toLowerCase() in arrayOf("mp3", "wav", "m4a")
 fun File.isText(): Boolean = extension.toLowerCase() in arrayOf("txt", "md", "py", "json", "java", "kt")
 fun File.isAudio(): Boolean = extension.toLowerCase() in arrayOf("mp3", "wav", "m4a")
+fun File.isMarkdown(): Boolean = extension.toLowerCase() in arrayOf("md", "markdown", "mdown")
 
 
 fun StringBuilder.add(format: String, value: Int) {
@@ -147,11 +149,12 @@ fun File.imageIcon(): Int =
             else -> R.drawable.ic_file
         } else R.drawable.ic_file_folder
 
+inline fun Context.getRoot() = getExternalFilesDir(null)!!
 
-val HOME = "${Environment.getExternalStorageDirectory().absolutePath}/utility"
-val LOG = "$HOME/log.json"
-val MAIN_CONFIG = try {
-    "$HOME/utility.json".fileAsJsonObject()
+inline fun Context.homeDir() = File(getRoot(), "utility")
+inline fun Context.logFile() = File(homeDir(), "log.json")
+inline fun Context.configFile() = try {
+    File(homeDir(), "utility.json").asJsonObject()
 } catch (e: java.lang.Exception) {
     JsonObject()
 }

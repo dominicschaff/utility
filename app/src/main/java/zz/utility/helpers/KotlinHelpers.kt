@@ -15,6 +15,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import zz.utility.getRoot
 import java.io.File
 import kotlin.experimental.and
 
@@ -142,7 +143,7 @@ fun <T> doAsync(f: () -> T?, g: (T?) -> Unit) {
     }.execute()
 }
 
-inline fun String.externalFile() = File(Environment.getExternalStorageDirectory(), this)
+inline fun Context.externalFile(path:String) = File(getRoot(), path)
 
 private val hexArray = "0123456789ABCDEF".toCharArray()
 fun ByteArray.toHex(): String {

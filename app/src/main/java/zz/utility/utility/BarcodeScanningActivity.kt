@@ -18,7 +18,7 @@ import com.journeyapps.barcodescanner.BarcodeResult
 import kotlinx.android.synthetic.main.activity_scanning.*
 import zz.utility.R
 import zz.utility.helpers.appendToFile
-import zz.utility.helpers.fullDate
+import zz.utility.helpers.toDateFull
 import zz.utility.helpers.toast
 import java.io.File
 import java.util.*
@@ -74,7 +74,7 @@ class BarcodeScanningActivity : AppCompatActivity() {
 
     private fun barcodeRead(type: String, barcode: String) {
         JsonObject().apply {
-            addProperty("scan_time", Date().fullDate())
+            addProperty("scan_time", Date().toDateFull())
             addProperty("type", type)
             addProperty("content", barcode)
         }.appendToFile(File(Environment.getExternalStorageDirectory(), "barcodes.json"))

@@ -10,7 +10,7 @@ import zz.utility.helpers.stats.getDeviceStats
 import zz.utility.helpers.stats.getMemoryStats
 import zz.utility.helpers.stats.getNetworkStats
 import zz.utility.helpers.stats.getStorageStats
-import zz.utility.helpers.toTimeFormat
+import zz.utility.helpers.toTime
 
 fun Boolean.eng(): String = if (this) "yes" else "no"
 
@@ -72,7 +72,7 @@ class InfoActivity : AppCompatActivity() {
             Device: ${ds.device}
             Display: ${ds.display}
             Product: ${ds.product}
-            Uptime: ${ds.uptime.toTimeFormat()}
+            Uptime: ${ds.uptime.toTime()}
         """.trimIndent()
 
         device_screen.text = "${ds.width} x ${ds.height}\n${ds.density} : ${ds.dpWidth} x ${ds.dpHeight}"

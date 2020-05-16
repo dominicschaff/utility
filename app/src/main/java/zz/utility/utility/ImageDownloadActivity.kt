@@ -7,8 +7,8 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.koushikdutta.ion.Ion
 import kotlinx.android.synthetic.main.activity_image_download.*
-import zz.utility.MAIN_CONFIG
 import zz.utility.R
+import zz.utility.configFile
 import zz.utility.helpers.a
 import zz.utility.helpers.createChooser
 import zz.utility.helpers.mapObject
@@ -24,7 +24,7 @@ class ImageDownloadActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image_download)
 
-        val s = MAIN_CONFIG.a("imageUrls").mapObject { ImageLink(s("title"), s("url")) }
+        val s = configFile().a("imageUrls").mapObject { ImageLink(s("title"), s("url")) }
 
         createChooser("Select file to run", s.map { it.title }.toTypedArray(), DialogInterface.OnClickListener { _, which ->
             Log.e("Thing", "choice")

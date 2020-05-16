@@ -8,10 +8,14 @@ import com.google.gson.JsonParser
 import java.io.*
 
 inline fun String.fileExists(): Boolean = File(this).exists()
-inline fun String.fileAsJsonArray(): JsonArray = JsonParser().parse(BufferedReader(FileReader(this))).asJsonArray
-inline fun File.asJsonArray(): JsonArray = JsonParser().parse(BufferedReader(FileReader(this))).asJsonArray
-inline fun String.fileAsJsonObject(): JsonObject = JsonParser().parse(BufferedReader(FileReader(this))).asJsonObject
-inline fun File.asJsonObject(): JsonObject = JsonParser().parse(BufferedReader(FileReader(this))).asJsonObject
+
+inline fun String.fileAsJsonArray(): JsonArray = JsonParser.parseReader(BufferedReader(FileReader(this))).asJsonArray
+inline fun File.asJsonArray(): JsonArray = JsonParser.parseReader(BufferedReader(FileReader(this))).asJsonArray
+inline fun String.asJsonArray(): JsonArray = JsonParser.parseString(this).asJsonArray
+
+inline fun String.fileAsJsonObject(): JsonObject = JsonParser.parseReader(BufferedReader(FileReader(this))).asJsonObject
+inline fun File.asJsonObject(): JsonObject = JsonParser.parseReader(BufferedReader(FileReader(this))).asJsonObject
+inline fun String.asJsonObject(): JsonObject = JsonParser.parseString(this).asJsonObject
 
 fun JsonObject.s(key: String, defaultValue: String = ""): String =
         { if (has(key)) get(key).asString else defaultValue }.or { defaultValue }

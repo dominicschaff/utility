@@ -9,7 +9,7 @@ import androidx.core.net.toUri
 import kotlinx.android.synthetic.main.activity_alert_chooser.view.*
 import kotlinx.android.synthetic.main.alert_audio.view.*
 import zz.utility.R
-import zz.utility.helpers.toTimeFormat
+import zz.utility.helpers.toTime
 import java.io.File
 
 
@@ -47,7 +47,7 @@ fun Activity.playAudio(file: File) {
         setView(l)
     }.show()
     val mp: MediaPlayer = MediaPlayer.create(this, file.toUri())
-    songInfo.text = mp.duration.toLong().toTimeFormat()
+    songInfo.text = mp.duration.toLong().toTime()
     mp.setOnCompletionListener {
         mp.release()
         dialog.dismiss()

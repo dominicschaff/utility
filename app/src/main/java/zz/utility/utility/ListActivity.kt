@@ -4,10 +4,10 @@ import android.content.DialogInterface
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_list.*
-import zz.utility.HOME
 import zz.utility.R
 import zz.utility.browser.sortFiles
 import zz.utility.helpers.*
+import zz.utility.homeDir
 import java.io.File
 
 data class Entry(val text: String, val author: String, val source: String)
@@ -22,13 +22,13 @@ class ListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
 
-        val p = File("$HOME/lists")
+        val p = File(homeDir(), "lists")
         if (!p.exists()) {
             alert("List directory")
             return
         }
 
-        val f = File("$HOME/lists").listFiles()
+        val f = p.listFiles()
         files.addAll(f)
         files.sortFiles()
         val fileNames: Array<String> = files.map { it.nameWithoutExtension }.toTypedArray()

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/Outer"
     android:background="@color/black"
-    tools:context=".browser.TextViewActivity">
+    tools:context=".browser.TextEditorActivity">
 
     <TextView
         android:id="@+id/filename"
@@ -27,7 +27,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/filename">
 
-        <TextView
+        <EditText
             android:id="@+id/text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

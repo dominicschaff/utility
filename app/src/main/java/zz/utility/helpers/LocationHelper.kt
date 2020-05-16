@@ -52,26 +52,3 @@ fun Float.bearingToCompass(): String = when {
     this < 343 -> "NW"
     else -> "N"
 }
-
-fun Location.saveToFile() {
-    val ss = SunriseSunset(latitude, longitude, Date(time), 0.0)
-    JsonObject().apply {
-        addProperty("event_time", Date().fullDate())
-        addProperty("latitude", latitude)
-        addProperty("longitude", longitude)
-        addProperty("accuracy", accuracy)
-        addProperty("speed", speed)
-
-        addProperty("altitude", altitude)
-
-        addProperty("bearing", bearing)
-        addProperty("provider", provider)
-        addProperty("bearingAccuracyDegrees", bearingAccuracyDegrees)
-        addProperty("speedAccuracyMetersPerSecond", speedAccuracyMetersPerSecond)
-        addProperty("verticalAccuracyMeters", verticalAccuracyMeters)
-        addProperty("openLocationCode", OpenLocationCode.encode(latitude, longitude))
-        addProperty("time", Date(time).fullDateDay())
-        addProperty("sunrise", ss.sunrise?.fullDateDay())
-        addProperty("sunset", ss.sunset?.fullDateDay())
-    }.appendToFile("utility/location.json".externalFile())
-}

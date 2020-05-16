@@ -6,7 +6,6 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.provider.ContactsContract.CommonDataKinds.Phone
@@ -19,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_test_screen.*
 import zz.utility.MainActivity
 import zz.utility.R
 import zz.utility.helpers.error
-import zz.utility.helpers.fullDate
+import zz.utility.helpers.toDateFull
 import java.util.*
 
 const val CHANNEL_ID = "myDefault"
@@ -82,7 +81,7 @@ class TestScreenActivity : AppCompatActivity() {
     private fun doBotStart()
     {
         add("Initializing system...")
-        add("Local time: ${Date().fullDate()}")
+        add("Local time: ${Date().toDateFull()}")
         tts = TextToSpeech(this, TextToSpeech.OnInitListener { status ->
             if (status == TextToSpeech.SUCCESS) {
                 val result = tts.setLanguage(Locale.UK)

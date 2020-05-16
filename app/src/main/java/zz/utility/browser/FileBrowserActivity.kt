@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_file_browser.*
 import zz.utility.R
+import zz.utility.getRoot
 import zz.utility.helpers.*
 import zz.utility.views.chooser
 import java.io.File

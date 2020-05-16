@@ -15,12 +15,14 @@
     <string name="title_activity_gallery">GalleryActivity</string>
     <string name="title_data">Pieces of Data</string>
     <string name="title_activity_info">Device Info</string>
+    <string name="title_activity_time">Time Tracking</string>
 
     <string name="wait">Please wait…</string>
 
     <string name="shortcut_map">Maps</string>
     <string name="shortcut_barcode">Barcode Scanner</string>
     <string name="shortcut_file_browser">File Browser</string>
+    <string name="shortcut_time_tracking">Time Tracking</string>
     <string name="shortcut_disabled">Shortcut disabled</string>
 
     <!-- Strings related to login -->
@@ -57,6 +59,7 @@
         <item>Copy Path</item>
         <item>Open</item>
         <item>Open External</item>
+        <item>Open Text Editor</item>
     </string-array>
 
     <string-array name="conversion_types">
@@ -71,6 +74,15 @@
         <item>Temperature (C°)</item>
     </string-array>
 
+    <string-array name="map_actions">
+        <item>Navigate to</item>
+        <item>Save Point</item>
+        <item>Share This Location</item>
+    </string-array>
+
     <string name="title_item_list">Items</string>
     <string name="title_item_detail">Item Detail</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="home_second">Home Second</string>
 </resources>

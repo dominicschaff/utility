@@ -33,8 +33,12 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:supportsRtl">
-
-        <!-- Main -->
+        <activity android:name=".main.SettingsActivity"></activity>
+        <activity
+            android:name=".main.Main2Activity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".browser.TextEditorActivity" /> <!-- Main -->
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -48,9 +52,7 @@
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
-        </activity>
-
-        <!-- File Browser -->
+        </activity> <!-- File Browser -->
         <activity
             android:name=".browser.FileBrowserActivity"
             android:label="File Browser"
@@ -98,17 +100,13 @@
             android:parentActivityName=".browser.FileBrowserActivity"
             android:screenOrientation="sensorLandscape"
             android:theme="@style/AppTheme.NoActionBar"
-            tools:ignore="LockedOrientationActivity" />
-
-        <!-- GPS -->
+            tools:ignore="LockedOrientationActivity" /> <!-- GPS -->
         <activity
             android:name=".utility.PhotographyActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".maps.MapsActivity"
-            android:theme="@style/AppTheme.NavOverlay.NoActionBar" />
-
-        <!-- API Based -->
+            android:theme="@style/AppTheme.NavOverlay.NoActionBar" /> <!-- API Based -->
         <activity
             android:name=".utility.DevRantActivity"
             android:parentActivityName=".MainActivity"
@@ -118,9 +116,7 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".utility.DailyComicActivity"
-            android:parentActivityName=".MainActivity" />
-
-        <!-- Utilities -->
+            android:parentActivityName=".MainActivity" /> <!-- Utilities -->
         <activity
             android:name=".utility.data.ItemListActivity"
             android:label="@string/title_data"
@@ -154,8 +150,7 @@
             android:name=".utility.TouchScreenActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar.IgnoreCutout" />
-
-        <!-- POC -->
+         <!-- POC -->
         <activity
             android:name=".demo.TestScreenActivity"
             android:parentActivityName=".demo.LoginActivity" />
@@ -163,9 +158,7 @@
             android:name=".demo.LoginActivity"
             android:label="@string/title_activity_login"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.Login" />
-
-        <!-- Service Related -->
+            android:theme="@style/AppTheme.Login" /> <!-- Service Related -->
         <activity
             android:name=".text.TextReceiveActivity"
             android:theme="@android:style/Theme.NoDisplay">

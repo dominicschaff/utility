@@ -14,15 +14,15 @@ val longDateTime = SimpleDateFormat("yyyy-MM-dd EEE HH:mm:ss", Locale.ENGLISH)
 val fileDate = SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.ENGLISH)
 val niceDate = SimpleDateFormat("EEE MMM dd yyyy", Locale.ENGLISH)
 
-inline fun Date.fullDate(): String = fullDate.format(this)
-inline fun Date.fullDateShortTime(): String = fullDateShortTime.format(this)
-inline fun Date.fullDateDay(): String = longDateTime.format(this)
-inline fun Date.fullTime(): String = fullTime.format(this)
-inline fun Date.shortTime(): String = shortTime.format(this)
-inline fun Date.fileDate(): String = fileDate.format(this)
-inline fun Date.onlyDate(): String = onlyDate.format(this)
-inline fun Date.niceDate(): String = niceDate.format(this)
-inline fun Long.toTimeFormat(): String {
+inline fun Date.toDateFull(): String = fullDate.format(this)
+inline fun Date.toDateShortTime(): String = fullDateShortTime.format(this)
+inline fun Date.toDateDay(): String = longDateTime.format(this)
+inline fun Date.toTime(): String = fullTime.format(this)
+inline fun Date.toTimeShort(): String = shortTime.format(this)
+inline fun Date.toDateFile(): String = fileDate.format(this)
+inline fun Date.toDate(): String = onlyDate.format(this)
+inline fun Date.toDatePretty(): String = niceDate.format(this)
+inline fun Long.toTime(): String {
     var time = this
     val milli = time % 1000
     time /= 1000
@@ -33,7 +33,7 @@ inline fun Long.toTimeFormat(): String {
     return "%02d:%02d:%02d.%d".format(hours, minutes, seconds, milli)
 }
 
-inline fun Long.toTimeTinyFormat(): String {
+inline fun Long.toTimeShort(): String {
     var time = this
     time /= 1000
     time /= 60
