@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_list.*
 import zz.utility.R
-import zz.utility.browser.sortFiles
 import zz.utility.helpers.*
 import zz.utility.homeDir
 import java.io.File
@@ -30,7 +29,6 @@ class ListActivity : AppCompatActivity() {
 
         val f = p.listFiles()
         files.addAll(f)
-        files.sortFiles()
         val fileNames: Array<String> = files.map { it.nameWithoutExtension }.toTypedArray()
         createChooser("Select file to run", fileNames, DialogInterface.OnClickListener { _, which ->
             supportActionBar?.subtitle = files[which].name

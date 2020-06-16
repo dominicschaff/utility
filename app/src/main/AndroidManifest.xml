@@ -37,7 +37,7 @@
         <activity
             android:name=".MainActivity"
             android:label="Utility Main Screen"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -26,17 +26,4 @@
             android:targetPackage="zz.utility" />
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
-    <shortcut
-        android:enabled="true"
-        android:icon="@drawable/ic_main_file"
-        android:shortcutDisabledMessage="@string/shortcut_disabled"
-        android:shortcutId="open_file_browser"
-        android:shortcutLongLabel="@string/shortcut_file_browser"
-        android:shortcutShortLabel="@string/shortcut_file_browser">
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:targetClass="zz.utility.browser.FileBrowserActivity"
-            android:targetPackage="zz.utility" />
-        <categories android:name="android.shortcut.conversation" />
-    </shortcut>
 </shortcuts>
