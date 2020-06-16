@@ -14,6 +14,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.documentfile.provider.DocumentFile
 import java.io.File
 import kotlin.experimental.and
 
@@ -112,9 +113,18 @@ inline fun View.hide() {
 
 inline fun Activity.openFile(f: File) {
     try {
-        val apkUri = FileProvider.getUriForFile(this, applicationContext.packageName + ".provider", f)
         val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = apkUri
+        intent.data = FileProvider.getUriForFile(this, applicationContext.packageName + ".provider", f)
+        intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+        startActivity(intent)
+    } catch (e: Exception) {
+        toast("No application to open this file")
+    }
+}
+inline fun Activity.openFile(f: DocumentFile) {
+    try {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = f.uri
         intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
         startActivity(intent)
     } catch (e: Exception) {

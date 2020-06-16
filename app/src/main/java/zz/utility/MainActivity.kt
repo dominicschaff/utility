@@ -6,7 +6,6 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import zz.utility.browser.FileBrowserActivity
 import zz.utility.demo.LoginActivity
 import zz.utility.helpers.consume
 import zz.utility.helpers.goto
@@ -26,7 +25,6 @@ class MainActivity : AppCompatActivity() {
         goto_info.setOnClickListener { goto(InfoActivity::class.java) }
         goto_scan.setOnClickListener { goto(BarcodeScanningActivity::class.java) }
         goto_osm_maps.setOnClickListener { goto(MapsActivity::class.java) }
-        goto_files.setOnClickListener { goto(FileBrowserActivity::class.java) }
         goto_list.setOnClickListener { goto(ListActivity::class.java) }
         goto_images.setOnClickListener { goto(ImageDownloadActivity::class.java) }
         goto_daily_comic.setOnClickListener { goto(DailyComicActivity::class.java) }
@@ -53,15 +51,5 @@ class MainActivity : AppCompatActivity() {
                 ))) {
             toast("Something went wrong")
         }
-    }
-
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean = consume { menuInflater.inflate(R.menu.menu_main, menu) }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
-        R.id.action_settings -> consume {
-            goto(SettingsActivity::class.java)
-        }
-        else -> super.onOptionsItemSelected(item)
     }
 }

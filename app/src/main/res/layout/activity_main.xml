@@ -26,12 +26,6 @@
             android:text="Maps" />
 
         <TextView
-            android:id="@+id/goto_files"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_file"
-            android:text="Files" />
-
-        <TextView
             android:id="@+id/goto_list"
             style="@style/MainTitle"
             android:drawableTop="@drawable/ic_main_list"

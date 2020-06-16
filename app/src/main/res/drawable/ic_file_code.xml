@@ -1,9 +1,0 @@
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="24dp"
-    android:height="24dp"
-    android:viewportWidth="24"
-    android:viewportHeight="24">
-    <path
-        android:fillColor="@color/file_browser_icon"
-        android:pathData="M13,12v1.649l3.229,1.351 -3.229,1.347v1.653l5,-2.201v-1.599l-5,-2.2zM6,14.201v1.599l5,2.2v-1.653l-3.229,-1.347 3.229,-1.351v-1.649l-5,2.201zM11.362,2c4.156,0 2.638,6 2.638,6s6,-1.65 6,2.457v11.543h-16v-20h7.362zM12.189,0h-10.189v24h20v-14.386c0,-2.391 -6.648,-9.614 -9.811,-9.614z" />
-</vector>
