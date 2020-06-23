@@ -14,7 +14,8 @@
         android:columnCount="5"
         android:columnOrderPreserved="true"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@id/ll_tools"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintBottom_toTopOf="@id/ll_second"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -38,101 +39,67 @@
             android:text="Data" />
     </GridLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_tools"
+    <GridLayout
+        android:id="@+id/ll_second"
         style="@style/Linear.Holo.Cyan"
-        android:layout_width="0dp"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        app:layout_constraintBottom_toTopOf="@id/ll_device"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:alignmentMode="alignBounds"
+        android:columnCount="5"
+        android:columnOrderPreserved="true"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ll_main">
 
-        <GridLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/goto_scan"
+            style="@style/MainTitle"
+            android:drawableTop="@drawable/ic_main_barcode_scan"
+            android:text="Scanner" />
+
+        <TextView
+            android:id="@+id/goto_moon"
+            style="@style/MainTitle"
+            android:drawableTop="@drawable/ic_main_camera"
+            android:text="Cycles" />
+
+        <TextView
+            android:id="@+id/goto_images"
+            style="@style/MainTitle"
+            android:drawableTop="@drawable/ic_main_images"
+            android:text="Image" />
+
+        <TextView
+            android:id="@+id/goto_info"
+            style="@style/MainTitle"
+            android:drawableTop="@drawable/ic_main_device"
+            android:text="Device" />
+
+        <TextView
+            android:id="@+id/goto_sensors"
+            style="@style/MainTitle"
+            android:drawableTop="@drawable/ic_main_sensors"
+            android:text="Sensors" />
+
+        <TextView
+            android:id="@+id/goto_draw"
+            style="@style/MainTitle"
+            android:drawableTop="@drawable/ic_main_draw"
+            android:text="Draw" />
+
+        <TextView
+            android:id="@+id/goto_qr"
+            style="@style/MainTitle"
             android:layout_height="wrap_content"
-            android:alignmentMode="alignBounds"
-            android:columnCount="@integer/column_count"
-            android:columnOrderPreserved="true">
+            android:drawableTop="@drawable/ic_main_barcode_scan"
+            android:text="QR Code" />
 
-            <TextView
-                android:id="@+id/goto_moon"
-                style="@style/MainTitle"
-                android:drawableTop="@drawable/ic_main_camera"
-                android:text="Cycles" />
-
-            <TextView
-                android:id="@+id/goto_dev_rant"
-                style="@style/MainTitle"
-                android:drawableTop="@drawable/ic_main_images"
-                android:text="Dev Rant" />
-
-            <TextView
-                android:id="@+id/goto_daily_comic"
-                style="@style/MainTitle"
-                android:drawableTop="@drawable/ic_main_images"
-                android:text="Comic" />
-
-            <TextView
-                android:id="@+id/goto_images"
-                style="@style/MainTitle"
-                android:drawableTop="@drawable/ic_main_images"
-                android:text="Image" />
-        </GridLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_device"
-        style="@style/Linear.Holo.Red"
-        android:layout_width="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ll_tools">
-
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:alignmentMode="alignBounds"
-            android:columnCount="@integer/column_count"
-            android:columnOrderPreserved="true">
-
-            <TextView
-                android:id="@+id/goto_scan"
-                style="@style/MainTitle"
-                android:drawableTop="@drawable/ic_main_barcode_scan"
-                android:text="Scanner" />
-
-            <TextView
-                android:id="@+id/goto_info"
-                style="@style/MainTitle"
-                android:drawableTop="@drawable/ic_main_device"
-                android:text="Device" />
-
-            <TextView
-                android:id="@+id/goto_sensors"
-                style="@style/MainTitle"
-                android:drawableTop="@drawable/ic_main_sensors"
-                android:text="Sensors" />
-
-            <TextView
-                android:id="@+id/goto_draw"
-                style="@style/MainTitle"
-                android:drawableTop="@drawable/ic_main_draw"
-                android:text="Draw" />
-
-            <TextView
-                android:id="@+id/goto_qr"
-                style="@style/MainTitle"
-                android:layout_height="wrap_content"
-                android:drawableTop="@drawable/ic_main_barcode_scan"
-                android:text="QR Code" />
-
-            <TextView
-                android:id="@+id/goto_test_login"
-                style="@style/MainTitle"
-                android:drawableTop="@drawable/ic_main_login"
-                android:text="POC" />
-        </GridLayout>
-    </LinearLayout>
+        <TextView
+            android:id="@+id/goto_test_login"
+            style="@style/MainTitle"
+            android:drawableTop="@drawable/ic_main_login"
+            android:text="POC" />
+    </GridLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

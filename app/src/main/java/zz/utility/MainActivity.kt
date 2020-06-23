@@ -27,9 +27,7 @@ class MainActivity : AppCompatActivity() {
         goto_osm_maps.setOnClickListener { goto(MapsActivity::class.java) }
         goto_list.setOnClickListener { goto(ListActivity::class.java) }
         goto_images.setOnClickListener { goto(ImageDownloadActivity::class.java) }
-        goto_daily_comic.setOnClickListener { goto(DailyComicActivity::class.java) }
         goto_draw.setOnClickListener { goto(TouchScreenActivity::class.java) }
-        goto_dev_rant.setOnClickListener { goto(DevRantActivity::class.java) }
         goto_moon.setOnClickListener { goto(PhotographyActivity::class.java) }
         goto_data.setOnClickListener { goto(ItemListActivity::class.java) }
 

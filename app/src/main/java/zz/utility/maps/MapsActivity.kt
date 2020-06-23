@@ -19,7 +19,8 @@ import androidx.core.content.ContextCompat
 import com.google.gson.JsonObject
 import com.graphhopper.GHRequest
 import com.graphhopper.GraphHopper
-import com.graphhopper.PathWrapper
+import com.graphhopper.ResponsePath
+import com.graphhopper.config.Profile
 import com.graphhopper.util.Parameters
 import com.graphhopper.util.StopWatch
 import kotlinx.android.synthetic.main.activity_maps.*
@@ -76,7 +77,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
 
     private lateinit var pathLayer: PathLayer
 
-    private var currentResponse: PathWrapper? = null
+    private var currentResponse: ResponsePath? = null
 
     private var hidden = true
     private var daylight = true
@@ -368,7 +369,7 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
             mapView.map().viewport().setTilt(60F)
         }
         mapView.map().updateMap(true)
-        gps_data.text = "%.8f, %.8f\n%.0f m [%s]".format(location.latitude, location.longitude, location.accuracy, location.provider)
+        gps_data.text = "%.6f, %.6f : %.0f m [%s]".format(location.latitude, location.longitude, location.accuracy, location.provider)
 
         if (gps_data_info.visibility == View.VISIBLE) {
             if (location.hasAccuracy())
@@ -448,9 +449,24 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
     private fun setupGraphhopper() {
         Thread(Runnable {
             {
-                val tmpHopp = GraphHopper().forMobile()
-                tmpHopp.load(File(homeDir(), "area").absolutePath)
+                val tmpHopp: GraphHopper = GraphHopper().apply {
+                    forMobile()
+//                    dataReaderFile = File(homeDir(), "area.osm.pbf").absolutePath
+                    graphHopperLocation = File(homeDir(), "area").absolutePath
+//                    encodingManager = EncodingManager.create("car")
+                    setProfiles(
+                            Profile("car").setVehicle("car").setWeighting("fastest"),
+                            Profile("foot").setVehicle("foot").setWeighting("fastest")
+                    )
+//                    ,
+//                    Profile("foot").setVehicle("foot").setWeighting("fastest")
+                    importOrLoad()
+                }
+
                 log("found graph " + tmpHopp.graphHopperStorage.toString() + ", nodes:" + tmpHopp.graphHopperStorage.nodes)
+                tmpHopp.profiles.forEach {
+                    it.name.error()
+                }
                 hopper = tmpHopp
             }.orPrint()
             runOnUiThread { progress.hide() }
@@ -460,20 +476,28 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
     @SuppressLint("StaticFieldLeak")
     private fun calcPath(fromLat: Double, fromLon: Double, toLat: Double, toLon: Double) {
         progress.show()
-        object : AsyncTask<Void, Void, PathWrapper>() {
+        object : AsyncTask<Void, Void, ResponsePath>() {
             var time: Float = 0.toFloat()
 
-            override fun doInBackground(vararg v: Void): PathWrapper? {
+            override fun doInBackground(vararg v: Void): ResponsePath? {
                 val sw = StopWatch().start()
-                val req = GHRequest(fromLat, fromLon, toLat, toLon).setAlgorithm(Parameters.Algorithms.DIJKSTRA_BI)
-                req.vehicle = if (useCar) "car" else "foot"
-                val resp = hopper.route(req)
+                val resp = hopper.route(GHRequest(fromLat, fromLon, toLat, toLon).apply {
+                    profile = if (useCar) "car" else "foot"
+                    hints.putObject(Parameters.Routing.INSTRUCTIONS, true)
+                })
                 time = sw.stop().seconds
-                return { resp.best }.or { null }
+                if (resp.hasErrors()) {
+                    resp.errors.forEach {
+                        it.message!!.error()
+                        toast(it.message!!)
+                    }
+                    return null
+                }
+                return if (resp.all.isEmpty()) null else resp.best
             }
 
             @SuppressLint("SetTextI18n")
-            override fun onPostExecute(resp: PathWrapper?) {
+            override fun onPostExecute(resp: ResponsePath?) {
                 progress.hide()
                 if (resp == null) {
                     toast("Unable to create route")
@@ -482,14 +506,13 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
                 if (!resp.hasErrors()) {
                     currentResponse = resp
                     val t = resp.time / 1000
-                    path.text = "%d turns, %.1f km (%02d:%02d)".format(
-                            resp.instructions.size,
+//                    resp.ascend
+                    path.text = ("${resp.instructions.size} turns | %.1f km | %02d:%02d\nTook %.0f ms to compute").format(
                             resp.distance / 1000.0,
                             t / 60,
-                            t % 60)
+                            t % 60,
+                            time * 1000)
                     path.show()
-                    toast("Took ${(time * 1000).toInt()} ms to compute")
-
 
                     val geoPoints = ArrayList<GeoPoint>()
                     val pointList = resp.points

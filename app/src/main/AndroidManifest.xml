@@ -56,15 +56,8 @@
             android:name=".maps.MapsActivity"
             android:theme="@style/AppTheme.NavOverlay.NoActionBar" /> <!-- API Based -->
         <activity
-            android:name=".utility.DevRantActivity"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".utility.ImageDownloadActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".utility.DailyComicActivity"
-            android:parentActivityName=".MainActivity" /> <!-- Utilities -->
+            android:parentActivityName=".MainActivity" /><!-- Utilities -->
         <activity
             android:name=".utility.data.ItemListActivity"
             android:label="@string/title_data"
