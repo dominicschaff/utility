@@ -466,15 +466,11 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
             {
                 val tmpHopp: GraphHopper = GraphHopper().apply {
                     forMobile()
-//                    dataReaderFile = File(homeDir(), "area.osm.pbf").absolutePath
                     graphHopperLocation = File(homeDir(), "area").absolutePath
-//                    encodingManager = EncodingManager.create("car")
                     setProfiles(
                             Profile("car").setVehicle("car").setWeighting("fastest"),
                             Profile("foot").setVehicle("foot").setWeighting("fastest")
                     )
-//                    ,
-//                    Profile("foot").setVehicle("foot").setWeighting("fastest")
                     importOrLoad()
                 }
 
