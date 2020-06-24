@@ -41,12 +41,14 @@ import org.oscim.layers.tile.vector.labeling.LabelLayer
 import org.oscim.layers.vector.PathLayer
 import org.oscim.layers.vector.VectorLayer
 import org.oscim.layers.vector.geometries.*
+import org.oscim.map.Viewport
 import org.oscim.renderer.GLViewport
 import org.oscim.scalebar.DefaultMapScaleBar
 import org.oscim.scalebar.MapScaleBar
 import org.oscim.scalebar.MapScaleBarLayer
 import org.oscim.theme.VtmThemes
 import org.oscim.tiling.source.mapfile.MapFileTileSource
+import org.oscim.tiling.source.mapfile.MultiMapFileTileSource
 import zz.utility.R
 import zz.utility.configFile
 import zz.utility.externalFile
@@ -93,21 +95,34 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
         progress.show()
 
         // Tile source
-        val tileSource = MapFileTileSource()
-        if (tileSource.setMapFile(File(homeDir(), "area.map").absolutePath)) {
-            val tileLayer = mapView.map().setBaseMap(tileSource)
-            mapView.map().layers().add(BuildingLayer(mapView.map(), tileLayer))
-            mapView.map().layers().add(LabelLayer(mapView.map(), tileLayer))
-            mapView.map().setTheme(VtmThemes.OSMARENDER)
-//            mapView.map().setTheme(VtmThemes.NEWTRON)
+        val multiTileSource = MultiMapFileTileSource()
 
-            // Scale bar
-            mapScaleBar = DefaultMapScaleBar(mapView.map())
-            val mapScaleBarLayer = MapScaleBarLayer(mapView.map(), mapScaleBar)
-            mapScaleBarLayer.renderer.setPosition(GLViewport.Position.BOTTOM_LEFT)
-            mapScaleBarLayer.renderer.setOffset(5 * CanvasAdapter.getScale(), 0f)
-            mapView.map().layers().add(mapScaleBarLayer)
+        val world = File(homeDir(), "world.map")
+        if (world.exists() && world.isFile) {
+            val worldTileSource = MapFileTileSource()
+            worldTileSource.setMapFile(world.absolutePath)
+            multiTileSource.add(worldTileSource, Viewport.MIN_ZOOM_LEVEL, 9)
         }
+
+        homeDir().listFiles()?.forEach {
+            if (it.isFile && it.name.endsWith(".map") && it.name != "world.map") {
+                val tileSource = MapFileTileSource()
+                tileSource.setMapFile(it.absolutePath)
+                multiTileSource.add(tileSource)
+            }
+        }
+
+        val tileLayer = mapView.map().setBaseMap(multiTileSource)
+        mapView.map().layers().add(BuildingLayer(mapView.map(), tileLayer))
+        mapView.map().layers().add(LabelLayer(mapView.map(), tileLayer))
+        mapView.map().setTheme(VtmThemes.OSMARENDER)
+
+        // Scale bar
+        mapScaleBar = DefaultMapScaleBar(mapView.map())
+        val mapScaleBarLayer = MapScaleBarLayer(mapView.map(), mapScaleBar)
+        mapScaleBarLayer.renderer.setPosition(GLViewport.Position.BOTTOM_LEFT)
+        mapScaleBarLayer.renderer.setOffset(5 * CanvasAdapter.getScale(), 0f)
+        mapView.map().layers().add(mapScaleBarLayer)
 
         fab_menu.setOnClickListener {
             val state = if (hidden) {
