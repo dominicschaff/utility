@@ -71,13 +71,4 @@ class DrawView : View {
         }
         invalidate()
     }
-
-//    fun compress(): ByteArray {
-//        val drawBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-//        val mCanvas = Canvas(drawBitmap!!)
-//        mCanvas.drawPath(mPath, mPaint)
-//        val stream = ByteArrayOutputStream()
-//        drawBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
-//        return stream.toByteArray()
-//    }
 }

@@ -1,15 +1,6 @@
-@file:Suppress("unused", "NOTHING_TO_INLINE")
+@file:Suppress("NOTHING_TO_INLINE")
 
 package zz.utility.helpers
-
-inline fun String.intOr(default: Int = 0): Int =
-        { Integer.parseInt(this) }.orCatch(default)
-
-inline fun String.longOr(default: Long = 0): Long =
-        { java.lang.Long.parseLong(this) }.orCatch(default)
-
-inline fun String.doubleOr(default: Double = 0.0): Double =
-        { java.lang.Double.parseDouble(this) }.orCatch(default)
 
 fun Long.formatSize(): String {
     var s = "B"

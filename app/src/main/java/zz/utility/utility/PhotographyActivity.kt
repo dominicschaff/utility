@@ -14,7 +14,6 @@ import zz.utility.helpers.*
 import zz.utility.lib.SunriseSunset
 import java.util.*
 
-
 fun Date.zodiacSign(): String {
     val month = this.month + 1
     val day = this.date
@@ -35,20 +34,21 @@ fun Date.zodiacSign(): String {
     }
 }
 
+@SuppressLint("MissingPermission")
 class PhotographyActivity : AppCompatActivity(), LocationListener {
 
     private lateinit var locationManager: LocationManager
 
-    @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_photography)
 
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+        if (location != null) locationReceived(location)
         locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, this, null)
     }
 
-    @SuppressLint("MissingPermission")
     override fun onResume() {
         super.onResume()
         locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, this, null)

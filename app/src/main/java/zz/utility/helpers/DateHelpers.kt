@@ -8,20 +8,16 @@ import java.util.*
 val fullDate = SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.ENGLISH)
 val fullDateShortTime = SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.ENGLISH)
 val onlyDate = SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH)
-val fullTime = SimpleDateFormat("HH:mm:ss", Locale.ENGLISH)
 val shortTime = SimpleDateFormat("HH:mm", Locale.ENGLISH)
 val longDateTime = SimpleDateFormat("yyyy-MM-dd EEE HH:mm:ss", Locale.ENGLISH)
 val fileDate = SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.ENGLISH)
-val niceDate = SimpleDateFormat("EEE MMM dd yyyy", Locale.ENGLISH)
 
 inline fun Date.toDateFull(): String = fullDate.format(this)
 inline fun Date.toDateShortTime(): String = fullDateShortTime.format(this)
 inline fun Date.toDateDay(): String = longDateTime.format(this)
-inline fun Date.toTime(): String = fullTime.format(this)
 inline fun Date.toTimeShort(): String = shortTime.format(this)
 inline fun Date.toDateFile(): String = fileDate.format(this)
 inline fun Date.toDate(): String = onlyDate.format(this)
-inline fun Date.toDatePretty(): String = niceDate.format(this)
 inline fun Long.toTime(): String {
     var time = this
     val milli = time % 1000
@@ -43,10 +39,6 @@ inline fun Long.toTimeShort(): String {
 }
 
 inline fun now(): Long = System.currentTimeMillis()
-
-inline fun Int.days(): Long = this * 24L * 60L * 60L * 1000L
-inline fun Int.hours(): Long = this * 60L * 60L * 1000L
-inline fun Int.minutes(): Long = this * 60L * 1000L
 
 fun Date?.addHours(hours: Int): Date? {
     this ?: return null

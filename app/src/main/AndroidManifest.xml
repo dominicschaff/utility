@@ -69,10 +69,6 @@
             android:parentActivityName=".utility.data.ItemListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".utility.SensorsActivity"
-            android:label="@string/title_activity_sensors"
-            android:parentActivityName=".MainActivity" />
-        <activity
             android:name=".utility.QRCodeGeneratorActivity"
             android:label="@string/title_activity_qr_code_generator"
             android:parentActivityName=".MainActivity" />

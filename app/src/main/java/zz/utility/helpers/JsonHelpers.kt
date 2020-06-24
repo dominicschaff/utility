@@ -7,8 +7,6 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import java.io.*
 
-inline fun String.fileExists(): Boolean = File(this).exists()
-
 inline fun String.fileAsJsonArray(): JsonArray = JsonParser.parseReader(BufferedReader(FileReader(this))).asJsonArray
 inline fun File.asJsonArray(): JsonArray = JsonParser.parseReader(BufferedReader(FileReader(this))).asJsonArray
 inline fun String.asJsonArray(): JsonArray = JsonParser.parseString(this).asJsonArray

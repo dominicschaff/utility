@@ -63,29 +63,14 @@
 
         <TextView
             style="@style/Text.Large.Center"
-            android:text="Memory" />
-
-        <TextView
-            android:id="@+id/device_memory"
-            style="@style/Text" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        style="@style/Linear.Padding.Holo.Red"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@id/guide_mid"
-        app:layout_constraintEnd_toEndOf="@id/guide_vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guide_top">
-
-        <TextView
-            style="@style/Text.Large.Center"
-            android:text="Device Storage" />
+            android:text="Device" />
 
         <TextView
             android:id="@+id/device_storage"
+            style="@style/Text" />
+
+        <TextView
+            android:id="@+id/device_memory"
             style="@style/Text" />
     </LinearLayout>
 
@@ -111,10 +96,10 @@
         style="@style/Linear.Padding.Holo.Cyan"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@id/guide_bot"
+        app:layout_constraintBottom_toBottomOf="@id/guide_mid"
         app:layout_constraintEnd_toEndOf="@id/guide_vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guide_mid">
+        app:layout_constraintTop_toTopOf="@id/guide_top">
 
         <TextView
             style="@style/Text.Large.Center"
@@ -129,10 +114,10 @@
         style="@style/Linear.Padding.Holo.Pink"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/guide_bot"
         app:layout_constraintEnd_toEndOf="@id/guide_vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guide_bot">
+        app:layout_constraintTop_toTopOf="@id/guide_mid">
 
         <TextView
             style="@style/Text.Large.Center"
@@ -147,10 +132,10 @@
         style="@style/Linear.Padding.Holo.Red"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/guide_bot"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/guide_vertical"
-        app:layout_constraintTop_toTopOf="@id/guide_bot">
+        app:layout_constraintTop_toTopOf="@id/guide_mid">
 
         <TextView
             style="@style/Text.Large.Center"
@@ -159,6 +144,49 @@
         <TextView
             android:id="@+id/device_device"
             style="@style/Text" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/Linear.Padding.Holo.Pink"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guide_vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guide_bot">
+
+        <TextView
+            style="@style/Text.Large.Center"
+            android:text="Environment" />
+        <TextView style="@style/Text" android:id="@+id/light"/>
+        <LinearLayout style="@style/Linear.Horizontal">
+            <TextView style="@style/Text" android:id="@+id/gravity" android:layout_weight="1"/>
+            <TextView style="@style/Text" android:id="@+id/magnetic" android:layout_weight="1"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/Linear.Padding.Holo.Red"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guide_vertical"
+        app:layout_constraintTop_toTopOf="@id/guide_bot">
+
+        <TextView
+            style="@style/Text.Large.Center"
+            android:text="Device" />
+        <LinearLayout style="@style/Linear.Horizontal">
+            <TextView style="@style/Text" android:id="@+id/orientation" android:layout_weight="1"/>
+            <TextView style="@style/Text" android:id="@+id/proximity" android:layout_weight="1"/>
+        </LinearLayout>
+        <LinearLayout style="@style/Linear.Horizontal">
+            <TextView style="@style/Text" android:id="@+id/acceleration" android:layout_weight="1"/>
+            <TextView style="@style/Text" android:id="@+id/gyroscope" android:layout_weight="1"/>
+        </LinearLayout>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

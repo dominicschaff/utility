@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        goto_sensors.setOnClickListener { goto(SensorsActivity::class.java) }
         goto_qr.setOnClickListener { goto(QRCodeGeneratorActivity::class.java) }
         goto_info.setOnClickListener { goto(InfoActivity::class.java) }
         goto_scan.setOnClickListener { goto(BarcodeScanningActivity::class.java) }

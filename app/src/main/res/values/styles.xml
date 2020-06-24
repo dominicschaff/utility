@@ -190,7 +190,7 @@
     </style>
 
     <style name="LoginProgress" parent="Theme.AppCompat.Light">
-        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="AppTheme.Login" parent="Theme.AppCompat.NoActionBar">

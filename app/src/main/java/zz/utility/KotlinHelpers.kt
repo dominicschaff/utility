@@ -1,4 +1,4 @@
-@file:Suppress("unused", "NOTHING_TO_INLINE", "DefaultLocale")
+@file:Suppress("NOTHING_TO_INLINE", "DefaultLocale")
 
 package zz.utility
 
@@ -10,7 +10,6 @@ import zz.utility.helpers.asJsonObject
 import java.io.File
 
 fun String.extension(): String = substring(lastIndexOf(".")).toLowerCase()
-fun DocumentFile.extension(): String = name!!.extension()
 
 fun StringBuilder.add(format: String, value: Int) {
     try {
@@ -109,25 +108,6 @@ fun File.metaData(): String {
         return sb.toString()
     } catch (e: Exception) {
         return ""
-    }
-}
-
-
-fun File.metaDataShort(): String {
-    return try {
-        val exifInterface = ExifInterface(this.absolutePath)
-
-        val sb = StringBuilder()
-        try {
-            val w = exifInterface.getAttributeInt(ExifInterface.TAG_IMAGE_WIDTH, 0)
-            val h = exifInterface.getAttributeInt(ExifInterface.TAG_IMAGE_LENGTH, 0)
-            if (w != 0 && h != 0)
-                sb.append("Size: %dx%d\n".format(w, h))
-        } catch (e: Exception) {
-        }
-        sb.toString()
-    } catch (e: Exception) {
-        ""
     }
 }
 

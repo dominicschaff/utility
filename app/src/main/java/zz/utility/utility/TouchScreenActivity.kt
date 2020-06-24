@@ -1,13 +1,13 @@
 package zz.utility.utility
 
 import android.os.Bundle
-import android.os.Environment
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_touch_screen.*
 import zz.utility.R
-import zz.utility.helpers.toDateFile
 import zz.utility.helpers.screenshot
+import zz.utility.helpers.toDateFile
+import zz.utility.homeDir
 import java.io.File
 import java.util.*
 
@@ -18,7 +18,7 @@ class TouchScreenActivity : AppCompatActivity() {
         setContentView(R.layout.activity_touch_screen)
 
         fab_screenshot.setOnClickListener {
-            val notes = File(Environment.getExternalStorageDirectory(), "notes")
+            val notes = File(homeDir(), "notes")
             if (!notes.exists()) notes.mkdir()
             draw_area.screenshot(File(notes, "/${Date().toDateFile()}.jpeg"))
         }

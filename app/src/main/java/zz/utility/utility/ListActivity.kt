@@ -24,10 +24,11 @@ class ListActivity : AppCompatActivity() {
         val p = File(homeDir(), "lists")
         if (!p.exists()) {
             alert("List directory")
+            finish()
             return
         }
 
-        val f = p.listFiles()
+        val f = p.listFiles()!!
         files.addAll(f)
         val fileNames: Array<String> = files.map { it.nameWithoutExtension }.toTypedArray()
         createChooser("Select file to run", fileNames, DialogInterface.OnClickListener { _, which ->

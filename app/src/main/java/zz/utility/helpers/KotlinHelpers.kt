@@ -95,13 +95,6 @@ inline fun (() -> Unit?).orPrint() {
     }
 }
 
-inline fun (() -> String).orMessage(): String = try {
-    this()
-} catch (e: Exception) {
-    e.message ?: "No error message defined"
-}
-
-
 inline fun Context.toast(s: String, length: Int = Toast.LENGTH_LONG) = Toast.makeText(this, s, length).show()
 inline fun View.show() {
     visibility = View.VISIBLE
@@ -121,6 +114,7 @@ inline fun Activity.openFile(f: File) {
         toast("No application to open this file")
     }
 }
+
 inline fun Activity.openFile(f: DocumentFile) {
     try {
         val intent = Intent(Intent.ACTION_VIEW)
@@ -132,15 +126,9 @@ inline fun Activity.openFile(f: DocumentFile) {
     }
 }
 
-
 inline fun consume(f: () -> Unit): Boolean {
     f()
     return true
-}
-
-inline fun consumeNo(f: () -> Unit): Boolean {
-    f()
-    return false
 }
 
 fun <T> doAsync(f: () -> T?, g: (T?) -> Unit) {
