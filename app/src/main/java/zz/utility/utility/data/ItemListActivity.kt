@@ -13,7 +13,9 @@ import kotlinx.android.synthetic.main.item_list.*
 import kotlinx.android.synthetic.main.item_list_content.view.*
 import zz.utility.R
 import zz.utility.configFile
+import zz.utility.externalFile
 import zz.utility.helpers.a
+import zz.utility.helpers.asJsonArray
 import zz.utility.helpers.mapObject
 import zz.utility.helpers.s
 
@@ -49,7 +51,7 @@ class ItemListActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        val content = configFile().a("data")
+        val content = externalFile("data.json").asJsonArray()
         val items = content.mapObject { Item(s("title"), s("content")) }
         recyclerView.adapter = SimpleItemRecyclerViewAdapter(this, items, twoPane)
     }

@@ -85,17 +85,13 @@
             android:label="@string/title_activity_list"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".utility.TouchScreenActivity"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar.IgnoreCutout" /> <!-- POC -->
-        <activity
             android:name=".demo.TestScreenActivity"
             android:parentActivityName=".demo.LoginActivity" />
         <activity
             android:name=".demo.LoginActivity"
             android:label="@string/title_activity_login"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.Login" /> <!-- Service Related -->
+            android:theme="@style/AppTheme.Login" />
         <activity
             android:name=".text.TextReceiveActivity"
             android:theme="@android:style/Theme.NoDisplay">
@@ -107,16 +103,6 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.provider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
-        </provider>
     </application>
 
 </manifest>

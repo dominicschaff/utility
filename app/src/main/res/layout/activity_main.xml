@@ -78,12 +78,6 @@
             android:text="Device" />
 
         <TextView
-            android:id="@+id/goto_draw"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_draw"
-            android:text="Draw" />
-
-        <TextView
             android:id="@+id/goto_qr"
             style="@style/MainTitle"
             android:layout_height="wrap_content"
