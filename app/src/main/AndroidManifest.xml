@@ -34,7 +34,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:supportsRtl">
-        <activity android:name=".text.TextActivity" /><!-- Main -->
+        <activity android:name=".text.TextActivity" />
         <activity
             android:name=".MainActivity"
             android:label="Utility Main Screen"
@@ -49,16 +49,16 @@
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
-        </activity>  <!-- GPS -->
+        </activity>
         <activity
             android:name=".utility.PhotographyActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".maps.MapsActivity"
-            android:theme="@style/AppTheme.NavOverlay.NoActionBar" /> <!-- API Based -->
+            android:theme="@style/AppTheme.NavOverlay.NoActionBar" />
         <activity
             android:name=".utility.ImageDownloadActivity"
-            android:parentActivityName=".MainActivity" /><!-- Utilities -->
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".utility.data.ItemListActivity"
             android:label="@string/title_data"
