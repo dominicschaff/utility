@@ -309,31 +309,33 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
         locationsSaved.addAll(locations)
 
         markerColours.forEach { (image, name) ->
-            ItemizedLayer(
+            val list = ArrayList<MarkerItem>()
+            list.addAll(locations.filter { it.colour == name }.map {
+                MarkerItem(it.name, it.name, it.toGeoPoint())
+            })
+
+            val layer = ItemizedLayer(
                     mapView.map(),
-                    ArrayList<MarkerItem>(),
-                    MarkerSymbol(drawableToBitmap(getDrawable(image)), MarkerSymbol.HotspotPlace.BOTTOM_CENTER, true),
-                    this@MapsActivity
-            ).apply {
-                mapView.map().layers().add(this)
-                addItems(locations.filter { it.colour == name }.map {
-                    MarkerItem(it.name, it.name, it.toGeoPoint())
-                })
-            }
+                    list,
+                    MarkerSymbol(drawableToBitmap(ContextCompat.getDrawable(this, image)), MarkerSymbol.HotspotPlace.BOTTOM_CENTER, true),
+                    this
+            )
+            mapView.map().layers().add(layer)
         }
         val newLocations = File(homeDir(), "saved_locations.json")
         if (newLocations.exists()) {
-            ItemizedLayer(
+            val list = ArrayList<MarkerItem>()
+
+            list.addAll(newLocations.readLines().map { it.asJsonObject() }.map {
+                MarkerItem(it.s("name"), it.s("name"), it.toGeoPoint())
+            })
+            val layer = ItemizedLayer(
                     mapView.map(),
-                    ArrayList<MarkerItem>(),
-                    MarkerSymbol(drawableToBitmap(getDrawable(R.drawable.ic_place_cyan)), MarkerSymbol.HotspotPlace.BOTTOM_CENTER, true),
+                    list,
+                    MarkerSymbol(drawableToBitmap(ContextCompat.getDrawable(this, R.drawable.ic_place_cyan)), MarkerSymbol.HotspotPlace.BOTTOM_CENTER, true),
                     this@MapsActivity
-            ).apply {
-                mapView.map().layers().add(this)
-                addItems(newLocations.readLines().map { it.asJsonObject() }.map {
-                    MarkerItem(it.s("name"), it.s("name"), it.toGeoPoint())
-                })
-            }
+            )
+            mapView.map().layers().add(layer)
         }
     }
 

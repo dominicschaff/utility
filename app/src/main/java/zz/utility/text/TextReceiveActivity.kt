@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.JsonObject
 import zz.utility.externalFile
 import zz.utility.helpers.appendToFile
+import zz.utility.helpers.now
 import zz.utility.helpers.toDateFull
 import zz.utility.helpers.toast
 import java.util.*
@@ -35,7 +36,6 @@ class TextReceiveActivity : AppCompatActivity() {
     private fun handleSendText(intent: Intent) {
         val sharedText: String? = intent.getStringExtra(Intent.EXTRA_TEXT)
         if (sharedText != null) {
-            TextDB(this).add(Content(0, Category(0, "Default", 0), sharedText))
             JsonObject().apply {
                 addProperty("event_time", Date().toDateFull())
                 addProperty("event_type", "sharedMessage")

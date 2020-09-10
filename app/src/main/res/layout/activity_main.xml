@@ -27,16 +27,16 @@
             android:text="Maps" />
 
         <TextView
-            android:id="@+id/goto_list"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_list"
-            android:text="List" />
-
-        <TextView
             android:id="@+id/goto_data"
             style="@style/MainTitle"
             android:drawableTop="@drawable/ic_main_list"
             android:text="Data" />
+
+        <TextView
+            android:id="@+id/goto_shared"
+            style="@style/MainTitle"
+            android:drawableTop="@drawable/ic_main_share"
+            android:text="Shared" />
     </GridLayout>
 
     <GridLayout
@@ -58,18 +58,6 @@
             style="@style/MainTitle"
             android:drawableTop="@drawable/ic_main_barcode_scan"
             android:text="Scanner" />
-
-        <TextView
-            android:id="@+id/goto_moon"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_camera"
-            android:text="Cycles" />
-
-        <TextView
-            android:id="@+id/goto_images"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_images"
-            android:text="Image" />
 
         <TextView
             android:id="@+id/goto_info"

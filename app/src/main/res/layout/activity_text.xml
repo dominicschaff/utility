@@ -6,4 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".text.TextActivity">
 
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/action_copy_all"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:src="@drawable/ic_copy"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        style="@style/Scroll"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/action_copy_all">
+
+        <LinearLayout
+            android:id="@+id/list"
+            style="@style/Linear" />
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

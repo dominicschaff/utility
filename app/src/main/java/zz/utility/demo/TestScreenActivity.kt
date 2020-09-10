@@ -112,7 +112,6 @@ class TestScreenActivity : AppCompatActivity() {
         add("Searching Accounts...")
         getAccounts()
         add("Searching Contacts...")
-        getContacts()
     }
 
     private fun getAccounts() {
@@ -122,47 +121,6 @@ class TestScreenActivity : AppCompatActivity() {
 //        val accounts = manager.getAccountsByType("com.google")
 
         accounts.forEach { add("Found account: ${it.type}\n\t\t${it.name}") }
-    }
-
-    private fun getContacts() {
-        val cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, ContactsContract.Contacts.DISPLAY_NAME)
-        cursor ?: return
-
-        val count = cursor.count
-        add("Found $count contacts")
-        cursor.moveToFirst()
-
-        var previous = ""
-        do {
-            val name = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME))
-            val hasNumber = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts.HAS_PHONE_NUMBER))
-            if (hasNumber.endsWith("0")) continue
-//            val name = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts.))
-
-            if (previous != name) {
-                add("Contact: $name")
-                previous = name
-            }
-            val contactId = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID))
-            val phones = contentResolver.query(Phone.CONTENT_URI, null,
-                    Phone.CONTACT_ID + " = " + contactId, null, null)
-            phones ?: continue
-            while (phones.moveToNext()) {
-                val number = phones.getString(phones.getColumnIndex(Phone.NUMBER))
-                val type = phones.getInt(phones.getColumnIndex(Phone.TYPE))
-                add("\t\tNumber: $number -> " +
-                        when (type) {
-                            Phone.TYPE_HOME -> "home"
-                            Phone.TYPE_MOBILE -> "mobile"
-                            Phone.TYPE_WORK -> "work"
-                            else -> "Unknown:$type"
-                        })
-            }
-            phones.close()
-
-        } while (cursor.moveToNext())
-
-        cursor.close()
     }
 
     private fun add(s: String) = mainText.append("$s\n")

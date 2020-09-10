@@ -45,32 +45,33 @@ configurations {
 
 dependencies {
     api 'androidx.legacy:legacy-support-v13:1.0.0'
-    api 'androidx.appcompat:appcompat:1.1.0'
+    api 'androidx.appcompat:appcompat:1.2.0'
     api 'androidx.legacy:legacy-support-v4:1.0.0'
-    api 'com.google.android.material:material:1.3.0-alpha01'
+    api 'com.google.android.material:material:1.3.0-alpha02'
     api 'androidx.cardview:cardview:1.0.0'
     api 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta8'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
     implementation 'androidx.exifinterface:exifinterface:1.2.0'
 
-    implementation 'androidx.core:core-ktx:1.5.0-alpha01'
+    implementation 'androidx.core:core-ktx:1.5.0-alpha02'
     implementation 'androidx.fragment:fragment-ktx:1.2.5'
     implementation 'androidx.collection:collection-ktx:1.1.0'
 
     implementation 'com.google.zxing:core:3.4.0'
-    implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
+    implementation 'com.journeyapps:zxing-android-embedded:4.1.0'
     implementation 'com.google.code.gson:gson:2.8.6'
-
-    implementation 'com.koushikdutta.ion:ion:3.0.9'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     ext.mapsforge_version = '0.13.0'
 
-    // Mapsforge VTM
+    // Mapsforge VTM Core
     implementation "org.mapsforge:vtm:$mapsforge_version"
     implementation "org.mapsforge:vtm-themes:$mapsforge_version"
+    implementation 'org.slf4j:slf4j-api:1.7.30'
+
+    // Mapsforge VTM Android
     implementation "org.mapsforge:vtm-android:$mapsforge_version"
     implementation "org.mapsforge:vtm-android:$mapsforge_version:natives-arm64-v8a"
     implementation "org.mapsforge:vtm-android:$mapsforge_version:natives-armeabi-v7a"
@@ -80,9 +81,6 @@ dependencies {
         exclude group: 'com.vividsolutions', module: 'jts'
     }
 
-    implementation 'org.slf4j:slf4j-api:1.7.30'
-    implementation 'org.slf4j:slf4j-android:1.7.30'
-
     ext.graphhopper_version = '1.0'
 
     implementation("com.graphhopper:graphhopper-core:$graphhopper_version") {
@@ -91,15 +89,9 @@ dependencies {
         exclude group: 'org.apache.xmlgraphics', module: 'xmlgraphics-commons'
     }
 
-    implementation 'com.google.android.exoplayer:exoplayer:2.9.5'
-
     implementation 'androidx.navigation:navigation-fragment:2.3.0'
     implementation 'androidx.navigation:navigation-ui:2.3.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.0'
-
-    implementation 'org.shredzone.commons:commons-suncalc:3.3'
-
-    implementation 'com.sofakingforever.libraries:animated-stars-android:1.1.4@aar'
 }

@@ -2,17 +2,17 @@ package zz.utility
 
 import android.Manifest
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import zz.utility.demo.LoginActivity
-import zz.utility.helpers.consume
 import zz.utility.helpers.goto
 import zz.utility.helpers.requestPermissions
 import zz.utility.helpers.toast
 import zz.utility.maps.MapsActivity
-import zz.utility.utility.*
+import zz.utility.text.TextActivity
+import zz.utility.utility.BarcodeScanningActivity
+import zz.utility.utility.InfoActivity
+import zz.utility.utility.QRCodeGeneratorActivity
 import zz.utility.utility.data.ItemListActivity
 
 class MainActivity : AppCompatActivity() {
@@ -24,26 +24,15 @@ class MainActivity : AppCompatActivity() {
         goto_info.setOnClickListener { goto(InfoActivity::class.java) }
         goto_scan.setOnClickListener { goto(BarcodeScanningActivity::class.java) }
         goto_osm_maps.setOnClickListener { goto(MapsActivity::class.java) }
-        goto_list.setOnClickListener { goto(ListActivity::class.java) }
-        goto_images.setOnClickListener { goto(ImageDownloadActivity::class.java) }
-        goto_moon.setOnClickListener { goto(PhotographyActivity::class.java) }
         goto_data.setOnClickListener { goto(ItemListActivity::class.java) }
 
         goto_test_login.setOnClickListener { goto(LoginActivity::class.java) }
+        goto_shared.setOnClickListener { goto(TextActivity::class.java) }
 
         if (!requestPermissions(arrayOf(
-                        Manifest.permission.INTERNET,
                         Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_NETWORK_STATE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.READ_CALENDAR,
-                        Manifest.permission.CAMERA,
-                        Manifest.permission.RECORD_AUDIO,
-                        Manifest.permission.READ_PHONE_STATE,
-                        Manifest.permission.WAKE_LOCK,
-                        Manifest.permission.READ_CONTACTS
+                        Manifest.permission.CAMERA
                 ))) {
             toast("Something went wrong")
         }
