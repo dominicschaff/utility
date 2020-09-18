@@ -64,7 +64,7 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    ext.mapsforge_version = '0.13.0'
+    ext.mapsforge_version = '0.14.0'
 
     // Mapsforge VTM Core
     implementation "org.mapsforge:vtm:$mapsforge_version"

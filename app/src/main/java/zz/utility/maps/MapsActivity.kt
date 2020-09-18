@@ -34,6 +34,7 @@ import org.oscim.event.MotionEvent
 import org.oscim.layers.Layer
 import org.oscim.layers.LocationLayer
 import org.oscim.layers.marker.ItemizedLayer
+import org.oscim.layers.marker.MarkerInterface
 import org.oscim.layers.marker.MarkerItem
 import org.oscim.layers.marker.MarkerSymbol
 import org.oscim.layers.tile.buildings.BuildingLayer
@@ -62,7 +63,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 @SuppressLint("MissingPermission")
-class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItemGestureListener<MarkerItem> {
+class MapsActivity : AppCompatActivity(), LocationListener {
 
     private lateinit var mapScaleBar: MapScaleBar
     private lateinit var locationLayer: LocationLayer
@@ -316,9 +317,24 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
 
             val layer = ItemizedLayer(
                     mapView.map(),
-                    list,
+                    list as List<MarkerInterface>,
                     MarkerSymbol(drawableToBitmap(ContextCompat.getDrawable(this, image)), MarkerSymbol.HotspotPlace.BOTTOM_CENTER, true),
-                    this
+                    object : ItemizedLayer.OnItemGestureListener<MarkerInterface> {
+
+                        override fun onItemSingleTapUp(index: Int, item: MarkerInterface?): Boolean {
+                            item ?: return true
+                            toast("This is: " + list[index].title)
+                            return true
+                        }
+
+                        override fun onItemLongPress(index: Int, item: MarkerInterface?): Boolean {
+                            item ?: return true
+                            toast("Navigating to:" + list[index].title)
+                            calcPath(lastLocation.latitude, lastLocation.longitude, item.point.latitude, item.point.longitude)
+
+                            return true
+                        }
+                    }
             )
             mapView.map().layers().add(layer)
         }
@@ -331,9 +347,25 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
             })
             val layer = ItemizedLayer(
                     mapView.map(),
-                    list,
+                    list as List<MarkerInterface>,
                     MarkerSymbol(drawableToBitmap(ContextCompat.getDrawable(this, R.drawable.ic_place_cyan)), MarkerSymbol.HotspotPlace.BOTTOM_CENTER, true),
-                    this@MapsActivity
+                    object : ItemizedLayer.OnItemGestureListener<MarkerInterface> {
+
+                        override fun onItemSingleTapUp(index: Int, item: MarkerInterface?): Boolean {
+                            item ?: return true
+                            toast("This is: " + list[index].title)
+                            return true
+                        }
+
+                        override fun onItemLongPress(index: Int, item: MarkerInterface?): Boolean {
+                            item ?: return true
+                            toast("Navigating to:" + list[index].title)
+                            calcPath(lastLocation.latitude, lastLocation.longitude, item.point.latitude, item.point.longitude)
+
+                            return true
+                        }
+
+                    }
             )
             mapView.map().layers().add(layer)
         }
@@ -354,7 +386,12 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
 
     override fun onDestroy() {
         mapScaleBar.destroy()
-        mapView.onDestroy()
+        try {
+            mapView.onDestroy()
+        } catch (err:NullPointerException){
+
+        }
+
         super.onDestroy()
     }
 
@@ -448,20 +485,6 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
 
     override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
 
-    override fun onItemSingleTapUp(index: Int, item: MarkerItem?): Boolean {
-        item ?: return true
-        toast("This is: " + item.getTitle())
-        return true
-    }
-
-    override fun onItemLongPress(index: Int, item: MarkerItem?): Boolean {
-        item ?: return true
-        toast("Navigating to:" + item.getTitle())
-        calcPath(lastLocation.latitude, lastLocation.longitude, item.geoPoint.latitude, item.geoPoint.longitude)
-
-        return true
-    }
-
     @SuppressLint("StaticFieldLeak")
     private fun setupGraphhopper() {
         Thread(Runnable {
@@ -550,17 +573,32 @@ class MapsActivity : AppCompatActivity(), LocationListener, ItemizedLayer.OnItem
 
         val locations = obj.a("locations").mapObject { LocationPoint(s("name"), d("latitude"), d("longitude"), s("colour", "blue")) }
         markerColours.forEach { (image, name) ->
+            val list = ArrayList<MarkerItem>()
+
+            list.addAll(locations.filter { it.colour == name }.map {
+                MarkerItem(it.name, it.name, it.toGeoPoint())
+            })
             ItemizedLayer(
                     mapView.map(),
-                    ArrayList<MarkerItem>(),
-                    MarkerSymbol(drawableToBitmap(getDrawable(image)), MarkerSymbol.HotspotPlace.BOTTOM_CENTER, true),
-                    this@MapsActivity
-            ).apply {
-                mapView.map().layers().add(this)
-                addItems(locations.filter { it.colour == name }.map {
-                    MarkerItem(it.name, it.name, it.toGeoPoint())
-                })
-            }
+                    list as List<MarkerInterface>,
+                    MarkerSymbol(drawableToBitmap(ContextCompat.getDrawable(this, image)), MarkerSymbol.HotspotPlace.BOTTOM_CENTER, true),
+                    object : ItemizedLayer.OnItemGestureListener<MarkerInterface> {
+
+                        override fun onItemSingleTapUp(index: Int, item: MarkerInterface?): Boolean {
+                            item ?: return true
+                            toast("This is: " + list[index].title)
+                            return true
+                        }
+
+                        override fun onItemLongPress(index: Int, item: MarkerInterface?): Boolean {
+                            item ?: return true
+                            toast("Navigating to:" + list[index].title)
+                            calcPath(lastLocation.latitude, lastLocation.longitude, item.point.latitude, item.point.longitude)
+
+                            return true
+                        }
+                    }
+            )
         }
 
         val vectorLayer = VectorLayer(mapView.map())

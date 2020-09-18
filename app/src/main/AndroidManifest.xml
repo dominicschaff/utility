@@ -25,6 +25,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:supportsRtl">
+        <activity android:name=".utility.ClockActivity"></activity>
         <activity android:name=".text.TextActivity" />
         <activity
             android:name=".MainActivity"

@@ -11,6 +11,7 @@ import zz.utility.helpers.toast
 import zz.utility.maps.MapsActivity
 import zz.utility.text.TextActivity
 import zz.utility.utility.BarcodeScanningActivity
+import zz.utility.utility.ClockActivity
 import zz.utility.utility.InfoActivity
 import zz.utility.utility.QRCodeGeneratorActivity
 import zz.utility.utility.data.ItemListActivity
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         goto_scan.setOnClickListener { goto(BarcodeScanningActivity::class.java) }
         goto_osm_maps.setOnClickListener { goto(MapsActivity::class.java) }
         goto_data.setOnClickListener { goto(ItemListActivity::class.java) }
+        goto_clock.setOnClickListener { goto(ClockActivity::class.java) }
 
         goto_test_login.setOnClickListener { goto(LoginActivity::class.java) }
         goto_shared.setOnClickListener { goto(TextActivity::class.java) }

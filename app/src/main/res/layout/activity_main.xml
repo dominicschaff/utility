@@ -73,6 +73,13 @@
             android:text="QR Code" />
 
         <TextView
+            android:id="@+id/goto_clock"
+            style="@style/MainTitle"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/ic_main_clock"
+            android:text="Desk Clock" />
+
+        <TextView
             android:id="@+id/goto_test_login"
             style="@style/MainTitle"
             android:drawableTop="@drawable/ic_main_login"
