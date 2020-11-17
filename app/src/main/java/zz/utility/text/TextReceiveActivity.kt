@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.JsonObject
 import zz.utility.externalFile
 import zz.utility.helpers.appendToFile
-import zz.utility.helpers.now
 import zz.utility.helpers.toDateFull
 import zz.utility.helpers.toast
 import java.util.*

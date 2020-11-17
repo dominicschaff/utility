@@ -6,7 +6,6 @@ import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_text.*
-import kotlinx.android.synthetic.main.activity_text_line.view.*
 import zz.utility.R
 import zz.utility.externalFile
 import zz.utility.helpers.toast

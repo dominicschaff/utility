@@ -12,9 +12,7 @@ import kotlinx.android.synthetic.main.activity_item_list.*
 import kotlinx.android.synthetic.main.item_list.*
 import kotlinx.android.synthetic.main.item_list_content.view.*
 import zz.utility.R
-import zz.utility.configFile
 import zz.utility.externalFile
-import zz.utility.helpers.a
 import zz.utility.helpers.asJsonArray
 import zz.utility.helpers.mapObject
 import zz.utility.helpers.s

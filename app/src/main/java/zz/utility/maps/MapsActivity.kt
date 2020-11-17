@@ -127,10 +127,10 @@ class MapsActivity : AppCompatActivity(), LocationListener {
 
         fab_menu.setOnClickListener {
             val state = if (hidden) {
-                fab_menu.setImageDrawable(getDrawable(R.drawable.ic_clear))
+                fab_menu.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_clear))
                 View.VISIBLE
             } else {
-                fab_menu.setImageDrawable(getDrawable(R.drawable.ic_menu))
+                fab_menu.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_menu))
                 View.GONE
             }
 
@@ -188,7 +188,7 @@ class MapsActivity : AppCompatActivity(), LocationListener {
 
         vehicle.setOnClickListener {
             useCar = !useCar
-            vehicle.setImageDrawable(getDrawable(if (useCar) R.drawable.ic_map_car else R.drawable.ic_map_walk))
+            vehicle.setImageDrawable(ContextCompat.getDrawable(this, if (useCar) R.drawable.ic_map_car else R.drawable.ic_map_walk))
         }
 
         center.setOnClickListener {
@@ -207,10 +207,10 @@ class MapsActivity : AppCompatActivity(), LocationListener {
 
         show_extra.setOnClickListener {
             if (gps_data_info.visibility == View.VISIBLE) {
-                show_extra.setImageDrawable(getDrawable(R.drawable.ic_gps))
+                show_extra.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_gps))
                 gps_data_info.hide()
             } else {
-                show_extra.setImageDrawable(getDrawable(R.drawable.ic_gps_off))
+                show_extra.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_gps_off))
                 gps_data_info.show()
             }
         }
@@ -234,7 +234,7 @@ class MapsActivity : AppCompatActivity(), LocationListener {
 
         onLocationChanged(lastLocation)
 
-        setupGraphhopper()
+        setupRouting()
 
 
         val style = Style.builder()
@@ -486,8 +486,8 @@ class MapsActivity : AppCompatActivity(), LocationListener {
     override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
 
     @SuppressLint("StaticFieldLeak")
-    private fun setupGraphhopper() {
-        Thread(Runnable {
+    private fun setupRouting() {
+        Thread {
             {
                 val tmpHopp: GraphHopper = GraphHopper().apply {
                     forMobile()
@@ -506,7 +506,7 @@ class MapsActivity : AppCompatActivity(), LocationListener {
                 hopper = tmpHopp
             }.orPrint()
             runOnUiThread { progress.hide() }
-        }).start()
+        }.start()
     }
 
     @SuppressLint("StaticFieldLeak")
