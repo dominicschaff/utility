@@ -444,7 +444,7 @@ class MapsActivity : AppCompatActivity(), LocationListener {
 
             val ss = SunriseSunset(location.latitude, location.longitude, Date(location.time), 0.0)
 
-            gps_code.text = OpenLocationCode.encode(location.latitude, location.longitude)
+            gps_code.text =  OpenLocationCode(location.latitude, location.longitude).code
 
             gps_time_data.text = "${Date(location.time).toDateDay()}\n${ss.sunrise?.toTimeShort()} -> ${ss.sunset?.toTimeShort()}"
         }
@@ -464,7 +464,7 @@ class MapsActivity : AppCompatActivity(), LocationListener {
                 addProperty("bearingAccuracyDegrees", location.bearingAccuracyDegrees)
                 addProperty("speedAccuracyMetersPerSecond", location.speedAccuracyMetersPerSecond)
                 addProperty("verticalAccuracyMeters", location.verticalAccuracyMeters)
-                addProperty("openLocationCode", OpenLocationCode.encode(location.latitude, location.longitude))
+                addProperty("openLocationCode", OpenLocationCode(location.latitude, location.longitude).code)
                 addProperty("time", Date(location.time).toDateDay())
                 addProperty("sunrise", ss.sunrise?.toDateDay())
                 addProperty("sunset", ss.sunset?.toDateDay())

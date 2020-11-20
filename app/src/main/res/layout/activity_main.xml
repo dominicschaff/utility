@@ -31,12 +31,6 @@
             style="@style/MainTitle"
             android:drawableTop="@drawable/ic_main_list"
             android:text="Data" />
-
-        <TextView
-            android:id="@+id/goto_shared"
-            style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_share"
-            android:text="Shared" />
     </GridLayout>
 
     <GridLayout
