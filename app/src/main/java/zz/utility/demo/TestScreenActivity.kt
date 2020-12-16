@@ -7,12 +7,11 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.provider.ContactsContract
-import android.provider.ContactsContract.CommonDataKinds.Phone
 import android.speech.tts.TextToSpeech
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import kotlinx.android.synthetic.main.activity_test_screen.*
 import zz.utility.MainActivity
@@ -45,7 +44,7 @@ class TestScreenActivity : AppCompatActivity() {
         }
         do_send_image.setOnClickListener {
 
-            val bitmap = getDrawable(R.drawable.ic_place_pink)!!.toBitmap(width = 100, height = 100)
+            val bitmap = ContextCompat.getDrawable(this, R.drawable.ic_place_pink)!!.toBitmap(width = 100, height = 100)
 
             val intent = Intent(this, MainActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -78,11 +77,10 @@ class TestScreenActivity : AppCompatActivity() {
         notificationManager.createNotificationChannel(channel)
     }
 
-    private fun doBotStart()
-    {
+    private fun doBotStart() {
         add("Initializing system...")
         add("Local time: ${Date().toDateFull()}")
-        tts = TextToSpeech(this, TextToSpeech.OnInitListener { status ->
+        tts = TextToSpeech(this) { status ->
             if (status == TextToSpeech.SUCCESS) {
                 val result = tts.setLanguage(Locale.UK)
                 if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
@@ -96,7 +94,7 @@ class TestScreenActivity : AppCompatActivity() {
                 add("Voice cannot be used")
             }
             doContinue()
-        })
+        }
     }
 
     public override fun onDestroy() {
