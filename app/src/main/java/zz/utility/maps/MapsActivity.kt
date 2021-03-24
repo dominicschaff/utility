@@ -523,9 +523,11 @@ class MapsActivity : AppCompatActivity(), LocationListener {
                 })
                 time = sw.stop().seconds
                 if (resp.hasErrors()) {
-                    resp.errors.forEach {
-                        it.message!!.error()
-                        toast(it.message!!)
+                    runOnUiThread {
+                        resp.errors.forEach {
+                            it.message!!.error()
+                            toast(it.message!!)
+                        }
                     }
                     return null
                 }
