@@ -1,9 +1,9 @@
 package zz.utility.views
 
 import android.app.Activity
+import android.widget.GridLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import kotlinx.android.synthetic.main.activity_alert_chooser.view.*
 import zz.utility.R
 
 
@@ -15,7 +15,7 @@ fun Activity.chooser(title: String, options: Array<String>, callback: (Int, Stri
     dialog.setView(l)
     val finalDialog = dialog.show()
 
-    val grid = l.mainGrid
+    val grid = l.findViewById<GridLayout>(R.id.mainGrid)
 
     options.forEachIndexed { index, option ->
         val v = layoutInflater.inflate(R.layout.activity_alert_chooser_text, grid, false) as TextView

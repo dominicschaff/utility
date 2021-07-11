@@ -23,7 +23,6 @@ import com.graphhopper.ResponsePath
 import com.graphhopper.config.Profile
 import com.graphhopper.util.Parameters
 import com.graphhopper.util.StopWatch
-import kotlinx.android.synthetic.main.activity_maps.*
 import org.oscim.android.canvas.AndroidGraphics.drawableToBitmap
 import org.oscim.backend.CanvasAdapter
 import org.oscim.core.GeoPoint
@@ -52,6 +51,7 @@ import org.oscim.tiling.source.mapfile.MapFileTileSource
 import org.oscim.tiling.source.mapfile.MultiMapFileTileSource
 import zz.utility.R
 import zz.utility.configFile
+import zz.utility.databinding.ActivityMapsBinding
 import zz.utility.externalFile
 import zz.utility.helpers.*
 import zz.utility.homeDir
@@ -64,6 +64,8 @@ import kotlin.collections.ArrayList
 
 @SuppressLint("MissingPermission")
 class MapsActivity : AppCompatActivity(), LocationListener {
+
+    private lateinit var binding: ActivityMapsBinding
 
     private lateinit var mapScaleBar: MapScaleBar
     private lateinit var locationLayer: LocationLayer
@@ -92,8 +94,9 @@ class MapsActivity : AppCompatActivity(), LocationListener {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_maps)
-        progress.show()
+        binding = ActivityMapsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.progress.root.show()
 
         // Tile source
         val multiTileSource = MultiMapFileTileSource()
@@ -113,46 +116,46 @@ class MapsActivity : AppCompatActivity(), LocationListener {
             }
         }
 
-        val tileLayer = mapView.map().setBaseMap(multiTileSource)
-        mapView.map().layers().add(BuildingLayer(mapView.map(), tileLayer))
-        mapView.map().layers().add(LabelLayer(mapView.map(), tileLayer))
-        mapView.map().setTheme(VtmThemes.OSMARENDER)
+        val tileLayer = binding.mapView.map().setBaseMap(multiTileSource)
+        binding.mapView.map().layers().add(BuildingLayer(binding.mapView.map(), tileLayer))
+        binding.mapView.map().layers().add(LabelLayer(binding.mapView.map(), tileLayer))
+        binding.mapView.map().setTheme(VtmThemes.OSMARENDER)
 
         // Scale bar
-        mapScaleBar = DefaultMapScaleBar(mapView.map())
-        val mapScaleBarLayer = MapScaleBarLayer(mapView.map(), mapScaleBar)
+        mapScaleBar = DefaultMapScaleBar(binding.mapView.map())
+        val mapScaleBarLayer = MapScaleBarLayer(binding.mapView.map(), mapScaleBar)
         mapScaleBarLayer.renderer.setPosition(GLViewport.Position.BOTTOM_LEFT)
         mapScaleBarLayer.renderer.setOffset(5 * CanvasAdapter.getScale(), 0f)
-        mapView.map().layers().add(mapScaleBarLayer)
+        binding.mapView.map().layers().add(mapScaleBarLayer)
 
-        fab_menu.setOnClickListener {
+        binding.fabMenu.setOnClickListener {
             val state = if (hidden) {
-                fab_menu.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_clear))
+                binding.fabMenu.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_clear))
                 View.VISIBLE
             } else {
-                fab_menu.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_menu))
+                binding.fabMenu.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_menu))
                 View.GONE
             }
 
             hidden = !hidden
 
-            center.visibility = state
-            vehicle.visibility = state
-            share.visibility = state
-            navigate.visibility = state
-            center_on_me.visibility = state
-            fab_theme.visibility = state
-            draw_overlay.visibility = state
-            fab_save.visibility = state
-            show_extra.visibility = state
+            binding.center.visibility = state
+            binding.vehicle.visibility = state
+            binding.share.visibility = state
+            binding.navigate.visibility = state
+            binding.centerOnMe.visibility = state
+            binding.fabTheme.visibility = state
+            binding.drawOverlay.visibility = state
+            binding.fabSave.visibility = state
+            binding.showExtra.visibility = state
         }
 
-        fab_theme.setOnClickListener {
-            mapView.map().setTheme(if (daylight) VtmThemes.NEWTRON else VtmThemes.OSMARENDER)
+        binding.fabTheme.setOnClickListener {
+            binding.mapView.map().setTheme(if (daylight) VtmThemes.NEWTRON else VtmThemes.OSMARENDER)
             daylight = !daylight
         }
 
-        navigate.setOnClickListener {
+        binding.navigate.setOnClickListener {
             val titles = Array(locationsSaved.size) { locationsSaved[it].name }
             val builder = AlertDialog.Builder(this)
             builder.setTitle("Select location")
@@ -162,17 +165,17 @@ class MapsActivity : AppCompatActivity(), LocationListener {
             builder.show()
         }
 
-        center_on_me.setOnClickListener {
+        binding.centerOnMe.setOnClickListener {
             followMe = !followMe
             if (!rotateFollow)
                 rotateFollow = true
-            mapView.map().viewport().setMapViewCenter(0f, 0.5f)
+            binding.mapView.map().viewport().setMapViewCenter(0f, 0.5f)
             onLocationChanged(lastLocation)
-            val mp = mapView.map().mapPosition
-            mapView.map().setMapPosition(mp.latitude, mp.longitude, (1 shl 18).toDouble())
+            val mp = binding.mapView.map().mapPosition
+            binding.mapView.map().setMapPosition(mp.latitude, mp.longitude, (1 shl 18).toDouble())
         }
 
-        share.setOnClickListener {
+        binding.share.setOnClickListener {
             val i = Intent(Intent.ACTION_SEND)
 
             i.type = "text/plain"
@@ -186,41 +189,41 @@ class MapsActivity : AppCompatActivity(), LocationListener {
             }
         }
 
-        vehicle.setOnClickListener {
+        binding.vehicle.setOnClickListener {
             useCar = !useCar
-            vehicle.setImageDrawable(ContextCompat.getDrawable(this, if (useCar) R.drawable.ic_map_car else R.drawable.ic_map_walk))
+            binding.vehicle.setImageDrawable(ContextCompat.getDrawable(this, if (useCar) R.drawable.ic_map_car else R.drawable.ic_map_walk))
         }
 
-        center.setOnClickListener {
-            mapView.map().viewport().setRotation(0.0)
-            mapView.map().viewport().setMapViewCenter(0f, 0f)
+        binding.center.setOnClickListener {
+            binding.mapView.map().viewport().setRotation(0.0)
+            binding.mapView.map().viewport().setMapViewCenter(0f, 0f)
             rotateFollow = false
         }
 
-        draw_overlay.setOnClickListener {
+        binding.drawOverlay.setOnClickListener {
             drawMapOverlays()
         }
-        fab_save.setOnClickListener {
+        binding.fabSave.setOnClickListener {
             record = true
-            fab_save.hide()
+            binding.fabSave.hide()
         }
 
-        show_extra.setOnClickListener {
-            if (gps_data_info.visibility == View.VISIBLE) {
-                show_extra.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_gps))
-                gps_data_info.hide()
+        binding.showExtra.setOnClickListener {
+            if (binding.gpsDataInfo.visibility == View.VISIBLE) {
+                binding.showExtra.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_gps))
+                binding.gpsDataInfo.hide()
             } else {
-                show_extra.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_gps_off))
-                gps_data_info.show()
+                binding.showExtra.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_gps_off))
+                binding.gpsDataInfo.show()
             }
         }
 
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-        locationLayer = LocationLayer(mapView.map())
+        locationLayer = LocationLayer(binding.mapView.map())
         locationLayer.locationRenderer.setShader("location_1_reverse")
         locationLayer.isEnabled = false
-        mapView.map().layers().add(locationLayer)
+        binding.mapView.map().layers().add(locationLayer)
 
         lastLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
                 ?: locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
@@ -230,7 +233,7 @@ class MapsActivity : AppCompatActivity(), LocationListener {
                     longitude = 18.0
                 }
 
-        mapView.map().setMapPosition(lastLocation.latitude, lastLocation.longitude, (1 shl 12).toDouble())
+        binding.mapView.map().setMapPosition(lastLocation.latitude, lastLocation.longitude, (1 shl 12).toDouble())
 
         onLocationChanged(lastLocation)
 
@@ -243,10 +246,10 @@ class MapsActivity : AppCompatActivity(), LocationListener {
                 .strokeColor(ContextCompat.getColor(this, R.color.colorAccent))
                 .strokeWidth(4 * resources.displayMetrics.density)
                 .build()
-        pathLayer = PathLayer(mapView.map(), style)
-        mapView.map().layers().add(pathLayer)
+        pathLayer = PathLayer(binding.mapView.map(), style)
+        binding.mapView.map().layers().add(pathLayer)
 
-        mapView.map().layers().add(object : Layer(mapView.map()), GestureListener {
+        binding.mapView.map().layers().add(object : Layer(binding.mapView.map()), GestureListener {
             override fun onGesture(g: Gesture?, e: MotionEvent?): Boolean {
                 g ?: return false
                 e ?: return false
@@ -316,7 +319,7 @@ class MapsActivity : AppCompatActivity(), LocationListener {
             })
 
             val layer = ItemizedLayer(
-                    mapView.map(),
+                binding.mapView.map(),
                     list as List<MarkerInterface>,
                     MarkerSymbol(drawableToBitmap(ContextCompat.getDrawable(this, image)), MarkerSymbol.HotspotPlace.BOTTOM_CENTER, true),
                     object : ItemizedLayer.OnItemGestureListener<MarkerInterface> {
@@ -336,7 +339,7 @@ class MapsActivity : AppCompatActivity(), LocationListener {
                         }
                     }
             )
-            mapView.map().layers().add(layer)
+            binding.mapView.map().layers().add(layer)
         }
         val newLocations = File(homeDir(), "saved_locations.json")
         if (newLocations.exists()) {
@@ -346,7 +349,7 @@ class MapsActivity : AppCompatActivity(), LocationListener {
                 MarkerItem(it.s("name"), it.s("name"), it.toGeoPoint())
             })
             val layer = ItemizedLayer(
-                    mapView.map(),
+                binding.mapView.map(),
                     list as List<MarkerInterface>,
                     MarkerSymbol(drawableToBitmap(ContextCompat.getDrawable(this, R.drawable.ic_place_cyan)), MarkerSymbol.HotspotPlace.BOTTOM_CENTER, true),
                     object : ItemizedLayer.OnItemGestureListener<MarkerInterface> {
@@ -367,27 +370,27 @@ class MapsActivity : AppCompatActivity(), LocationListener {
 
                     }
             )
-            mapView.map().layers().add(layer)
+            binding.mapView.map().layers().add(layer)
         }
     }
 
     @SuppressLint("MissingPermission")
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        binding.mapView.onResume()
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0F, this)
     }
 
     override fun onPause() {
         locationManager.removeUpdates(this)
-        mapView.onPause()
+        binding.mapView.onPause()
         super.onPause()
     }
 
     override fun onDestroy() {
         mapScaleBar.destroy()
         try {
-            mapView.onDestroy()
+            binding.mapView.onDestroy()
         } catch (err:NullPointerException){
 
         }
@@ -403,50 +406,50 @@ class MapsActivity : AppCompatActivity(), LocationListener {
 
 
         if (location.hasSpeed()) {
-            if (location.speed < 1) map_speed.hide()
-            else map_speed.show()
-            map_speed.text = "%.1f".format(location.speed * 3.6)
+            if (location.speed < 1) binding.mapSpeed.hide()
+            else binding.mapSpeed.show()
+            binding.mapSpeed.text = "%.1f".format(location.speed * 3.6)
         }
 
         if (location.hasAltitude())
-            map_altitude.text = "%.0f m".format(location.altitude)
+            binding.mapAltitude.text = "%.0f m".format(location.altitude)
 
         if (location.hasBearing()) {
-            map_bearing.show()
-            map_bearing.text = "%s".format(location.bearing.bearingToCompass())
+            binding.mapBearing.show()
+            binding.mapBearing.text = "%s".format(location.bearing.bearingToCompass())
         }
 
         // Follow location
         if (followMe) centerOn(location.latitude, location.longitude)
         if (rotateFollow && location.speed > 1.0) {
-            mapView.map().viewport().setRotation(location.bearing.toDouble() * -1.0)
-            mapView.map().viewport().setTilt(60F)
+            binding.mapView.map().viewport().setRotation(location.bearing.toDouble() * -1.0)
+            binding.mapView.map().viewport().setTilt(60F)
         }
-        mapView.map().updateMap(true)
-        gps_data.text = "%.6f, %.6f : %.0f m [%s]".format(location.latitude, location.longitude, location.accuracy, location.provider)
+        binding.mapView.map().updateMap(true)
+        binding.gpsData.text = "%.6f, %.6f : %.0f m [%s]".format(location.latitude, location.longitude, location.accuracy, location.provider)
 
-        if (gps_data_info.visibility == View.VISIBLE) {
+        if (binding.gpsDataInfo.visibility == View.VISIBLE) {
             if (location.hasAccuracy())
-                gps_accuracy.text = "%.0f m".format(location.accuracy)
+                binding.gpsAccuracy.text = "%.0f m".format(location.accuracy)
 
             if (location.hasSpeed()) {
-                gps_speed_m.text = "%.1f".format(location.speed)
-                gps_speed_km.text = "%.1f".format(location.speed * 3.6)
+                binding.gpsSpeedM.text = "%.1f".format(location.speed)
+                binding.gpsSpeedKm.text = "%.1f".format(location.speed * 3.6)
             }
 
             if (location.hasAltitude())
-                gps_altitude.text = "%.0f m".format(location.altitude)
+                binding.gpsAltitude.text = "%.0f m".format(location.altitude)
 
             if (location.hasBearing())
-                gps_bearing.text = "%s %.0f°".format(location.bearing.bearingToCompass(), location.bearing)
+                binding.gpsBearing.text = "%s %.0f°".format(location.bearing.bearingToCompass(), location.bearing)
 
-            gps_lat_long.text = "%.5f %.5f".format(location.latitude, location.longitude)
+            binding.gpsLatLong.text = "%.5f %.5f".format(location.latitude, location.longitude)
 
             val ss = SunriseSunset(location.latitude, location.longitude, Date(location.time), 0.0)
 
-            gps_code.text =  OpenLocationCode(location.latitude, location.longitude).code
+            binding.gpsCode.text =  OpenLocationCode(location.latitude, location.longitude).code
 
-            gps_time_data.text = "${Date(location.time).toDateDay()}\n${ss.sunrise?.toTimeShort()} -> ${ss.sunset?.toTimeShort()}"
+            binding.gpsTimeData.text = "${Date(location.time).toDateDay()}\n${ss.sunrise?.toTimeShort()} -> ${ss.sunset?.toTimeShort()}"
         }
         if (record) {
             val ss = SunriseSunset(location.latitude, location.longitude, Date(location.time), 0.0)
@@ -473,10 +476,10 @@ class MapsActivity : AppCompatActivity(), LocationListener {
     }
 
     private fun centerOn(latitude: Double, longitude: Double) {
-        mapView.map().getMapPosition(mapPosition)
+        binding.mapView.map().getMapPosition(mapPosition)
         mapPosition.setPosition(latitude, longitude)
 //        mapPosition.setScale(120000.0)
-        mapView.map().mapPosition = mapPosition
+        binding.mapView.map().mapPosition = mapPosition
     }
 
     override fun onProviderDisabled(provider: String) {}
@@ -490,7 +493,6 @@ class MapsActivity : AppCompatActivity(), LocationListener {
         Thread {
             {
                 val tmpHopp: GraphHopper = GraphHopper().apply {
-                    forMobile()
                     graphHopperLocation = File(homeDir(), "area").absolutePath
                     setProfiles(
                             Profile("car").setVehicle("car").setWeighting("fastest"),
@@ -505,13 +507,13 @@ class MapsActivity : AppCompatActivity(), LocationListener {
                 }
                 hopper = tmpHopp
             }.orPrint()
-            runOnUiThread { progress.hide() }
+            runOnUiThread { binding.progress.root.hide() }
         }.start()
     }
 
     @SuppressLint("StaticFieldLeak")
     private fun calcPath(fromLat: Double, fromLon: Double, toLat: Double, toLon: Double) {
-        progress.show()
+        binding.progress.root.show()
         object : AsyncTask<Void, Void, ResponsePath>() {
             var time: Float = 0.toFloat()
 
@@ -536,7 +538,7 @@ class MapsActivity : AppCompatActivity(), LocationListener {
 
             @SuppressLint("SetTextI18n")
             override fun onPostExecute(resp: ResponsePath?) {
-                progress.hide()
+                binding.progress.root.hide()
                 if (resp == null) {
                     toast("Unable to create route")
                     return
@@ -545,21 +547,21 @@ class MapsActivity : AppCompatActivity(), LocationListener {
                     currentResponse = resp
                     val t = resp.time / 1000
 //                    resp.ascend
-                    path.text = ("${resp.instructions.size} turns | %.1f km | %02d:%02d\nTook %.0f ms to compute").format(
+                    binding.path.text = ("${resp.instructions.size} turns | %.1f km | %02d:%02d\nTook %.0f ms to compute").format(
                             resp.distance / 1000.0,
                             t / 60,
                             t % 60,
                             time * 1000)
-                    path.show()
+                    binding.path.show()
 
                     val geoPoints = ArrayList<GeoPoint>()
                     val pointList = resp.points
 
                     for (i in 0 until pointList.size)
-                        geoPoints.add(GeoPoint(pointList.getLatitude(i), pointList.getLongitude(i)))
+                        geoPoints.add(GeoPoint(pointList.getLat(i), pointList.getLon(i)))
                     pathLayer.setPoints(geoPoints)
 
-                    mapView.map().updateMap(true)
+                    binding.mapView.map().updateMap(true)
 
                 } else {
                     logUser("Error:" + resp.errors)
@@ -581,7 +583,7 @@ class MapsActivity : AppCompatActivity(), LocationListener {
                 MarkerItem(it.name, it.name, it.toGeoPoint())
             })
             ItemizedLayer(
-                    mapView.map(),
+                binding.mapView.map(),
                     list as List<MarkerInterface>,
                     MarkerSymbol(drawableToBitmap(ContextCompat.getDrawable(this, image)), MarkerSymbol.HotspotPlace.BOTTOM_CENTER, true),
                     object : ItemizedLayer.OnItemGestureListener<MarkerInterface> {
@@ -603,7 +605,7 @@ class MapsActivity : AppCompatActivity(), LocationListener {
             )
         }
 
-        val vectorLayer = VectorLayer(mapView.map())
+        val vectorLayer = VectorLayer(binding.mapView.map())
 
         obj.a("shapes").mapObject {
             "Type of object: ${s("type")}".error()
@@ -631,7 +633,7 @@ class MapsActivity : AppCompatActivity(), LocationListener {
             }
         }
         vectorLayer.update()
-        mapView.map().layers().add(vectorLayer)
+        binding.mapView.map().layers().add(vectorLayer)
     }
 
     private fun log(str: String) {

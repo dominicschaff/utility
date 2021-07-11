@@ -5,13 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.activity_item_list.*
-import kotlinx.android.synthetic.main.item_list.*
-import kotlinx.android.synthetic.main.item_list_content.view.*
 import zz.utility.R
+import zz.utility.databinding.ActivityItemListBinding
 import zz.utility.externalFile
 import zz.utility.helpers.asJsonArray
 import zz.utility.helpers.mapObject
@@ -26,8 +25,9 @@ import zz.utility.helpers.s
  * item details side-by-side using two vertical panes.
  */
 class ItemListActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityItemListBinding
 
-    /**
+            /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
@@ -35,17 +35,18 @@ class ItemListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_item_list)
+        binding = ActivityItemListBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        setSupportActionBar(toolbar)
-        toolbar.title = title
+        setSupportActionBar(binding.toolbar)
+        binding.toolbar.title = title
 
         // Show the Up button in the action bar.
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        if (item_detail_container != null) twoPane = true
+        if (findViewById<FrameLayout>(R.id.item_detail_container) != null) twoPane = true
 
-        setupRecyclerView(item_list)
+        setupRecyclerView(findViewById(R.id.item_list))
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
@@ -97,7 +98,7 @@ class ItemListActivity : AppCompatActivity() {
         override fun getItemCount() = values.size
 
         inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val title: TextView = view.title
+            val title: TextView = view.findViewById(R.id.title)
         }
     }
 }

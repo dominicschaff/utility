@@ -12,8 +12,8 @@ import com.google.gson.JsonObject
 import com.google.zxing.ResultPoint
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
-import kotlinx.android.synthetic.main.activity_scanning.*
 import zz.utility.R
+import zz.utility.databinding.ActivityScanningBinding
 import zz.utility.helpers.appendToFile
 import zz.utility.helpers.toDateFull
 import zz.utility.homeDir
@@ -22,7 +22,9 @@ import java.util.*
 
 class BarcodeScanningActivity : AppCompatActivity() {
 
-    private var lastText: String? = null
+    private lateinit var binding: ActivityScanningBinding
+
+            private var lastText: String? = null
 
     private val callback = object : BarcodeCallback {
         override fun barcodeResult(result: BarcodeResult) {
@@ -36,9 +38,10 @@ class BarcodeScanningActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_scanning)
-        barcode_scanner.decodeContinuous(callback)
-        barcode_content.setOnClickListener(View.OnClickListener {
+        binding = ActivityScanningBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.barcodeScanner.decodeContinuous(callback)
+        binding.barcodeContent.setOnClickListener(View.OnClickListener {
             val message = lastText ?: return@OnClickListener
             setClipboard(message)
         })
@@ -46,23 +49,23 @@ class BarcodeScanningActivity : AppCompatActivity() {
 
     public override fun onResume() {
         super.onResume()
-        barcode_scanner.resume()
+        binding.barcodeScanner.resume()
     }
 
     public override fun onPause() {
         super.onPause()
-        barcode_scanner.pause()
+        binding.barcodeScanner.pause()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean =
-            barcode_scanner.onKeyDown(keyCode, event) || super.onKeyDown(keyCode, event)
+            binding.barcodeScanner.onKeyDown(keyCode, event) || super.onKeyDown(keyCode, event)
 
     private fun addBarcode(type: String, message: String) {
         barcodeRead(type, message)
         lastText = message
 
-        barcode_content.text = message
-        barcode_type.text = type
+        binding.barcodeContent.text = message
+        binding.barcodeType.text = type
     }
 
     private fun barcodeRead(type: String, barcode: String) {

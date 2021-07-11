@@ -3,7 +3,7 @@ package zz.utility
 import android.Manifest
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
+import zz.utility.databinding.ActivityMainBinding
 import zz.utility.demo.LoginActivity
 import zz.utility.helpers.goto
 import zz.utility.helpers.requestPermissions
@@ -16,18 +16,20 @@ import zz.utility.utility.QRCodeGeneratorActivity
 import zz.utility.utility.data.ItemListActivity
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        goto_qr.setOnClickListener { goto(QRCodeGeneratorActivity::class.java) }
-        goto_info.setOnClickListener { goto(InfoActivity::class.java) }
-        goto_scan.setOnClickListener { goto(BarcodeScanningActivity::class.java) }
-        goto_osm_maps.setOnClickListener { goto(MapsActivity::class.java) }
-        goto_data.setOnClickListener { goto(ItemListActivity::class.java) }
-        goto_clock.setOnClickListener { goto(ClockActivity::class.java) }
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.gotoQr.setOnClickListener { goto(QRCodeGeneratorActivity::class.java) }
+        binding.gotoInfo.setOnClickListener { goto(InfoActivity::class.java) }
+        binding.gotoScan.setOnClickListener { goto(BarcodeScanningActivity::class.java) }
+        binding.gotoOsmMaps.setOnClickListener { goto(MapsActivity::class.java) }
+        binding.gotoData.setOnClickListener { goto(ItemListActivity::class.java) }
+        binding.gotoClock.setOnClickListener { goto(ClockActivity::class.java) }
 
-        goto_test_login.setOnClickListener { goto(LoginActivity::class.java) }
+        binding.gotoTestLogin.setOnClickListener { goto(LoginActivity::class.java) }
 
         if (!requestPermissions(arrayOf(
                         Manifest.permission.ACCESS_FINE_LOCATION,

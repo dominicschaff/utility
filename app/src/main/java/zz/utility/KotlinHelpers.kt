@@ -8,7 +8,7 @@ import com.google.gson.JsonObject
 import zz.utility.helpers.asJsonObject
 import java.io.File
 
-fun String.extension(): String = substring(lastIndexOf(".")).toLowerCase()
+fun String.extension(): String = substring(lastIndexOf(".")).lowercase()
 
 fun StringBuilder.add(format: String, value: Int) {
     try {

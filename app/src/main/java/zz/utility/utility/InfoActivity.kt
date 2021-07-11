@@ -8,8 +8,8 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_info.*
 import zz.utility.R
+import zz.utility.databinding.ActivityInfoBinding
 import zz.utility.helpers.formatSize
 import zz.utility.helpers.stats.getDeviceStats
 import zz.utility.helpers.stats.getMemoryStats
@@ -21,14 +21,16 @@ import java.util.ArrayList
 fun Boolean.eng(): String = if (this) "yes" else "no"
 
 class InfoActivity : AppCompatActivity(), SensorEventListener {
+    private lateinit var binding: ActivityInfoBinding
 
-    private lateinit var mSensorManager: SensorManager
+            private lateinit var mSensorManager: SensorManager
     private val deviceSensors = ArrayList<Sensor>()
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_info)
+        binding = ActivityInfoBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val ss = getStorageStats()
         val ns = getNetworkStats()
@@ -40,19 +42,19 @@ class InfoActivity : AppCompatActivity(), SensorEventListener {
         ss.external.indices.forEach {
             tmpStr += "\n${ss.external[it].formatSize()} / ${ss.externalFull[it].formatSize()}"
         }
-        device_storage.text = tmpStr
+        binding.deviceStorage.text = tmpStr
 
-        device_traffic.text = """
+        binding.deviceTraffic.text = """
             Mobile: ${ns.mobileRx.formatSize()} / ${ns.mobileTx.formatSize()}
             App: ${ns.appRx.formatSize()} / ${ns.appTx.formatSize()}
             Total: ${ns.totalRx.formatSize()} / ${ns.totalTx.formatSize()}
         """.trimIndent()
 
-        device_battery.text = "Level %.1f %%\nTemperature %.1f °".format(ds.battery, ds.battery_temperature)
+        binding.deviceBattery.text = "Level %.1f %%\nTemperature %.1f °".format(ds.battery, ds.battery_temperature)
 
-        device_memory.text = "${(ms.total - ms.available).formatSize()} / ${ms.total.formatSize()} [${ms.threshold.formatSize()}]"
+        binding.deviceMemory.text = "${(ms.total - ms.available).formatSize()} / ${ms.total.formatSize()} [${ms.threshold.formatSize()}]"
 
-        device_network.text = """
+        binding.deviceNetwork.text = """
             Operator Name: ${ns.operatorName}
             Network State: ${ns.serviceStateDescription}
             Network Strength: ${"${ns.signalStrength} dBM"}
@@ -65,7 +67,7 @@ class InfoActivity : AppCompatActivity(), SensorEventListener {
             Is Powered Off: ${ns.isPowerOff.eng()}
         """.trimIndent()
 
-        device_device.text = """
+        binding.deviceDevice.text = """
             Manufacturer: ${ds.manufacturer}
             Model: ${ds.model}
             Brand: ${ds.brand}
@@ -75,7 +77,7 @@ class InfoActivity : AppCompatActivity(), SensorEventListener {
             Uptime: ${ds.uptime.toTime()}
         """.trimIndent()
 
-        device_screen.text = "${ds.width} x ${ds.height}\n${ds.density} : ${ds.dpWidth} x ${ds.dpHeight}"
+        binding.deviceScreen.text = "${ds.width} x ${ds.height}\n${ds.density} : ${ds.dpWidth} x ${ds.dpHeight}"
 
 
         mSensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
@@ -94,19 +96,19 @@ class InfoActivity : AppCompatActivity(), SensorEventListener {
     @SuppressLint("DefaultLocale", "SetTextI18n")
     override fun onSensorChanged(event: SensorEvent) {
         when (event.sensor.type) {
-            27 -> orientation.text = when (event.values[0].toInt()) {
+            27 -> binding.orientation.text = when (event.values[0].toInt()) {
                 0 -> "Normal"
                 1 -> "Left"
                 2 -> "Upside Down"
                 3 -> "Right"
                 else -> "Flat | Unknown"
             }
-            Sensor.TYPE_LIGHT -> light.text = "Amount of Light: %.0f".format(event.values[0])
-            Sensor.TYPE_PROXIMITY -> proximity.text = "%s : %.0f".format(if (event.values[0] > 0) "Away" else "Close", event.values[0])
-            Sensor.TYPE_GRAVITY -> gravity.text = "Gravity\nX : %.2f\nY : %.2f\nZ : %.2f".format(event.values[0], event.values[1], event.values[2])
-            Sensor.TYPE_LINEAR_ACCELERATION -> acceleration.text = "Acceleration\nX : %.2f\nY : %.2f\nZ : %.2f".format(event.values[0], event.values[1], event.values[2])
-            Sensor.TYPE_MAGNETIC_FIELD -> magnetic.text = "Magnetic\nX : %.2f\nY : %.2f\nZ : %.2f".format(event.values[0], event.values[1], event.values[2])
-            Sensor.TYPE_GYROSCOPE -> gyroscope.text = "Gyroscope\nX : %.2f\nY : %.2f\nZ : %.2f".format(event.values[0], event.values[1], event.values[2])
+            Sensor.TYPE_LIGHT -> binding.light.text = "Amount of Light: %.0f".format(event.values[0])
+            Sensor.TYPE_PROXIMITY -> binding.proximity.text = "%s : %.0f".format(if (event.values[0] > 0) "Away" else "Close", event.values[0])
+            Sensor.TYPE_GRAVITY -> binding.gravity.text = "Gravity\nX : %.2f\nY : %.2f\nZ : %.2f".format(event.values[0], event.values[1], event.values[2])
+            Sensor.TYPE_LINEAR_ACCELERATION -> binding.acceleration.text = "Acceleration\nX : %.2f\nY : %.2f\nZ : %.2f".format(event.values[0], event.values[1], event.values[2])
+            Sensor.TYPE_MAGNETIC_FIELD -> binding.magnetic.text = "Magnetic\nX : %.2f\nY : %.2f\nZ : %.2f".format(event.values[0], event.values[1], event.values[2])
+            Sensor.TYPE_GYROSCOPE -> binding.gyroscope.text = "Gyroscope\nX : %.2f\nY : %.2f\nZ : %.2f".format(event.values[0], event.values[1], event.values[2])
 
         }
     }

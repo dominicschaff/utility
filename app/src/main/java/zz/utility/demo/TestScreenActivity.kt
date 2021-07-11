@@ -1,4 +1,4 @@
-package zz.utility.demo
+    package zz.utility.demo
 
 import android.accounts.AccountManager
 import android.app.NotificationChannel
@@ -13,9 +13,9 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
-import kotlinx.android.synthetic.main.activity_test_screen.*
 import zz.utility.MainActivity
 import zz.utility.R
+import zz.utility.databinding.ActivityTestScreenBinding
 import zz.utility.helpers.error
 import zz.utility.helpers.toDateFull
 import java.util.*
@@ -25,14 +25,16 @@ const val CHANNEL_ID = "myDefault"
 class TestScreenActivity : AppCompatActivity() {
 
     private lateinit var tts: TextToSpeech
+    private lateinit var binding: ActivityTestScreenBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_test_screen)
+        binding = ActivityTestScreenBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
 
         createNotificationChannel()
-        do_send.setOnClickListener {
+        binding.doSend.setOnClickListener {
             val mBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_notifications_black_24dp)
                     .setContentTitle("My notification")
@@ -42,7 +44,7 @@ class TestScreenActivity : AppCompatActivity() {
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             NotificationManagerCompat.from(this).notify(0, mBuilder.build())
         }
-        do_send_image.setOnClickListener {
+        binding.doSendImage.setOnClickListener {
 
             val bitmap = ContextCompat.getDrawable(this, R.drawable.ic_place_pink)!!.toBitmap(width = 100, height = 100)
 
@@ -121,6 +123,6 @@ class TestScreenActivity : AppCompatActivity() {
         accounts.forEach { add("Found account: ${it.type}\n\t\t${it.name}") }
     }
 
-    private fun add(s: String) = mainText.append("$s\n")
+    private fun add(s: String) = binding.mainText.append("$s\n")
     private fun speak(text: String) = tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
 }

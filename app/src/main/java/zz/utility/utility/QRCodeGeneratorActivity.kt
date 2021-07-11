@@ -9,8 +9,8 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
-import kotlinx.android.synthetic.main.activity_qrcode_generator.*
 import zz.utility.R
+import zz.utility.databinding.ActivityQrcodeGeneratorBinding
 import zz.utility.externalFile
 import zz.utility.helpers.ignore
 import zz.utility.helpers.now
@@ -19,20 +19,22 @@ import java.io.FileOutputStream
 
 class QRCodeGeneratorActivity : AppCompatActivity() {
     private lateinit var bitmap: Bitmap
+    private lateinit var binding: ActivityQrcodeGeneratorBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_qrcode_generator)
+        binding = ActivityQrcodeGeneratorBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         supportActionBar?.subtitle = "Click to save image"
 
-        generate.setOnClickListener {
+        binding.generate.setOnClickListener {
             {
-                qr_code.setImageBitmap(encodeAsBitmap(text.text.toString()))
+                binding.qrCode.setImageBitmap(encodeAsBitmap(binding.text.text.toString()))
             }.orPrint()
         }
 
-        qr_code.setOnClickListener {
+        binding.qrCode.setOnClickListener {
             val fileName = "qr_code_" + now() + ".png"
             var out: FileOutputStream? = null
             try {

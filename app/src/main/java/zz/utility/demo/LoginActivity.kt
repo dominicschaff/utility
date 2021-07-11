@@ -8,12 +8,9 @@ import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_login.*
 import zz.utility.R
-import zz.utility.helpers.goto
-import zz.utility.helpers.prefGetSet
-import zz.utility.helpers.preferences
-import zz.utility.helpers.show
+import zz.utility.databinding.ActivityLoginBinding
+import zz.utility.helpers.*
 import java.util.*
 
 /**
@@ -23,20 +20,22 @@ class LoginActivity : Activity() {
 
     // UI references.
     private lateinit var previousUsers: MutableSet<String>
+    private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         // Set up the login form.
-        email.setOnEditorActionListener(TextView.OnEditorActionListener { _, id, _ ->
+        binding.email.setOnEditorActionListener(TextView.OnEditorActionListener { _, id, _ ->
             if (id == EditorInfo.IME_ACTION_NEXT) {
-                password.requestFocus()
+                binding.password.requestFocus()
                 return@OnEditorActionListener true
             }
             false
         })
         // Set up the login form.
-        password.setOnEditorActionListener(TextView.OnEditorActionListener { _, id, _ ->
+        binding.password.setOnEditorActionListener(TextView.OnEditorActionListener { _, id, _ ->
             if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
                 doLogin()
                 return@OnEditorActionListener true
@@ -44,22 +43,22 @@ class LoginActivity : Activity() {
             false
         })
 
-        email_sign_in_button.setOnClickListener { doLogin() }
+        binding.emailSignInButton.setOnClickListener { doLogin() }
 
-        login_progress.translationZ = 100F
+        binding.loginProgress.root.translationZ = 100F
 
         previousUsers = prefGetSet("previousUsers", TreeSet()) as MutableSet<String>
-        email.setAdapter(ArrayAdapter(this@LoginActivity, android.R.layout.simple_dropdown_item_1line, ArrayList(previousUsers)))
+        binding.email.setAdapter(ArrayAdapter(this@LoginActivity, android.R.layout.simple_dropdown_item_1line, ArrayList(previousUsers)))
     }
 
     private fun doLogin() {
         Toast.makeText(applicationContext, "You clicked enter", Toast.LENGTH_LONG).show()
-        login_progress.show()
+        binding.loginProgress.root.show()
         Handler().postDelayed({
-            login_progress.visibility = View.GONE
+            binding.loginProgress.root.hide()
             Toast.makeText(applicationContext, "Done", Toast.LENGTH_LONG).show()
             preferences {
-                previousUsers.add(email.text.toString())
+                previousUsers.add(binding.email.text.toString())
                 putStringSet("previousUsers", previousUsers)
             }
             Handler().postDelayed({

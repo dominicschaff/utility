@@ -4,8 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_item_detail.*
 import zz.utility.R
+import zz.utility.databinding.ActivityItemDetailBinding
 
 /**
  * An activity representing a single Item detail screen. This
@@ -14,11 +14,13 @@ import zz.utility.R
  * in a [ItemListActivity].
  */
 class ItemDetailActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityItemDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_item_detail)
-        setSupportActionBar(detail_toolbar)
+        binding = ActivityItemDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(findViewById(R.id.detail_toolbar))
 
         // Show the Up button in the action bar.
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

@@ -2,14 +2,12 @@ package zz.utility.helpers.stats
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Point
 import android.os.BatteryManager
 import android.os.Build
 import android.os.SystemClock
-import android.telephony.TelephonyManager
 import android.util.DisplayMetrics
 
 
@@ -33,8 +31,8 @@ class DeviceStats(
 @SuppressLint("HardwareIds", "MissingPermission")
 fun Activity.getDeviceStats(): DeviceStats {
 
-    val batteryIntent = registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
-    val level = batteryIntent!!.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
+    val batteryIntent = registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))!!
+    val level = batteryIntent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
     val scale = batteryIntent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
     val temp = batteryIntent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1)
     val display = windowManager.defaultDisplay
@@ -47,8 +45,6 @@ fun Activity.getDeviceStats(): DeviceStats {
     val density = resources.displayMetrics.density
     val dpHeight = outMetrics.heightPixels / density
     val dpWidth = outMetrics.widthPixels / density
-
-    val telManager = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
 
     @Suppress("DEPRECATION")
     return DeviceStats(
