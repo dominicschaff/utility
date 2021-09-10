@@ -128,28 +128,6 @@ class MapsActivity : AppCompatActivity(), LocationListener {
         mapScaleBarLayer.renderer.setOffset(5 * CanvasAdapter.getScale(), 0f)
         binding.mapView.map().layers().add(mapScaleBarLayer)
 
-        binding.fabMenu.setOnClickListener {
-            val state = if (hidden) {
-                binding.fabMenu.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_clear))
-                View.VISIBLE
-            } else {
-                binding.fabMenu.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_menu))
-                View.GONE
-            }
-
-            hidden = !hidden
-
-            binding.center.visibility = state
-            binding.vehicle.visibility = state
-            binding.share.visibility = state
-            binding.navigate.visibility = state
-            binding.centerOnMe.visibility = state
-            binding.fabTheme.visibility = state
-            binding.drawOverlay.visibility = state
-            binding.fabSave.visibility = state
-            binding.showExtra.visibility = state
-        }
-
         binding.fabTheme.setOnClickListener {
             binding.mapView.map().setTheme(if (daylight) VtmThemes.NEWTRON else VtmThemes.OSMARENDER)
             daylight = !daylight
@@ -194,7 +172,7 @@ class MapsActivity : AppCompatActivity(), LocationListener {
             binding.vehicle.setImageDrawable(ContextCompat.getDrawable(this, if (useCar) R.drawable.ic_map_car else R.drawable.ic_map_walk))
         }
 
-        binding.center.setOnClickListener {
+        binding.follow.setOnClickListener {
             binding.mapView.map().viewport().setRotation(0.0)
             binding.mapView.map().viewport().setMapViewCenter(0f, 0f)
             rotateFollow = false
