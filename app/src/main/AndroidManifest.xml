@@ -27,11 +27,11 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:supportsRtl">
         <activity android:name=".utility.ClockActivity" />
-        <activity android:name=".text.TextActivity" />
         <activity
             android:name=".MainActivity"
             android:label="Utility Main Screen"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -77,7 +77,8 @@
             android:theme="@style/AppTheme.Login" />
         <activity
             android:name=".text.TextReceiveActivity"
-            android:theme="@android:style/Theme.NoDisplay">
+            android:theme="@android:style/Theme.NoDisplay"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 

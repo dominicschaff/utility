@@ -3,12 +3,10 @@ package zz.utility.demo
 import android.app.Activity
 import android.os.Bundle
 import android.os.Handler
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
-import zz.utility.R
 import zz.utility.databinding.ActivityLoginBinding
 import zz.utility.helpers.*
 import java.util.*
@@ -48,7 +46,13 @@ class LoginActivity : Activity() {
         binding.loginProgress.root.translationZ = 100F
 
         previousUsers = prefGetSet("previousUsers", TreeSet()) as MutableSet<String>
-        binding.email.setAdapter(ArrayAdapter(this@LoginActivity, android.R.layout.simple_dropdown_item_1line, ArrayList(previousUsers)))
+        binding.email.setAdapter(
+            ArrayAdapter(
+                this@LoginActivity,
+                android.R.layout.simple_dropdown_item_1line,
+                ArrayList(previousUsers)
+            )
+        )
     }
 
     private fun doLogin() {

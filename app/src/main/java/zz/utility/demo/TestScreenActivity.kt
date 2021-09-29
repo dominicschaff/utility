@@ -1,4 +1,4 @@
-    package zz.utility.demo
+package zz.utility.demo
 
 import android.accounts.AccountManager
 import android.app.NotificationChannel
@@ -36,17 +36,20 @@ class TestScreenActivity : AppCompatActivity() {
         createNotificationChannel()
         binding.doSend.setOnClickListener {
             val mBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
-                    .setSmallIcon(R.drawable.ic_notifications_black_24dp)
-                    .setContentTitle("My notification")
-                    .setContentText("Much longer text that cannot fit one line...")
-                    .setStyle(NotificationCompat.BigTextStyle()
-                            .bigText("Much longer text that cannot fit one line...Much longer text that cannot fit one line...Much longer text that cannot fit one line...Much longer text that cannot fit one line...Much longer text that cannot fit one line...Much longer text that cannot fit one line...Much longer text that cannot fit one line...Much longer text that cannot fit one line...Much longer text that cannot fit one line...Much longer text that cannot fit one line...Much longer text that cannot fit one line...Much longer text that cannot fit one line...Much longer text that cannot fit one line...Much longer text that cannot fit one line...Much longer text that cannot fit one line...Much longer text that cannot fit one line...Much longer text that cannot fit one line..."))
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setSmallIcon(R.drawable.ic_notifications_black_24dp)
+                .setContentTitle("My notification")
+                .setContentText("Much longer text that cannot fit one line...")
+                .setStyle(
+                    NotificationCompat.BigTextStyle()
+                        .bigText("Much longer text that cannot fit one line...Much longer text that cannot fit one line...Much longer text that cannot fit one line...Much longer text that cannot fit one line...Much longer text that cannot fit one line...Much longer text that cannot fit one line...Much longer text that cannot fit one line...Much longer text that cannot fit one line...Much longer text that cannot fit one line...Much longer text that cannot fit one line...Much longer text that cannot fit one line...Much longer text that cannot fit one line...Much longer text that cannot fit one line...Much longer text that cannot fit one line...Much longer text that cannot fit one line...Much longer text that cannot fit one line...Much longer text that cannot fit one line...")
+                )
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             NotificationManagerCompat.from(this).notify(0, mBuilder.build())
         }
         binding.doSendImage.setOnClickListener {
 
-            val bitmap = ContextCompat.getDrawable(this, R.drawable.ic_place_pink)!!.toBitmap(width = 100, height = 100)
+            val bitmap = ContextCompat.getDrawable(this, R.drawable.ic_place_pink)!!
+                .toBitmap(width = 100, height = 100)
 
             val intent = Intent(this, MainActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -54,15 +57,16 @@ class TestScreenActivity : AppCompatActivity() {
             val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
 
             val mBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
-                    .setSmallIcon(R.drawable.ic_notifications_black_24dp)
-                    .setContentTitle("My notification")
-                    .setStyle(NotificationCompat.BigPictureStyle()
-                            .bigPicture(bitmap)
-                    )
-                    .setContentIntent(pendingIntent)
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                    .setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
-                    .setAutoCancel(true)
+                .setSmallIcon(R.drawable.ic_notifications_black_24dp)
+                .setContentTitle("My notification")
+                .setStyle(
+                    NotificationCompat.BigPictureStyle()
+                        .bigPicture(bitmap)
+                )
+                .setContentIntent(pendingIntent)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
+                .setAutoCancel(true)
             NotificationManagerCompat.from(this).notify(0, mBuilder.build())
 
         }
@@ -72,10 +76,15 @@ class TestScreenActivity : AppCompatActivity() {
 
 
     private fun createNotificationChannel() {
-        val channel = NotificationChannel(CHANNEL_ID, "My Channel", NotificationManager.IMPORTANCE_DEFAULT).apply {
+        val channel = NotificationChannel(
+            CHANNEL_ID,
+            "My Channel",
+            NotificationManager.IMPORTANCE_DEFAULT
+        ).apply {
             description = "Default channel for this app"
         }
-        val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager: NotificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(channel)
     }
 

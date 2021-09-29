@@ -30,25 +30,29 @@ class ItemDetailActivity : AppCompatActivity() {
             // using a fragment transaction.
             val fragment = ItemDetailFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ItemDetailFragment.ITEM_TITLE,
-                            intent.getStringExtra(ItemDetailFragment.ITEM_TITLE))
-                    putString(ItemDetailFragment.ITEM_CONTENT,
-                            intent.getStringExtra(ItemDetailFragment.ITEM_CONTENT))
+                    putString(
+                        ItemDetailFragment.ITEM_TITLE,
+                        intent.getStringExtra(ItemDetailFragment.ITEM_TITLE)
+                    )
+                    putString(
+                        ItemDetailFragment.ITEM_CONTENT,
+                        intent.getStringExtra(ItemDetailFragment.ITEM_CONTENT)
+                    )
                 }
             }
 
             supportFragmentManager.beginTransaction()
-                    .add(R.id.item_detail_container, fragment)
-                    .commit()
+                .add(R.id.item_detail_container, fragment)
+                .commit()
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem) =
-            when (item.itemId) {
-                android.R.id.home -> {
-                    navigateUpTo(Intent(this, ItemListActivity::class.java))
-                    true
-                }
-                else -> super.onOptionsItemSelected(item)
+        when (item.itemId) {
+            android.R.id.home -> {
+                navigateUpTo(Intent(this, ItemListActivity::class.java))
+                true
             }
+            else -> super.onOptionsItemSelected(item)
+        }
 }

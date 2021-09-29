@@ -10,9 +10,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.JsonObject
 import com.google.zxing.ResultPoint
+import com.google.zxing.integration.android.IntentIntegrator
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
-import zz.utility.R
 import zz.utility.databinding.ActivityScanningBinding
 import zz.utility.helpers.appendToFile
 import zz.utility.helpers.toDateFull
@@ -20,11 +20,12 @@ import zz.utility.homeDir
 import java.io.File
 import java.util.*
 
+
 class BarcodeScanningActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityScanningBinding
 
-            private var lastText: String? = null
+    private var lastText: String? = null
 
     private val callback = object : BarcodeCallback {
         override fun barcodeResult(result: BarcodeResult) {

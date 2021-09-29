@@ -40,7 +40,14 @@ class TextReceiveActivity : AppCompatActivity() {
                 addProperty("event_type", "sharedMessage")
                 addProperty("text", sharedText)
             }.appendToFile(externalFile("shared.json"))
-            toast("Received and saved text: ${sharedText.substring(0, min(sharedText.length, 200))}", Toast.LENGTH_SHORT)
+            toast(
+                "Received and saved text: ${
+                    sharedText.substring(
+                        0,
+                        min(sharedText.length, 200)
+                    )
+                }", Toast.LENGTH_SHORT
+            )
         }
 
     }

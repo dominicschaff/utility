@@ -11,7 +11,9 @@ import android.os.Bundle
 import android.text.InputType
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -23,6 +25,7 @@ import com.graphhopper.ResponsePath
 import com.graphhopper.config.Profile
 import com.graphhopper.util.Parameters
 import com.graphhopper.util.StopWatch
+import org.mapsforge.poi.storage.PoiPersistenceManager
 import org.oscim.android.canvas.AndroidGraphics.drawableToBitmap
 import org.oscim.backend.CanvasAdapter
 import org.oscim.core.GeoPoint
@@ -61,6 +64,28 @@ import zz.utility.views.chooser
 import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
+import org.mapsforge.poi.android.storage.AndroidPoiPersistenceManagerFactory
+import android.content.DialogInterface
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.mapsforge.poi.storage.PoiCategory
+
+import org.mapsforge.poi.storage.ExactMatchPoiCategoryFilter
+
+import org.mapsforge.poi.storage.PoiCategoryFilter
+import org.oscim.core.BoundingBox
+
+import org.oscim.layers.GroupLayer
+import android.R.attr.level
+
+
+
+
+
+
+
 
 @SuppressLint("MissingPermission")
 class MapsActivity : AppCompatActivity(), LocationListener {
@@ -90,6 +115,8 @@ class MapsActivity : AppCompatActivity(), LocationListener {
 
     private lateinit var hopper: GraphHopper
 
+    private lateinit var persistenceManager: PoiPersistenceManager
+
     @SuppressLint("MissingPermission")
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -115,6 +142,9 @@ class MapsActivity : AppCompatActivity(), LocationListener {
                 multiTileSource.add(tileSource)
             }
         }
+        persistenceManager = AndroidPoiPersistenceManagerFactory.getPoiPersistenceManager(
+            externalFile("poi.poi").absolutePath
+        )
 
         val tileLayer = binding.mapView.map().setBaseMap(multiTileSource)
         binding.mapView.map().layers().add(BuildingLayer(binding.mapView.map(), tileLayer))
@@ -129,7 +159,8 @@ class MapsActivity : AppCompatActivity(), LocationListener {
         binding.mapView.map().layers().add(mapScaleBarLayer)
 
         binding.fabTheme.setOnClickListener {
-            binding.mapView.map().setTheme(if (daylight) VtmThemes.NEWTRON else VtmThemes.OSMARENDER)
+            binding.mapView.map()
+                .setTheme(if (daylight) VtmThemes.NEWTRON else VtmThemes.OSMARENDER)
             daylight = !daylight
         }
 
@@ -137,9 +168,14 @@ class MapsActivity : AppCompatActivity(), LocationListener {
             val titles = Array(locationsSaved.size) { locationsSaved[it].name }
             val builder = AlertDialog.Builder(this)
             builder.setTitle("Select location")
-                    .setItems(titles) { _, which ->
-                        calcPath(lastLocation.latitude, lastLocation.longitude, locationsSaved[which].latitude, locationsSaved[which].longitude)
-                    }
+                .setItems(titles) { _, which ->
+                    calcPath(
+                        lastLocation.latitude,
+                        lastLocation.longitude,
+                        locationsSaved[which].latitude,
+                        locationsSaved[which].longitude
+                    )
+                }
             builder.show()
         }
 
@@ -158,7 +194,13 @@ class MapsActivity : AppCompatActivity(), LocationListener {
 
             i.type = "text/plain"
             i.putExtra(Intent.EXTRA_SUBJECT, "Shared Location")
-            i.putExtra(Intent.EXTRA_TEXT, "http://maps.google.com/maps?q=loc:%.10f,%.10f".format(lastLocation.latitude, lastLocation.longitude))
+            i.putExtra(
+                Intent.EXTRA_TEXT,
+                "http://maps.google.com/maps?q=loc:%.10f,%.10f".format(
+                    lastLocation.latitude,
+                    lastLocation.longitude
+                )
+            )
 
             try {
                 startActivity(Intent.createChooser(i, "Share Location"))
@@ -169,7 +211,12 @@ class MapsActivity : AppCompatActivity(), LocationListener {
 
         binding.vehicle.setOnClickListener {
             useCar = !useCar
-            binding.vehicle.setImageDrawable(ContextCompat.getDrawable(this, if (useCar) R.drawable.ic_map_car else R.drawable.ic_map_walk))
+            binding.vehicle.setImageDrawable(
+                ContextCompat.getDrawable(
+                    this,
+                    if (useCar) R.drawable.ic_map_car else R.drawable.ic_map_walk
+                )
+            )
         }
 
         binding.follow.setOnClickListener {
@@ -188,12 +235,59 @@ class MapsActivity : AppCompatActivity(), LocationListener {
 
         binding.showExtra.setOnClickListener {
             if (binding.gpsDataInfo.visibility == View.VISIBLE) {
-                binding.showExtra.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_gps))
+                binding.showExtra.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        this,
+                        R.drawable.ic_gps
+                    )
+                )
                 binding.gpsDataInfo.hide()
             } else {
-                binding.showExtra.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_gps_off))
+                binding.showExtra.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        this,
+                        R.drawable.ic_gps_off
+                    )
+                )
                 binding.gpsDataInfo.show()
             }
+        }
+
+        binding.search.setOnClickListener {
+
+            val categories = ArrayList<PoiCategory>()
+            val catnames = ArrayList<String>()
+
+            fun addWithChildren(categories: ArrayList<PoiCategory>, names: ArrayList<String>, root:PoiCategory, level:Int) {
+                if (level > 2) return
+                when(level) {
+                    0->{}
+                    1->{
+                        categories.add(root)
+                        names.add(root.title)
+                    }
+                    2->{
+                        categories.add(root)
+                        names.add("-> ${root.title}")
+                    }
+                }
+                root.children.sortedWith(kotlin.Comparator { c1, c2 -> c1.title.compareTo(c2.title) }).forEach {
+                    addWithChildren(categories, names, it, level+1)
+                }
+            }
+            addWithChildren(categories, catnames, persistenceManager.categoryManager.rootCategory, 0)
+            AlertDialog.Builder(this)
+                .setItems(catnames.toTypedArray(), DialogInterface.OnClickListener { dialogInterface, i ->
+                    dialogInterface.dismiss()
+                    CoroutineScope(Dispatchers.Main).launch {
+                        doSearch(
+                            binding.mapView.map().getBoundingBox(0),
+                            categories[i]
+                        )
+                    }
+                })
+                .show()
+
         }
 
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -204,14 +298,15 @@ class MapsActivity : AppCompatActivity(), LocationListener {
         binding.mapView.map().layers().add(locationLayer)
 
         lastLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-                ?: locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-                        ?: locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER)
-                        ?: Location("tmp").apply {
-                    latitude = -32.0
-                    longitude = 18.0
-                }
+            ?: locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+                    ?: locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER)
+                    ?: Location("tmp").apply {
+                latitude = -32.0
+                longitude = 18.0
+            }
 
-        binding.mapView.map().setMapPosition(lastLocation.latitude, lastLocation.longitude, (1 shl 12).toDouble())
+        binding.mapView.map()
+            .setMapPosition(lastLocation.latitude, lastLocation.longitude, (1 shl 12).toDouble())
 
         onLocationChanged(lastLocation)
 
@@ -219,11 +314,11 @@ class MapsActivity : AppCompatActivity(), LocationListener {
 
 
         val style = Style.builder()
-                .fixed(true)
-                .generalization(Style.GENERALIZATION_SMALL)
-                .strokeColor(ContextCompat.getColor(this, R.color.colorAccent))
-                .strokeWidth(4 * resources.displayMetrics.density)
-                .build()
+            .fixed(true)
+            .generalization(Style.GENERALIZATION_SMALL)
+            .strokeColor(ContextCompat.getColor(this, R.color.colorAccent))
+            .strokeWidth(4 * resources.displayMetrics.density)
+            .build()
         pathLayer = PathLayer(binding.mapView.map(), style)
         binding.mapView.map().layers().add(pathLayer)
 
@@ -238,48 +333,66 @@ class MapsActivity : AppCompatActivity(), LocationListener {
                     }
                     is Gesture.LongPress -> consume {
                         val p = mMap.viewport().fromScreenPoint(e.x, e.y)
-                        chooser("Select Action", resources.getStringArray(R.array.map_actions), callback = { action, _ ->
-                            when (action) {
-                                1 -> {
-                                    val builder = AlertDialog.Builder(this@MapsActivity)
-                                    builder.setTitle("New Directory Name")
+                        chooser(
+                            "Select Action",
+                            resources.getStringArray(R.array.map_actions),
+                            callback = { action, _ ->
+                                when (action) {
+                                    1 -> {
+                                        val builder = AlertDialog.Builder(this@MapsActivity)
+                                        builder.setTitle("New Directory Name")
 
-                                    val input = EditText(this@MapsActivity)
-                                    input.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_AUTO_CORRECT or InputType.TYPE_TEXT_FLAG_CAP_WORDS
-                                    builder.setView(input)
+                                        val input = EditText(this@MapsActivity)
+                                        input.inputType =
+                                            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_AUTO_CORRECT or InputType.TYPE_TEXT_FLAG_CAP_WORDS
+                                        builder.setView(input)
 
-                                    builder.setPositiveButton("OK") { _, _ ->
-                                        JsonObject().apply {
-                                            addProperty("unixtimestamp", now())
-                                            addProperty("date", Date(now()).toDateFull())
-                                            addProperty("name", input.text.toString())
-                                            addProperty("latitude", p.latitude)
-                                            addProperty("longitude", p.longitude)
-                                        }.appendToFile(File(homeDir(), "saved_locations.json"))
+                                        builder.setPositiveButton("OK") { _, _ ->
+                                            JsonObject().apply {
+                                                addProperty("unixtimestamp", now())
+                                                addProperty("date", Date(now()).toDateFull())
+                                                addProperty("name", input.text.toString())
+                                                addProperty("latitude", p.latitude)
+                                                addProperty("longitude", p.longitude)
+                                            }.appendToFile(File(homeDir(), "saved_locations.json"))
+                                        }
+                                        builder.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() }
+
+                                        builder.show()
                                     }
-                                    builder.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() }
+                                    2 -> {
+                                        val i = Intent(Intent.ACTION_SEND)
 
-                                    builder.show()
-                                }
-                                2 -> {
-                                    val i = Intent(Intent.ACTION_SEND)
+                                        i.type = "text/plain"
+                                        i.putExtra(Intent.EXTRA_SUBJECT, "Shared Location")
+                                        i.putExtra(
+                                            Intent.EXTRA_TEXT,
+                                            "http://maps.google.com/maps?q=loc:%.10f,%.10f".format(
+                                                p.latitude,
+                                                p.longitude
+                                            )
+                                        )
 
-                                    i.type = "text/plain"
-                                    i.putExtra(Intent.EXTRA_SUBJECT, "Shared Location")
-                                    i.putExtra(Intent.EXTRA_TEXT, "http://maps.google.com/maps?q=loc:%.10f,%.10f".format(p.latitude, p.longitude))
-
-                                    try {
-                                        startActivity(Intent.createChooser(i, "Share Location"))
-                                    } catch (ex: android.content.ActivityNotFoundException) {
-                                        toast("There is no activity to share location to.")
+                                        try {
+                                            startActivity(Intent.createChooser(i, "Share Location"))
+                                        } catch (ex: android.content.ActivityNotFoundException) {
+                                            toast("There is no activity to share location to.")
+                                        }
+                                    }
+                                    else -> {
+                                        toast(
+                                            "Navigating to ${p.latitude}, ${p.longitude}",
+                                            Toast.LENGTH_SHORT
+                                        )
+                                        calcPath(
+                                            lastLocation.latitude,
+                                            lastLocation.longitude,
+                                            p.latitude,
+                                            p.longitude
+                                        )
                                     }
                                 }
-                                else -> {
-                                    toast("Navigating to ${p.latitude}, ${p.longitude}", Toast.LENGTH_SHORT)
-                                    calcPath(lastLocation.latitude, lastLocation.longitude, p.latitude, p.longitude)
-                                }
-                            }
-                        })
+                            })
                     }
                     else -> false
                 }
@@ -287,7 +400,14 @@ class MapsActivity : AppCompatActivity(), LocationListener {
 
         })
 
-        val locations = configFile().a("locations").mapObject { LocationPoint(s("name"), d("latitude"), d("longitude"), s("colour", "blue")) }
+        val locations = configFile().a("locations").mapObject {
+            LocationPoint(
+                s("name"),
+                d("latitude"),
+                d("longitude"),
+                s("colour", "blue")
+            )
+        }
         locationsSaved.addAll(locations)
 
         markerColours.forEach { (image, name) ->
@@ -298,24 +418,33 @@ class MapsActivity : AppCompatActivity(), LocationListener {
 
             val layer = ItemizedLayer(
                 binding.mapView.map(),
-                    list as List<MarkerInterface>,
-                    MarkerSymbol(drawableToBitmap(ContextCompat.getDrawable(this, image)), MarkerSymbol.HotspotPlace.BOTTOM_CENTER, true),
-                    object : ItemizedLayer.OnItemGestureListener<MarkerInterface> {
+                list as List<MarkerInterface>,
+                MarkerSymbol(
+                    drawableToBitmap(ContextCompat.getDrawable(this, image)),
+                    MarkerSymbol.HotspotPlace.BOTTOM_CENTER,
+                    true
+                ),
+                object : ItemizedLayer.OnItemGestureListener<MarkerInterface> {
 
-                        override fun onItemSingleTapUp(index: Int, item: MarkerInterface?): Boolean {
-                            item ?: return true
-                            toast("This is: " + list[index].title)
-                            return true
-                        }
-
-                        override fun onItemLongPress(index: Int, item: MarkerInterface?): Boolean {
-                            item ?: return true
-                            toast("Navigating to:" + list[index].title)
-                            calcPath(lastLocation.latitude, lastLocation.longitude, item.point.latitude, item.point.longitude)
-
-                            return true
-                        }
+                    override fun onItemSingleTapUp(index: Int, item: MarkerInterface?): Boolean {
+                        item ?: return true
+                        toast("This is: " + list[index].title)
+                        return true
                     }
+
+                    override fun onItemLongPress(index: Int, item: MarkerInterface?): Boolean {
+                        item ?: return true
+                        toast("Navigating to:" + list[index].title)
+                        calcPath(
+                            lastLocation.latitude,
+                            lastLocation.longitude,
+                            item.point.latitude,
+                            item.point.longitude
+                        )
+
+                        return true
+                    }
+                }
             )
             binding.mapView.map().layers().add(layer)
         }
@@ -328,25 +457,37 @@ class MapsActivity : AppCompatActivity(), LocationListener {
             })
             val layer = ItemizedLayer(
                 binding.mapView.map(),
-                    list as List<MarkerInterface>,
-                    MarkerSymbol(drawableToBitmap(ContextCompat.getDrawable(this, R.drawable.ic_place_cyan)), MarkerSymbol.HotspotPlace.BOTTOM_CENTER, true),
-                    object : ItemizedLayer.OnItemGestureListener<MarkerInterface> {
+                list as List<MarkerInterface>,
+                MarkerSymbol(
+                    drawableToBitmap(
+                        ContextCompat.getDrawable(
+                            this,
+                            R.drawable.ic_place_cyan
+                        )
+                    ), MarkerSymbol.HotspotPlace.BOTTOM_CENTER, true
+                ),
+                object : ItemizedLayer.OnItemGestureListener<MarkerInterface> {
 
-                        override fun onItemSingleTapUp(index: Int, item: MarkerInterface?): Boolean {
-                            item ?: return true
-                            toast("This is: " + list[index].title)
-                            return true
-                        }
-
-                        override fun onItemLongPress(index: Int, item: MarkerInterface?): Boolean {
-                            item ?: return true
-                            toast("Navigating to:" + list[index].title)
-                            calcPath(lastLocation.latitude, lastLocation.longitude, item.point.latitude, item.point.longitude)
-
-                            return true
-                        }
-
+                    override fun onItemSingleTapUp(index: Int, item: MarkerInterface?): Boolean {
+                        item ?: return true
+                        toast("This is: " + list[index].title)
+                        return true
                     }
+
+                    override fun onItemLongPress(index: Int, item: MarkerInterface?): Boolean {
+                        item ?: return true
+                        toast("Navigating to:" + list[index].title)
+                        calcPath(
+                            lastLocation.latitude,
+                            lastLocation.longitude,
+                            item.point.latitude,
+                            item.point.longitude
+                        )
+
+                        return true
+                    }
+
+                }
             )
             binding.mapView.map().layers().add(layer)
         }
@@ -369,7 +510,7 @@ class MapsActivity : AppCompatActivity(), LocationListener {
         mapScaleBar.destroy()
         try {
             binding.mapView.onDestroy()
-        } catch (err:NullPointerException){
+        } catch (err: NullPointerException) {
 
         }
 
@@ -404,7 +545,12 @@ class MapsActivity : AppCompatActivity(), LocationListener {
             binding.mapView.map().viewport().setTilt(60F)
         }
         binding.mapView.map().updateMap(true)
-        binding.gpsData.text = "%.6f, %.6f : %.0f m [%s]".format(location.latitude, location.longitude, location.accuracy, location.provider)
+        binding.gpsData.text = "%.6f, %.6f : %.0f m [%s]".format(
+            location.latitude,
+            location.longitude,
+            location.accuracy,
+            location.provider
+        )
 
         if (binding.gpsDataInfo.visibility == View.VISIBLE) {
             if (location.hasAccuracy())
@@ -419,15 +565,17 @@ class MapsActivity : AppCompatActivity(), LocationListener {
                 binding.gpsAltitude.text = "%.0f m".format(location.altitude)
 
             if (location.hasBearing())
-                binding.gpsBearing.text = "%s %.0f°".format(location.bearing.bearingToCompass(), location.bearing)
+                binding.gpsBearing.text =
+                    "%s %.0f°".format(location.bearing.bearingToCompass(), location.bearing)
 
             binding.gpsLatLong.text = "%.5f %.5f".format(location.latitude, location.longitude)
 
             val ss = SunriseSunset(location.latitude, location.longitude, Date(location.time), 0.0)
 
-            binding.gpsCode.text =  OpenLocationCode(location.latitude, location.longitude).code
+            binding.gpsCode.text = OpenLocationCode(location.latitude, location.longitude).code
 
-            binding.gpsTimeData.text = "${Date(location.time).toDateDay()}\n${ss.sunrise?.toTimeShort()} -> ${ss.sunset?.toTimeShort()}"
+            binding.gpsTimeData.text =
+                "${Date(location.time).toDateDay()}\n${ss.sunrise?.toTimeShort()} -> ${ss.sunset?.toTimeShort()}"
         }
         if (record) {
             val ss = SunriseSunset(location.latitude, location.longitude, Date(location.time), 0.0)
@@ -445,7 +593,10 @@ class MapsActivity : AppCompatActivity(), LocationListener {
                 addProperty("bearingAccuracyDegrees", location.bearingAccuracyDegrees)
                 addProperty("speedAccuracyMetersPerSecond", location.speedAccuracyMetersPerSecond)
                 addProperty("verticalAccuracyMeters", location.verticalAccuracyMeters)
-                addProperty("openLocationCode", OpenLocationCode(location.latitude, location.longitude).code)
+                addProperty(
+                    "openLocationCode",
+                    OpenLocationCode(location.latitude, location.longitude).code
+                )
                 addProperty("time", Date(location.time).toDateDay())
                 addProperty("sunrise", ss.sunrise?.toDateDay())
                 addProperty("sunset", ss.sunset?.toDateDay())
@@ -473,8 +624,8 @@ class MapsActivity : AppCompatActivity(), LocationListener {
                 val tmpHopp: GraphHopper = GraphHopper().apply {
                     graphHopperLocation = File(homeDir(), "area").absolutePath
                     setProfiles(
-                            Profile("car").setVehicle("car").setWeighting("fastest"),
-                            Profile("foot").setVehicle("foot").setWeighting("fastest")
+                        Profile("car").setVehicle("car").setWeighting("fastest"),
+                        Profile("foot").setVehicle("foot").setWeighting("fastest")
                     )
                     importOrLoad()
                 }
@@ -525,11 +676,13 @@ class MapsActivity : AppCompatActivity(), LocationListener {
                     currentResponse = resp
                     val t = resp.time / 1000
 //                    resp.ascend
-                    binding.path.text = ("${resp.instructions.size} turns | %.1f km | %02d:%02d\nTook %.0f ms to compute").format(
+                    binding.path.text =
+                        ("${resp.instructions.size} turns | %.1f km | %02d:%02d\nTook %.0f ms to compute").format(
                             resp.distance / 1000.0,
                             t / 60,
                             t % 60,
-                            time * 1000)
+                            time * 1000
+                        )
                     binding.path.show()
 
                     val geoPoints = ArrayList<GeoPoint>()
@@ -553,7 +706,14 @@ class MapsActivity : AppCompatActivity(), LocationListener {
         overlayDrawn = true
         val obj = File(homeDir(), "map.json").asJsonObject()
 
-        val locations = obj.a("locations").mapObject { LocationPoint(s("name"), d("latitude"), d("longitude"), s("colour", "blue")) }
+        val locations = obj.a("locations").mapObject {
+            LocationPoint(
+                s("name"),
+                d("latitude"),
+                d("longitude"),
+                s("colour", "blue")
+            )
+        }
         markerColours.forEach { (image, name) ->
             val list = ArrayList<MarkerItem>()
 
@@ -562,24 +722,33 @@ class MapsActivity : AppCompatActivity(), LocationListener {
             })
             ItemizedLayer(
                 binding.mapView.map(),
-                    list as List<MarkerInterface>,
-                    MarkerSymbol(drawableToBitmap(ContextCompat.getDrawable(this, image)), MarkerSymbol.HotspotPlace.BOTTOM_CENTER, true),
-                    object : ItemizedLayer.OnItemGestureListener<MarkerInterface> {
+                list as List<MarkerInterface>,
+                MarkerSymbol(
+                    drawableToBitmap(ContextCompat.getDrawable(this, image)),
+                    MarkerSymbol.HotspotPlace.BOTTOM_CENTER,
+                    true
+                ),
+                object : ItemizedLayer.OnItemGestureListener<MarkerInterface> {
 
-                        override fun onItemSingleTapUp(index: Int, item: MarkerInterface?): Boolean {
-                            item ?: return true
-                            toast("This is: " + list[index].title)
-                            return true
-                        }
-
-                        override fun onItemLongPress(index: Int, item: MarkerInterface?): Boolean {
-                            item ?: return true
-                            toast("Navigating to:" + list[index].title)
-                            calcPath(lastLocation.latitude, lastLocation.longitude, item.point.latitude, item.point.longitude)
-
-                            return true
-                        }
+                    override fun onItemSingleTapUp(index: Int, item: MarkerInterface?): Boolean {
+                        item ?: return true
+                        toast("This is: " + list[index].title)
+                        return true
                     }
+
+                    override fun onItemLongPress(index: Int, item: MarkerInterface?): Boolean {
+                        item ?: return true
+                        toast("Navigating to:" + list[index].title)
+                        calcPath(
+                            lastLocation.latitude,
+                            lastLocation.longitude,
+                            item.point.latitude,
+                            item.point.longitude
+                        )
+
+                        return true
+                    }
+                }
             )
         }
 
@@ -589,10 +758,22 @@ class MapsActivity : AppCompatActivity(), LocationListener {
             "Type of object: ${s("type")}".error()
             when (s("type")) {
                 "circle" -> {
-                    vectorLayer.add(CircleDrawable(toGeoPoint(), d("size"), colourStyle(s("colour"))))
+                    vectorLayer.add(
+                        CircleDrawable(
+                            toGeoPoint(),
+                            d("size"),
+                            colourStyle(s("colour"))
+                        )
+                    )
                 }
                 "rectangle" -> {
-                    vectorLayer.add(RectangleDrawable(GeoPoint(d("top"), d("left")), GeoPoint(d("bottom"), d("right")), colourStyle(s("colour"))))
+                    vectorLayer.add(
+                        RectangleDrawable(
+                            GeoPoint(d("top"), d("left")),
+                            GeoPoint(d("bottom"), d("right")),
+                            colourStyle(s("colour"))
+                        )
+                    )
                 }
                 "line" -> {
                     vectorLayer.add(LineDrawable(ArrayList<GeoPoint>().apply {
@@ -612,6 +793,59 @@ class MapsActivity : AppCompatActivity(), LocationListener {
         }
         vectorLayer.update()
         binding.mapView.map().layers().add(vectorLayer)
+    }
+
+    private suspend fun doSearch(bbox: BoundingBox, category: PoiCategory){
+        val categoryManager = persistenceManager.categoryManager
+
+        val categoryFilter: PoiCategoryFilter = ExactMatchPoiCategoryFilter()
+        categoryFilter.addCategory(category)
+        val pointOfInterests = persistenceManager.findInRect(
+            org.mapsforge.core.model.BoundingBox(bbox.minLatitude, bbox.minLongitude, bbox.maxLatitude, bbox.maxLongitude),
+            categoryFilter,
+            null,
+            Int.MAX_VALUE)
+        withContext(Dispatchers.Main) {
+            // Overlay POI
+            // Overlay POI
+            val groupLayer = GroupLayer(binding.mapView.map())
+
+            val markers = pointOfInterests.map {
+                log(it.name)
+                MarkerItem(it.name, it.name, it.latLong.toGeoPoint())
+            }
+            val layer = ItemizedLayer(
+                binding.mapView.map(),
+                markers,
+                MarkerSymbol(
+                    drawableToBitmap(ContextCompat.getDrawable(applicationContext, R.drawable.ic_place_light_blue)),
+                    MarkerSymbol.HotspotPlace.BOTTOM_CENTER,
+                    true
+                ),
+                object : ItemizedLayer.OnItemGestureListener<MarkerInterface> {
+
+                    override fun onItemSingleTapUp(index: Int, item: MarkerInterface?): Boolean {
+                        item ?: return true
+                        toast("This is: " + markers[index].title)
+                        return true
+                    }
+
+                    override fun onItemLongPress(index: Int, item: MarkerInterface?): Boolean {
+                        item ?: return true
+                        toast("Navigating to:" + markers[index].title)
+                        calcPath(
+                            lastLocation.latitude,
+                            lastLocation.longitude,
+                            item.point.latitude,
+                            item.point.longitude
+                        )
+
+                        return true
+                    }
+                }
+            )
+            binding.mapView.map().layers().add(layer)
+        }
     }
 
     private fun log(str: String) {

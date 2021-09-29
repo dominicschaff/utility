@@ -12,20 +12,20 @@ import android.util.DisplayMetrics
 
 
 class DeviceStats(
-        var battery: Float = 0.toFloat(),
-        var battery_temperature: Double = 0.toDouble(),
-        var manufacturer: String = "",
-        var brand: String = "",
-        var model: String = "",
-        var device: String = "",
-        var display: String = "",
-        var product: String = "",
-        var width: Int = 0,
-        var height: Int = 0,
-        var uptime: Long = 0,
-        val density: Float = 0F,
-        val dpHeight: Float = 0.0F,
-        val dpWidth: Float = 0.0F
+    var battery: Float = 0.toFloat(),
+    var battery_temperature: Double = 0.toDouble(),
+    var manufacturer: String = "",
+    var brand: String = "",
+    var model: String = "",
+    var device: String = "",
+    var display: String = "",
+    var product: String = "",
+    var width: Int = 0,
+    var height: Int = 0,
+    var uptime: Long = 0,
+    val density: Float = 0F,
+    val dpHeight: Float = 0.0F,
+    val dpWidth: Float = 0.0F
 )
 
 @SuppressLint("HardwareIds", "MissingPermission")
@@ -48,19 +48,19 @@ fun Activity.getDeviceStats(): DeviceStats {
 
     @Suppress("DEPRECATION")
     return DeviceStats(
-            if (level == -1 || scale == -1) 50.0f else level.toFloat() / scale.toFloat() * 100.0f,
-            temp / 10.0,
-            Build.MANUFACTURER,
-            Build.BRAND,
-            Build.MODEL,
-            Build.DEVICE,
-            Build.DISPLAY,
-            Build.PRODUCT,
-            size.x,
-            size.y,
-            SystemClock.uptimeMillis(),
-            density,
-            dpHeight,
-            dpWidth
+        if (level == -1 || scale == -1) 50.0f else level.toFloat() / scale.toFloat() * 100.0f,
+        temp / 10.0,
+        Build.MANUFACTURER,
+        Build.BRAND,
+        Build.MODEL,
+        Build.DEVICE,
+        Build.DISPLAY,
+        Build.PRODUCT,
+        size.x,
+        size.y,
+        SystemClock.uptimeMillis(),
+        density,
+        dpHeight,
+        dpWidth
     )
 }

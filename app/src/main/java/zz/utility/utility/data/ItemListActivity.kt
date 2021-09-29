@@ -27,7 +27,7 @@ import zz.utility.helpers.s
 class ItemListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityItemListBinding
 
-            /**
+    /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
@@ -55,14 +55,16 @@ class ItemListActivity : AppCompatActivity() {
         recyclerView.adapter = SimpleItemRecyclerViewAdapter(this, items, twoPane)
     }
 
-    class SimpleItemRecyclerViewAdapter(private val parentActivity: ItemListActivity,
-                                        private val values: List<Item>,
-                                        private val twoPane: Boolean) :
-            RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
+    class SimpleItemRecyclerViewAdapter(
+        private val parentActivity: ItemListActivity,
+        private val values: List<Item>,
+        private val twoPane: Boolean
+    ) :
+        RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_list_content, parent, false)
+                .inflate(R.layout.item_list_content, parent, false)
             return ViewHolder(view)
         }
 
@@ -81,9 +83,9 @@ class ItemListActivity : AppCompatActivity() {
                             }
                         }
                         parentActivity.supportFragmentManager
-                                .beginTransaction()
-                                .replace(R.id.item_detail_container, fragment)
-                                .commit()
+                            .beginTransaction()
+                            .replace(R.id.item_detail_container, fragment)
+                            .commit()
                     } else {
                         val intent = Intent(v.context, ItemDetailActivity::class.java).apply {
                             putExtra(ItemDetailFragment.ITEM_TITLE, item.title)
@@ -104,6 +106,6 @@ class ItemListActivity : AppCompatActivity() {
 }
 
 data class Item(
-        val title: String,
-        val content: String
+    val title: String,
+    val content: String
 )

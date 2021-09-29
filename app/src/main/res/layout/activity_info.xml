@@ -158,10 +158,22 @@
         <TextView
             style="@style/Text.Large.Center"
             android:text="Environment" />
-        <TextView style="@style/Text" android:id="@+id/light"/>
+
+        <TextView
+            android:id="@+id/light"
+            style="@style/Text" />
+
         <LinearLayout style="@style/Linear.Horizontal">
-            <TextView style="@style/Text" android:id="@+id/gravity" android:layout_weight="1"/>
-            <TextView style="@style/Text" android:id="@+id/magnetic" android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/gravity"
+                style="@style/Text"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/magnetic"
+                style="@style/Text"
+                android:layout_weight="1" />
         </LinearLayout>
 
     </LinearLayout>
@@ -178,13 +190,31 @@
         <TextView
             style="@style/Text.Large.Center"
             android:text="Device" />
+
         <LinearLayout style="@style/Linear.Horizontal">
-            <TextView style="@style/Text" android:id="@+id/orientation" android:layout_weight="1"/>
-            <TextView style="@style/Text" android:id="@+id/proximity" android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/orientation"
+                style="@style/Text"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/proximity"
+                style="@style/Text"
+                android:layout_weight="1" />
         </LinearLayout>
+
         <LinearLayout style="@style/Linear.Horizontal">
-            <TextView style="@style/Text" android:id="@+id/acceleration" android:layout_weight="1"/>
-            <TextView style="@style/Text" android:id="@+id/gyroscope" android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/acceleration"
+                style="@style/Text"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/gyroscope"
+                style="@style/Text"
+                android:layout_weight="1" />
         </LinearLayout>
 
     </LinearLayout>

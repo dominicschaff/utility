@@ -9,22 +9,22 @@ import android.os.Process
 import android.telephony.*
 
 class NetworkStats(
-        var mobileRx: Long,
-        var mobileTx: Long,
-        var totalRx: Long,
-        var totalTx: Long,
-        var appRx: Long,
-        var appTx: Long,
-        var serviceStateDescription: String,
-        var operatorName: String,
-        var cellType: String,
-        var isEmergencyOnly: Boolean,
-        var isInService: Boolean,
-        var isOutOfService: Boolean,
-        var isPowerOff: Boolean,
-        var isWifiConnected: Boolean,
-        var isMobileConnected: Boolean,
-        var signalStrength: Int
+    var mobileRx: Long,
+    var mobileTx: Long,
+    var totalRx: Long,
+    var totalTx: Long,
+    var appRx: Long,
+    var appTx: Long,
+    var serviceStateDescription: String,
+    var operatorName: String,
+    var cellType: String,
+    var isEmergencyOnly: Boolean,
+    var isInService: Boolean,
+    var isOutOfService: Boolean,
+    var isPowerOff: Boolean,
+    var isWifiConnected: Boolean,
+    var isMobileConnected: Boolean,
+    var signalStrength: Int
 )
 
 @SuppressLint("MissingPermission")
@@ -60,29 +60,29 @@ fun Activity.getNetworkStats(): NetworkStats {
     }
 
     return NetworkStats(
-            TrafficStats.getMobileRxBytes(),
-            TrafficStats.getMobileTxBytes(),
-            TrafficStats.getTotalRxBytes(),
-            TrafficStats.getTotalTxBytes(),
-            TrafficStats.getUidRxBytes(Process.myUid()),
-            TrafficStats.getUidTxBytes(Process.myUid()),
-            when (ss.state) {
-                ServiceState.STATE_EMERGENCY_ONLY -> "Emergency Only"
-                ServiceState.STATE_IN_SERVICE -> "In Service"
-                ServiceState.STATE_OUT_OF_SERVICE -> "Out of Service"
-                ServiceState.STATE_POWER_OFF -> "Cell Powered Off"
-                else -> {
-                    "Unknown"
-                }
-            },
-            ss.operatorAlphaLong ?: "",
-            cellType,
-            ss.state == ServiceState.STATE_EMERGENCY_ONLY,
-            ss.state == ServiceState.STATE_IN_SERVICE,
-            ss.state == ServiceState.STATE_OUT_OF_SERVICE,
-            ss.state == ServiceState.STATE_POWER_OFF,
-            wifi != null && wifi.isAvailable && wifi.isConnected,
-            mobile != null && mobile.isAvailable && mobile.isConnectedOrConnecting,
-            signalStrength
+        TrafficStats.getMobileRxBytes(),
+        TrafficStats.getMobileTxBytes(),
+        TrafficStats.getTotalRxBytes(),
+        TrafficStats.getTotalTxBytes(),
+        TrafficStats.getUidRxBytes(Process.myUid()),
+        TrafficStats.getUidTxBytes(Process.myUid()),
+        when (ss.state) {
+            ServiceState.STATE_EMERGENCY_ONLY -> "Emergency Only"
+            ServiceState.STATE_IN_SERVICE -> "In Service"
+            ServiceState.STATE_OUT_OF_SERVICE -> "Out of Service"
+            ServiceState.STATE_POWER_OFF -> "Cell Powered Off"
+            else -> {
+                "Unknown"
+            }
+        },
+        ss.operatorAlphaLong ?: "",
+        cellType,
+        ss.state == ServiceState.STATE_EMERGENCY_ONLY,
+        ss.state == ServiceState.STATE_IN_SERVICE,
+        ss.state == ServiceState.STATE_OUT_OF_SERVICE,
+        ss.state == ServiceState.STATE_POWER_OFF,
+        wifi != null && wifi.isAvailable && wifi.isConnected,
+        mobile != null && mobile.isAvailable && mobile.isConnectedOrConnecting,
+        signalStrength
     )
 }

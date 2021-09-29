@@ -10,14 +10,14 @@ fun Context.getFreeInternalMemory(): Long = filesDir.getFreeMemory()
 fun Context.getTotalInternalMemory(): Long = filesDir.getTotalMemory()
 
 fun Context.getFreeExternalMemory(): Array<Long> =
-        ContextCompat.getExternalFilesDirs(this, null)
-                .filterNotNull()
-                .map { it.getFreeMemory() }.toTypedArray()
+    ContextCompat.getExternalFilesDirs(this, null)
+        .filterNotNull()
+        .map { it.getFreeMemory() }.toTypedArray()
 
 fun Context.getTotalExternalMemory(): Array<Long> =
-        ContextCompat.getExternalFilesDirs(this, null)
-                .filterNotNull()
-                .map { it.getTotalMemory() }.toTypedArray()
+    ContextCompat.getExternalFilesDirs(this, null)
+        .filterNotNull()
+        .map { it.getTotalMemory() }.toTypedArray()
 
 private fun File.getFreeMemory(): Long = StatFs(path).availableBytes
 

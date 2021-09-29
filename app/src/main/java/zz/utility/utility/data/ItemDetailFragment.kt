@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import zz.utility.R
-import zz.utility.databinding.ActivityItemDetailBinding
 
 /**
  * A fragment representing a single Item detail screen.
@@ -34,8 +33,10 @@ class ItemDetailFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater.inflate(R.layout.item_detail, container, false)
 
         // Show the dummy content as text in a TextView.

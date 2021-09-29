@@ -9,7 +9,6 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
-import zz.utility.R
 import zz.utility.databinding.ActivityQrcodeGeneratorBinding
 import zz.utility.externalFile
 import zz.utility.helpers.ignore

@@ -66,12 +66,12 @@ constructor(latitude: Double, longitude: Double) {
             }
             remainingLatitude = remainingLatitude.subtract(BigDecimal(latitudeDigit))
             remainingLongitude = remainingLongitude.subtract(BigDecimal(longitudeDigit))
-            if (generatedDigits == SEPARATOR_POSITION.toInt()) {
+            if (generatedDigits == SEPARATOR_POSITION.code) {
                 codeBuilder.append(SEPARATOR)
             }
         }
-        if (generatedDigits < SEPARATOR_POSITION.toInt()) {
-            while (generatedDigits < SEPARATOR_POSITION.toInt()) {
+        if (generatedDigits < SEPARATOR_POSITION.code) {
+            while (generatedDigits < SEPARATOR_POSITION.code) {
                 codeBuilder.append(SUFFIX_PADDING)
                 generatedDigits++
             }

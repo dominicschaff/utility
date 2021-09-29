@@ -18,7 +18,8 @@ fun Activity.chooser(title: String, options: Array<String>, callback: (Int, Stri
     val grid = l.findViewById<GridLayout>(R.id.mainGrid)
 
     options.forEachIndexed { index, option ->
-        val v = layoutInflater.inflate(R.layout.activity_alert_chooser_text, grid, false) as TextView
+        val v =
+            layoutInflater.inflate(R.layout.activity_alert_chooser_text, grid, false) as TextView
 
         v.text = option
         v.setOnClickListener {

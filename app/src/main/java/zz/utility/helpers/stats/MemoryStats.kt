@@ -6,9 +6,9 @@ import android.content.Context
 import android.content.Context.ACTIVITY_SERVICE
 
 class MemoryStats(
-        val total: Long,
-        val available: Long,
-        val threshold: Long
+    val total: Long,
+    val available: Long,
+    val threshold: Long
 )
 
 fun Context.getMemoryStats(): MemoryStats {

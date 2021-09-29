@@ -33,11 +33,15 @@ fun Context.alert(content: String, clickListener: DialogInterface.OnClickListene
 
 }
 
-fun Context.createChooser(title: String, options: Array<String>, clickListener: DialogInterface.OnClickListener) {
+fun Context.createChooser(
+    title: String,
+    options: Array<String>,
+    clickListener: DialogInterface.OnClickListener
+) {
     AlertDialog.Builder(this)
-            .setTitle(title)
-            .setItems(options, clickListener)
-            .show()
+        .setTitle(title)
+        .setItems(options, clickListener)
+        .show()
 }
 
 
@@ -53,11 +57,11 @@ fun Activity.requestPermissions(permissions: Array<String>): Boolean {
 }
 
 inline fun <T> (() -> T).or(f: () -> T): T =
-        try {
-            this()
-        } catch (e: Exception) {
-            f()
-        }
+    try {
+        this()
+    } catch (e: Exception) {
+        f()
+    }
 
 
 inline fun (() -> Unit?).or(f: (e: Exception) -> Unit) {
@@ -95,7 +99,9 @@ inline fun (() -> Unit?).orPrint() {
     }
 }
 
-inline fun Context.toast(s: String, length: Int = Toast.LENGTH_LONG) = Toast.makeText(this, s, length).show()
+inline fun Context.toast(s: String, length: Int = Toast.LENGTH_LONG) =
+    Toast.makeText(this, s, length).show()
+
 inline fun View.show() {
     visibility = View.VISIBLE
 }
@@ -107,7 +113,8 @@ inline fun View.hide() {
 inline fun Activity.openFile(f: File) {
     try {
         val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = FileProvider.getUriForFile(this, applicationContext.packageName + ".provider", f)
+        intent.data =
+            FileProvider.getUriForFile(this, applicationContext.packageName + ".provider", f)
         intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
         startActivity(intent)
     } catch (e: Exception) {

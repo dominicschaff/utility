@@ -203,6 +203,13 @@
             android:layout_marginBottom="@dimen/nav_bar_height" />
 
         <com.nambimobile.widgets.efab.FabOption
+            android:id="@+id/search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/search"
+            app:label_text="POI Search" />
+
+        <com.nambimobile.widgets.efab.FabOption
             android:id="@+id/show_extra"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

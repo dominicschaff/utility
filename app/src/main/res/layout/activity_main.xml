@@ -14,11 +14,11 @@
         android:columnCount="5"
         android:columnOrderPreserved="true"
         android:orientation="horizontal"
-        app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintBottom_toTopOf="@id/ll_second"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed">
 
         <TextView
             android:id="@+id/goto_osm_maps"

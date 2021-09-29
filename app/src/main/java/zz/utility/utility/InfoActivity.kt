@@ -8,7 +8,6 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import zz.utility.R
 import zz.utility.databinding.ActivityInfoBinding
 import zz.utility.helpers.formatSize
 import zz.utility.helpers.stats.getDeviceStats
@@ -16,14 +15,14 @@ import zz.utility.helpers.stats.getMemoryStats
 import zz.utility.helpers.stats.getNetworkStats
 import zz.utility.helpers.stats.getStorageStats
 import zz.utility.helpers.toTime
-import java.util.ArrayList
+import java.util.*
 
 fun Boolean.eng(): String = if (this) "yes" else "no"
 
 class InfoActivity : AppCompatActivity(), SensorEventListener {
     private lateinit var binding: ActivityInfoBinding
 
-            private lateinit var mSensorManager: SensorManager
+    private lateinit var mSensorManager: SensorManager
     private val deviceSensors = ArrayList<Sensor>()
 
     @SuppressLint("SetTextI18n")
@@ -50,9 +49,11 @@ class InfoActivity : AppCompatActivity(), SensorEventListener {
             Total: ${ns.totalRx.formatSize()} / ${ns.totalTx.formatSize()}
         """.trimIndent()
 
-        binding.deviceBattery.text = "Level %.1f %%\nTemperature %.1f °".format(ds.battery, ds.battery_temperature)
+        binding.deviceBattery.text =
+            "Level %.1f %%\nTemperature %.1f °".format(ds.battery, ds.battery_temperature)
 
-        binding.deviceMemory.text = "${(ms.total - ms.available).formatSize()} / ${ms.total.formatSize()} [${ms.threshold.formatSize()}]"
+        binding.deviceMemory.text =
+            "${(ms.total - ms.available).formatSize()} / ${ms.total.formatSize()} [${ms.threshold.formatSize()}]"
 
         binding.deviceNetwork.text = """
             Operator Name: ${ns.operatorName}
@@ -77,19 +78,21 @@ class InfoActivity : AppCompatActivity(), SensorEventListener {
             Uptime: ${ds.uptime.toTime()}
         """.trimIndent()
 
-        binding.deviceScreen.text = "${ds.width} x ${ds.height}\n${ds.density} : ${ds.dpWidth} x ${ds.dpHeight}"
+        binding.deviceScreen.text =
+            "${ds.width} x ${ds.height}\n${ds.density} : ${ds.dpWidth} x ${ds.dpHeight}"
 
 
         mSensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         deviceSensors.addAll(
-                arrayOf(27,
-                        Sensor.TYPE_LIGHT,
-                        Sensor.TYPE_PROXIMITY,
-                        Sensor.TYPE_GRAVITY,
-                        Sensor.TYPE_LINEAR_ACCELERATION,
-                        Sensor.TYPE_MAGNETIC_FIELD,
-                        Sensor.TYPE_GYROSCOPE
-                ).map { mSensorManager.getDefaultSensor(it) })
+            arrayOf(
+                27,
+                Sensor.TYPE_LIGHT,
+                Sensor.TYPE_PROXIMITY,
+                Sensor.TYPE_GRAVITY,
+                Sensor.TYPE_LINEAR_ACCELERATION,
+                Sensor.TYPE_MAGNETIC_FIELD,
+                Sensor.TYPE_GYROSCOPE
+            ).map { mSensorManager.getDefaultSensor(it) })
     }
 
 
@@ -103,12 +106,34 @@ class InfoActivity : AppCompatActivity(), SensorEventListener {
                 3 -> "Right"
                 else -> "Flat | Unknown"
             }
-            Sensor.TYPE_LIGHT -> binding.light.text = "Amount of Light: %.0f".format(event.values[0])
-            Sensor.TYPE_PROXIMITY -> binding.proximity.text = "%s : %.0f".format(if (event.values[0] > 0) "Away" else "Close", event.values[0])
-            Sensor.TYPE_GRAVITY -> binding.gravity.text = "Gravity\nX : %.2f\nY : %.2f\nZ : %.2f".format(event.values[0], event.values[1], event.values[2])
-            Sensor.TYPE_LINEAR_ACCELERATION -> binding.acceleration.text = "Acceleration\nX : %.2f\nY : %.2f\nZ : %.2f".format(event.values[0], event.values[1], event.values[2])
-            Sensor.TYPE_MAGNETIC_FIELD -> binding.magnetic.text = "Magnetic\nX : %.2f\nY : %.2f\nZ : %.2f".format(event.values[0], event.values[1], event.values[2])
-            Sensor.TYPE_GYROSCOPE -> binding.gyroscope.text = "Gyroscope\nX : %.2f\nY : %.2f\nZ : %.2f".format(event.values[0], event.values[1], event.values[2])
+            Sensor.TYPE_LIGHT -> binding.light.text =
+                "Amount of Light: %.0f".format(event.values[0])
+            Sensor.TYPE_PROXIMITY -> binding.proximity.text =
+                "%s : %.0f".format(if (event.values[0] > 0) "Away" else "Close", event.values[0])
+            Sensor.TYPE_GRAVITY -> binding.gravity.text =
+                "Gravity\nX : %.2f\nY : %.2f\nZ : %.2f".format(
+                    event.values[0],
+                    event.values[1],
+                    event.values[2]
+                )
+            Sensor.TYPE_LINEAR_ACCELERATION -> binding.acceleration.text =
+                "Acceleration\nX : %.2f\nY : %.2f\nZ : %.2f".format(
+                    event.values[0],
+                    event.values[1],
+                    event.values[2]
+                )
+            Sensor.TYPE_MAGNETIC_FIELD -> binding.magnetic.text =
+                "Magnetic\nX : %.2f\nY : %.2f\nZ : %.2f".format(
+                    event.values[0],
+                    event.values[1],
+                    event.values[2]
+                )
+            Sensor.TYPE_GYROSCOPE -> binding.gyroscope.text =
+                "Gyroscope\nX : %.2f\nY : %.2f\nZ : %.2f".format(
+                    event.values[0],
+                    event.values[1],
+                    event.values[2]
+                )
 
         }
     }
@@ -117,7 +142,13 @@ class InfoActivity : AppCompatActivity(), SensorEventListener {
 
     public override fun onResume() {
         super.onResume()
-        deviceSensors.forEach { mSensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_NORMAL) }
+        deviceSensors.forEach {
+            mSensorManager.registerListener(
+                this,
+                it,
+                SensorManager.SENSOR_DELAY_NORMAL
+            )
+        }
     }
 
     public override fun onPause() {

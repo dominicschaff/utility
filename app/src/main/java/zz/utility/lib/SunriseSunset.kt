@@ -238,16 +238,16 @@ class SunriseSunset
  *
  * ----------------------------------------------------------------------------
  */
-(
-        // Declare and initialize variables
-        private val dfLat: Double                    // latitude from user
-        , // latitude
-        private var dfLon: Double                    // latitude from user
-        , // longitude
-        private val dateInput: Date                // date/time from user
-        , // date
-        private var dfTimeZone: Double            // time zone
-        // time zone from user
+    (
+    // Declare and initialize variables
+    private val dfLat: Double                    // latitude from user
+    , // latitude
+    private var dfLon: Double                    // latitude from user
+    , // longitude
+    private val dateInput: Date                // date/time from user
+    , // date
+    private var dfTimeZone: Double            // time zone
+    // time zone from user
 ) {
 
     private var dateSunrise: Date? = null            // date and time of sunrise
@@ -462,9 +462,15 @@ class SunriseSunset
         get() {
             if (bSunriseToday && bSunsetToday) {
                 if (dateSunrise!!.before(dateSunset)) {
-                    bDaytime = (dateInput.after(dateSunrise) || dateInput == dateSunrise) && dateInput.before(dateSunset)
+                    bDaytime =
+                        (dateInput.after(dateSunrise) || dateInput == dateSunrise) && dateInput.before(
+                            dateSunset
+                        )
                 } else {
-                    bDaytime = dateInput.after(dateSunrise) || dateInput == dateSunrise || dateInput.before(dateSunset)
+                    bDaytime =
+                        dateInput.after(dateSunrise) || dateInput == dateSunrise || dateInput.before(
+                            dateSunset
+                        )
                 }
             } else if (bSunUpAllDay)
                 bDaytime = true
@@ -543,9 +549,10 @@ class SunriseSunset
             if (iYear >= 1583) bGregorian = true
             // SUNUP.BAS 1210
             dfJ = (-// SUNUP used INT, not floor
-            Math.floor(7.0 * (Math.floor(
+            Math.floor(
+                7.0 * (Math.floor(
                     (iMonth + 9.0) / 12.0
-            ) + iYear) / 4.0
+                ) + iYear) / 4.0
             )
                     // add SUNUP.BAS 1240 and 1250 for G = 0
                     + Math.floor(iMonth * 275.0 / 9.0)
@@ -562,10 +569,11 @@ class SunriseSunset
                 dfA = Math.abs(iMonth - 9.0)
                 // SUNUP.BAS 1240 and 1250
                 dfJ3 = -Math.floor(
-                        (Math.floor(
-                                Math.floor(iYear + iSign.toDouble() * Math.floor(dfA / 7.0)
-                                ) / 100.0
-                        ) + 1.0) * 0.75
+                    (Math.floor(
+                        Math.floor(
+                            iYear + iSign.toDouble() * Math.floor(dfA / 7.0)
+                        ) / 100.0
+                    ) + 1.0) * 0.75
                 )
                 // correct dfJ as in SUNUP.BAS 1240 and 1250 for G = 1
                 dfJ = dfJ + dfJ3 + 2.0
@@ -614,7 +622,10 @@ class SunriseSunset
                 dfGG = dfGG - Math.floor(dfGG)
                 dfGG = dfGG * 2.0 * Math.PI
 
-                dfVV = 0.39785 * Math.sin(dfLL) - 0.01000 * Math.sin(dfLL - dfGG) + 0.00333 * Math.sin(dfLL + dfGG) - 0.00021 * Math.sin(dfLL) * dfTT
+                dfVV =
+                    0.39785 * Math.sin(dfLL) - 0.01000 * Math.sin(dfLL - dfGG) + 0.00333 * Math.sin(
+                        dfLL + dfGG
+                    ) - 0.00021 * Math.sin(dfLL) * dfTT
 
                 dfUU = (1.0
                         - 0.03349 * Math.cos(dfGG)
@@ -700,16 +711,22 @@ class SunriseSunset
                 if (iCount == 0)
                 // SUNUP.BAS 550
                 {
-                    dfV0 = dfSinLat * Math.sin(dfD0) + dfCosLat * Math.cos(dfD0) * Math.cos(dfH0) - Math.cos(dfZenith)            // SUNUP.BAS 560
+                    dfV0 =
+                        dfSinLat * Math.sin(dfD0) + dfCosLat * Math.cos(dfD0) * Math.cos(dfH0) - Math.cos(
+                            dfZenith
+                        )            // SUNUP.BAS 560
                 } else
                     dfV0 = dfV2    // That is, dfV2 from the previous hour.
 
-                dfV2 = dfSinLat * Math.sin(dfD2) + dfCosLat * Math.cos(dfD2) * Math.cos(dfH2) - Math.cos(dfZenith)            // SUNUP.BAS 570
+                dfV2 =
+                    dfSinLat * Math.sin(dfD2) + dfCosLat * Math.cos(dfD2) * Math.cos(dfH2) - Math.cos(
+                        dfZenith
+                    )            // SUNUP.BAS 570
 
                 // if dfV0 and dfV2 have the same sign, then proceed to next hr
                 if (dfV0 >= 0.0 && dfV2 >= 0.0        // both are positive
-                        ||                                // or
-                        dfV0 < 0.0 && dfV2 < 0.0        // both are negative
+                    ||                                // or
+                    dfV0 < 0.0 && dfV2 < 0.0        // both are negative
                 ) {
                     // Break iteration and proceed to test next hour
                     dfA0 = dfA2                            // SUNUP.BAS 250
@@ -718,7 +735,10 @@ class SunriseSunset
                     continue                                // SUNUP.BAS 610
                 }
 
-                dfV1 = dfSinLat * Math.sin(dfD1) + dfCosLat * Math.cos(dfD1) * Math.cos(dfH1) - Math.cos(dfZenith)                // SUNUP.BAS 590
+                dfV1 =
+                    dfSinLat * Math.sin(dfD1) + dfCosLat * Math.cos(dfD1) * Math.cos(dfH1) - Math.cos(
+                        dfZenith
+                    )                // SUNUP.BAS 590
 
                 tempA = 2.0 * dfV2 - 4.0 * dfV1 + 2.0 * dfV0
                 // SUNUP.BAS 600
@@ -770,14 +790,14 @@ class SunriseSunset
                 if (bSunrise) {
                     dfHourRise = Math.floor(dfC0 + tempE + 1.0 / 120.0)
                     dfMinRise = Math.floor(
-                            (dfC0 + tempE + 1.0 / 120.0 - dfHourRise) * 60.0
+                        (dfC0 + tempE + 1.0 / 120.0 - dfHourRise) * 60.0
                     )
                 }
 
                 if (bSunset) {
                     dfHourSet = Math.floor(dfC0 + tempE + 1.0 / 120.0)
                     dfMinSet = Math.floor(
-                            (dfC0 + tempE + 1.0 / 120.0 - dfHourSet) * 60.0
+                        (dfC0 + tempE + 1.0 / 120.0 - dfHourSet) * 60.0
                     )
                 }
 
@@ -800,22 +820,26 @@ class SunriseSunset
             // Load dateSunrise with data
             dfmtDateTime = SimpleDateFormat("d M yyyy HH:mm z")
             if (bSunriseToday) {
-                dateSunrise = dfmtDateTime!!.parse(iDay.toString()
-                        + " " + iMonth
-                        + " " + iYear
-                        + " " + dfHourRise.toInt()
-                        + ":" + dfMinRise.toInt()
-                        + " GMT")
+                dateSunrise = dfmtDateTime!!.parse(
+                    iDay.toString()
+                            + " " + iMonth
+                            + " " + iYear
+                            + " " + dfHourRise.toInt()
+                            + ":" + dfMinRise.toInt()
+                            + " GMT"
+                )
             }
 
             // Load dateSunset with data
             if (bSunsetToday) {
-                dateSunset = dfmtDateTime!!.parse(iDay.toString()
-                        + " " + iMonth
-                        + " " + iYear
-                        + " " + dfHourSet.toInt()
-                        + ":" + dfMinSet.toInt()
-                        + " GMT")
+                dateSunset = dfmtDateTime!!.parse(
+                    iDay.toString()
+                            + " " + iMonth
+                            + " " + iYear
+                            + " " + dfHourSet.toInt()
+                            + ":" + dfMinSet.toInt()
+                            + " GMT"
+                )
             }
         } // end of try
         catch (e: ParseException) {
