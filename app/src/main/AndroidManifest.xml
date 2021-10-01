@@ -26,12 +26,16 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:supportsRtl">
+        <activity
+            android:name=".utility.LocalFileActivity"
+            android:label="@string/title_downloader"
+            android:exported="true" />
         <activity android:name=".utility.ClockActivity" />
         <activity
             android:name=".MainActivity"
+            android:exported="true"
             android:label="Utility Main Screen"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:exported="true">
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -77,8 +81,8 @@
             android:theme="@style/AppTheme.Login" />
         <activity
             android:name=".text.TextReceiveActivity"
-            android:theme="@android:style/Theme.NoDisplay"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 

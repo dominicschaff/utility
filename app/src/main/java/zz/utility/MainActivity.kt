@@ -9,10 +9,7 @@ import zz.utility.helpers.goto
 import zz.utility.helpers.requestPermissions
 import zz.utility.helpers.toast
 import zz.utility.maps.MapsActivity
-import zz.utility.utility.BarcodeScanningActivity
-import zz.utility.utility.ClockActivity
-import zz.utility.utility.InfoActivity
-import zz.utility.utility.QRCodeGeneratorActivity
+import zz.utility.utility.*
 import zz.utility.utility.data.ItemListActivity
 
 class MainActivity : AppCompatActivity() {
@@ -28,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         binding.gotoOsmMaps.setOnClickListener { goto(MapsActivity::class.java) }
         binding.gotoData.setOnClickListener { goto(ItemListActivity::class.java) }
         binding.gotoClock.setOnClickListener { goto(ClockActivity::class.java) }
+        binding.gotoDownload.setOnClickListener { goto(LocalFileActivity::class.java) }
 
         binding.gotoTestLogin.setOnClickListener { goto(LoginActivity::class.java) }
 

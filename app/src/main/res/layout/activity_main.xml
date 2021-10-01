@@ -20,17 +20,23 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/goto_osm_maps"
             style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_maps"
-            android:text="Maps" />
+            android:text="Maps"
+            app:drawableTopCompat="@drawable/ic_main_maps" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/goto_data"
             style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_list"
-            android:text="Data" />
+            android:text="Data"
+            app:drawableTopCompat="@drawable/ic_main_list" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/goto_download"
+            style="@style/MainTitle"
+            android:text="Download"
+            app:drawableTopCompat="@drawable/ic_main_list" />
     </GridLayout>
 
     <GridLayout
@@ -47,36 +53,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ll_main">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/goto_scan"
             style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_barcode_scan"
-            android:text="Scanner" />
+            android:text="Scanner"
+            app:drawableTopCompat="@drawable/ic_main_barcode_scan" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/goto_info"
             style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_device"
-            android:text="Device" />
+            android:text="Device"
+            app:drawableTopCompat="@drawable/ic_main_device" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/goto_qr"
             style="@style/MainTitle"
             android:layout_height="wrap_content"
-            android:drawableTop="@drawable/ic_main_barcode_scan"
-            android:text="QR Code" />
+            android:text="QR Code"
+            app:drawableTopCompat="@drawable/ic_main_barcode_scan" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/goto_clock"
             style="@style/MainTitle"
             android:layout_height="wrap_content"
-            android:drawableTop="@drawable/ic_main_clock"
-            android:text="Desk Clock" />
+            android:text="Desk Clock"
+            app:drawableTopCompat="@drawable/ic_main_clock" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/goto_test_login"
             style="@style/MainTitle"
-            android:drawableTop="@drawable/ic_main_login"
-            android:text="POC" />
+            android:text="POC"
+            app:drawableTopCompat="@drawable/ic_main_login" />
     </GridLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

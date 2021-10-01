@@ -16,6 +16,7 @@
     <string name="title_data">Pieces of Data</string>
     <string name="title_activity_info">Device Info</string>
     <string name="title_activity_time">Time Tracking</string>
+    <string name="title_downloader">Download Files</string>
 
     <string name="wait">Please wait…</string>
 
@@ -85,4 +86,11 @@
     <string name="title_activity_main2">Main2Activity</string>
 
     <string name="home_second">Home Second</string>
+
+    <string-array name="urls">
+        <item>http://download.mapsforge.org/maps/world/world.map</item>
+        <item>http://download.mapsforge.org/pois/africa/south-africa-and-lesotho.poi</item>
+        <item>http://download.mapsforge.org/maps/v5/africa/south-africa-and-lesotho.map</item>
+        <item>http://download.mapsforge.org/maps/v5/europe/iceland.map</item>
+    </string-array>
 </resources>

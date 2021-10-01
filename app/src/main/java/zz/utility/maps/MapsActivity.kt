@@ -52,6 +52,7 @@ import org.oscim.scalebar.MapScaleBarLayer
 import org.oscim.theme.VtmThemes
 import org.oscim.tiling.source.mapfile.MapFileTileSource
 import org.oscim.tiling.source.mapfile.MultiMapFileTileSource
+import org.oscim.tiling.source.bitmap.BitmapTileSource
 import zz.utility.R
 import zz.utility.configFile
 import zz.utility.databinding.ActivityMapsBinding
@@ -79,12 +80,10 @@ import org.oscim.core.BoundingBox
 
 import org.oscim.layers.GroupLayer
 import android.R.attr.level
+import org.oscim.layers.tile.bitmap.BitmapTileLayer
 
-
-
-
-
-
+import org.oscim.layers.BitmapLayer
+import org.oscim.tiling.source.bitmap.DefaultSources
 
 
 @SuppressLint("MissingPermission")
@@ -134,6 +133,8 @@ class MapsActivity : AppCompatActivity(), LocationListener {
             worldTileSource.setMapFile(world.absolutePath)
             multiTileSource.add(worldTileSource, Viewport.MIN_ZOOM_LEVEL, 9)
         }
+        
+        var poiLoaded = false
 
         homeDir().listFiles()?.forEach {
             if (it.isFile && it.name.endsWith(".map") && it.name != "world.map") {
@@ -141,7 +142,14 @@ class MapsActivity : AppCompatActivity(), LocationListener {
                 tileSource.setMapFile(it.absolutePath)
                 multiTileSource.add(tileSource)
             }
+            if (it.isFile && it.name.endsWith(".poi") && !poiLoaded) {
+                persistenceManager = AndroidPoiPersistenceManagerFactory.getPoiPersistenceManager(
+                    it.absolutePath
+                )
+                poiLoaded = true
+            }
         }
+
         persistenceManager = AndroidPoiPersistenceManagerFactory.getPoiPersistenceManager(
             externalFile("poi.poi").absolutePath
         )
