@@ -37,6 +37,12 @@
             style="@style/MainTitle"
             android:text="Download"
             app:drawableTopCompat="@drawable/ic_main_list" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/goto_calculate"
+            style="@style/MainTitle"
+            android:text="Calculate"
+            app:drawableTopCompat="@drawable/ic_calculate" />
     </GridLayout>
 
     <GridLayout

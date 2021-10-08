@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         binding.gotoData.setOnClickListener { goto(ItemListActivity::class.java) }
         binding.gotoClock.setOnClickListener { goto(ClockActivity::class.java) }
         binding.gotoDownload.setOnClickListener { goto(LocalFileActivity::class.java) }
+        binding.gotoCalculate.setOnClickListener { goto(CounterActivity::class.java) }
 
         binding.gotoTestLogin.setOnClickListener { goto(LoginActivity::class.java) }
 

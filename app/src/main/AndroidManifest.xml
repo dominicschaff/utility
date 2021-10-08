@@ -27,9 +27,13 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:supportsRtl">
         <activity
+            android:name=".utility.CounterActivity"
+            android:exported="true"
+            android:label="@string/title_calculate"/>
+        <activity
             android:name=".utility.LocalFileActivity"
-            android:label="@string/title_downloader"
-            android:exported="true" />
+            android:exported="true"
+            android:label="@string/title_downloader" />
         <activity android:name=".utility.ClockActivity" />
         <activity
             android:name=".MainActivity"

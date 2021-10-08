@@ -17,6 +17,7 @@
     <string name="title_activity_info">Device Info</string>
     <string name="title_activity_time">Time Tracking</string>
     <string name="title_downloader">Download Files</string>
+    <string name="title_calculate">Calculate</string>
 
     <string name="wait">Please wait…</string>
 
