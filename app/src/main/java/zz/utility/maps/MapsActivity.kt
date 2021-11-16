@@ -696,7 +696,7 @@ class MapsActivity : AppCompatActivity(), LocationListener {
                     val geoPoints = ArrayList<GeoPoint>()
                     val pointList = resp.points
 
-                    for (i in 0 until pointList.size)
+                    for (i in 0 until pointList.size())
                         geoPoints.add(GeoPoint(pointList.getLat(i), pointList.getLon(i)))
                     pathLayer.setPoints(geoPoints)
 
