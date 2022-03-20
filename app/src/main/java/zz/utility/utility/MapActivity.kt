@@ -184,17 +184,18 @@ class MapActivity : AppCompatActivity(), LocationListener {
         binding.mapView.map()
             .setMapPosition(lastLocation.latitude, lastLocation.longitude, (1 shl 12).toDouble())
 
-        onLocationChanged(lastLocation)
-
-        locationsSaved.addAll(
-            configFile().a("locations").mapObject {
-                LocationPoint(
-                    s("name"),
-                    d("latitude"),
-                    d("longitude"),
-                    s("colour", "blue")
-                )
-            })
+        onLocationChanged(lastLocation);
+        {
+            locationsSaved.addAll(
+                configFile().a("locations").mapObject {
+                    LocationPoint(
+                        s("name"),
+                        d("latitude"),
+                        d("longitude"),
+                        s("colour", "blue")
+                    )
+                })
+        }.ignore()
 
         binding.mapView.map().layers().add(object : Layer(binding.mapView.map()), GestureListener {
             override fun onGesture(g: Gesture?, e: MotionEvent?): Boolean {
