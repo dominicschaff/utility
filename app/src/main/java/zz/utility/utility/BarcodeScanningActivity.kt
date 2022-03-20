@@ -10,11 +10,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.JsonObject
 import com.google.zxing.ResultPoint
-import com.google.zxing.integration.android.IntentIntegrator
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import zz.utility.databinding.ActivityScanningBinding
 import zz.utility.helpers.appendToFile
+import zz.utility.helpers.copyToClipboard
 import zz.utility.helpers.toDateFull
 import zz.utility.homeDir
 import java.io.File
@@ -44,7 +44,7 @@ class BarcodeScanningActivity : AppCompatActivity() {
         binding.barcodeScanner.decodeContinuous(callback)
         binding.barcodeContent.setOnClickListener(View.OnClickListener {
             val message = lastText ?: return@OnClickListener
-            setClipboard(message)
+            copyToClipboard(message)
         })
     }
 
@@ -75,11 +75,5 @@ class BarcodeScanningActivity : AppCompatActivity() {
             addProperty("type", type)
             addProperty("content", barcode)
         }.appendToFile(File(homeDir(), "barcodes.json"))
-    }
-
-    private fun setClipboard(message: String) {
-        val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        clipboard.setPrimaryClip(ClipData.newPlainText(message, message))
-        Toast.makeText(this@BarcodeScanningActivity, "Set clipboard to: $message", Toast.LENGTH_LONG).show()
     }
 }

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:keepScreenOn="true">
+
+
+    <org.oscim.android.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/gps_data_info"
+        android:layout_width="0dp"
+        android:layout_marginStart="@dimen/fab_margin"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/gps_lat_long"
+            style="@style/Text.Mono"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:autoSizeTextType="uniform"
+            android:gravity="center"
+            android:maxHeight="75dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="-32.12345 18.12345" />
+
+
+        <TextView
+            android:id="@+id/gps_code"
+            style="@style/Text.Mono"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/gps_lat_long"
+            tools:text="123+12" />
+
+        <TextView
+            android:id="@+id/gps_bearing"
+            style="@style/Text.Mono"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_gps_heading"
+            android:gravity="center"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@+id/gps_altitude"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/gps_lat_long"
+            app:layout_constraintHorizontal_chainStyle="packed"/>
+
+        <TextView
+            android:id="@+id/gps_altitude"
+            style="@style/Text.Mono"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_gps_height"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:textSize="24sp"
+            app:layout_constraintTop_toBottomOf="@id/gps_lat_long"
+            app:layout_constraintEnd_toStartOf="@+id/gps_accuracy"
+            app:layout_constraintStart_toEndOf="@+id/gps_bearing" />
+
+        <TextView
+            android:id="@+id/gps_accuracy"
+            style="@style/Text.Mono"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_gps_accuracy"
+            android:gravity="center"
+            android:textSize="24sp"
+            app:layout_constraintTop_toBottomOf="@id/gps_lat_long"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/gps_altitude" />
+
+        <TextView
+            android:id="@+id/gps_time_data"
+            style="@style/Text.Mono"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textSize="14sp"
+            app:layout_constraintTop_toTopOf="@id/gps_accuracy"
+            app:layout_constraintEnd_toEndOf="parent" />
+        <TextView
+            android:id="@+id/gps_bearing_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="125"
+            android:textColor="@color/white_overlay"
+            app:layout_constraintBottom_toBottomOf="@id/gps_bearing"
+            app:layout_constraintEnd_toEndOf="@id/gps_bearing" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="m"
+            android:textColor="@color/white_overlay"
+            app:layout_constraintBottom_toBottomOf="@id/gps_altitude"
+            app:layout_constraintEnd_toEndOf="@id/gps_altitude" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="m"
+            android:textColor="@color/white_overlay"
+            app:layout_constraintBottom_toBottomOf="@id/gps_accuracy"
+            app:layout_constraintEnd_toEndOf="@id/gps_accuracy" />
+        <TextView
+            android:id="@+id/location_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="gps"
+            android:textColor="@color/white_overlay"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/gps_speed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/fab_margin"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:background="@drawable/card_background"
+        android:textSize="42sp"
+        app:layout_constraintTop_toBottomOf="@id/gps_data_info"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="94" />
+    <TextView
+        android:id="@+id/gps_speed_m_s"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white_overlay"
+        app:layout_constraintTop_toTopOf="@id/gps_speed"
+        app:layout_constraintStart_toStartOf="@id/gps_speed"
+        app:layout_constraintEnd_toEndOf="@id/gps_speed" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="km/h"
+        android:textColor="@color/white_overlay"
+        app:layout_constraintBottom_toBottomOf="@id/gps_speed"
+        app:layout_constraintEnd_toEndOf="@id/gps_speed" />
+
+    <com.nambimobile.widgets.efab.ExpandableFabLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.nambimobile.widgets.efab.Overlay
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.nambimobile.widgets.efab.ExpandableFab
+            android:id="@+id/main_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:layout_marginBottom="@dimen/nav_bar_height" />
+
+        <com.nambimobile.widgets.efab.FabOption
+            android:id="@+id/follow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/ic_straighten"
+            app:label_text="Follow Me" />
+
+        <com.nambimobile.widgets.efab.FabOption
+            android:id="@+id/share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/ic_share"
+            app:label_text="Share Location" />
+
+        <com.nambimobile.widgets.efab.FabOption
+            android:id="@+id/center_on_me"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/ic_my_location"
+            app:label_text="Center" />
+
+        <com.nambimobile.widgets.efab.FabOption
+            android:id="@+id/fab_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/ic_settings_brightness"
+            app:label_text="Theme" />
+    </com.nambimobile.widgets.efab.ExpandableFabLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,7 +8,9 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.AsyncTask
+import android.text.InputType
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
@@ -17,6 +19,7 @@ import androidx.core.content.FileProvider
 import androidx.documentfile.provider.DocumentFile
 import java.io.File
 import kotlin.experimental.and
+
 
 fun Context.alert(content: String, clickListener: DialogInterface.OnClickListener? = null) {
     {
@@ -31,6 +34,21 @@ fun Context.alert(content: String, clickListener: DialogInterface.OnClickListene
         }
     }.ignore()
 
+}
+
+fun Context.request(content: String, input_type:Int, f:(String)->Unit) {
+    val builder = AlertDialog.Builder(this)
+    builder.setTitle(content)
+    val input = EditText(this)
+    input.inputType = input_type
+    builder.setView(input)
+    builder.setPositiveButton(
+        "OK"
+    ) { _, _ -> f(input.text.toString()) }
+    builder.setNegativeButton(
+        "Cancel"
+    ) { dialog, _ -> dialog.cancel() }
+    builder.show()
 }
 
 fun Context.createChooser(

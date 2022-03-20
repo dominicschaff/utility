@@ -1,13 +1,17 @@
 package zz.utility.utility
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.SharedValues
 import zz.utility.R
 import zz.utility.databinding.ActivityCounterBinding
 import zz.utility.helpers.ignore
@@ -15,6 +19,7 @@ import zz.utility.helpers.ignore
 class CounterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCounterBinding
     private val list = ArrayList<EditText>()
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCounterBinding.inflate(layoutInflater)

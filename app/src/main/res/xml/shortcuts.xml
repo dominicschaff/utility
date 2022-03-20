@@ -2,19 +2,6 @@
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
     <shortcut
         android:enabled="true"
-        android:icon="@drawable/ic_main_maps"
-        android:shortcutDisabledMessage="@string/shortcut_disabled"
-        android:shortcutId="open_map"
-        android:shortcutLongLabel="@string/shortcut_map"
-        android:shortcutShortLabel="@string/shortcut_map">
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:targetClass="zz.utility.maps.MapsActivity"
-            android:targetPackage="zz.utility" />
-        <categories android:name="android.shortcut.conversation" />
-    </shortcut>
-    <shortcut
-        android:enabled="true"
         android:icon="@drawable/ic_main_barcode_scan"
         android:shortcutDisabledMessage="@string/shortcut_disabled"
         android:shortcutId="open_barcode"

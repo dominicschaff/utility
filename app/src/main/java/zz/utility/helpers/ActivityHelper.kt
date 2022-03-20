@@ -4,12 +4,16 @@ package zz.utility.helpers
 
 import android.Manifest
 import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import java.io.File
 import java.io.FileOutputStream
@@ -61,4 +65,11 @@ fun View.screenshot(autoCleanup: Boolean = true): Bitmap {
     val b = drawingCache
     if (autoCleanup) isDrawingCacheEnabled = false
     return b
+}
+
+fun Context.copyToClipboard(str: String) {
+
+    val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    clipboard.setPrimaryClip(ClipData.newPlainText(str, str))
+    Toast.makeText(this, "Set clipboard to: $str", Toast.LENGTH_LONG).show()
 }

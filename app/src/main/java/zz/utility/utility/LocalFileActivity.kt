@@ -12,8 +12,6 @@ import com.koushikdutta.async.future.FutureCallback
 import com.koushikdutta.ion.ProgressCallback
 
 import com.koushikdutta.ion.Ion
-import org.mapsforge.poi.android.storage.AndroidPoiPersistenceManagerFactory
-import org.oscim.tiling.source.mapfile.MapFileTileSource
 import zz.utility.externalFile
 import zz.utility.homeDir
 import java.io.File

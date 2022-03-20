@@ -5,16 +5,18 @@
 
     <uses-feature android:name="android.hardware.camera" />
 
-    <uses-permission android:name="android.permission.ACCESS_ASSISTED_GPS" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_GPS" />
-    <uses-permission android:name="android.permission.ACCESS_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission
         android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.ACCESS_ASSISTED_GPS" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_GPS" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="false"
@@ -27,9 +29,18 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:supportsRtl">
         <activity
+            android:name=".utility.SizeActivity"
+            android:theme="@style/AppTheme.NavOverlay.NoActionBar"
+            android:exported="false" />
+        <activity
+            android:name=".utility.MapActivity"
+            android:exported="false"
+            android:label="@string/shortcut_map"
+            android:theme="@style/AppTheme.NavOverlay.NoActionBar" />
+        <activity
             android:name=".utility.CounterActivity"
             android:exported="true"
-            android:label="@string/title_calculate"/>
+            android:label="@string/title_calculate" />
         <activity
             android:name=".utility.LocalFileActivity"
             android:exported="true"
@@ -51,9 +62,6 @@
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
         </activity>
-        <activity
-            android:name=".maps.MapsActivity"
-            android:theme="@style/AppTheme.NavOverlay.NoActionBar" />
         <activity
             android:name=".utility.data.ItemListActivity"
             android:label="@string/title_data"

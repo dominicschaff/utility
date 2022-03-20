@@ -3,6 +3,7 @@
 package zz.utility
 
 import android.content.Context
+import android.os.Environment
 import com.google.gson.JsonObject
 import zz.utility.helpers.asJsonObject
 import java.io.File
@@ -39,7 +40,9 @@ fun StringBuilder.add(format: String, value: String?) {
     }
 }
 
+
 inline fun Context.externalFile(path: String) = File(homeDir(), path)
+inline fun Context.sdFile(path: String) = File(Environment.getExternalStorageDirectory(), path)
 
 inline fun Context.homeDir() = getExternalFilesDir(null)!!
 inline fun Context.logFile() = externalFile("log.json")

@@ -2,5 +2,4 @@
 <resources>
     <integer name="browser_column_count">8</integer>
     <integer name="file_chooser_columns">4</integer>
-    <dimen name="nav_bar_height">12dp</dimen>
 </resources>

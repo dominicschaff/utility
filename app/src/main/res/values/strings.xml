@@ -18,6 +18,7 @@
     <string name="title_activity_time">Time Tracking</string>
     <string name="title_downloader">Download Files</string>
     <string name="title_calculate">Calculate</string>
+    <string name="title_shared_text">Shared Text</string>
 
     <string name="wait">Please wait…</string>
 
@@ -77,9 +78,9 @@
     </string-array>
 
     <string-array name="map_actions">
-        <item>Navigate to</item>
-        <item>Save Point</item>
         <item>Share This Location</item>
+        <item>Straight Distance</item>
+        <item>Draw Circle Here</item>
     </string-array>
 
     <string name="title_item_list">Items</string>
@@ -88,9 +89,10 @@
 
     <string name="home_second">Home Second</string>
 
+    <string name="loading">Loading...</string>
+
     <string-array name="urls">
         <item>http://download.mapsforge.org/maps/world/world.map</item>
-        <item>http://download.mapsforge.org/pois/africa/south-africa-and-lesotho.poi</item>
         <item>http://download.mapsforge.org/maps/v5/africa/south-africa-and-lesotho.map</item>
         <item>http://download.mapsforge.org/maps/v5/europe/iceland.map</item>
     </string-array>

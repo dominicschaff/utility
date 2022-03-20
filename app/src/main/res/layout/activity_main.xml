@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:alignmentMode="alignBounds"
-        android:columnCount="5"
+        android:columnCount="2"
         android:columnOrderPreserved="true"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@id/ll_second"
@@ -27,16 +27,16 @@
             app:drawableTopCompat="@drawable/ic_main_maps" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/goto_data"
+            android:id="@+id/goto_notes"
             style="@style/MainTitle"
-            android:text="Data"
-            app:drawableTopCompat="@drawable/ic_main_list" />
+            android:text="Notes"
+            app:drawableTopCompat="@drawable/ic_note" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/goto_download"
             style="@style/MainTitle"
             android:text="Download"
-            app:drawableTopCompat="@drawable/ic_main_list" />
+            app:drawableTopCompat="@drawable/ic_download" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/goto_calculate"
@@ -51,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:alignmentMode="alignBounds"
-        android:columnCount="5"
+        android:columnCount="3"
         android:columnOrderPreserved="true"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -90,5 +90,11 @@
             style="@style/MainTitle"
             android:text="POC"
             app:drawableTopCompat="@drawable/ic_main_login" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/goto_size"
+            style="@style/MainTitle"
+            android:text="Sizes"
+            app:drawableTopCompat="@drawable/ic_main_size" />
     </GridLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

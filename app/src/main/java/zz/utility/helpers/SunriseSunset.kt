@@ -1,4 +1,4 @@
-package zz.utility.lib
+package zz.utility.helpers
 
 /******************************************************************************
  * SunriseSunset.java
@@ -853,7 +853,7 @@ class SunriseSunset
     }
 
 
-} // end of class 
+} // end of class
 
 /*-----------------------------------------------------------------------------
 *							end of class

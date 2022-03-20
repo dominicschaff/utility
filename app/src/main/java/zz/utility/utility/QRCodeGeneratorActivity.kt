@@ -10,10 +10,10 @@ import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
 import zz.utility.databinding.ActivityQrcodeGeneratorBinding
-import zz.utility.externalFile
 import zz.utility.helpers.ignore
 import zz.utility.helpers.now
 import zz.utility.helpers.orPrint
+import zz.utility.sdFile
 import java.io.FileOutputStream
 
 class QRCodeGeneratorActivity : AppCompatActivity() {
@@ -37,7 +37,7 @@ class QRCodeGeneratorActivity : AppCompatActivity() {
             val fileName = "qr_code_" + now() + ".png"
             var out: FileOutputStream? = null
             try {
-                out = FileOutputStream(externalFile(fileName))
+                out = FileOutputStream(sdFile(fileName))
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, out) // bmp is your Bitmap instance
             } catch (e: Exception) {
                 e.printStackTrace()
