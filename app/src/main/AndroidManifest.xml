@@ -29,9 +29,13 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:supportsRtl">
         <activity
+            android:name=".utility.NotesActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".utility.SizeActivity"
-            android:theme="@style/AppTheme.NavOverlay.NoActionBar"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/AppTheme.NavOverlay.NoActionBar" />
         <activity
             android:name=".utility.MapActivity"
             android:exported="false"
@@ -62,15 +66,6 @@
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
         </activity>
-        <activity
-            android:name=".utility.data.ItemListActivity"
-            android:label="@string/title_data"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".utility.data.ItemDetailActivity"
-            android:parentActivityName=".utility.data.ItemListActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".utility.QRCodeGeneratorActivity"
             android:label="@string/title_activity_qr_code_generator"

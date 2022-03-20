@@ -12,7 +12,6 @@ import zz.utility.helpers.goto
 import zz.utility.helpers.requestPermissions
 import zz.utility.helpers.toast
 import zz.utility.utility.*
-import zz.utility.utility.data.ItemListActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -25,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         binding.gotoQr.setOnClickListener { goto(QRCodeGeneratorActivity::class.java) }
         binding.gotoInfo.setOnClickListener { goto(InfoActivity::class.java) }
         binding.gotoScan.setOnClickListener { goto(BarcodeScanningActivity::class.java) }
-        binding.gotoNotes.setOnClickListener { goto(ItemListActivity::class.java) }
+        binding.gotoNotes.setOnClickListener { goto(NotesActivity::class.java) }
         binding.gotoClock.setOnClickListener { goto(ClockActivity::class.java) }
         binding.gotoDownload.setOnClickListener { goto(LocalFileActivity::class.java) }
         binding.gotoCalculate.setOnClickListener { goto(CounterActivity::class.java) }

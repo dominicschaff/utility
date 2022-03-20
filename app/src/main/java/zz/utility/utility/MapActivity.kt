@@ -11,9 +11,11 @@ import android.os.Bundle
 import android.text.InputType
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
+import org.oscim.android.canvas.AndroidGraphics.drawableToBitmap
 import org.oscim.backend.CanvasAdapter
 import org.oscim.core.GeoPoint
 import org.oscim.core.MapPosition
@@ -22,6 +24,10 @@ import org.oscim.event.GestureListener
 import org.oscim.event.MotionEvent
 import org.oscim.layers.Layer
 import org.oscim.layers.LocationLayer
+import org.oscim.layers.marker.ItemizedLayer
+import org.oscim.layers.marker.MarkerInterface
+import org.oscim.layers.marker.MarkerItem
+import org.oscim.layers.marker.MarkerSymbol
 import org.oscim.layers.tile.buildings.BuildingLayer
 import org.oscim.layers.tile.vector.labeling.LabelLayer
 import org.oscim.layers.vector.VectorLayer
@@ -35,6 +41,7 @@ import org.oscim.theme.VtmThemes
 import org.oscim.tiling.source.mapfile.MapFileTileSource
 import org.oscim.tiling.source.mapfile.MultiMapFileTileSource
 import zz.utility.R
+import zz.utility.configFile
 import zz.utility.databinding.ActivityMapBinding
 import zz.utility.helpers.*
 import zz.utility.homeDir
@@ -54,6 +61,7 @@ class MapActivity : AppCompatActivity(), LocationListener {
     private lateinit var locationManager: LocationManager
     private val mapPosition = MapPosition()
     private var followMe = false
+    private val locationsSaved = ArrayList<LocationPoint>()
 
     private var rotateFollow = false
 
@@ -129,8 +137,6 @@ class MapActivity : AppCompatActivity(), LocationListener {
             binding.mapView.map().viewport().setTilt(0F)
             binding.mapView.map().viewport().setMapViewCenter(0f, 0f)
             centerOn(lastLocation.latitude, lastLocation.longitude)
-//            val mp = binding.mapView.map().mapPosition
-//            binding.mapView.map().setMapPosition(mp.latitude, mp.longitude, (1 shl 18).toDouble())
         }
 
         binding.share.setOnClickListener {
@@ -179,6 +185,16 @@ class MapActivity : AppCompatActivity(), LocationListener {
             .setMapPosition(lastLocation.latitude, lastLocation.longitude, (1 shl 12).toDouble())
 
         onLocationChanged(lastLocation)
+
+        locationsSaved.addAll(
+            configFile().a("locations").mapObject {
+                LocationPoint(
+                    s("name"),
+                    d("latitude"),
+                    d("longitude"),
+                    s("colour", "blue")
+                )
+            })
 
         binding.mapView.map().layers().add(object : Layer(binding.mapView.map()), GestureListener {
             override fun onGesture(g: Gesture?, e: MotionEvent?): Boolean {
@@ -257,8 +273,36 @@ class MapActivity : AppCompatActivity(), LocationListener {
                     else -> false
                 }
             }
-
         })
+
+        markerColours.forEach { (image, name) ->
+            val items = ArrayList<MarkerItem>()
+            items.addAll(locationsSaved.filter { it.colour == name }.map {
+                MarkerItem(it.name, it.name, it.toGeoPoint())
+            })
+            ItemizedLayer(
+                binding.mapView.map(),
+                items as List<MarkerInterface>,
+                MarkerSymbol(
+                    drawableToBitmap(AppCompatResources.getDrawable(this, image)),
+                    MarkerSymbol.HotspotPlace.BOTTOM_CENTER,
+                    true
+                ),
+                object : ItemizedLayer.OnItemGestureListener<MarkerInterface> {
+                    override fun onItemSingleTapUp(index: Int, item: MarkerInterface?): Boolean {
+                        item ?: return true
+                        toast("This is: " + items[index].title)
+                        return true
+                    }
+
+                    override fun onItemLongPress(index: Int, item: MarkerInterface?): Boolean {
+                        return false
+                    }
+                }
+            ).apply {
+                binding.mapView.map().layers().add(this)
+            }
+        }
     }
 
     @SuppressLint("MissingPermission")

@@ -86,15 +86,15 @@
             app:drawableTopCompat="@drawable/ic_main_clock" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/goto_test_login"
-            style="@style/MainTitle"
-            android:text="POC"
-            app:drawableTopCompat="@drawable/ic_main_login" />
-
-        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/goto_size"
             style="@style/MainTitle"
             android:text="Sizes"
             app:drawableTopCompat="@drawable/ic_main_size" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/goto_test_login"
+            style="@style/MainTitle"
+            android:text="POC"
+            app:drawableTopCompat="@drawable/ic_main_login" />
     </GridLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
