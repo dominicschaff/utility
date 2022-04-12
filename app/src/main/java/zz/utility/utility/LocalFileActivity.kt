@@ -1,24 +1,25 @@
 package zz.utility.utility
 
-import androidx.appcompat.app.AppCompatActivity
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.ArrayAdapter
-import android.widget.Spinner
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import com.koushikdutta.ion.Ion
+import com.koushikdutta.ion.ProgressCallback
 import zz.utility.R
 import zz.utility.databinding.ActivityLocalFileBinding
-import zz.utility.databinding.ActivityScanningBinding
-import com.koushikdutta.async.future.FutureCallback
-
-import com.koushikdutta.ion.ProgressCallback
-
-import com.koushikdutta.ion.Ion
 import zz.utility.externalFile
+import zz.utility.helpers.formatSize
+import zz.utility.helpers.toDateFull
 import zz.utility.homeDir
 import java.io.File
+import java.util.*
 
 
 class LocalFileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLocalFileBinding
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLocalFileBinding.inflate(layoutInflater)
@@ -54,6 +55,13 @@ class LocalFileActivity : AppCompatActivity() {
             if (it.isFile) {
                 files.add(it)
             }
+        }
+
+        files.forEach {
+            val modified = Date(it.lastModified())
+            val tv= TextView(this)
+            tv.text = "${it.name} - ${it.length().formatSize()} - ${modified.toDateFull()}"
+            binding.localFiles.addView(tv)
         }
     }
 }
