@@ -25,5 +25,10 @@
         <item>0x454ADE</item>
         <item>0xCAA8F5</item>
     </integer-array>
+    <declare-styleable name="AppWidgetAttrs">
+        <attr name="appWidgetPadding" format="dimension" />
+        <attr name="appWidgetInnerRadius" format="dimension" />
+        <attr name="appWidgetRadius" format="dimension" />
+    </declare-styleable>
 
 </resources>

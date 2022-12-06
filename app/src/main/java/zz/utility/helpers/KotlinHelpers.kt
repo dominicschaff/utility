@@ -156,14 +156,6 @@ inline fun consume(f: () -> Unit): Boolean {
     return true
 }
 
-fun <T> doAsync(f: () -> T?, g: (T?) -> Unit) {
-    object : AsyncTask<Void, Void, T>() {
-        override fun doInBackground(vararg params: Void?): T? = f()
-
-        override fun onPostExecute(result: T?) = g(result)
-    }.execute()
-}
-
 private val hexArray = "0123456789ABCDEF".toCharArray()
 fun ByteArray.toHex(): String {
     val hexChars = CharArray(size * 2)

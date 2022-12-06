@@ -6,7 +6,6 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.koushikdutta.ion.Ion
-import com.koushikdutta.ion.ProgressCallback
 import zz.utility.R
 import zz.utility.databinding.ActivityLocalFileBinding
 import zz.utility.externalFile
@@ -38,7 +37,7 @@ class LocalFileActivity : AppCompatActivity() {
             Ion.with(this)
                 .load(url)
                 .progressBar(binding.progress)
-                .progress(ProgressCallback { downloaded, total -> print("$downloaded / $total") })
+                .progress { downloaded, total -> print("$downloaded / $total") }
                 .write(externalFile(fileName))
         }
         binding.btnDownloadLink.setOnClickListener {
@@ -47,7 +46,7 @@ class LocalFileActivity : AppCompatActivity() {
             Ion.with(this)
                 .load(url)
                 .progressBar(binding.progress)
-                .progress(ProgressCallback { downloaded, total -> print("$downloaded / $total") })
+                .progress { downloaded, total -> print("$downloaded / $total") }
                 .write(externalFile(fileName))
         }
         val files = ArrayList<File>()

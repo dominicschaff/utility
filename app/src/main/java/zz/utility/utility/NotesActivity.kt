@@ -2,7 +2,6 @@ package zz.utility.utility
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import zz.utility.configFile
 import zz.utility.databinding.ActivityNotesBinding
 import zz.utility.externalFile
 import zz.utility.helpers.ignore

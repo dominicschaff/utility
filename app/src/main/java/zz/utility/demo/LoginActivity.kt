@@ -3,6 +3,7 @@ package zz.utility.demo
 import android.app.Activity
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import android.widget.TextView
@@ -11,9 +12,6 @@ import zz.utility.databinding.ActivityLoginBinding
 import zz.utility.helpers.*
 import java.util.*
 
-/**
- * A login screen that offers login via email/password.
- */
 class LoginActivity : Activity() {
 
     // UI references.
@@ -58,14 +56,14 @@ class LoginActivity : Activity() {
     private fun doLogin() {
         Toast.makeText(applicationContext, "You clicked enter", Toast.LENGTH_LONG).show()
         binding.loginProgress.root.show()
-        Handler().postDelayed({
+        Handler(Looper.myLooper()!!).postDelayed({
             binding.loginProgress.root.hide()
             Toast.makeText(applicationContext, "Done", Toast.LENGTH_LONG).show()
             preferences {
                 previousUsers.add(binding.email.text.toString())
                 putStringSet("previousUsers", previousUsers)
             }
-            Handler().postDelayed({
+            Handler(Looper.myLooper()!!).postDelayed({
                 goto(TestScreenActivity::class.java)
             }, 250)
         }, 2000)

@@ -323,7 +323,7 @@ class MapActivity : AppCompatActivity(), LocationListener {
         mapScaleBar.destroy()
         try {
             binding.mapView.onDestroy()
-        } catch (err: NullPointerException) {
+        } catch (_: NullPointerException) {
 
         }
 
@@ -380,5 +380,6 @@ class MapActivity : AppCompatActivity(), LocationListener {
 
     override fun onProviderEnabled(provider: String) {}
 
+    @Deprecated("Deprecated in Java")
     override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
 }

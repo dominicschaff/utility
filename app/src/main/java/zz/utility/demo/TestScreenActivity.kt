@@ -54,7 +54,7 @@ class TestScreenActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             }
-            val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
+            val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
             val mBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notifications_black_24dp)

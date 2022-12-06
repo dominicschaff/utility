@@ -1,12 +1,8 @@
 package zz.utility.utility
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.JsonObject
 import com.google.zxing.ResultPoint

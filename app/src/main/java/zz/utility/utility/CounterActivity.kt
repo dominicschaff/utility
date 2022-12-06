@@ -5,13 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.SharedValues
 import zz.utility.R
 import zz.utility.databinding.ActivityCounterBinding
 import zz.utility.helpers.ignore
@@ -66,7 +61,7 @@ class CounterActivity : AppCompatActivity() {
 
     private fun calculate() {
         {
-            val total: Double = list.map { it.text.toString().toDouble() }.sum()
+            val total: Double = list.sumOf { it.text.toString().toDouble() }
             binding.total.text = "$total"
         }.ignore()
     }
