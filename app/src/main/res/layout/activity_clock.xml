@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     android:keepScreenOn="true"
-    tools:context=".utility.ClockActivity">
+    tools:context="dev.schaff.utility.utility.ClockActivity">
 
     <TextClock
         android:id="@+id/textClock"

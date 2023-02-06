@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_qrcode_generator"
     style="@style/OuterPadding"
-    tools:context="zz.utility.utility.QRCodeGeneratorActivity">
+    tools:context=".utility.QRCodeGeneratorActivity">
 
     <EditText
         android:id="@+id/text"

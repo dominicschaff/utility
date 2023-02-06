@@ -13,10 +13,10 @@
     <uses-permission android:name="android.permission.ACCESS_ASSISTED_GPS" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_GPS" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:allowBackup="false"
@@ -29,7 +29,7 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:supportsRtl">
         <receiver
-            android:name=".DeviceWidget"
+            android:name="dev.schaff.utility.DeviceWidget"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -41,29 +41,29 @@
         </receiver>
 
         <activity
-            android:name=".utility.NotesActivity"
+            android:name="dev.schaff.utility.utility.NotesActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".utility.SizeActivity"
+            android:name="dev.schaff.utility.utility.SizeActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NavOverlay.NoActionBar" />
         <activity
-            android:name=".utility.MapActivity"
+            android:name="dev.schaff.utility.utility.MapActivity"
             android:exported="false"
             android:label="@string/shortcut_map"
             android:theme="@style/AppTheme.NavOverlay.NoActionBar" />
         <activity
-            android:name=".utility.CounterActivity"
+            android:name="dev.schaff.utility.utility.CounterActivity"
             android:exported="true"
             android:label="@string/title_calculate" />
         <activity
-            android:name=".utility.LocalFileActivity"
+            android:name="dev.schaff.utility.utility.LocalFileActivity"
             android:exported="true"
             android:label="@string/title_downloader" />
-        <activity android:name=".utility.ClockActivity" />
+        <activity android:name="dev.schaff.utility.utility.ClockActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name="dev.schaff.utility.MainActivity"
             android:exported="true"
             android:label="Utility Main Screen"
             android:theme="@style/AppTheme.NoActionBar">
@@ -79,27 +79,27 @@
                 android:resource="@xml/shortcuts" />
         </activity>
         <activity
-            android:name=".utility.QRCodeGeneratorActivity"
+            android:name="dev.schaff.utility.utility.QRCodeGeneratorActivity"
             android:label="@string/title_activity_qr_code_generator"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName="dev.schaff.utility.MainActivity" />
         <activity
-            android:name=".utility.InfoActivity"
+            android:name="dev.schaff.utility.utility.InfoActivity"
             android:label="@string/title_activity_info"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName="dev.schaff.utility.MainActivity" />
         <activity
-            android:name=".utility.BarcodeScanningActivity"
-            android:parentActivityName=".MainActivity"
+            android:name="dev.schaff.utility.utility.BarcodeScanningActivity"
+            android:parentActivityName="dev.schaff.utility.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".demo.TestScreenActivity"
-            android:parentActivityName=".demo.LoginActivity" />
+            android:name="dev.schaff.utility.demo.TestScreenActivity"
+            android:parentActivityName="dev.schaff.utility.demo.LoginActivity" />
         <activity
-            android:name=".demo.LoginActivity"
+            android:name="dev.schaff.utility.demo.LoginActivity"
             android:label="@string/title_activity_login"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName="dev.schaff.utility.MainActivity"
             android:theme="@style/AppTheme.Login" />
         <activity
-            android:name=".text.TextReceiveActivity"
+            android:name="dev.schaff.utility.text.TextReceiveActivity"
             android:exported="true"
             android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>

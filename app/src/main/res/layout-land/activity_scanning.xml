@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     style="@style/Outer"
-    tools:context=".utility.BarcodeScanningActivity">
+    tools:context="dev.schaff.utility.utility.BarcodeScanningActivity">
 
     <com.journeyapps.barcodescanner.DecoratedBarcodeView
         android:id="@+id/barcode_scanner"

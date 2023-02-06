@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/OuterPadding"
-    tools:context="zz.utility.utility.InfoActivity">
+    tools:context=".utility.InfoActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guide_vertical"
